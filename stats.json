@@ -1,18 +1,18 @@
 {
- "generated": 1792599030809,
- "generated_str": "2026-10-21 11:10",
+ "generated": 1792599696026,
+ "generated_str": "2026-10-21 11:21",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792599030188,
- "last_ok_poll_str": "2026-10-21 11:10",
- "polls": 290,
- "polls_ok": 290,
- "total_incidents_logged": 697,
- "district_incidents": 36,
+ "last_ok_poll": 1792599695302,
+ "last_ok_poll_str": "2026-10-21 11:21",
+ "polls": 295,
+ "polls_ok": 295,
+ "total_incidents_logged": 709,
+ "district_incidents": 37,
  "shift_change": "06:30",
  "working_fire_min": 45,
  "multi_unit_wf_min": 60,
@@ -44,7 +44,7 @@
    "D": 3,
    "total": 5,
    "wf": 0,
-   "hrs": 4.5
+   "hrs": 4.7
   },
   {
    "unit": "M010",
@@ -56,7 +56,7 @@
    "D": 2,
    "total": 4,
    "wf": 0,
-   "hrs": 3.2
+   "hrs": 3.4
   },
   {
    "unit": "E069",
@@ -115,8 +115,8 @@
    "C": 0,
    "D": 3,
    "total": 3,
-   "wf": 0,
-   "hrs": 0.8
+   "wf": 1,
+   "hrs": 0.9
   },
   {
    "unit": "A076",
@@ -128,7 +128,7 @@
    "D": 5,
    "total": 6,
    "wf": 0,
-   "hrs": 3.5
+   "hrs": 3.6
   },
   {
    "unit": "A083",
@@ -137,8 +137,8 @@
    "A": 0,
    "B": 0,
    "C": 3,
-   "D": 3,
-   "total": 6,
+   "D": 4,
+   "total": 7,
    "wf": 0,
    "hrs": 5.7
   },
@@ -152,7 +152,7 @@
    "D": 4,
    "total": 5,
    "wf": 0,
-   "hrs": 3.8
+   "hrs": 4.0
   }
  ],
  "runs_periods": {
@@ -167,7 +167,7 @@
     "D": 3,
     "total": 5,
     "wf": 0,
-    "hrs": 4.5
+    "hrs": 4.7
    },
    {
     "unit": "M010",
@@ -179,7 +179,7 @@
     "D": 2,
     "total": 4,
     "wf": 0,
-    "hrs": 3.2
+    "hrs": 3.4
    },
    {
     "unit": "E069",
@@ -238,8 +238,8 @@
     "C": 0,
     "D": 3,
     "total": 3,
-    "wf": 0,
-    "hrs": 0.8
+    "wf": 1,
+    "hrs": 0.9
    },
    {
     "unit": "A076",
@@ -251,7 +251,7 @@
     "D": 5,
     "total": 6,
     "wf": 0,
-    "hrs": 3.5
+    "hrs": 3.6
    },
    {
     "unit": "A083",
@@ -260,8 +260,8 @@
     "A": 0,
     "B": 0,
     "C": 3,
-    "D": 3,
-    "total": 6,
+    "D": 4,
+    "total": 7,
     "wf": 0,
     "hrs": 5.7
    },
@@ -275,7 +275,7 @@
     "D": 4,
     "total": 5,
     "wf": 0,
-    "hrs": 3.8
+    "hrs": 4.0
    }
   ],
   "tour": [
@@ -289,7 +289,7 @@
     "D": 3,
     "total": 3,
     "wf": 0,
-    "hrs": 2.4
+    "hrs": 2.6
    },
    {
     "unit": "M010",
@@ -301,7 +301,7 @@
     "D": 2,
     "total": 2,
     "wf": 0,
-    "hrs": 2.6
+    "hrs": 2.8
    },
    {
     "unit": "E069",
@@ -348,8 +348,8 @@
     "C": 0,
     "D": 3,
     "total": 3,
-    "wf": 0,
-    "hrs": 0.8
+    "wf": 1,
+    "hrs": 0.9
    },
    {
     "unit": "A076",
@@ -361,7 +361,7 @@
     "D": 5,
     "total": 5,
     "wf": 0,
-    "hrs": 2.5
+    "hrs": 2.7
    },
    {
     "unit": "A083",
@@ -370,8 +370,8 @@
     "A": 0,
     "B": 0,
     "C": 0,
-    "D": 3,
-    "total": 3,
+    "D": 4,
+    "total": 4,
     "wf": 0,
     "hrs": 3.0
    },
@@ -385,7 +385,7 @@
     "D": 4,
     "total": 4,
     "wf": 0,
-    "hrs": 1.8
+    "hrs": 2.0
    }
   ],
   "month": [
@@ -399,7 +399,7 @@
     "D": 3,
     "total": 5,
     "wf": 0,
-    "hrs": 4.5
+    "hrs": 4.7
    },
    {
     "unit": "M010",
@@ -411,7 +411,7 @@
     "D": 2,
     "total": 4,
     "wf": 0,
-    "hrs": 3.2
+    "hrs": 3.4
    },
    {
     "unit": "E069",
@@ -470,8 +470,8 @@
     "C": 0,
     "D": 3,
     "total": 3,
-    "wf": 0,
-    "hrs": 0.8
+    "wf": 1,
+    "hrs": 0.9
    },
    {
     "unit": "A076",
@@ -483,7 +483,7 @@
     "D": 5,
     "total": 6,
     "wf": 0,
-    "hrs": 3.5
+    "hrs": 3.6
    },
    {
     "unit": "A083",
@@ -492,8 +492,8 @@
     "A": 0,
     "B": 0,
     "C": 3,
-    "D": 3,
-    "total": 6,
+    "D": 4,
+    "total": 7,
     "wf": 0,
     "hrs": 5.7
    },
@@ -507,7 +507,7 @@
     "D": 4,
     "total": 5,
     "wf": 0,
-    "hrs": 3.8
+    "hrs": 4.0
    }
   ]
  },
@@ -516,7 +516,7 @@
    "10": {
     "unit": "A010",
     "total": 5,
-    "hrs": 4.5
+    "hrs": 4.7
    },
    "69": {
     "unit": "A069",
@@ -526,11 +526,11 @@
    "76": {
     "unit": "A076",
     "total": 6,
-    "hrs": 3.5
+    "hrs": 3.6
    },
    "83": {
     "unit": "A083",
-    "total": 6,
+    "total": 7,
     "hrs": 5.7
    }
   },
@@ -538,7 +538,7 @@
    "10": {
     "unit": "A010",
     "total": 3,
-    "hrs": 2.4
+    "hrs": 2.6
    },
    "69": {
     "unit": "A069",
@@ -548,19 +548,19 @@
    "76": {
     "unit": "A076",
     "total": 5,
-    "hrs": 2.5
+    "hrs": 2.7
    },
    "83": {
-    "unit": "M083",
+    "unit": "A083",
     "total": 4,
-    "hrs": 1.8
+    "hrs": 3.0
    }
   },
   "month": {
    "10": {
     "unit": "A010",
     "total": 5,
-    "hrs": 4.5
+    "hrs": 4.7
    },
    "69": {
     "unit": "A069",
@@ -570,20 +570,56 @@
    "76": {
     "unit": "A076",
     "total": 6,
-    "hrs": 3.5
+    "hrs": 3.6
    },
    "83": {
     "unit": "A083",
-    "total": 6,
+    "total": 7,
     "hrs": 5.7
    }
   }
  },
  "tour_counts": {
   "2026-10-20": 14,
-  "2026-10-21": 22
+  "2026-10-21": 23
  },
- "working_fires": [],
+ "working_fires": [
+  {
+   "k": "1792596780000|CLIPPERWOOD PL|BLK ASHEN TREE WAY",
+   "t": 1792596780000,
+   "addr": "CLIPPERWOOD PL",
+   "cs": "BLK ASHEN TREE WAY",
+   "type": "HOUSE ON FIRE",
+   "alarm": 1,
+   "km": "528T",
+   "lat": 29.677022,
+   "lon": -95.628283,
+   "sd": "2026-10-21",
+   "sh": "D",
+   "fs": 1792597470186,
+   "ls": 1792599695302,
+   "min": 37,
+   "units": [
+    {
+     "u": "D068",
+     "d": false,
+     "min": 18
+    },
+    {
+     "u": "L076",
+     "d": true,
+     "min": 37
+    }
+   ],
+   "cad": 49,
+   "wt": true,
+   "ov2": 18,
+   "why": "fire box on CAD 45+ min",
+   "long_units": [
+    "L076"
+   ]
+  }
+ ],
  "other_long_fire_calls": [],
  "years": [
   2026
