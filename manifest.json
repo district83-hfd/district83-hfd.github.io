@@ -1,0 +1,1 @@
+{"name": "District 83 Dashboard", "short_name": "D83", "start_url": "./", "display": "standalone", "background_color": "#14141f", "theme_color": "#8B0000", "icons": [{"src": "icon.png", "sizes": "512x512", "type": "image/png"}]}

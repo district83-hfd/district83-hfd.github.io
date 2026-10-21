@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>D83 Dashboard</title>
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="D83"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#8B0000"><link rel="apple-touch-icon" href="icon.png"><link rel="icon" href="icon.png"><link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<style>
+:root{--bg:#14141f;--card:#1f1f2e;--txt:#f2f2f5;--mut:#9a9ab0;--acc:#c0392b}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.35;background:var(--bg);color:var(--txt)}
+header{position:sticky;top:0;background:#8B0000;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;z-index:5}
+h1{font-size:18px;margin:0}.sub{font-size:12px;opacity:.85}h2{font-size:15px;margin:14px 0 8px}
+button{background:#fff;color:#8B0000;border:0;border-radius:8px;padding:8px 12px;font-weight:700;cursor:pointer}
+.badge{display:inline-block;background:#f1c40f;color:#000;font-weight:800;border-radius:8px;padding:6px 10px;font-size:13px}
+.tabs{display:flex;gap:6px;padding:12px 16px 4px;flex-wrap:wrap;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{padding:8px 16px;border-radius:999px;background:#1d1d2c;border:1px solid #33334c;color:#b8b8cc;cursor:pointer;font-weight:650;font-size:14px;white-space:nowrap}.tab:hover{color:#fff;border-color:#4a4a66}
+.tab.on{background:linear-gradient(180deg,#d9443a,#b0281f);border-color:#e0574d;color:#fff;box-shadow:0 2px 10px rgba(192,57,43,.35)}
+.pane{display:none}.pane.on{display:block}
+.bar{display:flex;gap:6px;flex-wrap:wrap;padding:10px 16px;align-items:center}
+.chip{padding:6px 10px;border-radius:999px;background:#2a2a3d;color:var(--txt);font-size:13px;cursor:pointer;border:1px solid #3a3a52;user-select:none}
+.chip.on{background:var(--acc);border-color:var(--acc)}
+.grid{padding:0 16px 20px;display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.card{background:var(--card);border-radius:14px;padding:12px 14px;border:1px solid #2c2c42;border-left:5px solid #6b6b80;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.card.alarm{outline:2px solid #f1c40f}
+.stale{margin:10px 16px 0;padding:12px 16px;border-radius:12px;background:#3a3320;border:1px solid #6b5d33;color:#f3e3b5;font-size:17px;line-height:1.4}.stale b{color:#fff3cf}.stale small{display:block;font-size:14px;color:#d9c99a;margin-top:2px}
+.t-fire{border-left-color:#ef4444!important;background:linear-gradient(180deg,rgba(239,68,68,.16),rgba(239,68,68,.04) 55%),var(--card)!important}
+.t-ems{border-left-color:#3b82f6!important;background:linear-gradient(180deg,rgba(59,130,246,.16),rgba(59,130,246,.04) 55%),var(--card)!important}
+.t-other{border-left-color:#6b6b80!important}
+.t-fire .type{color:#fca5a5}.t-ems .type{color:#93c5fd}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.6px;padding:2px 7px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.tag.fire{background:#ef4444;color:#fff}.tag.ems{background:#3b82f6;color:#fff}.tag.other{background:#4b4b60;color:#e5e5ee}
+.top{display:flex;justify-content:space-between;font-size:12px;color:var(--mut)}
+.addr{font-weight:700;margin:6px 0 2px}.type{font-size:13px;color:#ddd}
+.units{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.u{display:inline-block;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:12px;padding:3px 7px;border-radius:6px;background:#3a3a52;color:#d0d0dc;border:1.5px solid transparent;font-weight:500;line-height:1.2}
+.u.amb{background:#dc2626;color:#fff}
+.u.med{background:rgba(220,38,38,.14);border-color:#ef4444;color:#fecaca}
+.u.dc{background:#f5f5f7;color:#111}
+.u.eng{background:#f5b301;color:#1a1300}
+.u.lad{background:#f97316;color:#1a0b00}
+.u.res{background:#22c55e;color:#04210f}
+.u.as{background:#7dd3fc;color:#082f49}
+.u.mine{font-weight:800;box-shadow:0 0 0 1px rgba(255,255,255,.25)}
+.u.out{opacity:.5;font-weight:500}
+.legend{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;padding:4px 16px 2px;font-size:11px;color:var(--mut)}
+.legend .u{font-size:11px;padding:2px 6px}
+.legend .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+a{color:#7fb3ff;font-size:12px;text-decoration:none}
+.empty,.err{grid-column:1/-1;text-align:center;color:var(--mut);padding:30px}.err{color:#ff8a80}
+.note{font-size:12px;color:var(--mut);padding:0 16px}
+.sec{padding:0 16px}
+table{border-collapse:collapse;width:100%;font-size:13px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{padding:7px 9px;text-align:left;border-bottom:1px solid #2a2a3d;vertical-align:top}th{background:#2a2a3d;color:#ddd;font-size:12px;cursor:pointer}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.shcol{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));padding:0 16px 20px}
+.shbox{background:#191926;border:1px solid #2a2a3d;border-radius:14px;padding:12px}.shbox h3{margin:0 0 8px;font-size:14px}
+.shbox.now{border-color:#f1c40f}
+input[type=date]{background:#2a2a3d;color:var(--txt);border:1px solid #3a3a52;border-radius:8px;padding:6px}
+.mini{background:var(--card);border-radius:12px;padding:10px 12px;margin-bottom:8px;border:1px solid #2c2c42;border-left:4px solid #6b6b80;font-size:13px}
+footer{font-size:11px;color:var(--mut);padding:10px 16px 20px}
+
+header{padding-top:max(12px,env(safe-area-inset-top))}
+.hr{display:flex;gap:10px;align-items:center;margin-left:auto}
+.clockbox{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.25);border-radius:10px;padding:4px 10px}
+.shiftbig{background:#f1c40f;color:#000;font-weight:900;font-size:22px;border-radius:8px;padding:2px 10px;line-height:1.2}
+.clock{font-family:ui-monospace,Menlo,monospace;font-size:26px;font-weight:800;letter-spacing:1px;font-variant-numeric:tabular-nums}
+.tab{min-height:40px;display:flex;align-items:center}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:640px){
+ header{padding:10px 12px}h1{font-size:16px}
+ .hr{width:100%;justify-content:space-between}
+ .shiftbig{font-size:26px}.clock{font-size:30px}
+ .tabs{padding:10px 10px 4px;gap:6px;flex-wrap:nowrap;overflow-x:auto}
+ .tab{flex:0 0 auto;justify-content:center;font-size:14px;padding:9px 14px}
+ .grid,.shcol{grid-template-columns:minmax(0,1fr);padding:0 10px 16px}
+ .hrow{flex-wrap:wrap}.hrow .hi{flex:1 1 60%}.hrow .hl{width:100%;padding-left:64px}
+ .bar,.sec,.note{padding-left:10px;padding-right:10px}.sec .note{padding-left:0}
+ .chip{padding:9px 12px;font-size:14px}
+ table{font-size:12px}th,td{padding:6px}
+ button{padding:10px 12px}
+}
+.maps{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.mbtn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:8px;background:#2a2a3d;border:1px solid #3a3a52;color:#cfe0ff;font-size:12px;font-weight:600;min-height:32px}
+.mbtn.sm{padding:3px 7px;min-height:26px;font-size:11px}
+.hyd{margin-top:8px;border-top:1px dashed #3a3a52;padding-top:6px;font-size:12px;color:#ddd}
+.hyd .hh{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:3px 0}
+.hrow .hd{font-weight:800;color:#7fe0a0;font-variant-numeric:tabular-nums;min-width:58px}
+.hrow .hi{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hrow .hl{display:flex;gap:4px;flex-shrink:0}
+.card,.mini,.shbox{min-width:0}
+@media (max-width:640px){.mbtn{padding:8px 12px;font-size:13px;min-height:38px}.mbtn.sm{padding:6px 9px;min-height:32px;font-size:12px}}
+#hmap{height:460px;border-radius:12px;margin:0 0 12px;background:#1f1f2e}
+.flt{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 10px;font-size:13px}
+select{background:#2a2a3d;color:var(--txt);border:1px solid #3a3a52;border-radius:8px;padding:8px;font-size:14px}
+.bars{background:var(--card);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+.brow{display:grid;grid-template-columns:44px 1fr 34px;gap:8px;align-items:center;font-size:12px;padding:2px 0}
+.brow.wide{grid-template-columns:minmax(0,1.6fr) 1fr 34px}
+.brow .bl{color:#ddd;font-family:ui-monospace,Menlo,monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brow.wide .bl{font-family:inherit}
+.btrack{background:#2a2a3d;border-radius:4px;height:14px;overflow:hidden}.bfill{background:linear-gradient(90deg,#c0392b,#f1c40f);height:100%;border-radius:4px}
+.brow .bn{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.leaflet-container{font:inherit}.darktiles{filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(.9)}
+@media (max-width:640px){#hmap{height:360px}}
+.dirs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
+.dirs .dl{width:100%;font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+.dgrp{display:inline-flex;gap:6px;flex-wrap:wrap}
+.mbtn.st{background:#2b2238;border-color:#5b3b6b;color:#f3e6ff}
+
+/* ---- v3: calm theme ---- */
+:root{--bg:#1b1d23;--card:#252830;--txt:#e6e6ea;--mut:#9a9caa;--acc:#a8323a;--line:#30333d;--fire:#d0544f;--ems:#4f84c4}
+body{background:var(--bg);color:var(--txt);line-height:1.45}
+header{background:#6e2328;box-shadow:0 1px 0 rgba(255,255,255,.04)}
+h1{font-size:17px;font-weight:700;letter-spacing:.2px}.sub{opacity:.75}
+button{background:#e6e6ea;color:#5a1c20}
+.iconbtn{background:rgba(255,255,255,.1);color:#e6e6ea;border:1px solid rgba(255,255,255,.18);border-radius:999px;width:38px;height:38px;padding:0;font-size:18px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.clockbox{background:rgba(0,0,0,.18)}.shiftbig{background:#e0b52f;color:#1b1d23}.clock{color:#e6e6ea}
+.tabs{padding:12px 16px 6px}
+.tab{background:#23262e;border-color:#33363f;color:#b4b6c2;font-weight:600}
+.tab.on{background:#a8323a;border-color:#a8323a;color:#fff;box-shadow:none}
+.bar.chips1{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:6px 16px 10px}.bar.chips1::-webkit-scrollbar{display:none}
+.chip{background:#23262e;border-color:#33363f;color:#c9cad3;white-space:nowrap;padding:6px 12px}
+.chip.on{background:#a8323a;border-color:#a8323a;color:#fff}
+.sep{flex:0 0 1px;align-self:stretch;background:#33363f;margin:2px 4px}
+.grid{gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-left:4px solid #5d606c;border-radius:14px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.card.alarm{outline:1.5px solid #d9b93a;outline-offset:-1px}
+.t-fire{border-left-color:var(--fire)!important;background:linear-gradient(180deg,rgba(208,84,79,.09),rgba(208,84,79,0) 60%),var(--card)!important}
+.t-ems{border-left-color:var(--ems)!important;background:linear-gradient(180deg,rgba(79,132,196,.09),rgba(79,132,196,0) 60%),var(--card)!important}
+.t-other{border-left-color:#5d606c!important}
+.t-fire .type{color:#e8a29e}.t-ems .type{color:#a9c4e6}
+.tag.fire{background:var(--fire)}.tag.ems{background:var(--ems)}.tag.other{background:#4a4d58;color:#e6e6ea}
+.top{color:var(--mut);font-size:12.5px}
+.addr{font-size:17px;font-weight:650;line-height:1.3;margin:6px 0 3px;color:#ececf0}
+.type{font-size:13.5px;color:#c9cad3}
+.units{gap:5px;margin-top:10px}
+.u{font-size:13px;padding:3px 8px;border-radius:7px;background:#3a3d48;color:#d4d5dc}
+.u.amb{background:#c24141;color:#fff}
+.u.med{background:rgba(208,84,79,.12);border-color:#d0544f;color:#f1c4c1}
+.u.dc{background:#e6e6ea;color:#1b1d23}
+.u.eng{background:#d6a72a;color:#1d1603}
+.u.lad{background:#d7782f;color:#1d0d02}
+.u.res{background:#3f9e64;color:#06180d}
+.u.as{background:#8dbfe0;color:#0b2536}
+.u.mine{font-weight:750;box-shadow:none}
+.u.out{opacity:.45}
+.mini{background:var(--card);border:1px solid var(--line);border-left-width:4px}
+.mini .addr{font-size:15px}
+.shbox{background:#20232a;border-color:var(--line)}
+table{background:var(--card)}th{background:#2d3039;color:#d4d5dc}th,td{border-bottom-color:var(--line)}
+input[type=date],select{background:#23262e;border-color:#33363f;color:var(--txt)}
+.bars{background:var(--card)}.btrack{background:#30333d}.bfill{background:#b4504a}
+.hyd{border-top:1px solid var(--line);margin-top:12px;padding-top:8px;font-size:13px;color:#d4d5dc}
+.hrow{padding:4px 0}.hrow .hd{color:#8fcfa3}
+/* navigate menu */
+details.nav{margin-top:12px}
+details.nav>summary{list-style:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer;user-select:none;background:#2f323b;border:1px solid #3b3e48;color:#dfe6f3;border-radius:10px;padding:8px 14px;font-size:14px;font-weight:600;min-height:40px}
+details.nav>summary::-webkit-details-marker{display:none}
+details.nav>summary::after{content:"▾";font-size:12px;opacity:.7}
+details.nav[open]>summary{background:#383c47}
+details.nav[open]>summary::after{content:"▴"}
+details.nav.sm{margin-top:0}
+details.nav.sm>summary{padding:4px 10px;min-height:30px;font-size:12px;border-radius:8px}
+.navmenu{margin-top:8px;background:#1f2128;border:1px solid var(--line);border-radius:12px;padding:6px 10px}
+.nrow{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #2b2e37}.nrow:last-child{border-bottom:0}
+.nrow .nl{flex:1;font-size:13px;color:#c9cad3;min-width:0}
+.nrow .nl small{display:block;color:var(--mut);font-size:11px}
+.nrow a{display:inline-flex;align-items:center;justify-content:center;min-width:72px;min-height:36px;padding:6px 10px;border-radius:9px;background:#2f323b;border:1px solid #3b3e48;color:#dfe6f3;font-size:13px;font-weight:600}
+.hrow .hl:has(details[open]){flex-basis:100%;width:100%}.hrow details.nav.sm[open]{width:100%}
+.hrow{flex-wrap:wrap}
+/* info panel */
+#infoPanel{display:none;margin:4px 16px 8px;background:#20232a;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12.5px;color:#b9bbc6;line-height:1.5}
+#infoPanel.on{display:block}#infoPanel p{margin:0 0 8px}#infoPanel p:last-child{margin:0}
+details.more{margin:0 0 8px;font-size:12px;color:var(--mut)}details.more>summary{cursor:pointer;list-style:none;display:inline-block;color:#a9b0c2}details.more>summary::-webkit-details-marker{display:none}
+details.more p{margin:6px 0 0;line-height:1.5}
+@media (max-width:640px){.bar.chips1{padding:6px 10px 10px}#infoPanel{margin:4px 10px 8px}.addr{font-size:17px}.nrow a{min-width:68px}}
+/* v4: segmented controls, tours, run cards */
+.segwrap{padding:6px 16px 4px}
+.seg{display:inline-flex;background:#20232a;border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px;max-width:100%;overflow-x:auto}
+.seg button{background:transparent;color:#b4b6c2;border:0;border-radius:9px;padding:8px 16px;font-size:14px;font-weight:650;min-width:52px;white-space:nowrap}
+.seg button.on{background:#3a3d48;color:#fff}
+.seg.sm button{padding:6px 12px;font-size:13px;min-width:0}
+.seg button .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#e0b52f;margin-left:6px;vertical-align:2px}
+.tourpick{display:flex;align-items:center;gap:8px;padding:6px 16px 10px}
+.arrow{background:#23262e;color:#e6e6ea;border:1px solid var(--line);width:40px;height:40px;border-radius:10px;font-size:22px;line-height:1;padding:0}
+.arrow:disabled{opacity:.3}
+.tlabel{flex:1;text-align:center;font-weight:650;font-size:15px}.tlabel small{display:block;color:var(--mut);font-weight:500;font-size:12px}
+.sumrow{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:12px;color:var(--mut)}
+.stat b{display:block;font-size:17px;color:var(--txt);font-weight:700}
+.stat.fire b{color:#e8a29e}.stat.ems b{color:#a9c4e6}
+.calls{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+details.crow{border-bottom:1px solid var(--line);border-left:3px solid #5d606c}
+details.crow:last-child{border-bottom:0}
+details.crow.t-fire{border-left-color:var(--fire)!important;background:none!important}details.crow.t-ems{border-left-color:var(--ems)!important;background:none!important}
+details.crow>summary{list-style:none;display:grid;grid-template-columns:44px auto minmax(0,1fr);grid-template-areas:"t g a" ". u u";gap:2px 8px;align-items:center;padding:9px 12px;cursor:pointer}
+details.crow>summary::-webkit-details-marker{display:none}
+details.crow[open]>summary{background:#2a2d36}
+.ct{grid-area:t;font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mut)}
+.cg{grid-area:g}.cg .tag{margin:0}
+.ca{grid-area:a;font-size:14.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cu{grid-area:u;display:flex;gap:4px;flex-wrap:wrap}.cu .u{font-size:11.5px;padding:1px 6px}
+.cdet{padding:4px 12px 12px 15px}
+.showall{display:block;width:100%;margin-top:8px;background:#23262e;color:#dfe6f3;border:1px solid var(--line);border-radius:10px;padding:10px;font-weight:600}
+.scard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:10px}
+.scard h3{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 6px;font-size:15px}.scard h3 span{font-size:12px;color:var(--mut);font-weight:500}
+.rt{width:100%;border-collapse:collapse;background:none;font-size:13px}
+.rt th{background:none;color:var(--mut);font-weight:600;font-size:11.5px;padding:4px 4px;text-align:right;cursor:default;border-bottom:1px solid var(--line)}
+.rt th:first-child{text-align:left}
+.rt td{padding:6px 4px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid #2b2e37}
+.rt td:first-child{text-align:left}.rt tr:last-child td{border-bottom:0}
+.rt td.tot{font-weight:750}.rt td.z{color:#5f6270}.rt th.cur,.rt td.cur{color:#e0b52f}
+@media (max-width:640px){.segwrap,.tourpick{padding-left:10px;padding-right:10px}}
+.busy{font-size:13px;color:#c9cbd6;margin:-2px 0 6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}.busy .u{font-size:11.5px;padding:1px 6px}
+.ysel{padding:6px 10px;font-weight:650;font-size:14px;border-radius:10px}
+
+/* citywide count + working-fire ticker */
+.citycnt{display:inline-block;margin-left:4px;padding:1px 8px;border-radius:999px;background:rgba(0,0,0,.22);font-weight:650}
+.ticker{display:flex;align-items:center;gap:8px;background:#2a1f22;border-bottom:1px solid #3d2a2e;padding:6px 0 6px 12px;overflow:hidden}
+.ticker[hidden],.tkdet[hidden],.tkback[hidden]{display:none}
+.tkback{position:fixed;inset:0;z-index:2000;background:rgba(10,11,14,.62);display:flex;align-items:flex-start;justify-content:center;padding:max(12px,env(safe-area-inset-top)) 10px 12px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.tkback .tkdet{margin:6vh 0 0!important;width:100%;max-width:560px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.tk-lbl{flex:0 0 auto;font-size:11px;font-weight:800;letter-spacing:.4px;color:#f0b4ae;text-transform:uppercase}
+.tk-view{flex:1;overflow:hidden;min-width:0;mask-image:linear-gradient(90deg,transparent,#000 12px,#000 calc(100% - 12px),transparent)}
+.tk-track{display:inline-flex;gap:10px;white-space:nowrap;will-change:transform;animation:tk var(--tkdur,40s) linear infinite}
+.ticker:hover .tk-track,.ticker.paused .tk-track{animation-play-state:paused}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tk-item{-webkit-appearance:none;appearance:none;font:inherit;touch-action:manipulation;user-select:none;-webkit-user-select:none;background:#3a2629;border:1px solid #573338;color:#f1dcda;border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:600;cursor:pointer;min-height:30px}
+.wftag{display:inline-block;background:#d0544f;color:#fff;border-radius:6px;padding:0 6px;font-size:11px;font-weight:800;letter-spacing:.2px;vertical-align:1px}
+.tk-item b{color:#ffb4a8}.tk-item .al{color:#e0b52f}
+.tkdet{margin:6px 16px 0;background:var(--card);border:1px solid #573338;border-left:4px solid var(--fire);border-radius:12px;padding:10px 12px}
+.tkdet .x{float:right;background:none;color:var(--mut);border:0;font-size:24px;line-height:1;padding:2px 6px;margin:-4px -6px 0 6px;cursor:pointer}
+@media (prefers-reduced-motion: reduce){.tk-track{animation:none;flex-wrap:wrap;white-space:normal}.tk-view{mask-image:none}}
+@media (max-width:640px){.tkdet{margin:6px 10px 0}}
+
+/* transport tab */
+.xbig{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.xbig b{font-size:30px;font-weight:750;font-variant-numeric:tabular-nums}.xbig span{color:var(--mut);font-size:13px}
+.xnow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 10px;align-items:center;font-size:13.5px}
+.xnow .h{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.xnow .m{font-variant-numeric:tabular-nums;font-weight:650;text-align:right}
+.xnow .old{color:#6c6f7c}.xnow .old .u{opacity:.55}
+.rt td.hn{text-align:left;white-space:normal;max-width:190px}.rt td.long{color:#e0b52f}
+.spark{width:100%;height:56px;display:block}.spark path{fill:none;stroke:#4f84c4;stroke-width:2}.spark .ar{fill:rgba(79,132,196,.15);stroke:none}
+.xsrc{font-size:12px;color:var(--mut);padding:0 0 8px}
+.tkdet .units{margin:6px 0}.tkdet .addr{font-size:17px;font-weight:700;margin:4px 0 2px}
+</style></head><body>
+<header><div><h1>District 83 Dashboard</h1><div class="sub">Stations 10 · 69 · 76 · 83 — <span id="upd">loading…</span> <span class="citycnt" id="city"></span></div></div>
+<div class="hr"><div class="clockbox"><span class="shiftbig" id="onduty">—</span><span class="clock" id="clock">--:--:--</span></div><button class="iconbtn" id="infoBtn" aria-label="About this data" title="About this data">ⓘ</button><button id="ref">Refresh</button></div></header>
+<div id="ticker" class="ticker" hidden><span class="tk-lbl">🔥 City fires</span><div class="tk-view"><div class="tk-track" id="tkTrack"></div></div></div>
+<div id="tkBack" class="tkback" hidden><div id="tkDetail" class="tkdet" role="dialog" aria-modal="true" aria-label="Working fire details"></div></div>
+<div id="staleBar" class="stale" role="status" hidden></div>
+<div class="tabs" id="tabs"></div>
+<div id="infoPanel"><p id="since"></p><p id="srcnote">Source: City of Houston HEC Active Incidents (public feed, refreshed about every 5 minutes by dispatch). The Live tab reads the feed directly and refreshes every 60 s. History tabs come from a logger that polls every 2 minutes; the feed has no history, so counts only cover what the logger saw. Times on units are approximate (±5 min) because they come from when a unit appeared and disappeared in the feed. Nearest hydrants are shown on fire calls only (fire/smoke/alarm types or any alarm level). Hydrants: City of Houston GIS "Houston Fire Hydrant" layer (in-service hydrants only); distances are straight-line from the incident's geocoded point, which the City places at the block or intersection, not the exact address. Verify on arrival. Not an official dispatch or records tool.</p></div>
+
+<section class="pane" id="p-live">
+<div class="bar chips1"><span id="st" style="display:contents"></span><span class="sep"></span><span id="ty" style="display:contents"></span></div>
+<div class="grid" id="list"></div>
+</section>
+
+<section class="pane" id="p-shift">
+<div class="segwrap"><div class="seg" id="shSeg"></div></div>
+<div class="tourpick"><button class="arrow" id="tPrev" aria-label="Previous tour">‹</button><div class="tlabel" id="tLabel"></div><button class="arrow" id="tNext" aria-label="Next tour">›</button></div>
+<div class="sec" id="tourBody"></div>
+</section>
+
+<section class="pane" id="p-runs">
+<div class="segwrap" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><select class="ysel" aria-label="Year"></select><div class="seg sm" id="rPer"></div></div>
+<div class="sec"><div class="note" style="padding:0 0 8px" id="rNote"></div><div id="runCards"></div></div>
+</section>
+
+<section class="pane" id="p-transport">
+<div class="segwrap" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><select class="ysel" aria-label="Year"></select><div class="seg sm" id="xPer"></div></div>
+<div class="sec">
+<div class="xsrc" id="xSrc">Loading hospital report…</div>
+<div id="xNowWrap"><h2>District 83 units at hospitals now</h2><div class="scard" id="xMine"></div></div>
+<h2>District 83 transports</h2><div class="note" style="padding:0 0 8px" id="xNote"></div><div class="scard" id="xUnits"></div>
+<h2>Where they go</h2><div class="scard" id="xHosp"></div>
+<div id="xCityWrap"><h2>Citywide, units at hospitals</h2><div class="scard"><div class="xbig" id="xCity"></div><svg class="spark" id="xSpark" viewBox="0 0 300 56" preserveAspectRatio="none"></svg><div class="note" style="padding:0" id="xSparkNote"></div></div>
+<div class="scard" id="xCityH"></div></div>
+<div id="xYearWrap"><h2>Citywide by hospital</h2><div class="scard" id="xCityY"></div></div>
+<details class="more" id="xRecentWrap"><summary>Recent District 83 transports (7 days)</summary><div class="scard" style="margin-top:6px" id="xRecent"></div></details>
+<details class="more"><summary>ⓘ About this data</summary><p id="xAbout"></p></details>
+</div>
+</section>
+
+<section class="pane" id="p-heat">
+<div class="sec"><h2>Heat map, District 83 incidents</h2>
+<div class="note" style="padding:0 0 6px" id="heatnote"></div>
+<div class="flt"><select class="ysel" aria-label="Year"></select> Unit <select id="hUnit"></select> Shift <select id="hShift"><option value="">All</option><option>A</option><option>B</option><option>C</option><option>D</option></select> Type <select id="hType"><option value="">All</option><option>Fire</option><option>EMS</option><option>MVI</option><option>Hazmat/Gas</option><option>Other</option></select></div>
+<div id="hmap"></div>
+<h2>Busiest Key Map pages</h2><div class="tablewrap"><table id="kmt"></table></div></div>
+</section>
+
+<section class="pane" id="p-metrics">
+<div class="sec"><h2>Metrics, District 83</h2>
+<div class="note" style="padding:0 0 6px" id="metnote"></div>
+<div class="flt"><select class="ysel" aria-label="Year"></select> Unit <select id="mUnit"></select> Shift <select id="mShift"><option value="">All</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+<h2>Calls by hour of day (CT, 24-hour)</h2><div class="bars" id="mHour"></div>
+<h2>Calls by day of week</h2><div class="bars" id="mDow"></div>
+<h2>Top 10 most-dispatched locations</h2><details class="more"><summary>ⓘ About locations</summary><p>Address @ cross street as the City feed gives it (block-level, e.g. "BLK ..."). Key Map page shown when the address is blank.</p></details><div class="bars" id="mLoc"></div></div>
+</section>
+
+<section class="pane" id="p-wf">
+<div class="sec"><h2 style="display:flex;justify-content:space-between;align-items:center;gap:8px">Working fires <select class="ysel" aria-label="Year"></select></h2>
+<details class="more"><summary>ⓘ What counts as a working fire</summary><p id="wfrule"></p></details>
+<div class="tablewrap"><table id="wf"></table></div>
+<h2>Working fires per district unit</h2><div class="tablewrap"><table id="wfu"></table></div>
+<h2>Other long fire/alarm calls (not counted)</h2>
+<details class="more"><summary>ⓘ About this list</summary><p>Fire or alarm calls that are not fire boxes (e.g. FIRE EVENT, STAND-BY FIRE, vehicle or grass fires) but stayed in the CAD feed 45+ min with a District 83 unit. Review these in case one was really a working fire.</p></details>
+<div class="tablewrap"><table id="wfo"></table></div></div>
+</section>
+
+
+<script>
+const BUILD="5ff0a1e52f11";
+// Auto-update: GitHub Pages caches pages ~10 min, so poll version.json and reload when the page code changes.
+(function(){if(location.protocol==="file:"||!BUILD)return;const KEY="d83_reload_"+BUILD;
+  async function check(){try{const r=await fetch("version.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.json()).build;
+    if(v&&v!==BUILD){const k="d83_tried_"+v;const n=+(sessionStorage.getItem(k)||0);if(n>=3)return;sessionStorage.setItem(k,n+1);location.replace("./?v="+encodeURIComponent(v))}}catch(e){}}
+  setInterval(check,180000);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")check()});window.addEventListener("pageshow",e=>{if(e.persisted)check()});setTimeout(check,3000)})();
+const STATS={"generated":1792589704650,"generated_str":"2026-10-21 08:35","year":2026,"is_current_year":true,"year_start":1767247200000,"year_end":1798783200000,"logging_start":1792555525221,"logging_start_str":"2026-10-20 23:05","last_ok_poll":1792589704043,"last_ok_poll_str":"2026-10-21 08:35","polls":215,"polls_ok":215,"total_incidents_logged":536,"district_incidents":21,"shift_change":"06:30","working_fire_min":45,"multi_unit_wf_min":60,"wf_live":[],"non_working_fire_types":["AUTOMATIC ALARM","FIRE ALARM","FIRE CHECK","FIRE EVENT","FIRE INVESTIGATION","FIRE WATCH","STAND-BY FIRE","STANDBY FIRE"],"box_words":"\\b(HOUSE|HOME|RESIDENTIAL|RESIDENCE|DWELLING|COMMERCIAL|BUSINESS|STORE|SHOP|RESTAURANT|APARTMENT|APTS?|BUILDING|BLDG|STRUCTURE|HIGH[ -]?RISE|TOWNHOMES?|TOWNHOUSE|CONDO|DUPLEX|WAREHOUSE|INDUSTRIAL|CHURCH|SCHOOL|HOSPITAL|HOTEL|MOTEL)\\b","box_exclude":"ALARM|STAND-?BY|FIRE EVENT|INVESTIGAT|CHECK|WATCH|DETECTOR","current_tour":{"sd":"2026-10-21","sh":"D"},"runs":[{"unit":"A010","station":"10","kind":"ems","A":0,"B":0,"C":2,"D":1,"total":3,"wf":0,"hrs":2.3},{"unit":"M010","station":"10","kind":"ems","A":0,"B":0,"C":2,"D":1,"total":3,"wf":0,"hrs":1.0},{"unit":"E069","station":"69","kind":"fire","A":0,"B":0,"C":1,"D":0,"total":1,"wf":0,"hrs":0.4},{"unit":"A069","station":"69","kind":"ems","A":0,"B":0,"C":4,"D":1,"total":5,"wf":0,"hrs":3.5},{"unit":"AS069","station":"69","kind":"ems","A":0,"B":0,"C":1,"D":1,"total":2,"wf":0,"hrs":1.8},{"unit":"E076","station":"76","kind":"fire","A":0,"B":0,"C":1,"D":0,"total":1,"wf":0,"hrs":0.5},{"unit":"A076","station":"76","kind":"ems","A":0,"B":0,"C":1,"D":2,"total":3,"wf":0,"hrs":2.2},{"unit":"A083","station":"83","kind":"ems","A":0,"B":0,"C":3,"D":1,"total":4,"wf":0,"hrs":3.4},{"unit":"M083","station":"83","kind":"ems","A":0,"B":0,"C":1,"D":0,"total":1,"wf":0,"hrs":2.0}],"runs_periods":{"ytd":[{"unit":"A010","station":"10","kind":"ems","A":0,"B":0,"C":2,"D":1,"total":3,"wf":0,"hrs":2.3},{"unit":"M010","station":"10","kind":"ems","A":0,"B":0,"C":2,"D":1,"total":3,"wf":0,"hrs":1.0},{"unit":"E069","station":"69","kind":"fire","A":0,"B":0,"C":1,"D":0,"total":1,"wf":0,"hrs":0.4},{"unit":"A069","station":"69","kind":"ems","A":0,"B":0,"C":4,"D":1,"total":5,"wf":0,"hrs":3.5},{"unit":"AS069","station":"69","kind":"ems","A":0,"B":0,"C":1,"D":1,"total":2,"wf":0,"hrs":1.8},{"unit":"E076","station":"76","kind":"fire","A":0,"B":0,"C":1,"D":0,"total":1,"wf":0,"hrs":0.5},{"unit":"A076","station":"76","kind":"ems","A":0,"B":0,"C":1,"D":2,"total":3,"wf":0,"hrs":2.2},{"unit":"A083","station":"83","kind":"ems","A":0,"B":0,"C":3,"D":1,"total":4,"wf":0,"hrs":3.4},{"unit":"M083","station":"83","kind":"ems","A":0,"B":0,"C":1,"D":0,"total":1,"wf":0,"hrs":2.0}],"tour":[{"unit":"A010","station":"10","kind":"ems","A":0,"B":0,"C":0,"D":1,"total":1,"wf":0,"hrs":0.2},{"unit":"M010","station":"10","kind":"ems","A":0,"B":0,"C":0,"D":1,"total":1,"wf":0,"hrs":0.4},{"unit":"A069","station":"69","kind":"ems","A":0,"B":0,"C":0,"D":1,"total":1,"wf":0,"hrs":0.2},{"unit":"AS069","station":"69","kind":"ems","A":0,"B":0,"C":0,"D":1,"total":1,"wf":0,"hrs":0.4},{"unit":"A076","station":"76","kind":"ems","A":0,"B":0,"C":0,"D":2,"total":2,"wf":0,"hrs":1.3},{"unit":"A083","station":"83","kind":"ems","A":0,"B":0,"C":0,"D":1,"total":1,"wf":0,"hrs":0.7}],"month":[{"unit":"A010","station":"10","kind":"ems","A":0,"B":0,"C":2,"D":1,"total":3,"wf":0,"hrs":2.3},{"unit":"M010","station":"10","kind":"ems","A":0,"B":0,"C":2,"D":1,"total":3,"wf":0,"hrs":1.0},{"unit":"E069","station":"69","kind":"fire","A":0,"B":0,"C":1,"D":0,"total":1,"wf":0,"hrs":0.4},{"unit":"A069","station":"69","kind":"ems","A":0,"B":0,"C":4,"D":1,"total":5,"wf":0,"hrs":3.5},{"unit":"AS069","station":"69","kind":"ems","A":0,"B":0,"C":1,"D":1,"total":2,"wf":0,"hrs":1.8},{"unit":"E076","station":"76","kind":"fire","A":0,"B":0,"C":1,"D":0,"total":1,"wf":0,"hrs":0.5},{"unit":"A076","station":"76","kind":"ems","A":0,"B":0,"C":1,"D":2,"total":3,"wf":0,"hrs":2.2},{"unit":"A083","station":"83","kind":"ems","A":0,"B":0,"C":3,"D":1,"total":4,"wf":0,"hrs":3.4},{"unit":"M083","station":"83","kind":"ems","A":0,"B":0,"C":1,"D":0,"total":1,"wf":0,"hrs":2.0}]},"busiest":{"ytd":{"10":{"unit":"A010","total":3,"hrs":2.3},"69":{"unit":"A069","total":5,"hrs":3.5},"76":{"unit":"A076","total":3,"hrs":2.2},"83":{"unit":"A083","total":4,"hrs":3.4}},"tour":{"10":{"unit":"M010","total":1,"hrs":0.4},"69":{"unit":"A069","total":1,"hrs":0.2},"76":{"unit":"A076","total":2,"hrs":1.3},"83":{"unit":"A083","total":1,"hrs":0.7}},"month":{"10":{"unit":"A010","total":3,"hrs":2.3},"69":{"unit":"A069","total":5,"hrs":3.5},"76":{"unit":"A076","total":3,"hrs":2.2},"83":{"unit":"A083","total":4,"hrs":3.4}}},"tour_counts":{"2026-10-20":14,"2026-10-21":7},"working_fires":[],"other_long_fire_calls":[],"years":[2026]};
+const SCHED={"2026-01-01":"A","2026-01-02":"B","2026-01-03":"A","2026-01-04":"B","2026-01-05":"C","2026-01-06":"D","2026-01-07":"C","2026-01-08":"D","2026-01-09":"A","2026-01-10":"B","2026-01-11":"A","2026-01-12":"B","2026-01-13":"C","2026-01-14":"D","2026-01-15":"C","2026-01-16":"D","2026-01-17":"A","2026-01-18":"B","2026-01-19":"A","2026-01-20":"B","2026-01-21":"C","2026-01-22":"D","2026-01-23":"C","2026-01-24":"D","2026-01-25":"A","2026-01-26":"B","2026-01-27":"A","2026-01-28":"B","2026-01-29":"C","2026-01-30":"D","2026-01-31":"C","2026-02-01":"D","2026-02-02":"A","2026-02-03":"B","2026-02-04":"A","2026-02-05":"B","2026-02-06":"C","2026-02-07":"D","2026-02-08":"C","2026-02-09":"D","2026-02-10":"A","2026-02-11":"B","2026-02-12":"A","2026-02-13":"B","2026-02-14":"C","2026-02-15":"D","2026-02-16":"C","2026-02-17":"D","2026-02-18":"A","2026-02-19":"B","2026-02-20":"A","2026-02-21":"B","2026-02-22":"C","2026-02-23":"D","2026-02-24":"C","2026-02-25":"D","2026-02-26":"A","2026-02-27":"B","2026-02-28":"A","2026-03-01":"B","2026-03-02":"C","2026-03-03":"D","2026-03-04":"C","2026-03-05":"D","2026-03-06":"A","2026-03-07":"B","2026-03-08":"A","2026-03-09":"B","2026-03-10":"C","2026-03-11":"D","2026-03-12":"C","2026-03-13":"D","2026-03-14":"A","2026-03-15":"B","2026-03-16":"A","2026-03-17":"B","2026-03-18":"C","2026-03-19":"D","2026-03-20":"C","2026-03-21":"D","2026-03-22":"A","2026-03-23":"B","2026-03-24":"A","2026-03-25":"B","2026-03-26":"C","2026-03-27":"D","2026-03-28":"C","2026-03-29":"D","2026-03-30":"A","2026-03-31":"B","2026-04-01":"A","2026-04-02":"B","2026-04-03":"C","2026-04-04":"D","2026-04-05":"C","2026-04-06":"D","2026-04-07":"A","2026-04-08":"B","2026-04-09":"A","2026-04-10":"B","2026-04-11":"C","2026-04-12":"D","2026-04-13":"C","2026-04-14":"D","2026-04-15":"A","2026-04-16":"B","2026-04-17":"A","2026-04-18":"B","2026-04-19":"C","2026-04-20":"D","2026-04-21":"C","2026-04-22":"D","2026-04-23":"A","2026-04-24":"B","2026-04-25":"A","2026-04-26":"B","2026-04-27":"C","2026-04-28":"D","2026-04-29":"C","2026-04-30":"D","2026-05-01":"A","2026-05-02":"B","2026-05-03":"A","2026-05-04":"B","2026-05-05":"C","2026-05-06":"D","2026-05-07":"C","2026-05-08":"D","2026-05-09":"A","2026-05-10":"B","2026-05-11":"A","2026-05-12":"B","2026-05-13":"C","2026-05-14":"D","2026-05-15":"C","2026-05-16":"D","2026-05-17":"A","2026-05-18":"B","2026-05-19":"A","2026-05-20":"B","2026-05-21":"C","2026-05-22":"D","2026-05-23":"C","2026-05-24":"D","2026-05-25":"A","2026-05-26":"B","2026-05-27":"A","2026-05-28":"B","2026-05-29":"C","2026-05-30":"D","2026-05-31":"C","2026-06-01":"D","2026-06-02":"A","2026-06-03":"B","2026-06-04":"A","2026-06-05":"B","2026-06-06":"C","2026-06-07":"D","2026-06-08":"C","2026-06-09":"D","2026-06-10":"A","2026-06-11":"B","2026-06-12":"A","2026-06-13":"B","2026-06-14":"C","2026-06-15":"D","2026-06-16":"C","2026-06-17":"D","2026-06-18":"A","2026-06-19":"B","2026-06-20":"A","2026-06-21":"B","2026-06-22":"C","2026-06-23":"D","2026-06-24":"C","2026-06-25":"D","2026-06-26":"A","2026-06-27":"B","2026-06-28":"A","2026-06-29":"B","2026-06-30":"C","2026-07-01":"D","2026-07-02":"C","2026-07-03":"D","2026-07-04":"A","2026-07-05":"B","2026-07-06":"A","2026-07-07":"B","2026-07-08":"C","2026-07-09":"D","2026-07-10":"C","2026-07-11":"D","2026-07-12":"A","2026-07-13":"B","2026-07-14":"A","2026-07-15":"B","2026-07-16":"C","2026-07-17":"D","2026-07-18":"C","2026-07-19":"D","2026-07-20":"A","2026-07-21":"B","2026-07-22":"A","2026-07-23":"B","2026-07-24":"C","2026-07-25":"D","2026-07-26":"C","2026-07-27":"D","2026-07-28":"A","2026-07-29":"B","2026-07-30":"A","2026-07-31":"B","2026-08-01":"C","2026-08-02":"D","2026-08-03":"C","2026-08-04":"D","2026-08-05":"A","2026-08-06":"B","2026-08-07":"A","2026-08-08":"B","2026-08-09":"C","2026-08-10":"D","2026-08-11":"C","2026-08-12":"D","2026-08-13":"A","2026-08-14":"B","2026-08-15":"A","2026-08-16":"B","2026-08-17":"C","2026-08-18":"D","2026-08-19":"C","2026-08-20":"D","2026-08-21":"A","2026-08-22":"B","2026-08-23":"A","2026-08-24":"B","2026-08-25":"C","2026-08-26":"D","2026-08-27":"C","2026-08-28":"D","2026-08-29":"A","2026-08-30":"B","2026-08-31":"A","2026-09-01":"B","2026-09-02":"C","2026-09-03":"D","2026-09-04":"C","2026-09-05":"D","2026-09-06":"A","2026-09-07":"B","2026-09-08":"A","2026-09-09":"B","2026-09-10":"C","2026-09-11":"D","2026-09-12":"C","2026-09-13":"D","2026-09-14":"A","2026-09-15":"B","2026-09-16":"A","2026-09-17":"B","2026-09-18":"C","2026-09-19":"D","2026-09-20":"C","2026-09-21":"D","2026-09-22":"A","2026-09-23":"B","2026-09-24":"A","2026-09-25":"B","2026-09-26":"C","2026-09-27":"D","2026-09-28":"C","2026-09-29":"D","2026-09-30":"A","2026-10-01":"B","2026-10-02":"A","2026-10-03":"B","2026-10-04":"C","2026-10-05":"D","2026-10-06":"C","2026-10-07":"D","2026-10-08":"A","2026-10-09":"B","2026-10-10":"A","2026-10-11":"B","2026-10-12":"C","2026-10-13":"D","2026-10-14":"C","2026-10-15":"D","2026-10-16":"A","2026-10-17":"B","2026-10-18":"A","2026-10-19":"B","2026-10-20":"C","2026-10-21":"D","2026-10-22":"C","2026-10-23":"D","2026-10-24":"A","2026-10-25":"B","2026-10-26":"A","2026-10-27":"B","2026-10-28":"C","2026-10-29":"D","2026-10-30":"C","2026-10-31":"D","2026-11-01":"A","2026-11-02":"B","2026-11-03":"A","2026-11-04":"B","2026-11-05":"C","2026-11-06":"D","2026-11-07":"C","2026-11-08":"D","2026-11-09":"A","2026-11-10":"B","2026-11-11":"A","2026-11-12":"B","2026-11-13":"C","2026-11-14":"D","2026-11-15":"C","2026-11-16":"D","2026-11-17":"A","2026-11-18":"B","2026-11-19":"A","2026-11-20":"B","2026-11-21":"C","2026-11-22":"D","2026-11-23":"C","2026-11-24":"D","2026-11-25":"A","2026-11-26":"B","2026-11-27":"A","2026-11-28":"B","2026-11-29":"C","2026-11-30":"D","2026-12-01":"C","2026-12-02":"D","2026-12-03":"A","2026-12-04":"B","2026-12-05":"A","2026-12-06":"B","2026-12-07":"C","2026-12-08":"D","2026-12-09":"C","2026-12-10":"D","2026-12-11":"A","2026-12-12":"B","2026-12-13":"A","2026-12-14":"B","2026-12-15":"C","2026-12-16":"D","2026-12-17":"C","2026-12-18":"D","2026-12-19":"A","2026-12-20":"B","2026-12-21":"A","2026-12-22":"B","2026-12-23":"C","2026-12-24":"D","2026-12-25":"C","2026-12-26":"D","2026-12-27":"A","2026-12-28":"B","2026-12-29":"A","2026-12-30":"B","2026-12-31":"C","2027-01-01":"D","2027-01-02":"C","2027-01-03":"D","2027-01-04":"A","2027-01-05":"B","2027-01-06":"A","2027-01-07":"B","2027-01-08":"C","2027-01-09":"D","2027-01-10":"C","2027-01-11":"D","2027-01-12":"A","2027-01-13":"B","2027-01-14":"A","2027-01-15":"B","2027-01-16":"C","2027-01-17":"D","2027-01-18":"C","2027-01-19":"D","2027-01-20":"A","2027-01-21":"B","2027-01-22":"A","2027-01-23":"B","2027-01-24":"C","2027-01-25":"D","2027-01-26":"C","2027-01-27":"D","2027-01-28":"A","2027-01-29":"B","2027-01-30":"A","2027-01-31":"B"};
+const SHIFT_CHANGE=[6, 30];
+const STATIONS=["10","69","76","83"];
+const URL_="https://mycity2.houstontx.gov/gisweb01/rest/services/HEC/HEC_Active_Incidents/MapServer/0/query?where="+encodeURIComponent("Agency='F'")+"&outFields=*&returnGeometry=false&orderByFields=CALL_TIME%20DESC&f=json";
+const TZ="America/Chicago";
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// Same rule as d83rules.py: allow-listed station-unit prefixes with a D83 station number, plus D83 (District 83 chief, credited to Sta 83).
+const UNIT_PREFIXES=new Set(["E","L","T","TW","SQ","R","RS","A","M","AS"]);
+const unitStation=u=>{const m=String(u||"").trim().toUpperCase().match(/^([A-Z]+)0*(\d+)$/);if(!m)return null;const n=String(+m[2]);if(m[1]==="D")return n==="83"?"83":null;return UNIT_PREFIXES.has(m[1])&&STATIONS.includes(n)?n:null};
+const cat=t=>{t=(t||"").toUpperCase();if(/FIRE|SMOKE|ALARM|BURN|EXPLOS|FLAME/.test(t))return["Fire","t-fire"];if(t.includes("EMS")||t.includes("PATIENT"))return["EMS","t-ems"];if(t.includes("MOTOR VEHICLE")||t.includes("MVI"))return["MVI","t-mvi"];if(t.includes("HAZ")||t.includes("GAS")||t.includes("ODOR"))return["Hazmat/Gas","t-haz"];return["Other","t-other"]};
+// Chicago local parts for a timestamp
+function parts(ms){const p={};new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date(ms)).forEach(x=>p[x.type]=x.value);return p}
+function addDays(ds,n){const d=new Date(ds+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
+function shiftOfDate(ds){if(SCHED[ds])return SCHED[ds];const keys=Object.keys(SCHED).sort();const d0=keys[0];const diff=Math.round((new Date(ds+"T12:00:00Z")-new Date(d0+"T12:00:00Z"))/864e5);return SCHED[addDays(d0,((diff%8)+8)%8)]||"?"}
+function shiftDateOf(ms){const p=parts(ms);let ds=`${p.year}-${p.month}-${p.day}`;if(+p.hour*60+ +p.minute < SHIFT_CHANGE[0]*60+SHIFT_CHANGE[1])ds=addDays(ds,-1);return ds}
+const tm=ms=>new Date(ms).toLocaleTimeString([],{timeZone:TZ,hour:"2-digit",minute:"2-digit",hour12:false});
+const dt=ms=>new Date(ms).toLocaleString([],{timeZone:TZ,month:"short",day:"numeric",hour:"2-digit",minute:"2-digit",hour12:false});
+function unitKind(u){const m=String(u).trim().toUpperCase().match(/^([A-Z]+)\d/);const p=m?m[1]:"";
+  if(p==="AS")return"as";if(p==="MD")return"";if(p==="A")return"amb";if(p==="M")return"med";if(p==="D"||p==="DC")return"dc";if(p==="E")return"eng";if(p==="L"||p==="T")return"lad";if(p==="R"||p==="RS")return"res";return""}
+const pill=(u,mine,extra,txt)=>`<span class="u ${unitKind(u)} ${mine?"mine":"out"}" ${extra||""}>${esc(txt??u)}</span>`;
+const isEmsType=t=>/EMS|PATIENT|MEDICAL/.test(String(t||"").toUpperCase());
+function tone(type,alarm){const F=/FIRE|SMOKE|ALARM|BURN|EXPLOS|FLAME/.test(String(type||"").toUpperCase())||(+alarm||0)>=1;return F?"t-fire":isEmsType(type)?"t-ems":"t-other"}
+const toneTag=c=>c==="t-fire"?'<span class="tag fire">FIRE</span>':c==="t-ems"?'<span class="tag ems">EMS</span>':'<span class="tag other">OTHER</span>';
+const unitsHtml=us=>us.map(u=>pill(u.u,(u.d??unitStation(u.u)),`title="${u.min!=null?"listed ~"+u.min+" min":""}"`,u.u+(u.min!=null&&u.min>=1?" · "+u.min+"m":""))).join("");
+const fmtMin=m=>m>=60?Math.floor(m/60)+"h "+(m%60)+"m":m+"m";
+
+// tabs
+const TABS=[["live","Live"],["shift","By Shift"],["runs","Unit Run Counts"],["transport","Transport"],["wf","Working Fires"],["heat","Heat Map"],["metrics","Metrics"]];
+function showTab(k){try{closeNavs();NAV_OPEN.clear()}catch(e){/* first call runs before NAV_OPEN exists */}document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.dataset.k===k));document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="p-"+k));if(location.hash&&location.hash.slice(1)!==k)history.replaceState(null,"",location.pathname+location.search);if(k==="transport")loadTransport();if(k==="heat"||k==="metrics")setTimeout(async()=>{await ensurePoints();renderMetrics();renderHeatTable();if(k==="heat")initHeat();else drawHeat()},0);const at=document.querySelector(".tab.on");if(at&&at.scrollIntoView)at.scrollIntoView({block:"nearest",inline:"center"})}
+document.getElementById("tabs").innerHTML=TABS.map(([k,l])=>`<div class="tab" data-k="${k}">${l}</div>`).join("");
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>showTab(t.dataset.k));
+showTab((location.hash.slice(1)&&TABS.some(t=>t[0]===location.hash.slice(1)))?location.hash.slice(1):"live");
+
+// on-duty badge
+let TODAY=shiftDateOf(Date.now());
+function tick(){const now=Date.now();const p=new Intl.DateTimeFormat("en-GB",{timeZone:TZ,hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}).format(new Date(now));
+  document.getElementById("clock").textContent=p;const ds=shiftDateOf(now);const sh=shiftOfDate(ds);
+  const el=document.getElementById("onduty");el.textContent=sh;el.title=sh+" shift on duty (shift date "+ds+")";
+  if(ds!==TODAY){onShiftChange(TODAY,ds)}}
+// 06:30 shift change while the page is open (or a phone resumes it): switch By Shift to the new on-duty shift,
+// reset tour picks, re-render, and pull fresh stats. Before this, the page kept showing the old shift until reloaded.
+function onShiftChange(oldDs,ds){const oldSh=shiftOfDate(oldDs);TODAY=ds;
+  try{if(typeof SEL_SH!=="undefined"&&SEL_SH===oldSh){SEL_SH=shiftOfDate(ds);SHOW_ALL=false}for(const k in TOUR_SEL)delete TOUR_SEL[k];renderHistory();loadStats()}catch(e){}}
+tick();setInterval(tick,1000);
+
+
+// ---- map links + hydrants ----
+// Hydrants are shown only on fire calls: any alarm level >=1, or a type mentioning fire/smoke/alarm/burn/explosion/flame.
+const FIRE_RE=/FIRE|SMOKE|ALARM|BURN|EXPLOS|FLAME/;
+const MULTI_RE=/^\s*[1-8]11\s+FIRE\b/;  // 111 FIRE … 811 FIRE: additional alarm called; shown as is
+const isMulti=t=>MULTI_RE.test(String(t||"").toUpperCase());
+// "Alarm N" label only when the type is not an x11 FIRE code (the code says it)
+const alarmLbl=(t,al,pre)=>(+al||0)>=1&&!isMulti(t)?pre(al):"";
+const isFireCall=(type,alarm)=>isMulti(type)||(+alarm||0)>=1||FIRE_RE.test(String(type||"").toUpperCase());
+const gUrl=(la,lo)=>`https://www.google.com/maps/search/?api=1&query=${la},${lo}`;
+const aUrl=(la,lo,q)=>`https://maps.apple.com/?ll=${la},${lo}&q=${encodeURIComponent(q||"Location")}`;
+const aDir=(la,lo)=>`https://maps.apple.com/?saddr=Current%20Location&daddr=${la},${lo}&dirflg=d`;
+const gDir=(la,lo)=>`https://www.google.com/maps/dir/?api=1&destination=${la},${lo}&travelmode=driving`;
+function mapBtns(la,lo,label,sm){if(la==null||lo==null)return"";const c="mbtn"+(sm?" sm":"");return `<a class="${c}" target="_blank" rel="noopener" href="${gUrl(la,lo)}">Google</a><a class="${c}" target="_blank" rel="noopener" href="${aUrl(la,lo,label)}">Apple</a>`+(sm?"":`<a class="${c}" target="_blank" rel="noopener" href="${aDir(la,lo)}" title="Directions from your current location (Apple Maps)">From me (Apple)</a><a class="${c}" target="_blank" rel="noopener" href="${gDir(la,lo)}" title="Directions from your current location (Google Maps)">From me (Google)</a>`)}
+// District 83 stations: addresses/coordinates from City of Houston GIS, HoustonMap/Public_Safety MapServer layer 10 "Houston Fire Stations" (LABEL, ADDRESS, LAT, LONG).
+const STATION_INFO={"10":{addr:"6600 CORPORATE DR",lat:29.70664689,lon:-95.55147949},"69":{addr:"1102 W SAM HOUSTON PKWY S",lat:29.75096437,lon:-95.55835238},"76":{addr:"7200 COOK RD",lat:29.69934028,lon:-95.59608793},"83":{addr:"3350 BREEZEWOOD DR",lat:29.72663116,lon:-95.57731468}};
+const gDirFrom=(s,la,lo)=>`https://www.google.com/maps/dir/?api=1&origin=${s.lat},${s.lon}&destination=${la},${lo}&travelmode=driving`;
+const aDirFrom=(s,la,lo)=>`https://maps.apple.com/?saddr=${s.lat},${s.lon}&daddr=${la},${lo}&dirflg=d`;
+// stations: assigned D83 stations; if none, the closest D83 station by straight-line distance
+function dirStations(assigned,la,lo){const a=[...new Set((assigned||[]).filter(n=>STATION_INFO[n]))].sort((x,y)=>+x-+y);if(a.length)return {list:a,closest:false};
+  let best=null,bd=1e18;for(const n in STATION_INFO){const s=STATION_INFO[n],d=ft(la,lo,s.lat,s.lon);if(d<bd){bd=d;best=n}}return {list:best?[best]:[],closest:true}}
+function dirBtns(assigned,la,lo,sm){if(la==null||lo==null)return"";const r=dirStations(assigned,la,lo);const c="mbtn"+(sm?" sm":"");
+  return `<div class="dirs"><span class="dl">Route from station${r.closest?" (closest)":""}</span>`+r.list.map(n=>{const s=STATION_INFO[n];return `<span class="dgrp" title="Station ${n}, ${esc(s.addr)}"><a class="${c} st" target="_blank" rel="noopener" href="${aDirFrom(s,la,lo)}">From Sta ${n} (Apple)</a><a class="${c} st" target="_blank" rel="noopener" href="${gDirFrom(s,la,lo)}">From Sta ${n} (Google)</a></span>`}).join("")+`</div>`}
+// ---- Navigate menu (collapsed by default; open state survives the 60 s refresh) ----
+const NAV_OPEN=new Set();
+document.addEventListener("toggle",e=>{const d=e.target;if(d.matches&&d.matches("details.nav")){d.open?NAV_OPEN.add(d.dataset.k):NAV_OPEN.delete(d.dataset.k)}},true);
+function closeNavs(except){document.querySelectorAll("details.nav[open]").forEach(d=>{if(except&&d.contains(except))return;d.open=false;NAV_OPEN.delete(d.dataset.k)})}
+document.addEventListener("click",e=>{if(document.querySelector("details.nav[open]"))closeNavs(e.target)},true);
+const nlink=(href,txt)=>`<a target="_blank" rel="noopener" href="${href}">${txt}</a>`;
+function navHtml(key,rows,sm){return `<details class="nav${sm?" sm":""}" data-k="${esc(key)}"${NAV_OPEN.has(key)?" open":""}><summary>Navigate</summary><div class="navmenu">`+rows.map(r=>`<div class="nrow"><span class="nl">${r[0]}</span>${r.slice(1).join("")}</div>`).join("")+`</div></details>`}
+function incNav(key,la,lo,label,assigned,sm){if(la==null||lo==null)return"";const rows=[["Map",nlink(aUrl(la,lo,label),"Apple"),nlink(gUrl(la,lo),"Google")]];
+  const r=dirStations(assigned,la,lo);r.list.forEach(n=>{const st=STATION_INFO[n];rows.push([`From Sta ${n}${r.closest?" (closest)":""}<small>${esc(st.addr)}</small>`,nlink(aDirFrom(st,la,lo),"Apple"),nlink(gDirFrom(st,la,lo),"Google")])});
+  rows.push(["From me",nlink(aDir(la,lo),"Apple"),nlink(gDir(la,lo),"Google")]);return navHtml(key,rows,sm)}
+function hydNav(h){const la=h[0],lo=h[1];return navHtml("hyd_"+(h[2]||la+","+lo),[["Map",nlink(aUrl(la,lo,"Hydrant "+(h[2]||"")+" "+(h[3]||"")),"Apple"),nlink(gUrl(la,lo),"Google")],["From me",nlink(aDir(la,lo),"Apple"),nlink(gDir(la,lo),"Google")]],true)}
+const HYD_LAYER="https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Public_Safety/MapServer/9/query";
+let HYD=null;const hydLive={};
+function ft(la1,lo1,la2,lo2){const R=20902231,r=Math.PI/180,dla=(la2-la1)*r,dlo=(lo2-lo1)*r;const a=Math.sin(dla/2)**2+Math.cos(la1*r)*Math.cos(la2*r)*Math.sin(dlo/2)**2;return 2*R*Math.asin(Math.sqrt(a))}
+function nearestFrom(list,la,lo,k){const out=[];for(const h of list){const d=ft(la,lo,h[0],h[1]);if(out.length<k||d<out[out.length-1].d){out.push({h,d});out.sort((a,b)=>a.d-b.d);if(out.length>k)out.pop()}}return out}
+function inBox(la,lo){const b=HYD&&HYD.bbox;return b&&lo>=b[0]&&la>=b[1]&&lo<=b[2]&&la<=b[3]}
+async function loadHyd(){try{const r=await fetch("hydrants.json?v="+encodeURIComponent(BUILD||Date.now()));if(!r.ok)throw 0;HYD=await r.json()}catch(e){HYD=null}}
+async function liveHyd(la,lo){const key=la.toFixed(5)+","+lo.toFixed(5);if(hydLive[key])return hydLive[key];
+  const d=0.006,env=[lo-d,la-d,lo+d,la+d].join(",");
+  const q=`${HYD_LAYER}?where=${encodeURIComponent("LIFECYCLESTATUS='E'")}&geometry=${env}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=FACILITYID,ADDRESS,OWNER,MAINDIAMETER,KEYMAP&outSR=4326&f=json`;
+  try{const j=await (await fetch(q)).json();hydLive[key]=(j.features||[]).filter(f=>f.geometry).map(f=>{const a=f.attributes;return [f.geometry.y,f.geometry.x,(a.FACILITYID||"").trim(),(a.ADDRESS||"").trim(),(a.OWNER||"").trim(),(a.MAINDIAMETER||"").trim(),(a.KEYMAP||"").trim()]})}catch(e){hydLive[key]=null}
+  return hydLive[key]}
+// returns {list:[{h,d}], src} or null
+async function nearestHyd(la,lo,k){if(la==null||lo==null)return null;
+  if(HYD&&inBox(la,lo)){const n=nearestFrom(HYD.h,la,lo,k);if(n.length&&n[0].d<2000)return {list:n,src:"cached"}}
+  const L=await liveHyd(la,lo);if(L&&L.length)return {list:nearestFrom(L,la,lo,k),src:"live"};
+  return L===null?{err:1}:{list:[],src:"live"}}
+function nearestSync(la,lo,k){if(la==null||!HYD||!inBox(la,lo))return null;return {list:nearestFrom(HYD.h,la,lo,k),src:"cached"}}
+function hydHtml(res,sm){if(!res)return"";if(res.err)return `<div class="hyd"><div class="hh">Nearest hydrant</div><span class="note" style="padding:0">Hydrant lookup failed (City GIS unreachable).</span></div>`;
+  if(!res.list.length)return `<div class="hyd"><div class="hh">Nearest hydrant</div><span class="note" style="padding:0">No City hydrant within ~0.4 mi in City GIS.</span></div>`;
+  return `<div class="hyd"><div class="hh">Nearest hydrant${res.list.length>1?"s":""} · straight-line</div>`+res.list.map(({h,d})=>{const own=h[4]==="P"?" · private":"";const main=h[5]?` · ${esc(h[5])}" main`:"";
+    return `<div class="hrow"><span class="hd">${Math.round(d).toLocaleString()} ft</span><span class="hi" title="${esc(h[3])}">${esc(h[3]||"(no address)")}<span class="note" style="padding:0"> · #${esc(h[2]||"?")}${main}${own}</span></span><span class="hl">${hydNav(h)}</span></div>`}).join("")+`</div>`}
+// LIVE
+let data=[],selSt=new Set(),selTy=new Set();const hydCache={};
+function chips(el,items,set){el.innerHTML="";items.forEach(([k,label])=>{const c=document.createElement("span");c.className="chip"+(set.has(k)?" on":"");c.textContent=label;c.onclick=()=>{set.has(k)?set.delete(k):set.add(k);renderLive()};el.appendChild(c)})}
+function renderLive(){
+  chips(document.getElementById("st"),STATIONS.map(s=>[s,"Sta "+s]),selSt);
+  const types=[...new Set(data.map(d=>cat(d.IncidentType)[0]))].sort();
+  chips(document.getElementById("ty"),types.map(t=>[t,t]),selTy);
+  const L=document.getElementById("list");
+  const rows=data.filter(d=>(!selSt.size||d._st.some(s=>selSt.has(s)))&&(!selTy.size||selTy.has(cat(d.IncidentType)[0])));
+  if(!rows.length){L.innerHTML='<div class="empty">No active District 83 incidents'+(selSt.size||selTy.size?" match these filters":"")+'.</div>';return}
+  L.innerHTML=rows.map(d=>{const [c]=cat(d.IncidentType);const cls=tone(d.IncidentType,d.ALARM_LEVEL);const mins=Math.round((Date.now()-d.CALL_TIME)/60000);
+    const units=unitsHtml((d.Units||"").split(",").filter(Boolean).map(u=>({u:u.trim()})));
+    const map=d.LATITUDE?incNav("inc_"+d.CALL_TIME+"_"+d.Address,d.LATITUDE,d.LONGITUDE,(d.Address||"")+(d.CrossStreet?" @ "+d.CrossStreet:""),d._st,false):"";
+    const hk="h_"+String(d.CALL_TIME)+"_"+String(d.LATITUDE).replace(/\W/g,"");
+    return `<div class="card ${cls}${d.ALARM_LEVEL>=1||isMulti(d.IncidentType)?" alarm":""}"><div class="top"><span>${tm(d.CALL_TIME)} · ${mins} min ago · ${shiftOfDate(shiftDateOf(d.CALL_TIME))} shift</span><span>Key Map ${esc(d.KeyMap||"—")}</span></div>
+    <div class="addr">${esc(d.Address)}${d.CrossStreet?" @ "+esc(d.CrossStreet):""}</div><div class="type">${toneTag(cls)}${esc(d.IncidentType)}${alarmLbl(d.IncidentType,d.ALARM_LEVEL,n=>" — <b>Alarm "+n+"</b>")} · ${c}</div>
+    <div class="units">${units}</div>${map}${isFireCall(d.IncidentType,d.ALARM_LEVEL)?`<div id="${hk}">${hydHtml(hydCache[hk])}</div>`:""}</div>`}).join("");
+  rows.forEach(async d=>{if(!isFireCall(d.IncidentType,d.ALARM_LEVEL))return;const hk="h_"+String(d.CALL_TIME)+"_"+String(d.LATITUDE).replace(/\W/g,"");if(hydCache[hk])return;const r=await nearestHyd(d.LATITUDE,d.LONGITUDE,3);if(!r)return;hydCache[hk]=r;const el=document.getElementById(hk);if(el)el.innerHTML=hydHtml(r)});
+}
+// ---- Transport tab: built from the City's "HFD Units at Hospital" report (transport.json, logged by the collector) ----
+let XT=null,X_PER="tour";const XY={};
+async function loadTransport(){if(location.protocol==="file:")return;try{const r=await fetch("transport.json?_="+Date.now(),{cache:"no-store"});if(r.ok)XT=await r.json()}catch(e){}renderTransport()}
+async function XD(){if(!isPast())return XT;const y=SEL_YEAR;if(!(y in XY)){try{const r=await fetch(`archive/${y}/transport.json`,{cache:"no-store"});XY[y]=r.ok?await r.json():null}catch(e){XY[y]=null}}return XY[y]}
+const mm=m=>m==null?"—":fmtMin(m);
+async function renderTransport(){const T=await XD();const past=isPast();
+  const per=past?[["ytd","Full year"]]:[["tour","This shift"],["month","This month"],["ytd","Year to date"]];if(past)X_PER="ytd";
+  document.getElementById("xPer").innerHTML=per.map(([k,l])=>`<button data-k="${k}" class="${k===X_PER?"on":""}">${l}</button>`).join("");
+  document.querySelectorAll("#xPer button").forEach(b=>b.onclick=()=>{X_PER=b.dataset.k;renderTransport()});
+  ["xNowWrap","xCityWrap","xRecentWrap"].forEach(id=>document.getElementById(id).hidden=past);
+  const src=document.getElementById("xSrc");
+  if(!T){src.textContent=past?`No hospital-report history for ${SEL_YEAR}.`:"Hospital report not loaded yet.";["xMine","xUnits","xHosp","xCityH","xCityY"].forEach(id=>document.getElementById(id).innerHTML="");return}
+  const ageMin=T.report_ts?Math.round((Date.now()-T.report_ts)/60000):null;
+  src.innerHTML=past?`Full year ${T.year}, logged from ${esc(T.since_str)} CT.`:`City hospital report as of <b>${tm(T.report_ts)}</b> CT`+(ageMin>15?` <span style="color:#e0b52f">(${ageMin} min old)</span>`:"");
+  if(!past){const mine=(T.now||[]).filter(x=>x.d);
+    document.getElementById("xMine").innerHTML=mine.length?`<div class="xnow">`+mine.map(x=>`<span class="${x.s?"old":""}">${pill(x.u,true)}</span><span class="h ${x.s?"old":""}">${esc(x.h)}<span class="note" style="padding:0"> · since ${dt(x.a)}${x.s?" · likely not cleared":""}</span></span><span class="m ${x.s?"old":""}">${x.s?"—":fmtMin(x.m)}</span>`).join("")+`</div>`:`<div class="note" style="padding:2px 0">None right now.</div>`}
+  const P=(T.periods||{})[X_PER]||{n:0,units:[],hosp:[]};const ct=T.tour||{};
+  document.getElementById("xNote").textContent=X_PER==="tour"?`${ct.sh||""} Shift tour of ${ct.sd?fmtDay(ct.sd):""} · by arrival time at hospital.`:X_PER==="month"?`${new Date().toLocaleDateString([],{timeZone:TZ,month:"long",year:"numeric"})}, by arrival time (CT).`:past?`Full year ${T.year}, by arrival time (CT).`:`${T.year} year to date, by arrival time (CT); history began ${T.since_str} CT.`;
+  const ORDX=["A","M","AS"],pre=u=>(String(u).match(/^[A-Z]+/)||[""])[0];
+  const us=[...P.units].sort((a,b)=>ORDX.indexOf(pre(a.u))-ORDX.indexOf(pre(b.u))||a.u.localeCompare(b.u));
+  const z=v=>`<td class="${v?"":"z"}">${v||0}</td>`;
+  document.getElementById("xUnits").innerHTML=us.length?`<table class="rt"><tr><th>Unit</th>${SHIFTS.map(s=>`<th>${s}</th>`).join("")}<th>Total</th><th>Median</th><th>Longest</th></tr>`+us.map(r=>`<tr><td>${pill(r.u,true)}</td>${SHIFTS.map(s=>z(r[s])).join("")}<td class="tot">${r.n}</td><td>${mm(r.med)}</td><td class="${r.max>=90?"long":""}">${mm(r.max)}</td></tr>`).join("")+`</table>`:`<div class="note" style="padding:2px 0">No District 83 transports logged in this period.</div>`;
+  document.getElementById("xHosp").innerHTML=P.hosp.length?`<table class="rt"><tr><th>Hospital</th><th>Transports</th><th>Median time</th></tr>`+P.hosp.map(r=>`<tr><td class="hn">${esc(r.h)}</td><td class="tot">${r.n}</td><td>${mm(r.med)}</td></tr>`).join("")+`</table>`:`<div class="note" style="padding:2px 0">—</div>`;
+  if(!past){const now=T.now||[];const rec=now.filter(x=>!x.s);
+    document.getElementById("xCity").innerHTML=`<b>${rec.length}</b><span>HFD units at hospitals now`+(now.length>rec.length?` · ${now.length} listed, ${now.length-rec.length} older than ${Math.round(T.stale_min/60)} h not counted`:"")+`</span>`;
+    const tr=T.trend||[];const sp=document.getElementById("xSpark");
+    if(tr.length>1){const mx=Math.max(...tr.map(p=>p[1]),1),t0=tr[0][0],t1=tr[tr.length-1][0];const X=t=>(t1>t0?(t-t0)/(t1-t0):0)*300,Y=v=>52-v/mx*46;
+      const d=tr.map((p,i)=>(i?"L":"M")+X(p[0]).toFixed(1)+","+Y(p[1]).toFixed(1)).join("");sp.innerHTML=`<path class="ar" d="${d}L300,56L0,56Z"/><path d="${d}"/>`;sp.style.display="";
+      document.getElementById("xSparkNote").textContent=`Hourly average, ${tm(t0)}–${tm(t1)} CT · low ${Math.min(...tr.map(p=>p[1]))} · high ${mx}`}
+    else{sp.style.display="none";document.getElementById("xSparkNote").textContent="Trend line appears after a few hours of logging."}
+    const by={};rec.forEach(x=>{const r=by[x.h]||(by[x.h]={h:x.h,now:0,lng:0});r.now++;r.lng=Math.max(r.lng,x.m)});(T.city24||[]).forEach(c=>{const r=by[c.h]||(by[c.h]={h:c.h,now:0,lng:0});r.med=c.med;r.n=c.n});
+    const rows=Object.values(by).sort((a,b)=>b.now-a.now||(b.n||0)-(a.n||0)||a.h.localeCompare(b.h));
+    document.getElementById("xCityH").innerHTML=rows.length?`<table class="rt"><tr><th>Hospital</th><th>Now</th><th>Longest now</th><th>Median 24 h</th></tr>`+rows.map(r=>`<tr><td class="hn">${esc(r.h)}</td><td class="${r.now?"tot":"z"}">${r.now}</td><td class="${r.lng>=90?"long":r.now?"":"z"}">${r.now?fmtMin(r.lng):"—"}</td><td>${r.med!=null?fmtMin(r.med)+`<span class="note" style="padding:0"> (${r.n})</span>`:"—"}</td></tr>`).join("")+`</table>`:"";
+    const R=T.recent||[];document.getElementById("xRecent").innerHTML=R.length?`<table class="rt"><tr><th>Unit</th><th>Hospital</th><th>Arrived</th><th>Time</th></tr>`+R.map(r=>`<tr><td>${pill(r.u,true)}</td><td class="hn">${esc(r.h)}</td><td>${dt(r.a)}</td><td>${r.done?fmtMin(r.m):fmtMin(r.m)+" so far"}</td></tr>`).join("")+`</table>`:`<div class="note" style="padding:2px 0">None logged yet.</div>`}
+  const CY=T.city_year||[];document.getElementById("xYearWrap").hidden=!past;
+  document.getElementById("xCityY").innerHTML=CY.length?`<table class="rt"><tr><th>Hospital</th><th>Visits</th><th>Median</th><th>90th pct</th></tr>`+CY.map(r=>`<tr><td class="hn">${esc(r.h)}</td><td class="tot">${r.n}</td><td>${mm(r.med)}</td><td>${mm(r.p90)}</td></tr>`).join("")+`</table>`:`<div class="note" style="padding:2px 0">—</div>`;
+  document.getElementById("xAbout").innerHTML=`Source: City of Houston “HFD Units at Hospital” report (<a href="${esc(T.source)}" target="_blank" rel="noopener">houstontx.gov/fire/ambulances-pdf.html</a>), a live PDF the City regenerates about every minute. It lists each HFD unit currently at a hospital with its transport-arrived time. The City keeps no history, so this dashboard logs the report every 2 minutes (history from ${esc(T.since_str)} CT). `+
+    `A transport = a unit/arrival pair seen on the report. Time at hospital = arrival time to the last report that still listed the unit (±2 min). Units listed more than ${Math.round(T.stale_min/60)} h, or listed again at a newer hospital, are treated as records not cleared in dispatch: shown greyed and left out of counts and times. Transports shorter than ~2 minutes can be missed. Hospital names are as the City prints them.`+(T.report_ts?` Latest report: ${esc(T.report_str)} CT (${T.parsed} rows read, report total ${T.declared??"?"}). Fetched ${esc(T.fetched_str)} CT.`:"")}
+// ---- all HFD stations (City GIS layer 10), for "From Sta N (closest)" on citywide calls ----
+let ALLST=null;async function loadAllStations(){if(ALLST)return ALLST;try{const r=await fetch("stations.json?v="+encodeURIComponent(BUILD||""));if(r.ok)ALLST=(await r.json()).s}catch(e){}return ALLST}
+function closestCity(la,lo){if(!ALLST)return null;let b=null,bd=1e18;for(const s of ALLST){const d=ft(la,lo,s[2],s[3]);if(d<bd){bd=d;b=s}}return b?{n:b[0],addr:b[1],lat:b[2],lon:b[3],d:bd}:null}
+function cityNav(key,la,lo,label,assigned){const rows=[["Map",nlink(aUrl(la,lo,label),"Apple"),nlink(gUrl(la,lo),"Google")]];
+  const a=[...new Set(assigned||[])].filter(n=>STATION_INFO[n]).sort((x,y)=>+x-+y);
+  if(a.length)a.forEach(n=>{const s=STATION_INFO[n];rows.push([`From Sta ${n}<small>${esc(s.addr)}</small>`,nlink(aDirFrom(s,la,lo),"Apple"),nlink(gDirFrom(s,la,lo),"Google")])});
+  else{const s=closestCity(la,lo);if(s)rows.push([`From Sta ${s.n} (closest)<small>${esc(s.addr)}</small>`,nlink(aDirFrom(s,la,lo),"Apple"),nlink(gDirFrom(s,la,lo),"Google")])}
+  rows.push(["From me",nlink(aDir(la,lo),"Apple"),nlink(gDir(la,lo),"Google")]);return navHtml(key,rows,false)}
+// ---- citywide working-fire ticker ----
+// Counts: 211-811 FIRE (2- to 8-alarm), ALARM_LEVEL >= 1, or a structure-fire type (house/residential/commercial/apartment/building/structure/etc. + FIRE).
+// Never counts alarms, stand-bys, generic FIRE EVENT, or outside/vehicle/trash/grass types (unless they carry an alarm level).
+// Fire box = a structure-fire box type, or a 111/211-811 FIRE code. Never alarms, stand-bys, fire events,
+// or minor fires (trash, grass, vehicle...) unless the type names a structure. Same lists as collector.py.
+const STRUCT_RE=/\b(HOUSE|HOME|RESIDENTIAL|RESIDENCE|DWELLING|COMMERCIAL|BUSINESS|STORE|SHOP|RESTAURANT|APARTMENT|APTS?|BUILDING|BLDG|STRUCTURE|HIGH[ -]?RISE|TOWNHOMES?|TOWNHOUSE|CONDO|DUPLEX|WAREHOUSE|INDUSTRIAL|CHURCH|SCHOOL|HOSPITAL|HOTEL|MOTEL)\b/;
+const NOT_WF_RE=/ALARM|STAND-?BY|FIRE EVENT|INVESTIGAT|CHECK|WATCH|DETECTOR/;
+function isCityWorkingFire(a){const t=String(a.IncidentType||"").toUpperCase();return isMulti(t)||(t.includes("FIRE")&&STRUCT_RE.test(t)&&!NOT_WF_RE.test(t))}
+// Working fire = a fire box that has been in the CAD feed 45+ minutes (from call time)
+const WF_MIN=45;
+// Working fire rule 3 (d83rules.py): fire call with 2+ units on it at the same time for 60+ min. The browser only sees the
+// current unit list, so the logger computes it from unit first/last-seen times and publishes the keys (stats.wf_live).
+let WF_LIVE=new Set((STATS&&STATS.wf_live)||[]);
+const feedKey=a=>`${a.CALL_TIME||0}|${String(a.Address||"").trim()}|${String(a.CrossStreet||"").trim()}`;
+const isMultiUnitWF=a=>WF_LIVE.has(feedKey(a));
+const isWorkingNow=a=>(isCityWorkingFire(a)&&(Date.now()-a.CALL_TIME)/60000>=WF_MIN)||isMultiUnitWF(a);
+const wfTag='<span class="wftag">Working fire</span>';
+let TK=[],TK_SIG="";
+const reduceMotion=()=>window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+const tkKey=a=>a.CALL_TIME+"|"+(a.Address||"")+"|"+(a.CrossStreet||"");
+function tkItem(a,i){return `<button type="button" class="tk-item" data-k="${esc(tkKey(a))}">${isWorkingNow(a)?wfTag+" ":""}<b>${esc(a.IncidentType)}</b>${alarmLbl(a.IncidentType,a.ALARM_LEVEL,n=>` <span class="al">Alarm ${n}</span>`)} · ${esc(a.Address||"")}${a.CrossStreet?" @ "+esc(a.CrossStreet):""} · KM ${esc(a.KeyMap||"—")} · ${tm(a.CALL_TIME)}</button>`}
+function renderTicker(all){const lvl=a=>isMulti(a.IncidentType)?+String(a.IncidentType).trim()[0]:(+a.ALARM_LEVEL||0);TK=all.filter(a=>isCityWorkingFire(a)||isMultiUnitWF(a)).sort((a,b)=>(isWorkingNow(b)-isWorkingNow(a))||lvl(b)-lvl(a)||b.CALL_TIME-a.CALL_TIME);
+  const box=document.getElementById("ticker"),tr=document.getElementById("tkTrack"),det=document.getElementById("tkDetail");
+  if(!TK.length){box.hidden=true;closeTk();TK_SIG="";return}
+  const sig=TK.map(a=>a.CALL_TIME+a.Address+a.IncidentType+a.ALARM_LEVEL+a.Units+isWorkingNow(a)).join("|");box.hidden=false;if(sig===TK_SIG)return;TK_SIG=sig;
+  const one=TK.map(tkItem).join("");const still=reduceMotion();
+  tr.innerHTML=still?one:one+one.replace(/<button /g,'<button aria-hidden="true" tabindex="-1" ');
+  tr.style.setProperty("--tkdur",Math.max(20,TK.length*12)+"s");
+  // only scroll when the list is wider than the screen
+  requestAnimationFrame(()=>{const v=tr.parentElement;if(!still&&tr.scrollWidth/2<=v.clientWidth){tr.innerHTML=one;tr.style.animation="none"}else if(!still){tr.style.animation=""}});
+}
+// One delegated handler on the ticker container: survives the re-render and the duplicate/de-duplicate swap.
+// (Bug fixed: when the list fit on screen, the copy was replaced after handlers were attached, so clicks did nothing.)
+(function(){const box=document.getElementById("ticker");
+  box.addEventListener("click",e=>{const b=e.target.closest(".tk-item");if(!b)return;e.preventDefault();const i=TK.findIndex(a=>tkKey(a)===b.dataset.k);if(i>=0)openTk(i)});
+  let tmo=null;const hold=()=>{box.classList.add("paused");clearTimeout(tmo)};const rel=()=>{clearTimeout(tmo);tmo=setTimeout(()=>{if(document.getElementById("tkBack").hidden)box.classList.remove("paused")},2500)};
+  box.addEventListener("pointerdown",hold);box.addEventListener("touchstart",hold,{passive:true});box.addEventListener("pointerup",rel);box.addEventListener("touchend",rel,{passive:true});box.addEventListener("pointercancel",rel)})();
+// ticker popup: close with ×, Escape, or a tap/click on the backdrop outside the card
+function closeTk(){const bk=document.getElementById("tkBack"),det=document.getElementById("tkDetail");if(bk.hidden)return;bk.hidden=true;det.innerHTML="";[...NAV_OPEN].forEach(k=>k.startsWith("tk_")&&NAV_OPEN.delete(k));document.getElementById("ticker").classList.remove("paused")}
+document.getElementById("tkBack").addEventListener("click",e=>{if(e.target.id==="tkBack")closeTk()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeTk()});
+function openTk(i){const a=TK[i];if(!a)return;const det=document.getElementById("tkDetail"),box=document.getElementById("ticker"),bk=document.getElementById("tkBack");
+  const st=[...new Set((a.Units||"").split(",").map(unitStation).filter(Boolean))];const k="tk_"+a.CALL_TIME+"_"+a.Address;NAV_OPEN.delete(k);/* Navigate always starts closed */
+  const label=(a.Address||"")+(a.CrossStreet?" @ "+a.CrossStreet:"");const has=a.LATITUDE!=null&&a.LONGITUDE!=null;
+  const draw=hyd=>{det.innerHTML=`<button class="x" aria-label="Close">×</button><div class="top"><span>${tm(a.CALL_TIME)} · ${Math.round((Date.now()-a.CALL_TIME)/60000)} min ago · ${shiftOfDate(shiftDateOf(a.CALL_TIME))} shift</span><span>Key Map ${esc(a.KeyMap||"—")}</span></div>
+    <div class="addr">${esc(label)}</div><div class="type">${toneTag("t-fire")}${esc(a.IncidentType)}${alarmLbl(a.IncidentType,a.ALARM_LEVEL,n=>" — <b>Alarm "+n+"</b>")}${isWorkingNow(a)?" "+wfTag:""}</div>
+    <div class="units">${unitsHtml((a.Units||"").split(",").filter(Boolean).map(u=>({u:u.trim()})))||'<span class="note" style="padding:0">No units listed.</span>'}</div>
+    ${has?cityNav(k,a.LATITUDE,a.LONGITUDE,label,st):'<div class="note" style="padding:0">No map location in the City feed.</div>'}
+    ${has?(hyd?hydHtml(hyd):'<div class="hyd"><div class="hh">Nearest hydrants</div><span class="note" style="padding:0">Looking up City GIS…</span></div>'):""}`;
+    det.querySelector(".x").onclick=closeTk};
+  draw(null);bk.hidden=false;box.classList.add("paused");bk.scrollTop=0;
+  Promise.all([loadAllStations(),has?nearestHyd(a.LATITUDE,a.LONGITUDE,3):null]).then(([,h])=>{if(!det.hidden&&det.querySelector(".x"))draw(h)})}
+async function load(){
+  try{const r=await fetch(URL_+"&_="+Date.now());const j=await r.json();if(j.error)throw new Error(j.error.message);
+    const all=(j.features||[]).map(f=>f.attributes);document.getElementById("city").textContent="City: "+all.length+" active";renderTicker(all);
+    data=all.map(a=>({...a,_st:[...new Set((a.Units||"").split(",").map(unitStation).filter(Boolean))]})).filter(a=>a._st.length);
+    document.getElementById("upd").textContent="live updated "+tm(Date.now())+" · "+data.length+" active";renderLive();
+  }catch(e){document.getElementById("list").innerHTML='<div class="err">Could not load the City feed: '+esc(e.message)+'</div>'}
+}
+document.getElementById("infoBtn").onclick=()=>document.getElementById("infoPanel").classList.toggle("on");
+document.getElementById("ref").onclick=load;load();loadHyd().then(()=>{try{renderHistory()}catch(e){}});setInterval(load,60000);
+
+// HISTORY
+let S=STATS||{runs:[],runs_periods:{},tour_counts:{},working_fires:[],other_long_fire_calls:[],logging_start_str:"—",generated_str:"—"};
+function table(el,cols,rows,sortIdx){let si=sortIdx,dir=-1;
+  const draw=()=>{const r=[...rows].sort((a,b)=>{const x=cols[si].v(a),y=cols[si].v(b);return (x>y?1:x<y?-1:0)*dir});
+    el.innerHTML="<thead><tr>"+cols.map((c,i)=>`<th class="${c.n?"n":""}" data-i="${i}">${c.h}${i===si?(dir<0?" ▾":" ▴"):""}</th>`).join("")+"</tr></thead><tbody>"+(r.map(x=>"<tr>"+cols.map(c=>`<td class="${c.n?"n":""}">${c.f?c.f(x):esc(c.v(x))}</td>`).join("")+"</tr>").join("")||`<tr><td colspan="${cols.length}" class="note">Nothing logged yet.</td></tr>`)+"</tbody>";
+    el.querySelectorAll("th").forEach(th=>th.onclick=()=>{const i=+th.dataset.i;if(i===si)dir=-dir;else{si=i;dir=cols[i].n?-1:1}draw()})};draw()}
+const N=k=>({h:k,n:1,v:x=>x[k]||0});
+// ---- Year selector: current year from stats.json/points.json, past years from archive/<year>/ ----
+let SEL_YEAR=null;const YCACHE={};
+const curYear=()=>S.year||new Date().getFullYear();
+const isPast=()=>SEL_YEAR&&SEL_YEAR!==curYear();
+function YS(){return isPast()?(YCACHE[SEL_YEAR]||{runs:[],runs_periods:{ytd:[]},working_fires:[],other_long_fire_calls:[],year:SEL_YEAR}):S}
+function fillYears(){const ys=(S.years&&S.years.length?S.years:[curYear()]);const v=SEL_YEAR||curYear();
+  document.querySelectorAll(".ysel").forEach(el=>{el.innerHTML=ys.map(y=>`<option value="${y}">${y}</option>`).join("");el.value=v;el.onchange=()=>setYear(+el.value)})}
+async function setYear(y){SEL_YEAR=(y===curYear())?null:y;
+  if(isPast()&&!YCACHE[y]){try{const r=await fetch(`archive/${y}/stats.json`,{cache:"no-store"});if(r.ok)YCACHE[y]=await r.json()}catch(e){}}
+  if(isPast())R_PER="ytd";PTS=null;renderHistory();
+  const on=document.querySelector(".tab.on");const k=on&&on.dataset.k;if(k==="heat"||k==="metrics"){await ensurePoints();renderMetrics();renderHeatTable();drawHeat()}}
+function renderHistory(){
+fillYears();
+document.getElementById("since").innerHTML=`<b>Counts since ${esc(S.logging_start_str)} CT</b> (logging start) · stats as of ${esc(S.generated_str)} CT · ${S.total_incidents_logged||0} HFD incidents logged, ${S.district_incidents||0} with a District 83 unit · durations approximate (feed refreshes ~every 5 min)`;
+renderTour();renderRuns();const _on=document.querySelector(".tab.on");if(_on&&_on.dataset.k==="transport")loadTransport();
+document.getElementById("wfrule").textContent=`A working fire is a fire box with a District 83 unit on it that stayed in the CAD feed ${S.working_fire_min||45}+ minutes (from call time). Fire boxes: structure-fire types (house, apartment, store/commercial, building, high rise, townhome, warehouse, etc.) and 111 / 211–811 FIRE codes. 111–811 means an additional alarm was called; the code alone does not make it a working fire. Also a working fire: any fire call (including fire events and trash/grass/vehicle fires) with 2+ units on it at the same time for more than ${S.multi_unit_wf_min||60} minutes (total time with 2+ units listed together). Not counted: alarms, detectors, stand-bys, investigations, checks and gas leaks. Time on CAD is approximate (±5 min).`;
+const wfCols=[{h:"Date",v:x=>x.t,f:x=>dt(x.t)},{h:"Shift",v:x=>x.sh},{h:"Address",v:x=>x.addr,f:x=>esc(x.addr)+(x.cs?" @ "+esc(x.cs):"")+incNav("wf_"+x.k,x.lat,x.lon,x.addr,x.units.filter(u=>u.d).map(u=>unitStation(u.u)),true)+(()=>{const r=nearestSync(x.lat,x.lon,1);return r&&r.list.length?`<div class="note" style="padding:2px 0 0">Hydrant ${Math.round(r.list[0].d)} ft · ${esc(r.list[0].h[3])} · #${esc(r.list[0].h[2])}</div>`:""})()},{h:"Type",v:x=>x.type,f:x=>esc(x.type)+((x.why||(x.wt&&(x.cad??0)>=(S.working_fire_min||45)))?"<br>"+wfTag+(x.why&&x.why.startsWith("2+")?` <span class="note" style="padding:0">${esc(x.why)}</span>`:""):"")},{h:"On CAD",n:1,v:x=>x.cad??x.min,f:x=>fmtMin(x.cad??x.min)},{h:"Units",v:x=>x.units.length,f:x=>`<div class="units" style="margin:0">${x.units.map(u=>pill(u.u,u.d,x.long_units.includes(u.u)?'style="outline:2px solid #d0544f;outline-offset:1px"':"",u.u+" · "+fmtMin(u.min))).join("")}</div>`}];
+table(document.getElementById("wf"),wfCols,YS().working_fires||[],0);
+table(document.getElementById("wfo"),wfCols,YS().other_long_fire_calls||[],0);
+table(document.getElementById("wfu"),[{h:"Unit",v:x=>x.unit,f:x=>pill(x.unit,true)},{h:"Station",v:x=>+x.station},{h:"Working fires",n:1,v:x=>x.wf}],(YS().runs||[]).filter(r=>r.wf>0),2);
+if(PTS){renderMetrics();renderHeatTable();drawHeat()}
+}
+// ---- By Shift: one tour at a time ----
+const SHIFTS=["A","B","C","D"];
+let SEL_SH=shiftOfDate(TODAY);const TOUR_SEL={};const TOURS={};let SHOW_ALL=false;
+function logStartSd(){return S.logging_start?shiftDateOf(S.logging_start):TODAY}
+function lastTourOf(sh,from){let d=from||TODAY;for(let i=0;i<20&&shiftOfDate(d)!==sh;i++)d=addDays(d,-1);return d}
+function stepTour(sh,d,dir){let x=d;for(let i=0;i<20;i++){x=addDays(x,dir);if(shiftOfDate(x)===sh)return x}return d}
+const fmtDay=ds=>new Date(ds+"T12:00:00Z").toLocaleDateString([],{timeZone:"UTC",weekday:"short",month:"short",day:"numeric"});
+async function loadTour(sd,force){if(TOURS[sd]&&!force&&sd!==TODAY)return TOURS[sd];if(location.protocol==="file:")return TOURS[sd]={incidents:[]};
+  try{const r=await fetch(`tours/${sd}.json?g=${S.generated||Date.now()}`,{cache:"no-store"});TOURS[sd]=r.ok?await r.json():{incidents:[]}}catch(e){TOURS[sd]={incidents:[],err:1}}return TOURS[sd]}
+function crow(d){const cls=tone(d.type,d.alarm);const mine=d.units.filter(u=>u.d);
+  return `<details class="crow ${cls}" data-k="${esc(d.k)}"><summary><span class="ct">${tm(d.t)}</span><span class="cg">${toneTag(cls)}</span><span class="ca">${esc(d.addr)}${d.cs?" @ "+esc(d.cs):""}</span><span class="cu">${mine.map(u=>pill(u.u,true)).join("")}</span></summary>
+  <div class="cdet"><div class="type">${esc(d.type)}${alarmLbl(d.type,d.alarm,n=>" — <b>Alarm "+n+"</b>")} · Key Map ${esc(d.km||"—")} · on feed ~${fmtMin(d.min)}</div><div class="units">${unitsHtml(d.units)}</div>${incNav("tour_"+d.k,d.lat,d.lon,d.addr+(d.cs?" @ "+d.cs:""),mine.map(u=>unitStation(u.u)),false)}${isFireCall(d.type,d.alarm)?hydHtml(nearestSync(d.lat,d.lon,3)):""}</div></details>`}
+async function renderTour(){
+  document.getElementById("shSeg").innerHTML=SHIFTS.map(x=>`<button data-s="${x}" class="${x===SEL_SH?"on":""}">${x}${x===shiftOfDate(TODAY)?'<span class="dot" title="On duty"></span>':""}</button>`).join("");
+  document.querySelectorAll("#shSeg button").forEach(b=>b.onclick=()=>{SEL_SH=b.dataset.s;SHOW_ALL=false;renderTour()});
+  const latest=lastTourOf(SEL_SH,TODAY);const sd=TOUR_SEL[SEL_SH]||latest;const first=lastTourOf(SEL_SH,logStartSd());
+  document.getElementById("tLabel").innerHTML=`${SEL_SH} Shift · ${fmtDay(sd)}<small>${sd===TODAY?"Current tour":sd===latest?"Most recent tour":sd}</small>`;
+  const pv=document.getElementById("tPrev"),nx=document.getElementById("tNext");pv.disabled=sd<=first;nx.disabled=sd>=latest;
+  pv.onclick=()=>{TOUR_SEL[SEL_SH]=stepTour(SEL_SH,sd,-1);SHOW_ALL=false;renderTour()};nx.onclick=()=>{TOUR_SEL[SEL_SH]=stepTour(SEL_SH,sd,1);SHOW_ALL=false;renderTour()};
+  const body=document.getElementById("tourBody");
+  if(sd<logStartSd()&&!(S.tour_counts||{})[sd]){body.innerHTML='<div class="note" style="padding:8px 0">Before logging started (logging began '+esc(S.logging_start_str||"")+' CT).</div>';return}
+  const open=new Set([...body.querySelectorAll("details.crow[open]")].map(e=>e.dataset.k));
+  const t=await loadTour(sd);const rows=[...(t.incidents||[])].sort((a,b)=>b.t-a.t);
+  if((TOUR_SEL[SEL_SH]||latest)!==sd)return;
+  const n={fire:0,ems:0,other:0},uc={};rows.forEach(d=>{const c=tone(d.type,d.alarm);n[c==="t-fire"?"fire":c==="t-ems"?"ems":"other"]++;d.units.filter(u=>u.d).forEach(u=>uc[u.u]=(uc[u.u]||0)+1)});
+  const top=Object.entries(uc).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))[0];
+  const sum=`<div class="sumrow"><div class="stat"><b>${rows.length}</b>Calls</div><div class="stat fire"><b>${n.fire}</b>Fire</div><div class="stat ems"><b>${n.ems}</b>EMS</div><div class="stat"><b>${n.other}</b>Other</div><div class="stat"><b>${top?pill(top[0],true)+" "+top[1]:"—"}</b>Busiest unit</div></div>`;
+  if(!rows.length){body.innerHTML=sum+'<div class="note" style="padding:8px 0">No District 83 calls logged for this tour.</div>';return}
+  const LIM=15,shown=SHOW_ALL?rows:rows.slice(0,LIM);
+  body.innerHTML=sum+`<div class="calls">${shown.map(crow).join("")}</div>`+(rows.length>LIM&&!SHOW_ALL?`<button class="showall" id="showAll">Show all ${rows.length} calls</button>`:"");
+  body.querySelectorAll("details.crow").forEach(e=>{if(open.has(e.dataset.k))e.open=true});
+  const sa=document.getElementById("showAll");if(sa)sa.onclick=()=>{SHOW_ALL=true;renderTour()}}
+// ---- Unit Run Counts: Fire | EMS, by station ----
+let R_PER="tour";  // opens on "This shift" so it visibly resets at 06:30
+function renderRuns(){
+  const Y=YS();const per=isPast()?[["ytd","Full year"]]:[["tour","This shift"],["month","This month"],["ytd","Year to date"]];if(isPast())R_PER="ytd";
+  document.getElementById("rPer").innerHTML=per.map(([k,l])=>`<button data-k="${k}" class="${k===R_PER?"on":""}">${l}</button>`).join("");
+  document.querySelectorAll("#rPer button").forEach(b=>b.onclick=()=>{R_PER=b.dataset.k;renderRuns()});
+  // stats.json can lag the 06:30 change by a few minutes; until it catches up, "This shift" is the new tour with 0 runs
+  const lag=!isPast()&&R_PER==="tour"&&S.current_tour&&S.current_tour.sd!==TODAY;
+  const ct=lag||!S.current_tour?{sd:TODAY,sh:shiftOfDate(TODAY)}:S.current_tour;
+  document.getElementById("rNote").textContent=R_PER==="tour"?`${ct.sh} Shift tour of ${fmtDay(ct.sd)} (from 06:30 CT).`+(lag?" New shift just started; counts update within a few minutes.":""):R_PER==="month"?`${new Date().toLocaleDateString([],{timeZone:TZ,month:"long",year:"numeric"})} (by call time, CT).`:isPast()?`Full year ${Y.year} (Jan 1 00:00 – Dec 31 23:59 CT, by call time).`:`${Y.year||""} year to date (from Jan 1 00:00 CT, by call time); logging began ${S.logging_start_str||""} CT.`;
+  const ORD=["E","L","T","R","RS","D","DC","A","M","AS"];const pre=u=>(String(u).match(/^[A-Z]+/)||[""])[0];
+  const list=[...(lag?[]:((Y.runs_periods||{})[R_PER]||[]))].sort((a,b)=>{const x=ORD.indexOf(pre(a.unit)),y=ORD.indexOf(pre(b.unit));return (x<0?99:x)-(y<0?99:y)||a.unit.localeCompare(b.unit)});const fire=true;
+  document.getElementById("runCards").innerHTML=STATIONS.map(st=>{const us=list.filter(r=>r.station===st);const tot=us.reduce((a,r)=>a+r.total,0);
+    const cell=(v,k)=>`<td class="${v?"":"z"}${k&&k===ct.sh&&R_PER==="tour"?" cur":""}">${v||0}</td>`;
+    const bz=lag?null:((Y.busiest||{})[R_PER]||{})[st];const hr=h=>(h==null?"—":(+h).toFixed(1));
+    return `<div class="scard"><h3>Station ${st}<span>${tot} run${tot===1?"":"s"}</span></h3>`+(bz&&us.length?`<div class="busy">Busiest: ${pill(bz.unit,true)} — ${bz.total} run${bz.total===1?"":"s"} · ${hr(bz.hrs)} hrs</div>`:"")+(us.length?`<table class="rt"><tr><th>Unit</th>${SHIFTS.map(x=>`<th class="${x===ct.sh&&R_PER==="tour"?"cur":""}">${x}</th>`).join("")}<th>Total</th>${fire?"<th>WF</th>":""}<th>Hrs</th></tr>`+us.map(r=>`<tr><td>${pill(r.unit,true)}</td>${SHIFTS.map(x=>cell(r[x],x)).join("")}<td class="tot">${r.total}</td>${fire?cell(r.wf):""}<td class="${r.hrs?"":"z"}">${hr(r.hrs)}</td></tr>`).join("")+`</table>`:`<div class="note" style="padding:2px 0 4px">No runs in this period.</div>`)+`</div>`}).join("")+(fire?'<div class="note" style="padding:0">WF = working fires (fire boxes in the CAD feed 45+ min). Hrs = hours committed: time listed on each call in the City feed, plus hospital time for A/M units (overlap counted once). Busiest = most runs (tie: most hours); chiefs (D) and EMS supervisors (AS) not ranked.</div>':"")}
+// ---- Heat map + metrics ----
+const LOG_START_NOTE=()=>isPast()?`${SEL_YEAR} full year (by call time, CT).`:`${curYear()} year to date. Logging began ${S.logging_start_str||"—"} CT.`;
+let PTS=null,PTS_G=0;
+async function ensurePoints(){if(location.protocol==="file:"){PTS=PTS||[];return}const key=(SEL_YEAR||curYear())+":"+(isPast()?"a":S.generated);if(PTS&&PTS_G===key)return;try{const r=await fetch(isPast()?`archive/${SEL_YEAR}/points.json`:`points.json?g=${S.generated||Date.now()}`,{cache:"no-store"});const j=await r.json();
+  PTS=j.p.map(p=>({t:p[0],lat:p[1],lon:p[2],km:p[3],sh:p[4],type:j.types[p[5]],units:p[6].map(i=>({u:j.units[i],d:true})),addr:(j.locs[p[7]]||[])[0]||"",cs:(j.locs[p[7]]||[])[1]||""}));PTS_G=key}catch(e){PTS=PTS||[]}}
+function unitOpts(sel){const cur=sel.value;const us=[...new Set((PTS||[]).flatMap(d=>d.units.filter(u=>u.d).map(u=>u.u)))].sort();
+  sel.innerHTML='<option value="">All units</option>'+STATIONS.map(st=>`<option value="st:${st}">Station ${st}</option>`).join("")+us.map(u=>`<option>${u}</option>`).join("");sel.value=cur}
+function filt(unit,shift,type){return (PTS||[]).filter(d=>(!shift||d.sh===shift)&&(!type||cat(d.type)[0]===type)&&(!unit||(unit.startsWith("st:")?d.units.some(u=>u.d&&unitStation(u.u)===unit.slice(3)):d.units.some(u=>u.u===unit))))}
+function bars(el,rows,wide){const mx=Math.max(1,...rows.map(r=>r[1]));el.innerHTML=rows.length?rows.map(([l,n,t])=>`<div class="brow${wide?" wide":""}"><span class="bl" title="${esc(t||l)}">${esc(l)}</span><span class="btrack"><span class="bfill" style="display:block;width:${(n/mx*100).toFixed(1)}%"></span></span><span class="bn">${n}</span></div>`).join(""):'<div class="note" style="padding:0">Nothing logged yet.</div>'}
+function renderMetrics(){const u=document.getElementById("mUnit"),sh=document.getElementById("mShift");unitOpts(u);
+  document.getElementById("metnote").textContent=LOG_START_NOTE();
+  const rows=filt(u.value,sh.value,"");const H=Array(24).fill(0),W=Array(7).fill(0),L={};
+  rows.forEach(d=>{const p=parts(d.t);H[+p.hour]++;W[new Date(`${p.year}-${p.month}-${p.day}T12:00:00Z`).getUTCDay()]++;
+    const loc=d.addr?(d.addr+(d.cs?" @ "+d.cs:"")):("Key Map "+(d.km||"?"));L[loc]=(L[loc]||0)+1});
+  bars(document.getElementById("mHour"),H.map((n,h)=>[String(h).padStart(2,"0")+"00",n]));
+  const DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];bars(document.getElementById("mDow"),[1,2,3,4,5,6,0].map(i=>[DN[i],W[i]]));
+  bars(document.getElementById("mLoc"),Object.entries(L).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,10),true)}
+let HM=null,HL=null,HPTS=null;
+function loadScript(src){return new Promise((ok,no)=>{const e=document.createElement("script");e.src=src;e.crossOrigin="";e.onload=ok;e.onerror=no;document.head.appendChild(e)})}
+async function initHeat(){renderHeatTable();if(HM){setTimeout(()=>HM.invalidateSize(),50);drawHeat();return}
+  try{if(!window.L)await loadScript("https://unpkg.com/leaflet@1.9.4/dist/leaflet.js");if(!L.heatLayer)await loadScript("https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js")}
+  catch(e){document.getElementById("hmap").innerHTML='<div class="err">Map library could not load (offline?). The Key Map table below still works.</div>';return}
+  HM=L.map("hmap",{zoomControl:true,zoomSnap:0.25}).setView([29.725,-95.57],13);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,className:"darktiles",attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(HM);
+  HPTS=L.layerGroup().addTo(HM);
+  [["10",29.70664689,-95.55147949],["69",29.75096437,-95.55835238],["76",29.69934028,-95.59608793],["83",29.72663116,-95.57731468]].forEach(([n,la,lo])=>L.marker([la,lo],{icon:L.divIcon({className:"",html:`<div style="background:#8B0000;color:#fff;border:2px solid #f1c40f;border-radius:6px;padding:1px 4px;font-weight:800;font-size:12px;white-space:nowrap">Sta ${n}</div>`,iconSize:null})}).addTo(HM));
+  const fit=()=>{HM.invalidateSize();HM.fitBounds([[29.657,-95.631],[29.791,-95.513]],{padding:[10,10]})};fit();setTimeout(fit,150);
+  drawHeat()}
+function heatRows(){return filt(document.getElementById("hUnit").value,document.getElementById("hShift").value,document.getElementById("hType").value)}
+function drawHeat(){if(!HM)return;const rows=heatRows().filter(d=>d.lat!=null&&d.lon!=null);
+  if(HL)HM.removeLayer(HL);HL=L.heatLayer(rows.map(d=>[d.lat,d.lon,1]),{radius:22,blur:18,minOpacity:.35,maxZoom:15}).addTo(HM);
+  HPTS.clearLayers();rows.forEach(d=>L.circleMarker([d.lat,d.lon],{radius:4,color:"#fff",weight:1,fillColor:"#f1c40f",fillOpacity:.9}).bindPopup(`<b>${esc(d.addr)}${d.cs?" @ "+esc(d.cs):""}</b><br>${esc(d.type)}<br>${dt(d.t)} · ${d.sh} shift<br>${d.units.map(u=>esc(u.u)).join(", ")}`).addTo(HPTS));
+  document.getElementById("heatnote").textContent=LOG_START_NOTE()+` Showing ${rows.length} incident${rows.length===1?"":"s"} with coordinates.`}
+function renderHeatTable(){const u=document.getElementById("hUnit");unitOpts(u);const rows=heatRows();const K={};
+  rows.forEach(d=>{const k=(d.km||"?").trim();const o=K[k]||(K[k]={km:k,n:0,A:0,B:0,C:0,D:0,fire:0});o.n++;o[d.sh]=(o[d.sh]||0)+1;if(cat(d.type)[0]==="Fire")o.fire++});
+  table(document.getElementById("kmt"),[{h:"Key Map",v:x=>x.km},{h:"Incidents",n:1,v:x=>x.n,f:x=>"<b>"+x.n+"</b>"},N("A"),N("B"),N("C"),N("D"),{h:"Fire",n:1,v:x=>x.fire}],Object.values(K),1);
+  document.getElementById("heatnote").textContent=LOG_START_NOTE()}
+["hUnit","hShift","hType"].forEach(id=>document.getElementById(id).onchange=()=>{renderHeatTable();drawHeat()});
+["mUnit","mShift"].forEach(id=>document.getElementById(id).onchange=renderMetrics);
+
+renderHistory();
+async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();WF_LIVE=new Set(S.wf_live||[]);if(PTS)await ensurePoints();renderHistory()}catch(e){console.warn("stats.json",e)}}
+function staleCheck(){const el=document.getElementById("staleBar");if(!el)return;const g=S&&S.generated;if(location.protocol==="file:"||!g){el.hidden=true;return}
+  const m=Math.floor((Date.now()-g)/60000);if(m<=15){el.hidden=true;return}
+  el.innerHTML=`<b>History data is ${m>=120?Math.floor(m/60)+" h":m+" min"} old</b> (last update ${esc(dt(g))} CT)<small>Shift, run counts and maps may be behind. The Live tab still reads the City feed directly.</small>`;el.hidden=false}
+loadStats().then(staleCheck);setInterval(()=>loadStats().then(staleCheck),60000);setInterval(staleCheck,30000);staleCheck();
+</script></body></html>
