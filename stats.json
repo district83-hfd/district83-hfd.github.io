@@ -1,18 +1,18 @@
 {
- "generated": 1792612815586,
- "generated_str": "2026-10-21 15:00",
+ "generated": 1792613535475,
+ "generated_str": "2026-10-21 15:12",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792612814816,
- "last_ok_poll_str": "2026-10-21 15:00",
- "polls": 405,
- "polls_ok": 405,
- "total_incidents_logged": 929,
- "district_incidents": 57,
+ "last_ok_poll": 1792613534816,
+ "last_ok_poll_str": "2026-10-21 15:12",
+ "polls": 411,
+ "polls_ok": 411,
+ "total_incidents_logged": 942,
+ "district_incidents": 58,
  "shift_change": "06:30",
  "working_fire_min": 45,
  "multi_unit_wf_min": 60,
@@ -156,7 +156,7 @@
    "D": 5,
    "total": 7,
    "wf": 0,
-   "hrs": 8.2
+   "hrs": 8.4
   },
   {
    "unit": "M010",
@@ -220,7 +220,7 @@
    "D": 5,
    "total": 9,
    "wf": 0,
-   "hrs": 8.4
+   "hrs": 8.6
   },
   {
    "unit": "AS069",
@@ -277,10 +277,10 @@
    "A": 0,
    "B": 0,
    "C": 3,
-   "D": 5,
-   "total": 8,
+   "D": 6,
+   "total": 9,
    "wf": 0,
-   "hrs": 8.9
+   "hrs": 9.0
   },
   {
    "unit": "M083",
@@ -292,7 +292,7 @@
    "D": 5,
    "total": 6,
    "wf": 0,
-   "hrs": 7.5
+   "hrs": 7.7
   }
  ],
  "runs_periods": {
@@ -327,7 +327,7 @@
     "D": 5,
     "total": 7,
     "wf": 0,
-    "hrs": 8.2
+    "hrs": 8.4
    },
    {
     "unit": "M010",
@@ -391,7 +391,7 @@
     "D": 5,
     "total": 9,
     "wf": 0,
-    "hrs": 8.4
+    "hrs": 8.6
    },
    {
     "unit": "AS069",
@@ -448,10 +448,10 @@
     "A": 0,
     "B": 0,
     "C": 3,
-    "D": 5,
-    "total": 8,
+    "D": 6,
+    "total": 9,
     "wf": 0,
-    "hrs": 8.9
+    "hrs": 9.0
    },
    {
     "unit": "M083",
@@ -463,7 +463,7 @@
     "D": 5,
     "total": 6,
     "wf": 0,
-    "hrs": 7.5
+    "hrs": 7.7
    }
   ],
   "tour": [
@@ -497,7 +497,7 @@
     "D": 5,
     "total": 5,
     "wf": 0,
-    "hrs": 6.1
+    "hrs": 6.3
    },
    {
     "unit": "M010",
@@ -561,7 +561,7 @@
     "D": 5,
     "total": 5,
     "wf": 0,
-    "hrs": 5.1
+    "hrs": 5.3
    },
    {
     "unit": "AS069",
@@ -618,10 +618,10 @@
     "A": 0,
     "B": 0,
     "C": 0,
-    "D": 5,
-    "total": 5,
+    "D": 6,
+    "total": 6,
     "wf": 0,
-    "hrs": 6.2
+    "hrs": 6.3
    },
    {
     "unit": "M083",
@@ -633,7 +633,7 @@
     "D": 5,
     "total": 5,
     "wf": 0,
-    "hrs": 5.5
+    "hrs": 5.7
    }
   ],
   "month": [
@@ -667,7 +667,7 @@
     "D": 5,
     "total": 7,
     "wf": 0,
-    "hrs": 8.2
+    "hrs": 8.4
    },
    {
     "unit": "M010",
@@ -731,7 +731,7 @@
     "D": 5,
     "total": 9,
     "wf": 0,
-    "hrs": 8.4
+    "hrs": 8.6
    },
    {
     "unit": "AS069",
@@ -788,10 +788,10 @@
     "A": 0,
     "B": 0,
     "C": 3,
-    "D": 5,
-    "total": 8,
+    "D": 6,
+    "total": 9,
     "wf": 0,
-    "hrs": 8.9
+    "hrs": 9.0
    },
    {
     "unit": "M083",
@@ -803,7 +803,7 @@
     "D": 5,
     "total": 6,
     "wf": 0,
-    "hrs": 7.5
+    "hrs": 7.7
    }
   ]
  },
@@ -812,12 +812,12 @@
    "10": {
     "unit": "A010",
     "total": 7,
-    "hrs": 8.2
+    "hrs": 8.4
    },
    "69": {
     "unit": "A069",
     "total": 9,
-    "hrs": 8.4
+    "hrs": 8.6
    },
    "76": {
     "unit": "A076",
@@ -826,20 +826,20 @@
    },
    "83": {
     "unit": "A083",
-    "total": 8,
-    "hrs": 8.9
+    "total": 9,
+    "hrs": 9.0
    }
   },
   "tour": {
    "10": {
     "unit": "A010",
     "total": 5,
-    "hrs": 6.1
+    "hrs": 6.3
    },
    "69": {
     "unit": "A069",
     "total": 5,
-    "hrs": 5.1
+    "hrs": 5.3
    },
    "76": {
     "unit": "A076",
@@ -848,20 +848,20 @@
    },
    "83": {
     "unit": "A083",
-    "total": 5,
-    "hrs": 6.2
+    "total": 6,
+    "hrs": 6.3
    }
   },
   "month": {
    "10": {
     "unit": "A010",
     "total": 7,
-    "hrs": 8.2
+    "hrs": 8.4
    },
    "69": {
     "unit": "A069",
     "total": 9,
-    "hrs": 8.4
+    "hrs": 8.6
    },
    "76": {
     "unit": "A076",
@@ -870,14 +870,14 @@
    },
    "83": {
     "unit": "A083",
-    "total": 8,
-    "hrs": 8.9
+    "total": 9,
+    "hrs": 9.0
    }
   }
  },
  "tour_counts": {
   "2026-10-20": 14,
-  "2026-10-21": 43
+  "2026-10-21": 44
  },
  "working_fires": [
   {
