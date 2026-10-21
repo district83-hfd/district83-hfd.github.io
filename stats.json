@@ -1,18 +1,18 @@
 {
- "generated": 1792617256433,
- "generated_str": "2026-10-21 16:14",
+ "generated": 1792617736481,
+ "generated_str": "2026-10-21 16:22",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792617255734,
- "last_ok_poll_str": "2026-10-21 16:14",
- "polls": 460,
- "polls_ok": 460,
- "total_incidents_logged": 999,
- "district_incidents": 64,
+ "last_ok_poll": 1792617735736,
+ "last_ok_poll_str": "2026-10-21 16:22",
+ "polls": 468,
+ "polls_ok": 468,
+ "total_incidents_logged": 1009,
+ "district_incidents": 65,
  "shift_change": "06:30",
  "working_fire_min": 45,
  "multi_unit_wf_min": 60,
@@ -171,7 +171,7 @@
    "D": 5,
    "total": 7,
    "wf": 0,
-   "hrs": 5.8
+   "hrs": 5.9
   },
   {
    "unit": "E069",
@@ -282,10 +282,10 @@
    "A": 0,
    "B": 0,
    "C": 3,
-   "D": 6,
-   "total": 9,
+   "D": 7,
+   "total": 10,
    "wf": 0,
-   "hrs": 10.0
+   "hrs": 10.1
   },
   {
    "unit": "M083",
@@ -344,7 +344,7 @@
     "D": 5,
     "total": 7,
     "wf": 0,
-    "hrs": 5.8
+    "hrs": 5.9
    },
    {
     "unit": "E069",
@@ -455,10 +455,10 @@
     "A": 0,
     "B": 0,
     "C": 3,
-    "D": 6,
-    "total": 9,
+    "D": 7,
+    "total": 10,
     "wf": 0,
-    "hrs": 10.0
+    "hrs": 10.1
    },
    {
     "unit": "M083",
@@ -516,7 +516,7 @@
     "D": 5,
     "total": 5,
     "wf": 0,
-    "hrs": 5.2
+    "hrs": 5.3
    },
    {
     "unit": "E069",
@@ -627,8 +627,8 @@
     "A": 0,
     "B": 0,
     "C": 0,
-    "D": 6,
-    "total": 6,
+    "D": 7,
+    "total": 7,
     "wf": 0,
     "hrs": 7.4
    },
@@ -688,7 +688,7 @@
     "D": 5,
     "total": 7,
     "wf": 0,
-    "hrs": 5.8
+    "hrs": 5.9
    },
    {
     "unit": "E069",
@@ -799,10 +799,10 @@
     "A": 0,
     "B": 0,
     "C": 3,
-    "D": 6,
-    "total": 9,
+    "D": 7,
+    "total": 10,
     "wf": 0,
-    "hrs": 10.0
+    "hrs": 10.1
    },
    {
     "unit": "M083",
@@ -837,8 +837,8 @@
    },
    "83": {
     "unit": "A083",
-    "total": 9,
-    "hrs": 10.0
+    "total": 10,
+    "hrs": 10.1
    }
   },
   "tour": {
@@ -859,7 +859,7 @@
    },
    "83": {
     "unit": "A083",
-    "total": 6,
+    "total": 7,
     "hrs": 7.4
    }
   },
@@ -881,14 +881,14 @@
    },
    "83": {
     "unit": "A083",
-    "total": 9,
-    "hrs": 10.0
+    "total": 10,
+    "hrs": 10.1
    }
   }
  },
  "tour_counts": {
   "2026-10-20": 14,
-  "2026-10-21": 50
+  "2026-10-21": 51
  },
  "working_fires": [
   {
