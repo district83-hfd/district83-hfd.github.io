@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: { name: github-pages, url: "${{ steps.d.outputs.page_url }}" }
     steps:
+      # v26: always deploy the newest main, not the (possibly 45-min-old) commit that queued this run
       - uses: actions/checkout@v4
+        with: { ref: main }
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with: { path: . }
