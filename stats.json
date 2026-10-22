@@ -1,17 +1,17 @@
 {
- "generated": 1792661317648,
- "generated_str": "2026-10-22 04:28",
+ "generated": 1792661953113,
+ "generated_str": "2026-10-22 04:39",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792661316677,
- "last_ok_poll_str": "2026-10-22 04:28",
- "polls": 1030,
- "polls_ok": 1019,
- "total_incidents_logged": 1546,
+ "last_ok_poll": 1792661952147,
+ "last_ok_poll_str": "2026-10-22 04:39",
+ "polls": 1034,
+ "polls_ok": 1023,
+ "total_incidents_logged": 1553,
  "district_incidents": 109,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -193,7 +193,7 @@
    "D": 12,
    "total": 14,
    "wf": 0,
-   "hrs": 14.2
+   "hrs": 14.4
   },
   {
    "unit": "E069",
@@ -360,7 +360,7 @@
    "D": 10,
    "total": 11,
    "wf": 0,
-   "hrs": 15.6
+   "hrs": 15.7
   }
  ],
  "runs_periods": {
@@ -431,7 +431,7 @@
     "D": 12,
     "total": 14,
     "wf": 0,
-    "hrs": 14.2
+    "hrs": 14.4
    },
    {
     "unit": "E069",
@@ -598,7 +598,7 @@
     "D": 10,
     "total": 11,
     "wf": 0,
-    "hrs": 15.6
+    "hrs": 15.7
    }
   ],
   "tour": [
@@ -668,7 +668,7 @@
     "D": 12,
     "total": 12,
     "wf": 0,
-    "hrs": 13.6
+    "hrs": 13.8
    },
    {
     "unit": "E069",
@@ -835,7 +835,7 @@
     "D": 10,
     "total": 10,
     "wf": 0,
-    "hrs": 13.6
+    "hrs": 13.7
    }
   ],
   "month": [
@@ -905,7 +905,7 @@
     "D": 12,
     "total": 14,
     "wf": 0,
-    "hrs": 14.2
+    "hrs": 14.4
    },
    {
     "unit": "E069",
@@ -1072,7 +1072,7 @@
     "D": 10,
     "total": 11,
     "wf": 0,
-    "hrs": 15.6
+    "hrs": 15.7
    }
   ]
  },
@@ -1081,7 +1081,7 @@
    "10": {
     "unit": "M010",
     "total": 14,
-    "hrs": 14.2
+    "hrs": 14.4
    },
    "69": {
     "unit": "A069",
@@ -1103,7 +1103,7 @@
    "10": {
     "unit": "M010",
     "total": 12,
-    "hrs": 13.6
+    "hrs": 13.8
    },
    "69": {
     "unit": "A069",
@@ -1125,7 +1125,7 @@
    "10": {
     "unit": "M010",
     "total": 14,
-    "hrs": 14.2
+    "hrs": 14.4
    },
    "69": {
     "unit": "A069",
