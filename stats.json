@@ -1,17 +1,17 @@
 {
- "generated": 1792657040579,
- "generated_str": "2026-10-22 03:17",
+ "generated": 1792657624963,
+ "generated_str": "2026-10-22 03:27",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792657039688,
- "last_ok_poll_str": "2026-10-22 03:17",
- "polls": 992,
- "polls_ok": 983,
- "total_incidents_logged": 1520,
+ "last_ok_poll": 1792657624227,
+ "last_ok_poll_str": "2026-10-22 03:27",
+ "polls": 998,
+ "polls_ok": 988,
+ "total_incidents_logged": 1525,
  "district_incidents": 108,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -260,7 +260,7 @@
    "D": 5,
    "total": 6,
    "wf": 0,
-   "hrs": 5.7
+   "hrs": 5.9
   },
   {
    "unit": "E076",
@@ -360,7 +360,7 @@
    "D": 10,
    "total": 11,
    "wf": 0,
-   "hrs": 14.4
+   "hrs": 14.5
   }
  ],
  "runs_periods": {
@@ -498,7 +498,7 @@
     "D": 5,
     "total": 6,
     "wf": 0,
-    "hrs": 5.7
+    "hrs": 5.9
    },
    {
     "unit": "E076",
@@ -598,7 +598,7 @@
     "D": 10,
     "total": 11,
     "wf": 0,
-    "hrs": 14.4
+    "hrs": 14.5
    }
   ],
   "tour": [
@@ -735,7 +735,7 @@
     "D": 5,
     "total": 5,
     "wf": 0,
-    "hrs": 4.4
+    "hrs": 4.5
    },
    {
     "unit": "E076",
@@ -835,7 +835,7 @@
     "D": 10,
     "total": 10,
     "wf": 0,
-    "hrs": 12.4
+    "hrs": 12.5
    }
   ],
   "month": [
@@ -972,7 +972,7 @@
     "D": 5,
     "total": 6,
     "wf": 0,
-    "hrs": 5.7
+    "hrs": 5.9
    },
    {
     "unit": "E076",
@@ -1072,7 +1072,7 @@
     "D": 10,
     "total": 11,
     "wf": 0,
-    "hrs": 14.4
+    "hrs": 14.5
    }
   ]
  },
