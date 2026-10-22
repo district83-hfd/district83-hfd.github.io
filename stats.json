@@ -1,17 +1,17 @@
 {
- "generated": 1792652902257,
- "generated_str": "2026-10-22 02:08",
+ "generated": 1792653528588,
+ "generated_str": "2026-10-22 02:18",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792652901585,
- "last_ok_poll_str": "2026-10-22 02:08",
- "polls": 949,
- "polls_ok": 943,
- "total_incidents_logged": 1488,
+ "last_ok_poll": 1792653527952,
+ "last_ok_poll_str": "2026-10-22 02:18",
+ "polls": 957,
+ "polls_ok": 951,
+ "total_incidents_logged": 1498,
  "district_incidents": 107,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -110,9 +110,7 @@
   "105": "65"
  },
  "wf_live": [
-  "1792640520000|TIDWELL RD|BLK LOCKWOOD DR",
-  "1792650060000|SATURN LN|BLK NASA PKWY",
-  "1792650480000|SATURN LN|BLK NASA PKWY"
+  "1792640520000|TIDWELL RD|BLK LOCKWOOD DR"
  ],
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
@@ -352,7 +350,7 @@
    "D": 13,
    "total": 16,
    "wf": 0,
-   "hrs": 16.3
+   "hrs": 16.5
   },
   {
    "unit": "M083",
@@ -590,7 +588,7 @@
     "D": 13,
     "total": 16,
     "wf": 0,
-    "hrs": 16.3
+    "hrs": 16.5
    },
    {
     "unit": "M083",
@@ -827,7 +825,7 @@
     "D": 13,
     "total": 13,
     "wf": 0,
-    "hrs": 13.6
+    "hrs": 13.8
    },
    {
     "unit": "M083",
@@ -1064,7 +1062,7 @@
     "D": 13,
     "total": 16,
     "wf": 0,
-    "hrs": 16.3
+    "hrs": 16.5
    },
    {
     "unit": "M083",
@@ -1100,7 +1098,7 @@
    "83": {
     "unit": "A083",
     "total": 16,
-    "hrs": 16.3
+    "hrs": 16.5
    }
   },
   "tour": {
@@ -1122,7 +1120,7 @@
    "83": {
     "unit": "A083",
     "total": 13,
-    "hrs": 13.6
+    "hrs": 13.8
    }
   },
   "month": {
@@ -1144,7 +1142,7 @@
    "83": {
     "unit": "A083",
     "total": 16,
-    "hrs": 16.3
+    "hrs": 16.5
    }
   }
  },
