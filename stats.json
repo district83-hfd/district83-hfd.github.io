@@ -1,17 +1,17 @@
 {
- "generated": 1792631605084,
- "generated_str": "2026-10-21 20:13",
+ "generated": 1792631905258,
+ "generated_str": "2026-10-21 20:18",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792631604242,
- "last_ok_poll_str": "2026-10-21 20:13",
- "polls": 695,
- "polls_ok": 694,
- "total_incidents_logged": 1233,
+ "last_ok_poll": 1792631904243,
+ "last_ok_poll_str": "2026-10-21 20:18",
+ "polls": 700,
+ "polls_ok": 699,
+ "total_incidents_logged": 1240,
  "district_incidents": 85,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -109,10 +109,7 @@
   "104": "102",
   "105": "65"
  },
- "wf_live": [
-  "1792626360000|ARLINGTON ST|BLK E 23RD ST",
-  "1792626480000|ARLINGTON ST|BLK E 23RD ST"
- ],
+ "wf_live": [],
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
   "FIRE ALARM",
@@ -182,7 +179,7 @@
    "D": 9,
    "total": 11,
    "wf": 0,
-   "hrs": 11.8
+   "hrs": 11.9
   },
   {
    "unit": "M010",
@@ -390,7 +387,7 @@
     "D": 9,
     "total": 11,
     "wf": 0,
-    "hrs": 11.8
+    "hrs": 11.9
    },
    {
     "unit": "M010",
@@ -597,7 +594,7 @@
     "D": 9,
     "total": 9,
     "wf": 0,
-    "hrs": 9.7
+    "hrs": 9.8
    },
    {
     "unit": "M010",
@@ -688,7 +685,7 @@
     "D": 9,
     "total": 9,
     "wf": 0,
-    "hrs": 3.0
+    "hrs": 3.1
    },
    {
     "unit": "L076",
@@ -804,7 +801,7 @@
     "D": 9,
     "total": 11,
     "wf": 0,
-    "hrs": 11.8
+    "hrs": 11.9
    },
    {
     "unit": "M010",
@@ -964,7 +961,7 @@
    "10": {
     "unit": "A010",
     "total": 11,
-    "hrs": 11.8
+    "hrs": 11.9
    },
    "69": {
     "unit": "A069",
@@ -986,7 +983,7 @@
    "10": {
     "unit": "A010",
     "total": 9,
-    "hrs": 9.7
+    "hrs": 9.8
    },
    "69": {
     "unit": "A069",
@@ -1008,7 +1005,7 @@
    "10": {
     "unit": "A010",
     "total": 11,
-    "hrs": 11.8
+    "hrs": 11.9
    },
    "69": {
     "unit": "A069",
