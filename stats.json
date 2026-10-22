@@ -1,17 +1,17 @@
 {
- "generated": 1792653588799,
- "generated_str": "2026-10-22 02:19",
+ "generated": 1792654224364,
+ "generated_str": "2026-10-22 02:30",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792653587952,
- "last_ok_poll_str": "2026-10-22 02:19",
- "polls": 958,
- "polls_ok": 952,
- "total_incidents_logged": 1498,
+ "last_ok_poll": 1792654223555,
+ "last_ok_poll_str": "2026-10-22 02:30",
+ "polls": 961,
+ "polls_ok": 954,
+ "total_incidents_logged": 1501,
  "district_incidents": 107,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -109,9 +109,7 @@
   "104": "102",
   "105": "65"
  },
- "wf_live": [
-  "1792640520000|TIDWELL RD|BLK LOCKWOOD DR"
- ],
+ "wf_live": [],
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
   "FIRE ALARM",
@@ -350,7 +348,7 @@
    "D": 13,
    "total": 16,
    "wf": 0,
-   "hrs": 16.5
+   "hrs": 16.7
   },
   {
    "unit": "M083",
@@ -588,7 +586,7 @@
     "D": 13,
     "total": 16,
     "wf": 0,
-    "hrs": 16.5
+    "hrs": 16.7
    },
    {
     "unit": "M083",
@@ -825,7 +823,7 @@
     "D": 13,
     "total": 13,
     "wf": 0,
-    "hrs": 13.8
+    "hrs": 14.0
    },
    {
     "unit": "M083",
@@ -1062,7 +1060,7 @@
     "D": 13,
     "total": 16,
     "wf": 0,
-    "hrs": 16.5
+    "hrs": 16.7
    },
    {
     "unit": "M083",
@@ -1098,7 +1096,7 @@
    "83": {
     "unit": "A083",
     "total": 16,
-    "hrs": 16.5
+    "hrs": 16.7
    }
   },
   "tour": {
@@ -1120,7 +1118,7 @@
    "83": {
     "unit": "A083",
     "total": 13,
-    "hrs": 13.8
+    "hrs": 14.0
    }
   },
   "month": {
@@ -1142,7 +1140,7 @@
    "83": {
     "unit": "A083",
     "total": 16,
-    "hrs": 16.5
+    "hrs": 16.7
    }
   }
  },
