@@ -1,17 +1,17 @@
 {
- "generated": 1792638222691,
- "generated_str": "2026-10-21 22:03",
+ "generated": 1792638642411,
+ "generated_str": "2026-10-21 22:10",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792638221776,
- "last_ok_poll_str": "2026-10-21 22:03",
- "polls": 801,
- "polls_ok": 799,
- "total_incidents_logged": 1334,
+ "last_ok_poll": 1792638641776,
+ "last_ok_poll_str": "2026-10-21 22:10",
+ "polls": 808,
+ "polls_ok": 806,
+ "total_incidents_logged": 1339,
  "district_incidents": 92,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -109,7 +109,10 @@
   "104": "102",
   "105": "65"
  },
- "wf_live": [],
+ "wf_live": [
+  "1792637400000|POST OAK PARK DR|BLK POST OAK PKWY",
+  "1792637700000|POST OAK PARK DR|BLK POST OAK PKWY"
+ ],
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
   "FIRE ALARM",
@@ -248,7 +251,7 @@
    "D": 8,
    "total": 12,
    "wf": 0,
-   "hrs": 13.6
+   "hrs": 13.7
   },
   {
    "unit": "AS069",
@@ -272,7 +275,7 @@
    "D": 11,
    "total": 12,
    "wf": 0,
-   "hrs": 4.1
+   "hrs": 4.2
   },
   {
    "unit": "L076",
@@ -486,7 +489,7 @@
     "D": 8,
     "total": 12,
     "wf": 0,
-    "hrs": 13.6
+    "hrs": 13.7
    },
    {
     "unit": "AS069",
@@ -510,7 +513,7 @@
     "D": 11,
     "total": 12,
     "wf": 0,
-    "hrs": 4.1
+    "hrs": 4.2
    },
    {
     "unit": "L076",
@@ -723,7 +726,7 @@
     "D": 8,
     "total": 8,
     "wf": 0,
-    "hrs": 10.4
+    "hrs": 10.5
    },
    {
     "unit": "AS069",
@@ -747,7 +750,7 @@
     "D": 11,
     "total": 11,
     "wf": 0,
-    "hrs": 3.6
+    "hrs": 3.7
    },
    {
     "unit": "L076",
@@ -960,7 +963,7 @@
     "D": 8,
     "total": 12,
     "wf": 0,
-    "hrs": 13.6
+    "hrs": 13.7
    },
    {
     "unit": "AS069",
@@ -984,7 +987,7 @@
     "D": 11,
     "total": 12,
     "wf": 0,
-    "hrs": 4.1
+    "hrs": 4.2
    },
    {
     "unit": "L076",
@@ -1086,7 +1089,7 @@
    "69": {
     "unit": "A069",
     "total": 12,
-    "hrs": 13.6
+    "hrs": 13.7
    },
    "76": {
     "unit": "A076",
@@ -1108,7 +1111,7 @@
    "69": {
     "unit": "A069",
     "total": 8,
-    "hrs": 10.4
+    "hrs": 10.5
    },
    "76": {
     "unit": "A076",
@@ -1130,7 +1133,7 @@
    "69": {
     "unit": "A069",
     "total": 12,
-    "hrs": 13.6
+    "hrs": 13.7
    },
    "76": {
     "unit": "A076",
