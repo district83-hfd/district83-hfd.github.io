@@ -1,17 +1,17 @@
 {
- "generated": 1792655926882,
- "generated_str": "2026-10-22 02:58",
+ "generated": 1792656435390,
+ "generated_str": "2026-10-22 03:07",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792655925927,
- "last_ok_poll_str": "2026-10-22 02:58",
- "polls": 980,
- "polls_ok": 972,
- "total_incidents_logged": 1513,
+ "last_ok_poll": 1792656434586,
+ "last_ok_poll_str": "2026-10-22 03:07",
+ "polls": 982,
+ "polls_ok": 973,
+ "total_incidents_logged": 1514,
  "district_incidents": 108,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -260,7 +260,7 @@
    "D": 5,
    "total": 6,
    "wf": 0,
-   "hrs": 5.4
+   "hrs": 5.6
   },
   {
    "unit": "E076",
@@ -348,7 +348,7 @@
    "D": 13,
    "total": 16,
    "wf": 0,
-   "hrs": 17.1
+   "hrs": 17.3
   },
   {
    "unit": "M083",
@@ -360,7 +360,7 @@
    "D": 10,
    "total": 11,
    "wf": 0,
-   "hrs": 14.1
+   "hrs": 14.2
   }
  ],
  "runs_periods": {
@@ -498,7 +498,7 @@
     "D": 5,
     "total": 6,
     "wf": 0,
-    "hrs": 5.4
+    "hrs": 5.6
    },
    {
     "unit": "E076",
@@ -586,7 +586,7 @@
     "D": 13,
     "total": 16,
     "wf": 0,
-    "hrs": 17.1
+    "hrs": 17.3
    },
    {
     "unit": "M083",
@@ -598,7 +598,7 @@
     "D": 10,
     "total": 11,
     "wf": 0,
-    "hrs": 14.1
+    "hrs": 14.2
    }
   ],
   "tour": [
@@ -735,7 +735,7 @@
     "D": 5,
     "total": 5,
     "wf": 0,
-    "hrs": 4.1
+    "hrs": 4.2
    },
    {
     "unit": "E076",
@@ -823,7 +823,7 @@
     "D": 13,
     "total": 13,
     "wf": 0,
-    "hrs": 14.4
+    "hrs": 14.6
    },
    {
     "unit": "M083",
@@ -835,7 +835,7 @@
     "D": 10,
     "total": 10,
     "wf": 0,
-    "hrs": 12.1
+    "hrs": 12.2
    }
   ],
   "month": [
@@ -972,7 +972,7 @@
     "D": 5,
     "total": 6,
     "wf": 0,
-    "hrs": 5.4
+    "hrs": 5.6
    },
    {
     "unit": "E076",
@@ -1060,7 +1060,7 @@
     "D": 13,
     "total": 16,
     "wf": 0,
-    "hrs": 17.1
+    "hrs": 17.3
    },
    {
     "unit": "M083",
@@ -1072,7 +1072,7 @@
     "D": 10,
     "total": 11,
     "wf": 0,
-    "hrs": 14.1
+    "hrs": 14.2
    }
   ]
  },
@@ -1096,7 +1096,7 @@
    "83": {
     "unit": "A083",
     "total": 16,
-    "hrs": 17.1
+    "hrs": 17.3
    }
   },
   "tour": {
@@ -1118,7 +1118,7 @@
    "83": {
     "unit": "A083",
     "total": 13,
-    "hrs": 14.4
+    "hrs": 14.6
    }
   },
   "month": {
@@ -1140,7 +1140,7 @@
    "83": {
     "unit": "A083",
     "total": 16,
-    "hrs": 17.1
+    "hrs": 17.3
    }
   }
  },
