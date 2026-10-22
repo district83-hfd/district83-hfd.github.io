@@ -1,16 +1,16 @@
 {
- "generated": 1792641343168,
- "generated_str": "2026-10-21 22:55",
+ "generated": 1792641583104,
+ "generated_str": "2026-10-21 22:59",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792641342348,
- "last_ok_poll_str": "2026-10-21 22:55",
- "polls": 846,
- "polls_ok": 844,
+ "last_ok_poll": 1792641582349,
+ "last_ok_poll_str": "2026-10-21 22:59",
+ "polls": 850,
+ "polls_ok": 848,
  "total_incidents_logged": 1375,
  "district_incidents": 93,
  "shift_change": "06:30",
@@ -193,7 +193,7 @@
    "D": 10,
    "total": 12,
    "wf": 0,
-   "hrs": 11.9
+   "hrs": 12.0
   },
   {
    "unit": "E069",
@@ -431,7 +431,7 @@
     "D": 10,
     "total": 12,
     "wf": 0,
-    "hrs": 11.9
+    "hrs": 12.0
    },
    {
     "unit": "E069",
@@ -668,7 +668,7 @@
     "D": 10,
     "total": 10,
     "wf": 0,
-    "hrs": 11.3
+    "hrs": 11.4
    },
    {
     "unit": "E069",
@@ -905,7 +905,7 @@
     "D": 10,
     "total": 12,
     "wf": 0,
-    "hrs": 11.9
+    "hrs": 12.0
    },
    {
     "unit": "E069",
@@ -1081,7 +1081,7 @@
    "10": {
     "unit": "M010",
     "total": 12,
-    "hrs": 11.9
+    "hrs": 12.0
    },
    "69": {
     "unit": "A069",
@@ -1103,7 +1103,7 @@
    "10": {
     "unit": "M010",
     "total": 10,
-    "hrs": 11.3
+    "hrs": 11.4
    },
    "69": {
     "unit": "A069",
@@ -1125,7 +1125,7 @@
    "10": {
     "unit": "M010",
     "total": 12,
-    "hrs": 11.9
+    "hrs": 12.0
    },
    "69": {
     "unit": "A069",
