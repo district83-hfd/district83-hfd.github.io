@@ -1,18 +1,18 @@
 {
- "generated": 1792668483790,
- "generated_str": "2026-10-22 06:28",
+ "generated": 1792668604018,
+ "generated_str": "2026-10-22 06:30",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792668483088,
- "last_ok_poll_str": "2026-10-22 06:28",
- "polls": 1093,
- "polls_ok": 1078,
- "total_incidents_logged": 1588,
- "district_incidents": 112,
+ "last_ok_poll": 1792668603088,
+ "last_ok_poll_str": "2026-10-22 06:30",
+ "polls": 1095,
+ "polls_ok": 1080,
+ "total_incidents_logged": 1591,
+ "district_incidents": 113,
  "shift_change": "06:30",
  "working_fire_min": 45,
  "multi_unit_wf_min": 60,
@@ -123,8 +123,8 @@
  "box_words": "\\b(HOUSE|HOME|RESIDENTIAL|RESIDENCE|DWELLING|COMMERCIAL|BUSINESS|STORE|SHOP|RESTAURANT|APARTMENT|APTS?|BUILDING|BLDG|STRUCTURE|HIGH[ -]?RISE|TOWNHOMES?|TOWNHOUSE|CONDO|DUPLEX|WAREHOUSE|INDUSTRIAL|CHURCH|SCHOOL|HOSPITAL|HOTEL|MOTEL)\\b",
  "box_exclude": "ALARM|STAND-?BY|FIRE EVENT|INVESTIGAT|CHECK|WATCH|DETECTOR",
  "current_tour": {
-  "sd": "2026-10-21",
-  "sh": "D"
+  "sd": "2026-10-22",
+  "sh": "C"
  },
  "runs": [
   {
@@ -190,8 +190,8 @@
    "A": 0,
    "B": 0,
    "C": 2,
-   "D": 12,
-   "total": 14,
+   "D": 13,
+   "total": 15,
    "wf": 0,
    "hrs": 15.0
   },
@@ -345,8 +345,8 @@
    "A": 0,
    "B": 0,
    "C": 3,
-   "D": 14,
-   "total": 17,
+   "D": 15,
+   "total": 18,
    "wf": 0,
    "hrs": 17.9
   },
@@ -360,7 +360,7 @@
    "D": 11,
    "total": 12,
    "wf": 0,
-   "hrs": 17.1
+   "hrs": 17.2
   }
  ],
  "runs_periods": {
@@ -428,8 +428,8 @@
     "A": 0,
     "B": 0,
     "C": 2,
-    "D": 12,
-    "total": 14,
+    "D": 13,
+    "total": 15,
     "wf": 0,
     "hrs": 15.0
    },
@@ -583,8 +583,8 @@
     "A": 0,
     "B": 0,
     "C": 3,
-    "D": 14,
-    "total": 17,
+    "D": 15,
+    "total": 18,
     "wf": 0,
     "hrs": 17.9
    },
@@ -598,246 +598,10 @@
     "D": 11,
     "total": 12,
     "wf": 0,
-    "hrs": 17.1
+    "hrs": 17.2
    }
   ],
-  "tour": [
-   {
-    "unit": "E010",
-    "station": "10",
-    "kind": "fire",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 4,
-    "total": 4,
-    "wf": 0,
-    "ooa": 1,
-    "ooa_to": {
-     "51": 1
-    },
-    "ood": 1,
-    "ood_to": {
-     "68": 1
-    },
-    "hrs": 0.5
-   },
-   {
-    "unit": "RE010",
-    "station": "10",
-    "kind": "fire",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 3,
-    "total": 3,
-    "wf": 0,
-    "ooa": 3,
-    "ooa_to": {
-     "78": 1,
-     "51": 1,
-     "59": 1
-    },
-    "ood": 3,
-    "ood_to": {
-     "78": 1,
-     "68": 1,
-     "59": 1
-    },
-    "hrs": 0.2
-   },
-   {
-    "unit": "A010",
-    "station": "10",
-    "kind": "ems",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 11,
-    "total": 11,
-    "wf": 0,
-    "hrs": 12.2
-   },
-   {
-    "unit": "M010",
-    "station": "10",
-    "kind": "ems",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 12,
-    "total": 12,
-    "wf": 0,
-    "hrs": 14.5
-   },
-   {
-    "unit": "E069",
-    "station": "69",
-    "kind": "fire",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 7,
-    "total": 7,
-    "wf": 0,
-    "ooa": 2,
-    "ooa_to": {
-     "83": 1,
-     "57": 1
-    },
-    "ood": 1,
-    "ood_to": {
-     "78": 1
-    },
-    "hrs": 1.6
-   },
-   {
-    "unit": "L069",
-    "station": "69",
-    "kind": "fire",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 3,
-    "total": 3,
-    "wf": 0,
-    "ooa": 2,
-    "ooa_to": {
-     "39": 1,
-     "57": 1
-    },
-    "ood": 2,
-    "ood_to": {
-     "34": 1,
-     "78": 1
-    },
-    "hrs": 0.5
-   },
-   {
-    "unit": "A069",
-    "station": "69",
-    "kind": "ems",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 10,
-    "total": 10,
-    "wf": 0,
-    "hrs": 12.9
-   },
-   {
-    "unit": "AS069",
-    "station": "69",
-    "kind": "ems",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 5,
-    "total": 5,
-    "wf": 0,
-    "hrs": 5.2
-   },
-   {
-    "unit": "E076",
-    "station": "76",
-    "kind": "fire",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 12,
-    "total": 12,
-    "wf": 0,
-    "hrs": 4.4
-   },
-   {
-    "unit": "L076",
-    "station": "76",
-    "kind": "fire",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 4,
-    "total": 4,
-    "wf": 1,
-    "hrs": 1.2
-   },
-   {
-    "unit": "A076",
-    "station": "76",
-    "kind": "ems",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 14,
-    "total": 14,
-    "wf": 0,
-    "hrs": 9.2
-   },
-   {
-    "unit": "E083",
-    "station": "83",
-    "kind": "fire",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 3,
-    "total": 3,
-    "wf": 0,
-    "ooa": 1,
-    "ooa_to": {
-     "78": 1
-    },
-    "ood": 1,
-    "ood_to": {
-     "78": 1
-    },
-    "hrs": 0.6
-   },
-   {
-    "unit": "D083",
-    "station": "83",
-    "kind": "fire",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 1,
-    "total": 1,
-    "wf": 0,
-    "ooa": 1,
-    "ooa_to": {
-     "78": 1
-    },
-    "ood": 1,
-    "ood_to": {
-     "78": 1
-    },
-    "hrs": 0.1
-   },
-   {
-    "unit": "A083",
-    "station": "83",
-    "kind": "ems",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 14,
-    "total": 14,
-    "wf": 0,
-    "hrs": 15.2
-   },
-   {
-    "unit": "M083",
-    "station": "83",
-    "kind": "ems",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 11,
-    "total": 11,
-    "wf": 0,
-    "hrs": 15.1
-   }
-  ],
+  "tour": [],
   "month": [
    {
     "unit": "E010",
@@ -902,8 +666,8 @@
     "A": 0,
     "B": 0,
     "C": 2,
-    "D": 12,
-    "total": 14,
+    "D": 13,
+    "total": 15,
     "wf": 0,
     "hrs": 15.0
    },
@@ -1057,8 +821,8 @@
     "A": 0,
     "B": 0,
     "C": 3,
-    "D": 14,
-    "total": 17,
+    "D": 15,
+    "total": 18,
     "wf": 0,
     "hrs": 17.9
    },
@@ -1072,7 +836,7 @@
     "D": 11,
     "total": 12,
     "wf": 0,
-    "hrs": 17.1
+    "hrs": 17.2
    }
   ]
  },
@@ -1080,7 +844,7 @@
   "ytd": {
    "10": {
     "unit": "M010",
-    "total": 14,
+    "total": 15,
     "hrs": 15.0
    },
    "69": {
@@ -1095,36 +859,15 @@
    },
    "83": {
     "unit": "A083",
-    "total": 17,
+    "total": 18,
     "hrs": 17.9
    }
   },
-  "tour": {
-   "10": {
-    "unit": "M010",
-    "total": 12,
-    "hrs": 14.5
-   },
-   "69": {
-    "unit": "A069",
-    "total": 10,
-    "hrs": 12.9
-   },
-   "76": {
-    "unit": "A076",
-    "total": 14,
-    "hrs": 9.2
-   },
-   "83": {
-    "unit": "A083",
-    "total": 14,
-    "hrs": 15.2
-   }
-  },
+  "tour": {},
   "month": {
    "10": {
     "unit": "M010",
-    "total": 14,
+    "total": 15,
     "hrs": 15.0
    },
    "69": {
@@ -1139,14 +882,14 @@
    },
    "83": {
     "unit": "A083",
-    "total": 17,
+    "total": 18,
     "hrs": 17.9
    }
   }
  },
  "tour_counts": {
   "2026-10-20": 14,
-  "2026-10-21": 98
+  "2026-10-21": 99
  },
  "working_fires": [
   {
