@@ -1,17 +1,17 @@
 {
- "generated": 1792667827749,
- "generated_str": "2026-10-22 06:17",
+ "generated": 1792668483790,
+ "generated_str": "2026-10-22 06:28",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792667826901,
- "last_ok_poll_str": "2026-10-22 06:17",
- "polls": 1089,
- "polls_ok": 1075,
- "total_incidents_logged": 1586,
+ "last_ok_poll": 1792668483088,
+ "last_ok_poll_str": "2026-10-22 06:28",
+ "polls": 1093,
+ "polls_ok": 1078,
+ "total_incidents_logged": 1588,
  "district_incidents": 112,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -360,7 +360,7 @@
    "D": 11,
    "total": 12,
    "wf": 0,
-   "hrs": 16.9
+   "hrs": 17.1
   }
  ],
  "runs_periods": {
@@ -598,7 +598,7 @@
     "D": 11,
     "total": 12,
     "wf": 0,
-    "hrs": 16.9
+    "hrs": 17.1
    }
   ],
   "tour": [
@@ -835,7 +835,7 @@
     "D": 11,
     "total": 11,
     "wf": 0,
-    "hrs": 15.0
+    "hrs": 15.1
    }
   ],
   "month": [
@@ -1072,7 +1072,7 @@
     "D": 11,
     "total": 12,
     "wf": 0,
-    "hrs": 16.9
+    "hrs": 17.1
    }
   ]
  },
