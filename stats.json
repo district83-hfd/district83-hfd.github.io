@@ -1,17 +1,17 @@
 {
- "generated": 1792640615937,
- "generated_str": "2026-10-21 22:43",
+ "generated": 1792640915770,
+ "generated_str": "2026-10-21 22:48",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792640614982,
- "last_ok_poll_str": "2026-10-21 22:43",
- "polls": 838,
- "polls_ok": 836,
- "total_incidents_logged": 1364,
+ "last_ok_poll": 1792640914983,
+ "last_ok_poll_str": "2026-10-21 22:48",
+ "polls": 843,
+ "polls_ok": 841,
+ "total_incidents_logged": 1372,
  "district_incidents": 93,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -193,7 +193,7 @@
    "D": 10,
    "total": 12,
    "wf": 0,
-   "hrs": 11.7
+   "hrs": 11.8
   },
   {
    "unit": "E069",
@@ -272,7 +272,7 @@
    "D": 11,
    "total": 12,
    "wf": 0,
-   "hrs": 4.8
+   "hrs": 4.9
   },
   {
    "unit": "L076",
@@ -431,7 +431,7 @@
     "D": 10,
     "total": 12,
     "wf": 0,
-    "hrs": 11.7
+    "hrs": 11.8
    },
    {
     "unit": "E069",
@@ -510,7 +510,7 @@
     "D": 11,
     "total": 12,
     "wf": 0,
-    "hrs": 4.8
+    "hrs": 4.9
    },
    {
     "unit": "L076",
@@ -668,7 +668,7 @@
     "D": 10,
     "total": 10,
     "wf": 0,
-    "hrs": 11.1
+    "hrs": 11.2
    },
    {
     "unit": "E069",
@@ -905,7 +905,7 @@
     "D": 10,
     "total": 12,
     "wf": 0,
-    "hrs": 11.7
+    "hrs": 11.8
    },
    {
     "unit": "E069",
@@ -984,7 +984,7 @@
     "D": 11,
     "total": 12,
     "wf": 0,
-    "hrs": 4.8
+    "hrs": 4.9
    },
    {
     "unit": "L076",
@@ -1081,7 +1081,7 @@
    "10": {
     "unit": "M010",
     "total": 12,
-    "hrs": 11.7
+    "hrs": 11.8
    },
    "69": {
     "unit": "A069",
@@ -1103,7 +1103,7 @@
    "10": {
     "unit": "M010",
     "total": 10,
-    "hrs": 11.1
+    "hrs": 11.2
    },
    "69": {
     "unit": "A069",
@@ -1125,7 +1125,7 @@
    "10": {
     "unit": "M010",
     "total": 12,
-    "hrs": 11.7
+    "hrs": 11.8
    },
    "69": {
     "unit": "A069",
