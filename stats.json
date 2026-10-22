@@ -1,17 +1,17 @@
 {
- "generated": 1792649335814,
- "generated_str": "2026-10-22 01:08",
+ "generated": 1792650187607,
+ "generated_str": "2026-10-22 01:23",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792649335167,
- "last_ok_poll_str": "2026-10-22 01:08",
- "polls": 918,
- "polls_ok": 916,
- "total_incidents_logged": 1465,
+ "last_ok_poll": 1792650186674,
+ "last_ok_poll_str": "2026-10-22 01:23",
+ "polls": 925,
+ "polls_ok": 922,
+ "total_incidents_logged": 1470,
  "district_incidents": 106,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -147,7 +147,7 @@
    "ood_to": {
     "68": 1
    },
-   "hrs": 0.4
+   "hrs": 0.5
   },
   {
    "unit": "RE010",
@@ -385,7 +385,7 @@
     "ood_to": {
      "68": 1
     },
-    "hrs": 0.4
+    "hrs": 0.5
    },
    {
     "unit": "RE010",
@@ -622,7 +622,7 @@
     "ood_to": {
      "68": 1
     },
-    "hrs": 0.4
+    "hrs": 0.5
    },
    {
     "unit": "RE010",
@@ -859,7 +859,7 @@
     "ood_to": {
      "68": 1
     },
-    "hrs": 0.4
+    "hrs": 0.5
    },
    {
     "unit": "RE010",
