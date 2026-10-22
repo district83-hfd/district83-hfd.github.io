@@ -1,16 +1,16 @@
 {
- "generated": 1792676026535,
- "generated_str": "2026-10-22 08:33",
+ "generated": 1792676086537,
+ "generated_str": "2026-10-22 08:34",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792676025900,
- "last_ok_poll_str": "2026-10-22 08:33",
- "polls": 1176,
- "polls_ok": 1160,
+ "last_ok_poll": 1792676085900,
+ "last_ok_poll_str": "2026-10-22 08:34",
+ "polls": 1177,
+ "polls_ok": 1161,
  "total_incidents_logged": 1679,
  "district_incidents": 122,
  "shift_change": "06:30",
@@ -304,7 +304,7 @@
    "D": 15,
    "total": 17,
    "wf": 1,
-   "hrs": 11.2
+   "hrs": 11.3
   },
   {
    "unit": "E083",
@@ -544,7 +544,7 @@
     "D": 15,
     "total": 17,
     "wf": 1,
-    "hrs": 11.2
+    "hrs": 11.3
    },
    {
     "unit": "E083",
@@ -674,7 +674,7 @@
     "D": 0,
     "total": 1,
     "wf": 0,
-    "hrs": 0.9
+    "hrs": 1.0
    },
    {
     "unit": "M083",
@@ -686,7 +686,7 @@
     "D": 0,
     "total": 1,
     "wf": 0,
-    "hrs": 0.4
+    "hrs": 0.5
    }
   ],
   "week": [
@@ -861,7 +861,7 @@
     "D": 15,
     "total": 17,
     "wf": 1,
-    "hrs": 11.2
+    "hrs": 11.3
    },
    {
     "unit": "E083",
@@ -1100,7 +1100,7 @@
     "D": 15,
     "total": 17,
     "wf": 1,
-    "hrs": 11.2
+    "hrs": 11.3
    },
    {
     "unit": "E083",
@@ -1183,7 +1183,7 @@
    "76": {
     "unit": "A076",
     "total": 17,
-    "hrs": 11.2
+    "hrs": 11.3
    },
    "83": {
     "unit": "A083",
@@ -1205,12 +1205,12 @@
    "76": {
     "unit": "A076",
     "total": 1,
-    "hrs": 0.9
+    "hrs": 1.0
    },
    "83": {
     "unit": "M083",
     "total": 1,
-    "hrs": 0.4
+    "hrs": 0.5
    }
   },
   "week": {
@@ -1227,7 +1227,7 @@
    "76": {
     "unit": "A076",
     "total": 17,
-    "hrs": 11.2
+    "hrs": 11.3
    },
    "83": {
     "unit": "A083",
@@ -1249,7 +1249,7 @@
    "76": {
     "unit": "A076",
     "total": 17,
-    "hrs": 11.2
+    "hrs": 11.3
    },
    "83": {
     "unit": "A083",
