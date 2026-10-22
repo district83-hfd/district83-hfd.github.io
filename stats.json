@@ -1,16 +1,16 @@
 {
- "generated": 1792669419688,
- "generated_str": "2026-10-22 06:43",
+ "generated": 1792669539218,
+ "generated_str": "2026-10-22 06:45",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792669418473,
- "last_ok_poll_str": "2026-10-22 06:43",
- "polls": 1107,
- "polls_ok": 1091,
+ "last_ok_poll": 1792669538474,
+ "last_ok_poll_str": "2026-10-22 06:45",
+ "polls": 1109,
+ "polls_ok": 1093,
  "total_incidents_logged": 1594,
  "district_incidents": 114,
  "shift_change": "06:30",
@@ -173,7 +173,7 @@
     "68": 1,
     "59": 1
    },
-   "hrs": 0.2
+   "hrs": 0.3
   },
   {
    "unit": "A010",
@@ -340,7 +340,7 @@
    "ood_to": {
     "78": 1
    },
-   "hrs": 0.1
+   "hrs": 0.2
   },
   {
    "unit": "A083",
@@ -413,7 +413,7 @@
      "68": 1,
      "59": 1
     },
-    "hrs": 0.2
+    "hrs": 0.3
    },
    {
     "unit": "A010",
@@ -580,7 +580,7 @@
     "ood_to": {
      "78": 1
     },
-    "hrs": 0.1
+    "hrs": 0.2
    },
    {
     "unit": "A083",
@@ -653,7 +653,7 @@
      "68": 1,
      "59": 1
     },
-    "hrs": 0.2
+    "hrs": 0.3
    },
    {
     "unit": "A010",
@@ -820,7 +820,7 @@
     "ood_to": {
      "78": 1
     },
-    "hrs": 0.1
+    "hrs": 0.2
    },
    {
     "unit": "A083",
@@ -917,63 +917,63 @@
    "sd": "2026-10-21",
    "sh": "D",
    "fs": 1792669118473,
-   "ls": 1792669418473,
-   "min": 5,
+   "ls": 1792669538474,
+   "min": 7,
    "units": [
     {
      "u": "A076",
      "d": true,
-     "min": 5
+     "min": 7
     },
     {
      "u": "D078",
      "d": false,
-     "min": 5
+     "min": 7
     },
     {
      "u": "D083",
      "d": true,
-     "min": 5
+     "min": 7
     },
     {
      "u": "E010",
      "d": true,
-     "min": 5
+     "min": 7
     },
     {
      "u": "E086",
      "d": false,
-     "min": 5
+     "min": 7
     },
     {
      "u": "L075",
      "d": false,
-     "min": 5
+     "min": 7
     },
     {
      "u": "L076",
      "d": true,
-     "min": 5
+     "min": 7
     },
     {
      "u": "M075",
      "d": false,
-     "min": 5
+     "min": 7
     },
     {
      "u": "RE010",
      "d": true,
-     "min": 5
+     "min": 7
     },
     {
      "u": "SF057",
      "d": false,
-     "min": 5
+     "min": 7
     }
    ],
-   "cad": 21,
+   "cad": 23,
    "wt": true,
-   "ov2": 5,
+   "ov2": 7,
    "why": "District Chief + full box on CAD 20+ min",
    "long_units": [
     "A076",
