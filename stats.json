@@ -1,17 +1,17 @@
 {
- "generated": 1792639581412,
- "generated_str": "2026-10-21 22:26",
+ "generated": 1792640001036,
+ "generated_str": "2026-10-21 22:33",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792639580328,
- "last_ok_poll_str": "2026-10-21 22:26",
- "polls": 823,
- "polls_ok": 821,
- "total_incidents_logged": 1351,
+ "last_ok_poll": 1792640000329,
+ "last_ok_poll_str": "2026-10-21 22:33",
+ "polls": 830,
+ "polls_ok": 828,
+ "total_incidents_logged": 1358,
  "district_incidents": 93,
  "shift_change": "06:30",
  "working_fire_min": 45,
@@ -109,10 +109,7 @@
   "104": "102",
   "105": "65"
  },
- "wf_live": [
-  "1792637400000|POST OAK PARK DR|BLK POST OAK PKWY",
-  "1792637700000|POST OAK PARK DR|BLK POST OAK PKWY"
- ],
+ "wf_live": [],
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
   "FIRE ALARM",
@@ -196,7 +193,7 @@
    "D": 10,
    "total": 12,
    "wf": 0,
-   "hrs": 11.4
+   "hrs": 11.5
   },
   {
    "unit": "E069",
@@ -251,7 +248,7 @@
    "D": 8,
    "total": 12,
    "wf": 0,
-   "hrs": 14.0
+   "hrs": 14.1
   },
   {
    "unit": "AS069",
@@ -275,7 +272,7 @@
    "D": 11,
    "total": 12,
    "wf": 0,
-   "hrs": 4.5
+   "hrs": 4.6
   },
   {
    "unit": "L076",
@@ -434,7 +431,7 @@
     "D": 10,
     "total": 12,
     "wf": 0,
-    "hrs": 11.4
+    "hrs": 11.5
    },
    {
     "unit": "E069",
@@ -489,7 +486,7 @@
     "D": 8,
     "total": 12,
     "wf": 0,
-    "hrs": 14.0
+    "hrs": 14.1
    },
    {
     "unit": "AS069",
@@ -513,7 +510,7 @@
     "D": 11,
     "total": 12,
     "wf": 0,
-    "hrs": 4.5
+    "hrs": 4.6
    },
    {
     "unit": "L076",
@@ -671,7 +668,7 @@
     "D": 10,
     "total": 10,
     "wf": 0,
-    "hrs": 10.8
+    "hrs": 10.9
    },
    {
     "unit": "E069",
@@ -726,7 +723,7 @@
     "D": 8,
     "total": 8,
     "wf": 0,
-    "hrs": 10.7
+    "hrs": 10.9
    },
    {
     "unit": "AS069",
@@ -750,7 +747,7 @@
     "D": 11,
     "total": 11,
     "wf": 0,
-    "hrs": 4.0
+    "hrs": 4.1
    },
    {
     "unit": "L076",
@@ -908,7 +905,7 @@
     "D": 10,
     "total": 12,
     "wf": 0,
-    "hrs": 11.4
+    "hrs": 11.5
    },
    {
     "unit": "E069",
@@ -963,7 +960,7 @@
     "D": 8,
     "total": 12,
     "wf": 0,
-    "hrs": 14.0
+    "hrs": 14.1
    },
    {
     "unit": "AS069",
@@ -987,7 +984,7 @@
     "D": 11,
     "total": 12,
     "wf": 0,
-    "hrs": 4.5
+    "hrs": 4.6
    },
    {
     "unit": "L076",
@@ -1084,12 +1081,12 @@
    "10": {
     "unit": "M010",
     "total": 12,
-    "hrs": 11.4
+    "hrs": 11.5
    },
    "69": {
     "unit": "A069",
     "total": 12,
-    "hrs": 14.0
+    "hrs": 14.1
    },
    "76": {
     "unit": "A076",
@@ -1106,12 +1103,12 @@
    "10": {
     "unit": "M010",
     "total": 10,
-    "hrs": 10.8
+    "hrs": 10.9
    },
    "69": {
     "unit": "A069",
     "total": 8,
-    "hrs": 10.7
+    "hrs": 10.9
    },
    "76": {
     "unit": "A076",
@@ -1128,12 +1125,12 @@
    "10": {
     "unit": "M010",
     "total": 12,
-    "hrs": 11.4
+    "hrs": 11.5
    },
    "69": {
     "unit": "A069",
     "total": 12,
-    "hrs": 14.0
+    "hrs": 14.1
    },
    "76": {
     "unit": "A076",
