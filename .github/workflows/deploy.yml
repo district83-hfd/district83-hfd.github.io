@@ -1,5 +1,4 @@
-# Ready-to-use GitHub Actions Pages deploy (NOT active). Needs a publisher token with the "workflow" scope to push
-# it to .github/workflows/deploy.yml, then Pages source -> "GitHub Actions" (build_type=workflow).
+# GitHub Actions Pages deploy (active). Pages source = "GitHub Actions".
 name: Deploy Pages
 on:
   push: { branches: [main] }
@@ -14,6 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       # v26b: a late run must deploy the newest main, not the commit that queued it (checkout alone pins github.sha)
       - run: git fetch --depth=1 origin main && git reset --hard FETCH_HEAD && git log -1 --format='deploying %h %cd'
+      # v37: backup logger captures stay in the repo only (merged by the main logger), never on the site
+      - run: rm -rf backup
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with: { path: . }
