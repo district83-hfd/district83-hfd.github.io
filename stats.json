@@ -1,5 +1,5 @@
 {
- "generated": 1792866701597,
+ "generated": 1792866764062,
  "feed_gaps": [
   [
    1792669538474,
@@ -77,20 +77,20 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-10-24 13:31",
+ "generated_str": "2026-10-24 13:32",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792866697833,
+ "last_ok_poll": 1792866760336,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-10-24 13:31",
- "polls": 3112,
- "polls_ok": 3019,
+ "last_ok_poll_str": "2026-10-24 13:32",
+ "polls": 3113,
+ "polls_ok": 3020,
  "total_incidents_logged": 4302,
  "district_incidents": 26439,
  "shift_change": "06:30",
@@ -363,7 +363,7 @@
    },
    "hrs": 3486.8,
    "hsh": {
-    "A": 844.82,
+    "A": 844.84,
     "B": 835.86,
     "C": 877.88,
     "D": 928.22
@@ -388,7 +388,7 @@
    },
    "hrs": 3605.5,
    "hsh": {
-    "A": 896.2,
+    "A": 896.22,
     "B": 884.05,
     "C": 822.41,
     "D": 1002.79
@@ -551,9 +551,9 @@
     "C": 32,
     "D": 25
    },
-   "hrs": 722.0,
+   "hrs": 722.1,
    "hsh": {
-    "A": 192.57,
+    "A": 192.58,
     "B": 177.27,
     "C": 171.29,
     "D": 180.91
@@ -596,7 +596,7 @@
    },
    "hrs": 1202.4,
    "hsh": {
-    "A": 330.34,
+    "A": 330.35,
     "B": 294.94,
     "C": 282.91,
     "D": 294.17
@@ -668,7 +668,7 @@
    },
    "hrs": 3702.2,
    "hsh": {
-    "A": 901.09,
+    "A": 901.11,
     "B": 923.73,
     "C": 944.0,
     "D": 933.39
@@ -842,7 +842,7 @@
    },
    "hrs": 3239.8,
    "hsh": {
-    "A": 758.19,
+    "A": 758.21,
     "B": 763.26,
     "C": 863.99,
     "D": 854.35
@@ -995,7 +995,7 @@
     },
     "hrs": 3486.8,
     "hsh": {
-     "A": 844.82,
+     "A": 844.84,
      "B": 835.86,
      "C": 877.88,
      "D": 928.22
@@ -1020,7 +1020,7 @@
     },
     "hrs": 3605.5,
     "hsh": {
-     "A": 896.2,
+     "A": 896.22,
      "B": 884.05,
      "C": 822.41,
      "D": 1002.79
@@ -1183,9 +1183,9 @@
      "C": 32,
      "D": 25
     },
-    "hrs": 722.0,
+    "hrs": 722.1,
     "hsh": {
-     "A": 192.57,
+     "A": 192.58,
      "B": 177.27,
      "C": 171.29,
      "D": 180.91
@@ -1228,7 +1228,7 @@
     },
     "hrs": 1202.4,
     "hsh": {
-     "A": 330.34,
+     "A": 330.35,
      "B": 294.94,
      "C": 282.91,
      "D": 294.17
@@ -1300,7 +1300,7 @@
     },
     "hrs": 3702.2,
     "hsh": {
-     "A": 901.09,
+     "A": 901.11,
      "B": 923.73,
      "C": 944.0,
      "D": 933.39
@@ -1474,7 +1474,7 @@
     },
     "hrs": 3239.8,
     "hsh": {
-     "A": 758.19,
+     "A": 758.21,
      "B": 763.26,
      "C": 863.99,
      "D": 854.35
@@ -1559,7 +1559,7 @@
     },
     "hrs": 0.6,
     "hsh": {
-     "A": 0.61,
+     "A": 0.62,
      "B": 0.0,
      "C": 0.0,
      "D": 0.0
@@ -1584,7 +1584,7 @@
     },
     "hrs": 1.4,
     "hsh": {
-     "A": 1.41,
+     "A": 1.43,
      "B": 0.0,
      "C": 0.0,
      "D": 0.0
@@ -1659,7 +1659,7 @@
     },
     "hrs": 0.3,
     "hsh": {
-     "A": 0.3,
+     "A": 0.32,
      "B": 0.0,
      "C": 0.0,
      "D": 0.0
@@ -1682,9 +1682,9 @@
      "C": 0,
      "D": 0
     },
-    "hrs": 1.1,
+    "hrs": 1.2,
     "hsh": {
-     "A": 1.14,
+     "A": 1.16,
      "B": 0.0,
      "C": 0.0,
      "D": 0.0
@@ -1734,7 +1734,7 @@
     },
     "hrs": 3.9,
     "hsh": {
-     "A": 3.85,
+     "A": 3.87,
      "B": 0.0,
      "C": 0.0,
      "D": 0.0
@@ -1832,9 +1832,9 @@
      "C": 0,
      "D": 0
     },
-    "hrs": 2.3,
+    "hrs": 2.4,
     "hsh": {
-     "A": 2.35,
+     "A": 2.36,
      "B": 0.0,
      "C": 0.0,
      "D": 0.0
@@ -1990,7 +1990,7 @@
     },
     "hrs": 73.7,
     "hsh": {
-     "A": 0.61,
+     "A": 0.62,
      "B": 18.12,
      "C": 25.63,
      "D": 29.35
@@ -2001,7 +2001,7 @@
      "2026-10-21": 13.3,
      "2026-10-22": 12.73,
      "2026-10-23": 16.05,
-     "2026-10-24": 0.61
+     "2026-10-24": 0.62
     }
    },
    {
@@ -2034,7 +2034,7 @@
     },
     "hrs": 58.4,
     "hsh": {
-     "A": 1.41,
+     "A": 1.43,
      "B": 5.26,
      "C": 19.81,
      "D": 31.89
@@ -2045,7 +2045,7 @@
      "2026-10-21": 14.46,
      "2026-10-22": 8.59,
      "2026-10-23": 17.43,
-     "2026-10-24": 1.41
+     "2026-10-24": 1.43
     }
    },
    {
@@ -2240,9 +2240,9 @@
     "mvi_days": {
      "2026-10-22": 1
     },
-    "hrs": 14.0,
+    "hrs": 14.1,
     "hsh": {
-     "A": 0.3,
+     "A": 0.32,
      "B": 2.8,
      "C": 4.45,
      "D": 6.48
@@ -2253,7 +2253,7 @@
      "2026-10-21": 5.16,
      "2026-10-22": 0.27,
      "2026-10-23": 1.33,
-     "2026-10-24": 0.3
+     "2026-10-24": 0.32
     }
    },
    {
@@ -2294,7 +2294,7 @@
     },
     "hrs": 27.3,
     "hsh": {
-     "A": 1.14,
+     "A": 1.16,
      "B": 5.76,
      "C": 11.41,
      "D": 9.01
@@ -2305,7 +2305,7 @@
      "2026-10-21": 4.54,
      "2026-10-22": 5.84,
      "2026-10-23": 4.47,
-     "2026-10-24": 1.14
+     "2026-10-24": 1.16
     }
    },
    {
@@ -2391,7 +2391,7 @@
     },
     "hrs": 68.4,
     "hsh": {
-     "A": 3.85,
+     "A": 3.87,
      "B": 12.45,
      "C": 27.14,
      "D": 24.91
@@ -2402,7 +2402,7 @@
      "2026-10-21": 9.39,
      "2026-10-22": 15.08,
      "2026-10-23": 15.52,
-     "2026-10-24": 3.85
+     "2026-10-24": 3.87
     }
    },
    {
@@ -2613,9 +2613,9 @@
      "2026-10-20": 8,
      "2026-10-19": 14
     },
-    "hrs": 66.6,
+    "hrs": 66.7,
     "hsh": {
-     "A": 2.46,
+     "A": 2.47,
      "B": 11.25,
      "C": 22.65,
      "D": 30.28
@@ -2626,7 +2626,7 @@
      "2026-10-21": 15.64,
      "2026-10-22": 12.62,
      "2026-10-23": 14.65,
-     "2026-10-24": 2.46
+     "2026-10-24": 2.47
     }
    }
   ],
@@ -2751,7 +2751,7 @@
     },
     "hrs": 304.4,
     "hsh": {
-     "A": 69.77,
+     "A": 69.79,
      "B": 79.58,
      "C": 73.03,
      "D": 82.05
@@ -2776,7 +2776,7 @@
     },
     "hrs": 287.7,
     "hsh": {
-     "A": 60.34,
+     "A": 60.36,
      "B": 68.43,
      "C": 65.2,
      "D": 93.73
@@ -2920,7 +2920,7 @@
     },
     "hrs": 81.3,
     "hsh": {
-     "A": 19.09,
+     "A": 19.11,
      "B": 28.1,
      "C": 12.77,
      "D": 21.35
@@ -2957,7 +2957,7 @@
     },
     "hrs": 94.7,
     "hsh": {
-     "A": 22.14,
+     "A": 22.15,
      "B": 24.62,
      "C": 24.47,
      "D": 23.44
@@ -3020,7 +3020,7 @@
     },
     "hrs": 291.6,
     "hsh": {
-     "A": 62.08,
+     "A": 62.1,
      "B": 69.57,
      "C": 80.14,
      "D": 79.83
@@ -3182,7 +3182,7 @@
     },
     "hrs": 286.0,
     "hsh": {
-     "A": 57.67,
+     "A": 57.69,
      "B": 65.03,
      "C": 76.26,
      "D": 87.02
@@ -45919,6 +45919,7 @@
    "xwf": false,
    "ov2": 18,
    "why": "fire box on CAD 50+ min",
+   "tg": "MB",
    "long_units": [
     "L076"
    ]
@@ -46080,6 +46081,7 @@
    "ov2": 41,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E010",
@@ -46203,6 +46205,7 @@
    "ov2": 52,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "RE010"
@@ -46245,6 +46248,7 @@
    "ov2": 13,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010",
     "AS069"
@@ -46282,6 +46286,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -46456,6 +46461,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -46660,6 +46666,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -46706,6 +46713,7 @@
    "ov2": 44,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E010",
@@ -46872,6 +46880,7 @@
    "ov2": 74,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E010",
@@ -46912,6 +46921,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -47045,6 +47055,7 @@
    "ov2": 97,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "A083",
     "D083",
@@ -47140,6 +47151,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -47227,6 +47239,7 @@
    "ov2": 80,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E010",
@@ -47308,6 +47321,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -47506,6 +47520,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -47547,6 +47562,7 @@
    "ov2": 40,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "M010",
     "RE010"
@@ -47840,6 +47856,7 @@
    "ov2": 84,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "E010",
     "M010",
@@ -47924,6 +47941,7 @@
    "ov2": 118,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "E069",
     "L069",
@@ -47962,6 +47980,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -48185,6 +48204,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -48594,6 +48614,7 @@
    "ov2": 60,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010",
     "E069"
@@ -48693,6 +48714,7 @@
    "ov2": 161,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "E069",
     "E076",
@@ -48739,6 +48761,7 @@
    "ov2": 6,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "E010",
     "RE010"
@@ -48781,6 +48804,7 @@
    "ov2": 39,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "E010",
     "RE010"
@@ -48818,6 +48842,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -48859,6 +48884,7 @@
    "ov2": 4,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "E083",
     "RE010"
@@ -49036,6 +49062,7 @@
    "ov2": 3,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "A069",
     "D083",
@@ -49077,6 +49104,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -49204,6 +49232,7 @@
    "ov2": 117,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E010",
@@ -49346,6 +49375,7 @@
    "ov2": 187,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "A076",
     "D083",
@@ -49797,6 +49827,7 @@
    "ov2": 84,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "A069",
     "D083",
@@ -50037,6 +50068,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -50073,6 +50105,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -50129,6 +50162,7 @@
    "ov2": 61,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "A076",
     "D083",
@@ -50169,6 +50203,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -50241,6 +50276,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -50385,6 +50421,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -50500,6 +50537,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -50837,6 +50875,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -50873,6 +50912,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -51212,6 +51252,7 @@
    "ov2": 155,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E010",
@@ -51272,6 +51313,7 @@
    "ov2": 212,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E083",
@@ -51312,6 +51354,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -51348,6 +51391,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -51384,6 +51428,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -51510,6 +51555,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -51546,6 +51592,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -51602,6 +51649,7 @@
    "ov2": 96,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "A076",
     "D083",
@@ -51642,6 +51690,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -51713,6 +51762,7 @@
    "ov2": 84,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "A076",
     "D083",
@@ -51756,6 +51806,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -51848,6 +51899,7 @@
    "ov2": 23,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E010",
@@ -51888,6 +51940,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -52040,6 +52093,7 @@
    "ov2": 177,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E010",
@@ -52162,6 +52216,7 @@
    "ov2": 229,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "A076",
     "D083",
@@ -52206,6 +52261,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -52262,6 +52318,7 @@
    "ov2": 171,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E076",
@@ -52600,6 +52657,7 @@
    "ov2": 49,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "E010",
     "M083",
@@ -52638,6 +52696,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -52689,6 +52748,7 @@
    "ov2": 52,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E010",
@@ -52818,6 +52878,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -52854,6 +52915,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -52920,6 +52982,7 @@
    "ov2": 169,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "A076",
     "D083",
@@ -53057,6 +53120,7 @@
    "ov2": 6,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010",
     "L069"
@@ -53094,6 +53158,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -53291,6 +53356,7 @@
    "ov2": 184,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "A076",
     "D083",
@@ -53400,6 +53466,7 @@
    "ov2": 0,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "RE010"
    ]
@@ -53461,6 +53528,7 @@
    "ov2": 187,
    "why": "5-inch hose on the ground (HFD report)",
    "bf": 1,
+   "tg": "MB",
    "long_units": [
     "D083",
     "E069",
