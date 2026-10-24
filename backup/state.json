@@ -1,9 +1,13 @@
 {
  "alerted": false,
+ "captures": 1,
+ "last_capture": 1792821327248,
  "last_outage": {
   "captures": 1,
   "from": 1792817198301,
   "test": false,
   "to": 1792818327325
- }
+ },
+ "outage_since": 1792820453726,
+ "test": false
 }
