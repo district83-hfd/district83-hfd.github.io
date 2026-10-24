@@ -1,0 +1,18 @@
+{
+ "feed_n": 28,
+ "rows": [
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "BISSONNET ST",
+   "CALL_TIME": 1792829820000,
+   "CrossStreet": "BLK W SAM HOUSTON PKWY S",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "529V",
+   "LATITUDE": 29.674772,
+   "LONGITUDE": -95.558169,
+   "Units": "M010,A068"
+  }
+ ],
+ "test": false,
+ "ts": 1792831226802
+}
