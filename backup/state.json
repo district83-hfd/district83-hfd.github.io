@@ -1,8 +1,8 @@
 {
  "alerted": true,
  "alerted_at": 1792835139695,
- "captures": 4,
- "last_capture": 1792835740071,
+ "captures": 5,
+ "last_capture": 1792836039825,
  "last_outage": {
   "captures": 3,
   "from": 1792832444159,
