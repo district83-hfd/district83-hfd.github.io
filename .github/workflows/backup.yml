@@ -10,6 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       simulate_stale: { description: "Test: treat the main logger as stale (one check, no chain)", type: boolean, default: false }
+      loop_minutes: { description: "How long this run loops before starting the next (test: 1)", type: string, default: "345" }
 permissions: { contents: write, actions: write }
 concurrency: { group: backup-logger, cancel-in-progress: false }
 jobs:
@@ -20,6 +21,7 @@ jobs:
       ALERTS: "off"
       SIMULATE: ${{ inputs.simulate_stale && 'true' || '' }}
       GH_TOKEN: ${{ github.token }}
+      LOOP_MIN: ${{ inputs.loop_minutes || '345' }}
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 30 }
@@ -27,7 +29,7 @@ jobs:
         run: |
           set +e   # keep looping through any single failed command
           git config user.name "District 83"; git config user.email "345840453+d83hfd-publisher@users.noreply.github.com"
-          end=$(( $(date +%s) + ${LOOP_SECS:-20700} )); [ -n "$SIMULATE" ] && end=0; n=0
+          end=$(( $(date +%s) + ${LOOP_MIN:-345} * 60 )); [ -n "$SIMULATE" ] && end=0; n=0
           while :; do
             n=$((n + 1)); t0=$(date +%s)
             timeout 60 git fetch -q origin main && git reset -q --hard origin/main || echo "fetch failed"
