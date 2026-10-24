@@ -1,0 +1,62 @@
+{
+ "feed_n": 65,
+ "rows": [
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "COOK RD",
+   "CALL_TIME": 1792856820000,
+   "CrossStreet": "BLK BEAR RAM RD",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "529E",
+   "LATITUDE": 29.709062,
+   "LONGITUDE": -95.596277,
+   "Units": "L076"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "FONDREN RD",
+   "CALL_TIME": 1792856460000,
+   "CrossStreet": "BLK CANGELOSI RD",
+   "IncidentType": "APARTMENT FIRE",
+   "KeyMap": "570Q",
+   "LATITUDE": 29.615605,
+   "LONGITUDE": -95.509075,
+   "Units": "E082"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "ASHFORD POINT DR",
+   "CALL_TIME": 1792855140000,
+   "CrossStreet": "BLK ASHBURNHAM DR",
+   "IncidentType": "RESCUE EVENT",
+   "KeyMap": "528C",
+   "LATITUDE": 29.719549,
+   "LONGITUDE": -95.610526,
+   "Units": "A076"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "COOK RD",
+   "CALL_TIME": 1792854600000,
+   "CrossStreet": "BLK WHITE CAP LN",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "529J",
+   "LATITUDE": 29.690796,
+   "LONGITUDE": -95.595932,
+   "Units": "E076,A060"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "WALNUT BEND LN",
+   "CALL_TIME": 1792852620000,
+   "CrossStreet": "BLK WILCREST GREEN DR",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "489Y",
+   "LATITUDE": 29.724395,
+   "LONGITUDE": -95.56716,
+   "Units": "A083"
+  }
+ ],
+ "test": false,
+ "ts": 1792857348903
+}
