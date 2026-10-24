@@ -1,0 +1,51 @@
+{
+ "feed_n": 40,
+ "rows": [
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "CLIFFGATE DR",
+   "CALL_TIME": 1792825800000,
+   "CrossStreet": "BLK COOKSTEEL DR",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "529N",
+   "LATITUDE": 29.685834,
+   "LONGITUDE": -95.593826,
+   "Units": "E076,A068"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "S GESSNER RD",
+   "CALL_TIME": 1792821660000,
+   "CrossStreet": "BLK MEADOWLAND DR",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "490W",
+   "LATITUDE": 29.730252,
+   "LONGITUDE": -95.539218,
+   "Units": "A083"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "COOK RD",
+   "CALL_TIME": 1792820040000,
+   "CrossStreet": "BLK CORONA LN",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "529J",
+   "LATITUDE": 29.695619,
+   "LONGITUDE": -95.596024,
+   "Units": "A076"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "ROOS RD",
+   "CALL_TIME": 1792816320000,
+   "CrossStreet": "BLK WALDO ST",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "530K",
+   "LATITUDE": 29.699861,
+   "LONGITUDE": -95.526684,
+   "Units": "M010"
+  }
+ ],
+ "test": false,
+ "ts": 1792826426863
+}
