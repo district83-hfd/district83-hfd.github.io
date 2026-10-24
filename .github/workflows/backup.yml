@@ -1,37 +1,52 @@
-# Backup logger: every 5 min, captures the City feed only while the main (box) logger is over 10 min stale,
-# and sends one phone push when it is over 15 min stale plus one when it is back. See .github/backup/backup.py.
+# Backup logger: captures the City feed only while the main (box) logger is over 10 min stale. See .github/backup/backup.py.
+# v43: GitHub's */5 schedule fires only a few times a day, so each run now loops (one check every 5 min) for ~5.75 h
+# and then starts the next run itself by workflow_dispatch (allowed with the built-in token). The schedule and the
+# box (publish.sh backup_revive) only restart the chain if it ever stops. The concurrency group keeps one chain.
+# Phone alerts ("Stopped Updating" / "Back Up") now come from an outside dead-man switch, so this workflow stays quiet
+# (ALERTS=off) to avoid duplicate pushes. A simulate_stale test run does one check and does not chain.
 name: Backup Logger
 on:
   schedule: [{ cron: "*/5 * * * *" }]
   workflow_dispatch:
     inputs:
-      simulate_stale: { description: "Test: treat the main logger as stale", type: boolean, default: false }
+      simulate_stale: { description: "Test: treat the main logger as stale (one check, no chain)", type: boolean, default: false }
 permissions: { contents: write, actions: write }
 concurrency: { group: backup-logger, cancel-in-progress: false }
 jobs:
   backup:
     runs-on: ubuntu-latest
-    timeout-minutes: 4
+    timeout-minutes: 360
+    env:
+      ALERTS: "off"
+      SIMULATE: ${{ inputs.simulate_stale && 'true' || '' }}
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 30 }
-      - id: b
-        env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-          SIMULATE: ${{ inputs.simulate_stale && 'true' || '' }}
-        run: python3 .github/backup/backup.py
-      - name: Commit only if something changed (rebase-retry, never force)
-        id: c
+      - name: Check every 5 min for ~5.75 h
         run: |
-          git add backup backup_status.json
-          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
-          git -c user.name="District 83" -c user.email="345840453+d83hfd-publisher@users.noreply.github.com" commit -qm "backup $(TZ=America/Chicago date '+%F %H:%M %Z')"
-          for i in 1 2 3 4; do
-            if git pull -q --rebase -X theirs origin main && git push -q origin HEAD:main; then echo "pushed (try $i)"; echo "pushed=1" >> "$GITHUB_OUTPUT"; exit 0; fi
-            git rebase --abort 2>/dev/null; sleep $((i * 7))
+          set +e   # keep looping through any single failed command
+          git config user.name "District 83"; git config user.email "345840453+d83hfd-publisher@users.noreply.github.com"
+          end=$(( $(date +%s) + ${LOOP_SECS:-20700} )); [ -n "$SIMULATE" ] && end=0; n=0
+          while :; do
+            n=$((n + 1)); t0=$(date +%s)
+            timeout 60 git fetch -q origin main && git reset -q --hard origin/main || echo "fetch failed"
+            : > out.txt
+            GITHUB_OUTPUT=out.txt timeout 120 python3 .github/backup/backup.py || echo "backup.py failed"
+            git add backup backup_status.json
+            if ! git diff --cached --quiet; then
+              git commit -qm "backup $(TZ=America/Chicago date '+%F %H:%M %Z')"; pushed=0
+              for i in 1 2 3 4; do
+                if timeout 60 git pull -q --rebase -X theirs origin main && timeout 60 git push -q origin HEAD:main; then pushed=1; echo "pushed (try $i)"; break; fi
+                git rebase --abort 2>/dev/null; sleep $((i * 7))
+              done
+              if [ $pushed = 1 ] && grep -q '^flip=1' out.txt; then gh workflow run deploy.yml --ref main -R "$GITHUB_REPOSITORY" || echo "deploy dispatch failed"; fi
+              [ $pushed = 1 ] || { echo "push failed after 4 tries"; git reset -q --hard origin/main; }
+            fi
+            [ $(date +%s) -ge $end ] && break
+            sleep $(( 300 - ( $(date +%s) - t0 ) % 300 ))
           done
-          echo "push failed after 4 tries"; exit 1
-      - name: Deploy the site only when backup mode starts or ends
-        if: steps.b.outputs.flip == '1' && steps.c.outputs.pushed == '1'
-        env: { GH_TOKEN: "${{ github.token }}" }
-        run: gh workflow run deploy.yml --ref main -R "${{ github.repository }}"
+          echo "done after $n check(s)"
+      - name: Start the next run (keeps the chain going)
+        if: ${{ always() && !inputs.simulate_stale }}
+        run: gh workflow run backup.yml --ref main -R "$GITHUB_REPOSITORY"

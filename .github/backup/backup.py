@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""District 83 backup logger (GitHub Actions, every 5 min). Does nothing while the main logger is fresh.
+"""District 83 backup logger (GitHub Actions, every 5 min; v43: ALERTS=off leaves pushes to the outside dead-man switch). Does nothing while the main logger is fresh.
 When the repo's stats.json is over 10 min old it polls the City of Houston public active-incident feed and saves
 District 83 rows (any D83 unit) plus citywide fire-box rows to backup/cap-<ms>.json; the main logger merges and
 removes them when it is back. Over 15 min stale it sends one 'stopped updating' push, then one 'back up' push.
@@ -44,6 +44,7 @@ def fetch():
         except Exception as e: last = e; time.sleep(5)
     raise last
 def push(title, msg, prio, tags):
+    if os.environ.get("ALERTS") == "off": print(f"alert not sent here (outside dead-man switch handles it): {title}"); return True
     topic = os.environ.get("NTFY_TOPIC", "").strip()
     if not topic: print("alert skipped: no NTFY_TOPIC secret"); return False
     data = json.dumps({"topic": topic, "title": title, "message": msg, "priority": prio, "tags": tags,
