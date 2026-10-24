@@ -1,0 +1,34 @@
+# TEMPORARY (one-off test, removed right after): can a GitHub runner download the HFD hospital PDF?
+# Prints only status, type, size and pass/fail checks. Never prints the PDF contents (logs are public).
+name: PDF Test (temporary)
+on: { workflow_dispatch: {} }
+permissions: { contents: read }
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: command -v pdftotext >/dev/null || { sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq poppler-utils >/dev/null; }
+      - name: Fetch 3 times
+        run: |
+          set +e
+          echo "runner IP: $(curl -s -m 10 https://api.ipify.org)"
+          for i in 1 2 3; do
+            rm -f p.pdf t.txt
+            out=$(curl -s -m 45 -o p.pdf -w '%{http_code} %{content_type} %{size_download} %{time_total}' \
+              -A 'Mozilla/5.0 (District83 dashboard)' -H 'Cache-Control: no-cache' \
+              "https://houstontx.gov/fire/HFDUnitsatHospital.pdf?_=$(date +%s)"); rc=$?
+            read code ctype size secs <<< "$out"
+            pdf=no; eof=no
+            head -c 5 p.pdf 2>/dev/null | grep -q '%PDF-' && pdf=yes
+            tail -c 2048 p.pdf 2>/dev/null | grep -aq '%%EOF' && eof=yes
+            lines=0; run=no; tot=no
+            if [ $pdf = yes ]; then
+              pdftotext -layout p.pdf t.txt 2>/dev/null && lines=$(wc -l < t.txt)
+              grep -q 'Report run on:' t.txt 2>/dev/null && run=yes
+              grep -q 'Total Count of Units at Hospitals' t.txt 2>/dev/null && tot=yes
+            fi
+            echo "try $i: curl_exit=$rc http=$code type=$ctype bytes=$size secs=$secs starts_%PDF=$pdf has_%%EOF=$eof text_lines=$lines 'Report run on'=$run 'Total Count' header=$tot"
+            [ $i -lt 3 ] && sleep 20
+          done
+          rm -f p.pdf t.txt
