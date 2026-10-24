@@ -1,0 +1,62 @@
+{
+ "feed_n": 52,
+ "rows": [
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "WPTWIB-ROGERDALE RD WESTPARK TWY",
+   "CALL_TIME": 1792816620000,
+   "CrossStreet": "W BW 8 ENTR RAMP",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "529D",
+   "LATITUDE": 29.718055,
+   "LONGITUDE": -95.559498,
+   "Units": "E076,A076,L076"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "ROOS RD",
+   "CALL_TIME": 1792816320000,
+   "CrossStreet": "BLK WALDO ST",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "530K",
+   "LATITUDE": 29.699861,
+   "LONGITUDE": -95.526684,
+   "Units": "M010"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "ASHFORD KNOLL DR",
+   "CALL_TIME": 1792813800000,
+   "CrossStreet": "BLK ASHFORD OAK DR",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "488Y",
+   "LATITUDE": 29.732952,
+   "LONGITUDE": -95.612386,
+   "Units": "A083"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "MEWS CIR",
+   "CALL_TIME": 1792813020000,
+   "CrossStreet": "BLK ASHFORD MEADOW DR",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "488V",
+   "LATITUDE": 29.734488,
+   "LONGITUDE": -95.606521,
+   "Units": "A010"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "BRANT ROCK DR",
+   "CALL_TIME": 1792812540000,
+   "CrossStreet": "BLK ASHBURNHAM DR",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "528D",
+   "LATITUDE": 29.715349,
+   "LONGITUDE": -95.606103,
+   "Units": "M083"
+  }
+ ],
+ "test": false,
+ "ts": 1792818026507
+}
