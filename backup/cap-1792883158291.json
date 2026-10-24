@@ -1,0 +1,73 @@
+{
+ "feed_n": 70,
+ "rows": [
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "BELLAIRE BLVD",
+   "CALL_TIME": 1792882620000,
+   "CrossStreet": "BLK BOONE RD",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "529F",
+   "LATITUDE": 29.703873,
+   "LONGITUDE": -95.574981,
+   "Units": "SQ082,E076,A076"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "OVERBROOK LN",
+   "CALL_TIME": 1792882500000,
+   "CrossStreet": "BLK SHADOW VIEW LN",
+   "IncidentType": "NON EMERGENCY RESPONSE",
+   "KeyMap": "488V",
+   "LATITUDE": 29.73834,
+   "LONGITUDE": -95.598085,
+   "Units": "E069,L075,M010,E083,L069,E075,E010"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "HARWIN DR",
+   "CALL_TIME": 1792880760000,
+   "CrossStreet": "BLK RANCHESTER DR",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "530A",
+   "LATITUDE": 29.717292,
+   "LONGITUDE": -95.546189,
+   "Units": "A069"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "ASHFORD MEADOW DR",
+   "CALL_TIME": 1792880280000,
+   "CrossStreet": "BLK ASHFORD PARK DR",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "488V",
+   "LATITUDE": 29.73367,
+   "LONGITUDE": -95.608281,
+   "Units": "A083,M086"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "JASON ST",
+   "CALL_TIME": 1792878120000,
+   "CrossStreet": "BLK S GESSNER RD",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "530P",
+   "LATITUDE": 29.685112,
+   "LONGITUDE": -95.527686,
+   "Units": "M083"
+  },
+  {
+   "ALARM_LEVEL": 0,
+   "Address": "CASETA DR",
+   "CALL_TIME": 1792877700000,
+   "CrossStreet": "BLK WESTHEIMER RD",
+   "IncidentType": "EMS EVENT",
+   "KeyMap": "487Z",
+   "LATITUDE": 29.729236,
+   "LONGITUDE": -95.654803,
+   "Units": "A010"
+  }
+ ],
+ "test": false,
+ "ts": 1792883158291
+}
