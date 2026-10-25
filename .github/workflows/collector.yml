@@ -1,0 +1,170 @@
+# District 83 collector on GitHub Actions (v56, 2026-10-24). Replaces the box logger (collector.py + publish.sh),
+# which stopped whenever the box slept. Same code (.github/collector/, copied from the box) and the same site output.
+# One run = one ~5.75 h job: restore encrypted private state -> poll/render/publish every 60 s (loop.py) in 50-min
+# segments with an encrypted checkpoint after each -> at ~5h25m start the next run ("handoff"); the old run stops
+# when the new one is up, saves, and the new one restores that save. Restarts: GitHub's schedule (twice an hour) and
+# the Backup Logger only start a run when none is running; a run that finds another collector running exits at once.
+# Private data (citywide incident DB, report roll-ups, manual edits) never enters git: see .github/collector/state.sh.
+# Box failback / rollback: see the comments at the end of this file.
+name: Collector
+run-name: ${{ inputs.handoff && 'Collector (handoff)' || (inputs.dry_run && 'Collector (dry run)' || 'Collector') }}
+on:
+  # schedule: [{ cron: "7,37 * * * *" }]   # enabled at cutover
+  workflow_dispatch:
+    inputs:
+      handoff: { description: "Take over from the running collector (used by the chain; also to load new code)", type: boolean, default: false }
+      dry_run: { description: "Test: collect + render but never push, deploy or save state", type: boolean, default: false }
+      minutes: { description: "Run length in minutes before stopping (normal 345)", type: string, default: "345" }
+permissions: { contents: write, actions: write }
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 358
+    env:
+      D83_BASE: ${{ github.workspace }}
+      D83_SCHEDULE: ${{ github.workspace }}/hfd_schedule.csv
+      GH_TOKEN: ${{ github.token }}
+      D83_STATE_KEY: ${{ secrets.D83_STATE_KEY }}
+      HC_PING_URL: ${{ secrets.HC_PING_URL }}
+      DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+      HANDOFF: ${{ inputs.handoff && 'true' || 'false' }}
+      HARD_MIN: ${{ inputs.minutes || '345' }}
+      NEXT_MIN: "325"
+      TZ: America/Chicago
+      PYTHONHASHSEED: "0"   # stable fdareas.json key order -> the page build id does not change at every handoff
+    steps:
+      - name: Gate (one collector at a time)
+        id: gate
+        run: |
+          R=$GITHUB_REPOSITORY; me=$GITHUB_RUN_ID
+          echo "RUN_START=$(date +%s)" >> "$GITHUB_ENV"
+          others(){ gh api "repos/$R/actions/workflows/collector.yml/runs?per_page=30" --jq "[.workflow_runs[] | select(.status!=\"completed\" and .id!=$me and (.display_title|test(\"dry run\")|not)) | select($1)] | map(.id) | join(\" \")"; }
+          if [ "$DRY_RUN" = true ]; then echo "go=1" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if [ "$HANDOFF" = true ]; then
+            for i in $(seq 1 90); do o=$(others ".id < $me and .status==\"in_progress\""); [ -z "$o" ] && break; [ $i = 1 ] && echo "waiting for run(s) $o to save and stop"; sleep 10; done
+            for id in $(others ".id < $me"); do echo "cancelling older run $id"; gh api -X POST "repos/$R/actions/runs/$id/cancel" || true; done
+            echo "go=1" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          o=$(others ".id < $me or .status==\"in_progress\"")
+          if [ -n "$o" ]; then echo "collector already running ($o); nothing to do"; echo "go=0" >> "$GITHUB_OUTPUT"; else echo "go=1" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.go == '1'
+        with: { path: site, fetch-depth: 50 }
+      - name: Set up
+        if: steps.gate.outputs.go == '1'
+        run: |
+          command -v pdftotext >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils >/dev/null; }
+          cp site/.github/collector/* "$D83_BASE/"
+          cp site/hydrants.json site/stations.json site/fdareas.json site/d83area.json site/neighbors.json "$D83_BASE/"   # same bytes as the live site -> same build id
+          mkdir -p tours && cp site/tours/*.json tours/
+          [ -d site/archive ] && cp -r site/archive . || true
+          git -C site config user.name "District 83"; git -C site config user.email "345840453+d83hfd-publisher@users.noreply.github.com"
+          bash state.sh restore
+      - name: Collect (part 1)
+        if: steps.gate.outputs.go == '1' && hashFiles('STOPPED') == ''
+        continue-on-error: true
+        run: python3 loop.py 50
+      - name: Save state (part 1)
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('SAVED') == '' && !cancelled()
+        run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
+      - uses: actions/upload-artifact@v4
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+      - name: Clear checkpoint (1)
+        if: steps.gate.outputs.go == '1' && !cancelled()
+        run: rm -f out/state.enc
+      - name: Collect (part 2)
+        if: steps.gate.outputs.go == '1' && hashFiles('STOPPED') == ''
+        continue-on-error: true
+        run: python3 loop.py 50
+      - name: Save state (part 2)
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('SAVED') == '' && !cancelled()
+        run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
+      - uses: actions/upload-artifact@v4
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+      - name: Clear checkpoint (2)
+        if: steps.gate.outputs.go == '1' && !cancelled()
+        run: rm -f out/state.enc
+      - name: Collect (part 3)
+        if: steps.gate.outputs.go == '1' && hashFiles('STOPPED') == ''
+        continue-on-error: true
+        run: python3 loop.py 50
+      - name: Save state (part 3)
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('SAVED') == '' && !cancelled()
+        run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
+      - uses: actions/upload-artifact@v4
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+      - name: Clear checkpoint (3)
+        if: steps.gate.outputs.go == '1' && !cancelled()
+        run: rm -f out/state.enc
+      - name: Collect (part 4)
+        if: steps.gate.outputs.go == '1' && hashFiles('STOPPED') == ''
+        continue-on-error: true
+        run: python3 loop.py 50
+      - name: Save state (part 4)
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('SAVED') == '' && !cancelled()
+        run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
+      - uses: actions/upload-artifact@v4
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+      - name: Clear checkpoint (4)
+        if: steps.gate.outputs.go == '1' && !cancelled()
+        run: rm -f out/state.enc
+      - name: Collect (part 5)
+        if: steps.gate.outputs.go == '1' && hashFiles('STOPPED') == ''
+        continue-on-error: true
+        run: python3 loop.py 50
+      - name: Save state (part 5)
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('SAVED') == '' && !cancelled()
+        run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
+      - uses: actions/upload-artifact@v4
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+      - name: Clear checkpoint (5)
+        if: steps.gate.outputs.go == '1' && !cancelled()
+        run: rm -f out/state.enc
+      - name: Collect (part 6)
+        if: steps.gate.outputs.go == '1' && hashFiles('STOPPED') == ''
+        continue-on-error: true
+        run: python3 loop.py 50
+      - name: Save state (part 6)
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('SAVED') == '' && !cancelled()
+        run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
+      - uses: actions/upload-artifact@v4
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+      - name: Clear checkpoint (6)
+        if: steps.gate.outputs.go == '1' && !cancelled()
+        run: rm -f out/state.enc
+      - name: Collect (part 7)
+        if: steps.gate.outputs.go == '1' && hashFiles('STOPPED') == ''
+        continue-on-error: true
+        run: python3 loop.py 50
+      - name: Save state (part 7)
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('SAVED') == '' && !cancelled()
+        run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
+      - uses: actions/upload-artifact@v4
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+      - name: Clear checkpoint (7)
+        if: steps.gate.outputs.go == '1' && !cancelled()
+        run: rm -f out/state.enc
+      - name: Dry-run output (for comparison with the live site)
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN == 'true'
+        uses: actions/upload-artifact@v4
+        with: { name: dry-run-site, path: "site/index.html\nsite/stats.json\nsite/version.json\nsite/points.json\nsite/transport.json\nsite/tours/", retention-days: 2 }
+      - name: Keep the chain going
+        if: always() && steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && !cancelled()
+        run: |
+          s=$(python3 -c "import json;d=json.load(open('loop_state.json'));print('took' if 'took over' in d.get('stop','') else ('yes' if d.get('next_started') else 'no'))" 2>/dev/null || echo no)
+          up=$(( $(date +%s) - RUN_START ))
+          if [ "$s" = no ] && [ $up -ge 1800 ]; then gh workflow run collector.yml --ref main -R "$GITHUB_REPOSITORY" -f handoff=true && echo "started the next run"
+          else echo "next run: $s (ran ${up}s)"; fi
+# Rollback / failback to the box (publisher on the box again):
+#   1. Actions -> Collector -> "..." -> Disable workflow   (or: gh workflow disable collector.yml)
+#   2. on the box: /workspace/d83/actions/pull_state.sh  (merge what Actions collected into the box DB)
+#   3. on the box: touch /workspace/d83/PUBLISH_ENABLED   (watchdog.sh restarts publish.sh within 30 s)
+# Back to Actions: rm PUBLISH_ENABLED + stop publish.sh, /workspace/d83/actions/push_inputs.sh --seed, enable the workflow,
+#   gh workflow run collector.yml -f handoff=true
