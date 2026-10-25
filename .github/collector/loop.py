@@ -18,7 +18,7 @@ START = float(os.environ.get("RUN_START") or time.time())
 HARD_END = START + float(os.environ.get("HARD_MIN", "345")) * 60
 NEXT_AT = START + float(os.environ.get("NEXT_MIN", "325")) * 60
 DRY = os.environ.get("DRY_RUN") == "true"; HANDOFF = os.environ.get("HANDOFF") == "true"
-MIN_GAP, HEARTBEAT, POLL, MAX_HOLD, STUCK = 120, 420, 60, 180, 300
+MIN_GAP, HEARTBEAT, POLL, MAX_HOLD, STUCK = 110, 420, 60, 180, 300   # MIN_GAP 110: with a 60 s poll, pushes land every ~2 min
 ST_FILE = os.path.join(BASE, "loop_state.json")
 os.environ.setdefault("TZ", "America/Chicago"); time.tzset()
 
