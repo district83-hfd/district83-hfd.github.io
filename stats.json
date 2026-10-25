@@ -1,5 +1,5 @@
 {
- "generated": 1792928885389,
+ "generated": 1792929245894,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,22 +82,22 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-10-25 06:48",
+ "generated_str": "2026-10-25 06:54",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792928879088,
+ "last_ok_poll": 1792929239489,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-10-25 06:47",
- "polls": 3968,
- "polls_ok": 3867,
- "total_incidents_logged": 5246,
- "district_incidents": 26509,
+ "last_ok_poll_str": "2026-10-25 06:53",
+ "polls": 3974,
+ "polls_ok": 3873,
+ "total_incidents_logged": 5247,
+ "district_incidents": 26510,
  "shift_change": "06:30",
  "working_fire_min": 50,
  "multi_unit_wf_min": 60,
@@ -383,11 +383,11 @@
    "unit": "M010",
    "station": "10",
    "kind": "ems",
-   "A": 743,
+   "A": 744,
    "B": 752,
    "C": 897,
    "D": 738,
-   "total": 3130,
+   "total": 3131,
    "wf": 26,
    "mvi": 82,
    "mvi_sh": {
@@ -1023,11 +1023,11 @@
     "unit": "M010",
     "station": "10",
     "kind": "ems",
-    "A": 743,
+    "A": 744,
     "B": 752,
     "C": 897,
     "D": 738,
-    "total": 3130,
+    "total": 3131,
     "wf": 26,
     "mvi": 82,
     "mvi_sh": {
@@ -1683,11 +1683,11 @@
     "unit": "M010",
     "station": "10",
     "kind": "ems",
-    "A": 11,
+    "A": 12,
     "B": 5,
     "C": 22,
     "D": 22,
-    "total": 60,
+    "total": 61,
     "wf": 0,
     "mvi": 1,
     "mvi_sh": {
@@ -1697,7 +1697,7 @@
      "D": 0
     },
     "days": {
-     "2026-10-24": 11,
+     "2026-10-24": 12,
      "2026-10-23": 9,
      "2026-10-22": 10,
      "2026-10-21": 13,
@@ -2448,11 +2448,11 @@
     "unit": "M010",
     "station": "10",
     "kind": "ems",
-    "A": 64,
+    "A": 65,
     "B": 60,
     "C": 74,
     "D": 72,
-    "total": 270,
+    "total": 271,
     "wf": 2,
     "mvi": 11,
     "mvi_sh": {
@@ -45696,7 +45696,7 @@
   "ytd": {
    "10": {
     "unit": "M010",
-    "total": 3130,
+    "total": 3131,
     "hrs": 3615.0
    },
    "69": {
@@ -46059,7 +46059,7 @@
   "2026-10-21": 103,
   "2026-10-22": 97,
   "2026-10-23": 96,
-  "2026-10-24": 93
+  "2026-10-24": 94
  },
  "working_fires": [
   {
