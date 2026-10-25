@@ -520,6 +520,52 @@ def years_with_data(c):
     if not lo: return []
     return list(range(datetime.fromtimestamp(lo / 1000, TZ).year, datetime.fromtimestamp(hi / 1000, TZ).year + 1))
 
+HEADER_DAY_START = (6, 0)   # v57 header: the City's official daily fire-activity window is 06:00 to 05:59
+HFD_RESPONSE_PREFIXES = set(R.STATION_PREFIXES) | {"D"}
+
+def city_incident_count(c, a, b):
+    """HFD incidents with call time in [a, b), counted like the City's official daily count: a call needs at least one
+    HFD response unit (drops stand-by records and calls with only special or non-HFD units), and a call CAD re-creates
+    at the same location while the first is still open, with a unit carried over, counts once."""
+    lo = a - 7200000
+    rows = c.execute("SELECT ikey, call_time, UPPER(COALESCE(address,'')), UPPER(COALESCE(cross_street,'')), first_seen, last_seen "
+                     "FROM incidents WHERE call_time>=? AND call_time<?", (lo, b)).fetchall()
+    units = {}
+    for k, u in c.execute("SELECT u.ikey, u.unit FROM unit_incidents u JOIN incidents i ON i.ikey=u.ikey "
+                          "WHERE i.call_time>=? AND i.call_time<?", (lo, b)):
+        units.setdefault(k, set()).add(u)
+    def hfd(k):
+        for u in units.get(k, ()):
+            m = UNIT_RE.match((u or "").strip().upper())
+            if m and m.group(1) in HFD_RESPONSE_PREFIXES: return True
+        return False
+    by = {}
+    for r in rows:
+        if hfd(r[0]): by.setdefault((r[2], r[3]), []).append(r)
+    n = 0
+    for L in by.values():
+        L.sort(key=lambda r: r[1])
+        for i, y in enumerate(L):
+            if y[1] < a: continue
+            if not any(x[1] <= y[1] and y[4] <= (x[5] or 0) + 120000 and units[x[0]] & units[y[0]] for x in L[:i]): n += 1
+    return n
+
+def city_counts(c, now):
+    """Header (v57): incidents today (since 06:00) and yesterday (06:00 to 05:59), citywide and District 83.
+    District 83 uses the site's own rule (district_rows: a call with a Station 10/69/76/83 unit or D83). Counts only."""
+    t = datetime.fromtimestamp(now / 1000, TZ)
+    if (t.hour, t.minute) < HEADER_DAY_START: t -= timedelta(days=1)
+    day = t.date(); prev = day - timedelta(days=1)
+    t0 = int(datetime(day.year, day.month, day.day, *HEADER_DAY_START, tzinfo=TZ).timestamp() * 1000)
+    y0 = int(datetime(prev.year, prev.month, prev.day, *HEADER_DAY_START, tzinfo=TZ).timestamp() * 1000)
+    d83 = lambda a, b: len(district_rows(c, "call_time>=? AND call_time<?", (a, b)))
+    start = c.execute("SELECT MIN(ts) FROM polls WHERE ok=1").fetchone()[0] or now
+    return {"day": day.isoformat(), "since": "%02d:%02d" % HEADER_DAY_START,
+            "city_today": city_incident_count(c, t0, now + 1), "d83_today": d83(t0, now + 1),
+            "prev_day": prev.isoformat(), "city_prev": city_incident_count(c, y0, t0), "d83_prev": d83(y0, t0),
+            "prev_complete": start <= y0}
+
+
 def stats(c, year=None):
     """Stats for one calendar year (CT). A call belongs to the year of its call time, so a 12/31 tour that runs past
     midnight is split: calls before 00:00 count toward the old year, calls after count toward the new one."""
@@ -599,7 +645,7 @@ def stats(c, year=None):
         "shift_change": "%02d:%02d" % SHIFT_CHANGE, "working_fire_min": WORKING_FIRE_MIN_MINUTES,
         "multi_unit_wf_min": R.MULTI_UNIT_WF_MIN, "dc_wf_min": R.DC_WF_MIN, "support_wf_units": "RH, CC", "crew_added": manual_applied(c), "ooa_boundary_m": FD.BOUNDARY_M, "districts": FD.districts(), "wf_live": live_multi_unit_wf(c) if is_current else [], "tk_live": live_ticker_keys(c) if is_current else [], "ticker_min_heavy": R.TICKER_MIN_HEAVY,
         "non_working_fire_types": sorted(NON_WORKING_FIRE_TYPES), "mvi_re": R.MVI_RE.pattern, "fire_word_re": R.FIRE_WORD_RE.pattern, "box_words": STRUCT_RE.pattern, "box_exclude": NOT_BOX_RE.pattern,
-        "current_tour": {"sd": cur_sd, "sh": cur_sh}, "current_week": current_week,
+        "current_tour": {"sd": cur_sd, "sh": cur_sh}, "current_week": current_week, "city": city_counts(c, now) if is_current else None,
         "runs": runs_periods["ytd"], "runs_periods": runs_periods, "ooa_periods": ooa_periods,
         "busiest": {k: busiest(v) for k, v in runs_periods.items()},
         "tour_counts": {sd: n for sd, n in sorted(__import__("collections").Counter(d["sd"] for d in district).items())},

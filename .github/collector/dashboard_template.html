@@ -344,6 +344,9 @@ details.crow[open]>summary{background:#2a2d36}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}.btxt{min-width:0}
 .crest{width:68px;height:68px;flex:0 0 auto;display:block;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
 @media (min-width:641px){.crest{width:86px;height:86px}.brand{gap:14px}.org{font-size:14px}}
+.cityday{margin:0 0 0 18px;align-self:center;font-size:15px;font-weight:600;color:#f3d6d0;line-height:1.3;letter-spacing:.2px}.cityday b{color:#fff;font-weight:750;font-variant-numeric:tabular-nums}.cityday .cdl{white-space:nowrap}.cityday .cdk{display:inline-block;min-width:5.9em}.cityday .cdt{display:inline-block;min-width:4.7em}.cityday .dot{opacity:.55;margin:0 6px 0 4px}.cityday .cdu{opacity:.7;font-weight:500;font-size:.85em;margin-left:6px}@media (min-width:641px){.cityday{font-size:16px}}@media (max-width:640px){.cityday{flex-basis:100%;margin:2px 0 0}.cityday .cdk{min-width:5.6em}.cityday .cdt{min-width:4.4em}.cityday .dot{margin:0 4px 0 3px}.cityday .cdu{margin-left:4px}}
+@media (max-width:400px){.cityday{font-size:14px}}
+@media (max-width:374px){.cityday{font-size:13px}}
 .org{font-size:12.5px;font-weight:600;letter-spacing:.3px;color:#f3d6d0;opacity:.9;line-height:1.2;margin-bottom:1px;white-space:nowrap}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:url(img/crest-wm.webp) center 60%/min(80vw,520px) no-repeat;opacity:.06}
 
@@ -449,7 +452,7 @@ details.wfp>div{margin-top:10px;color:var(--txt);font-size:15px}
 .wfmore{margin-top:10px;background:#262a35;border:1px solid #3a4050;color:#dfe4f0;border-radius:10px;padding:10px 16px;font-size:15px;font-weight:650;width:100%}
 @media(max-width:400px){.wfk .kv{font-size:21px}}
 </style></head><body>
-<header><div class="brand"><picture><source type="image/webp" srcset="img/crest-96.webp 96w, img/crest-192.webp 192w" sizes="(min-width:641px) 86px, 68px"><img class="crest" src="img/crest-96.png" srcset="img/crest-96.png 96w, img/crest-192.png 192w" sizes="(min-width:641px) 86px, 68px" width="68" height="68" alt="District 83 crest" decoding="async"></picture><div class="btxt"><div class="org">Houston Fire Department</div><h1>District 83 Dashboard</h1><div class="sub">Stations 10 · 69 · 76 · 83 — <span id="upd">loading…</span> <span class="citycnt" id="city"></span></div></div></div>
+<header><div class="brand"><picture><source type="image/webp" srcset="img/crest-96.webp 96w, img/crest-192.webp 192w" sizes="(min-width:641px) 86px, 68px"><img class="crest" src="img/crest-96.png" srcset="img/crest-96.png 96w, img/crest-192.png 192w" sizes="(min-width:641px) 86px, 68px" width="68" height="68" alt="District 83 crest" decoding="async"></picture><div class="btxt"><div class="org">Houston Fire Department</div><h1>District 83 Dashboard</h1><div class="sub">Stations 10 · 69 · 76 · 83 — <span id="upd">loading…</span> <span class="citycnt" id="city"></span></div></div></div><div class="cityday" id="cityday" hidden></div>
 <div class="hr"><div class="clockbox"><span class="shiftbig" id="onduty">—</span><span class="clock" id="clock">--:--:--</span></div><button class="iconbtn" id="infoBtn" aria-label="About This Data" title="About This Data">ⓘ</button><button id="ref">Refresh</button></div></header>
 <div id="ticker" class="ticker" hidden><span class="tk-lbl">🔥 City Fires</span><div class="tk-view"><div class="tk-track" id="tkTrack"></div></div></div>
 <div id="tkBack" class="tkback" hidden><div id="tkDetail" class="tkdet" role="dialog" aria-modal="true" aria-label="Working fire details"></div></div>
@@ -1501,7 +1504,14 @@ document.getElementById("mUnit").onchange=renderMetrics;
 setInterval(()=>{try{const on=document.querySelector(".tab.on");if(on&&on.dataset.k==="metrics"&&PTS&&!isPast()&&+parts(Date.now()).hour!==M_HOUR)renderMetrics()}catch(e){}},30000);
 
 try{renderHistory()}catch(e){console.error("renderHistory",e)}
-async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();WF_LIVE=new Set(S.wf_live||[]);TK_LIVE=new Set(S.tk_live||[]);if(PTS)await ensurePoints();renderHistory()}catch(e){console.warn("stats.json",e)}}
+// v57: citywide and District 83 incidents for today (since 06:00, the City day) and yesterday, in the header
+function renderCityDay(){const el=document.getElementById("cityday");if(!el)return;const c=S&&S.city;if(!c||c.city_today==null){el.hidden=true;return}
+  const n=v=>Number(v).toLocaleString("en-US"),y=c.prev_complete;
+  const ln=(k,t,p,u)=>`<div class="cdl"><span class="cdk">${k}</span><span class="cdt">Today <b>${n(t)}</b></span>`+(y?`<span class="dot">·</span>Yesterday <b>${n(p)}</b>`:"")+(u?`<span class="cdu">Incidents</span>`:"")+`</div>`;
+  el.innerHTML=ln("Citywide",c.city_today,c.city_prev,1)+ln("District 83",c.d83_today,c.d83_prev,0);
+  el.title=`Incidents (calls). Today = since ${c.since}; `+(y?`Yesterday = ${c.since} to ${c.since}, the City's official day. `:"")+`Citywide = every HFD call on the City's live feed that has an HFD unit; a call re-created at the same location counts once. District 83 = calls with a Station 10, 69, 76 or 83 unit or District Chief 83, as on By Shift.`;el.hidden=false}
+try{renderCityDay()}catch(e){}
+async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();try{renderCityDay()}catch(e){}WF_LIVE=new Set(S.wf_live||[]);TK_LIVE=new Set(S.tk_live||[]);if(PTS)await ensurePoints();renderHistory()}catch(e){console.warn("stats.json",e)}}
 function staleCheck(){const el=document.getElementById("staleBar");if(!el)return;const g=S&&S.generated;if(location.protocol==="file:"||!g){el.hidden=true;return}
   const m=Math.floor((Date.now()-g)/60000);if(m<=15){el.hidden=true;return}
   el.innerHTML=`<b>History data is ${m>=120?Math.floor(m/60)+" h":m+" min"} old</b> (last update ${esc(dt(g))} CT)<small>Shift, run counts and maps may be behind. The Live tab still reads the City feed directly.</small>`+(BK_LINE||"")+(GH_DOWN?GH_LINE:"");el.hidden=false;ghCheck();bkCheck()}
