@@ -9,7 +9,7 @@
 name: Collector
 run-name: ${{ inputs.handoff && 'Collector (handoff)' || (inputs.dry_run && 'Collector (dry run)' || 'Collector') }}
 on:
-  # schedule: [{ cron: "7,37 * * * *" }]   # enabled at cutover
+  schedule: [{ cron: "7,37 * * * *" }]
   workflow_dispatch:
     inputs:
       handoff: { description: "Take over from the running collector (used by the chain; also to load new code)", type: boolean, default: false }

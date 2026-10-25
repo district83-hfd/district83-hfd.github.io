@@ -3,7 +3,7 @@
 # and then starts the next run itself by workflow_dispatch (allowed with the built-in token). The schedule and the
 # box (publish.sh backup_revive) only restart the chain if it ever stops. The concurrency group keeps one chain.
 # Phone alerts ("Stopped Updating" / "Back Up") now come from an outside dead-man switch, so this workflow stays quiet
-# (ALERTS=off) to avoid duplicate pushes. A simulate_stale test run does one check and does not chain.
+# (ALERTS=off) to avoid duplicate pushes. v56: each check also restarts the Actions collector chain if it has stopped. A simulate_stale test run does one check and does not chain.
 name: Backup Logger
 on:
   schedule: [{ cron: "*/5 * * * *" }]
@@ -44,6 +44,11 @@ jobs:
               done
               if [ $pushed = 1 ] && grep -q '^flip=1' out.txt; then gh workflow run deploy.yml --ref main -R "$GITHUB_REPOSITORY" || echo "deploy dispatch failed"; fi
               [ $pushed = 1 ] || { echo "push failed after 4 tries"; git reset -q --hard origin/main; }
+            fi
+            # v56: the live collector now runs on Actions (collector.yml); restart its chain if no run is queued or running
+            if [ -z "$SIMULATE" ]; then
+              act=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/collector.yml/runs?per_page=20" --jq '[.workflow_runs[] | select(.status != "completed")] | length' 2>/dev/null)
+              if [ "$act" = "0" ]; then gh workflow run collector.yml --ref main -R "$GITHUB_REPOSITORY" && echo "collector chain was not running: started it"; fi
             fi
             [ $(date +%s) -ge $end ] && break
             sleep $(( 300 - ( $(date +%s) - t0 ) % 300 ))
