@@ -1,5 +1,5 @@
 {
- "generated": 1793015802434,
+ "generated": 1793015922486,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,20 +82,20 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-10-26 06:56",
+ "generated_str": "2026-10-26 06:58",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793015798604,
+ "last_ok_poll": 1793015918603,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-10-26 06:56",
- "polls": 5417,
- "polls_ok": 5316,
+ "last_ok_poll_str": "2026-10-26 06:58",
+ "polls": 5419,
+ "polls_ok": 5318,
  "total_incidents_logged": 6321,
  "district_incidents": 26584,
  "shift_change": "06:30",
@@ -383,7 +383,7 @@
    },
    "hrs": 3499.0,
    "hsh": {
-    "A": 853.64,
+    "A": 853.67,
     "B": 839.27,
     "C": 877.88,
     "D": 928.22
@@ -1023,7 +1023,7 @@
     },
     "hrs": 3499.0,
     "hsh": {
-     "A": 853.64,
+     "A": 853.67,
      "B": 839.27,
      "C": 877.88,
      "D": 928.22
@@ -1638,7 +1638,7 @@
     },
     "hrs": 316.7,
     "hsh": {
-     "A": 78.59,
+     "A": 78.62,
      "B": 83.0,
      "C": 73.03,
      "D": 82.05
