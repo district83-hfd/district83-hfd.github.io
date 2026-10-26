@@ -1,5 +1,5 @@
 {
- "generated": 1792994568338,
+ "generated": 1792994688856,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-10-26 01:02",
+ "generated_str": "2026-10-26 01:04",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1792994564325,
+ "last_ok_poll": 1792994684752,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-10-26 01:02",
- "polls": 5063,
- "polls_ok": 4962,
- "total_incidents_logged": 6156,
+ "last_ok_poll_str": "2026-10-26 01:04",
+ "polls": 5065,
+ "polls_ok": 4964,
+ "total_incidents_logged": 6160,
  "district_incidents": 26572,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -197,7 +197,9 @@
   "105": "65"
  },
  "wf_live": [],
- "tk_live": [],
+ "tk_live": [
+  "1792994280000|LAZYDALE LN|BLK FOREST VIEW ST"
+ ],
  "ticker_min_heavy": 3,
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
@@ -226,7 +228,7 @@
  "city": {
   "day": "2026-10-25",
   "since": "06:00",
-  "city_today": 909,
+  "city_today": 913,
   "d83_today": 63,
   "prev_day": "2026-10-24",
   "city_prev": 1262,
@@ -841,7 +843,7 @@
    "hrs": 3977.7,
    "hsh": {
     "A": 950.66,
-    "B": 1008.77,
+    "B": 1008.8,
     "C": 1005.32,
     "D": 1012.91
    }
@@ -1481,7 +1483,7 @@
     "hrs": 3977.7,
     "hsh": {
      "A": 950.66,
-     "B": 1008.77,
+     "B": 1008.8,
      "C": 1005.32,
      "D": 1012.91
     }
@@ -1904,7 +1906,7 @@
     "hrs": 9.9,
     "hsh": {
      "A": 0.0,
-     "B": 9.91,
+     "B": 9.95,
      "C": 0.0,
      "D": 0.0
     }
@@ -2736,7 +2738,7 @@
     "hrs": 91.0,
     "hsh": {
      "A": 14.19,
-     "B": 26.34,
+     "B": 26.37,
      "C": 24.52,
      "D": 25.92
     },
@@ -2747,7 +2749,7 @@
      "2026-10-22": 9.43,
      "2026-10-23": 10.67,
      "2026-10-24": 14.19,
-     "2026-10-25": 9.91
+     "2026-10-25": 9.95
     }
    },
    {
@@ -3328,7 +3330,7 @@
     "hrs": 331.0,
     "hsh": {
      "A": 78.75,
-     "B": 89.7,
+     "B": 89.73,
      "C": 82.38,
      "D": 80.16
     }
