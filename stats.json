@@ -1,5 +1,5 @@
 {
- "generated": 1793108428385,
+ "generated": 1793108728265,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,22 +82,22 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-10-27 08:40",
+ "generated_str": "2026-10-27 08:45",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793108422119,
+ "last_ok_poll": 1793108721906,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-10-27 08:40",
- "polls": 6960,
- "polls_ok": 6859,
- "total_incidents_logged": 7519,
- "district_incidents": 26693,
+ "last_ok_poll_str": "2026-10-27 08:45",
+ "polls": 6965,
+ "polls_ok": 6864,
+ "total_incidents_logged": 7525,
+ "district_incidents": 26694,
  "shift_change": "06:30",
  "working_fire_min": 50,
  "multi_unit_wf_min": 60,
@@ -226,8 +226,8 @@
  "city": {
   "day": "2026-10-27",
   "since": "06:00",
-  "city_today": 95,
-  "d83_today": 6,
+  "city_today": 100,
+  "d83_today": 7,
   "prev_day": "2026-10-26",
   "city_prev": 1114,
   "d83_prev": 104,
@@ -826,10 +826,10 @@
    "station": "83",
    "kind": "ems",
    "A": 907,
-   "B": 845,
+   "B": 846,
    "C": 819,
    "D": 792,
-   "total": 3363,
+   "total": 3364,
    "wf": 4,
    "mvi": 149,
    "mvi_sh": {
@@ -1466,10 +1466,10 @@
     "station": "83",
     "kind": "ems",
     "A": 907,
-    "B": 845,
+    "B": 846,
     "C": 819,
     "D": 792,
-    "total": 3363,
+    "total": 3364,
     "wf": 4,
     "mvi": 149,
     "mvi_sh": {
@@ -1643,10 +1643,10 @@
     "station": "83",
     "kind": "ems",
     "A": 0,
-    "B": 1,
+    "B": 2,
     "C": 0,
     "D": 0,
-    "total": 1,
+    "total": 2,
     "wf": 0,
     "mvi": 0,
     "mvi_sh": {
@@ -2173,10 +2173,10 @@
     "station": "83",
     "kind": "ems",
     "A": 16,
-    "B": 1,
+    "B": 2,
     "C": 0,
     "D": 0,
-    "total": 17,
+    "total": 18,
     "wf": 0,
     "mvi": 0,
     "mvi_sh": {
@@ -2186,7 +2186,7 @@
      "D": 0
     },
     "days": {
-     "2026-10-27": 1,
+     "2026-10-27": 2,
      "2026-10-26": 16
     },
     "hrs": 15.5,
@@ -2751,10 +2751,10 @@
     "station": "83",
     "kind": "ems",
     "A": 94,
-    "B": 70,
+    "B": 71,
     "C": 68,
     "D": 75,
-    "total": 307,
+    "total": 308,
     "wf": 1,
     "mvi": 9,
     "mvi_sh": {
@@ -45248,7 +45248,7 @@
    },
    "83": {
     "unit": "A083",
-    "total": 3363,
+    "total": 3364,
     "hrs": 3995.2
    }
   },
@@ -45270,7 +45270,7 @@
    },
    "83": {
     "unit": "A083",
-    "total": 1,
+    "total": 2,
     "hrs": 1.1
    }
   },
@@ -45292,7 +45292,7 @@
    },
    "83": {
     "unit": "A083",
-    "total": 17,
+    "total": 18,
     "hrs": 15.5
    }
   },
@@ -45314,7 +45314,7 @@
    },
    "83": {
     "unit": "A083",
-    "total": 307,
+    "total": 308,
     "hrs": 348.5
    }
   }
@@ -45620,7 +45620,7 @@
   "2026-10-24": 94,
   "2026-10-25": 74,
   "2026-10-26": 104,
-  "2026-10-27": 5
+  "2026-10-27": 6
  },
  "working_fires": [
   {
