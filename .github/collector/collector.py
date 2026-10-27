@@ -429,6 +429,16 @@ def run_table(rows, wf_keys, iv=None, hosp=None, days=False):
         if days: r["hday"] = {sd: round(v / 3600000, 2) for sd, v in byd.items()}
     return sorted(runs.values(), key=unit_sortkey)
 
+def inc_table(rows):
+    """v59: District 83 incidents by shift for one period (same rows and shift as run_table). An incident is one call row
+    (CAD re-keys are already linked to one row by the aliases table) with at least one District 83 unit on it, so a call
+    that E76, L76 and M76 all ran counts once here but as 3 runs in run_table."""
+    t = {"A": 0, "B": 0, "C": 0, "D": 0, "total": 0}
+    for d in rows:
+        if any(x["d"] for x in d["units"]):
+            t[d["sh"]] = t.get(d["sh"], 0) + 1; t["total"] += 1
+    return t
+
 OOA_FIRE = FD.OOA_PREFIXES | {"D"}   # units the out-of-area rule applies to (fire apparatus + D083), the share's denominator
 def ooa_shift(rows, months=False):
     """Out-of-first-due runs by shift for one period, same rule as run_table (FD.ooa_dest: fire units only, 150 m buffer,
@@ -581,6 +591,7 @@ def stats(c, year=None):
     iv = unit_intervals(c, [d["k"] for d in district])
     hv = hosp_spans(c, y0, y1)
     runs_periods = {"ytd": run_table(district, wf_keys, iv, hv)}
+    inc_periods = {"ytd": inc_table(district)}
     ooa_periods = {"ytd": ooa_shift(district, months=True)}
     cur_sd, cur_sh = shift_date_of(now); current_week = None
     if is_current:
@@ -591,6 +602,7 @@ def stats(c, year=None):
         tiv = unit_intervals(c, [d["k"] for d in tour_rows])
         thv = [v for v in hosp_spans(c, now - 3 * 86400000, now + 1) if shift_date_of(v["a"])[0] == cur_sd]
         runs_periods["tour"] = run_table(tour_rows, {w["k"]: set(w["long_units"]) for w in twf}, tiv, thv)
+        inc_periods["tour"] = inc_table(tour_rows)
         # "This week" = the Monday..Sunday tours (Mon 06:30 CT to the next Mon 06:30 CT), crossing years if needed.
         wk0, wk1, wks, wke = week_of(cur_sd)
         week_rows = district_rows(c, "shift_date>=? AND shift_date<?", (wk0, wk1))
@@ -598,10 +610,12 @@ def stats(c, year=None):
         wiv = unit_intervals(c, [d["k"] for d in week_rows])
         whv = [v for v in hosp_spans(c, wks - 86400000, now + 1) if wk0 <= shift_date_of(v["a"])[0] < wk1]
         runs_periods["week"] = run_table(week_rows, {w["k"]: set(w["long_units"]) for w in wwf}, wiv, whv, days=True)
+        inc_periods["week"] = inc_table(week_rows)
         current_week = {"start_sd": wk0, "end_sd": wk1, "start": wks, "end": wke}
         n = datetime.fromtimestamp(now / 1000, TZ)
         m0 = int(datetime(n.year, n.month, 1, tzinfo=TZ).timestamp() * 1000)
         runs_periods["month"] = run_table([d for d in district if d["t"] >= m0], wf_keys, iv, [v for v in hv if v["a"] >= m0])
+        inc_periods["month"] = inc_table([d for d in district if d["t"] >= m0])
         ooa_periods["week"] = ooa_shift(week_rows); ooa_periods["month"] = ooa_shift([d for d in district if d["t"] >= m0])
         # Change vs the previous week / month: unit -> area pair counts by shift, only when that period was fully logged.
         pm = (n.replace(day=1) - timedelta(days=1)); pm0 = int(datetime(pm.year, pm.month, 1, tzinfo=TZ).timestamp() * 1000)
@@ -646,7 +660,7 @@ def stats(c, year=None):
         "multi_unit_wf_min": R.MULTI_UNIT_WF_MIN, "dc_wf_min": R.DC_WF_MIN, "support_wf_units": "RH, CC", "crew_added": manual_applied(c), "ooa_boundary_m": FD.BOUNDARY_M, "districts": FD.districts(), "wf_live": live_multi_unit_wf(c) if is_current else [], "tk_live": live_ticker_keys(c) if is_current else [], "ticker_min_heavy": R.TICKER_MIN_HEAVY,
         "non_working_fire_types": sorted(NON_WORKING_FIRE_TYPES), "mvi_re": R.MVI_RE.pattern, "fire_word_re": R.FIRE_WORD_RE.pattern, "box_words": STRUCT_RE.pattern, "box_exclude": NOT_BOX_RE.pattern,
         "current_tour": {"sd": cur_sd, "sh": cur_sh}, "current_week": current_week, "city": city_counts(c, now) if is_current else None,
-        "runs": runs_periods["ytd"], "runs_periods": runs_periods, "ooa_periods": ooa_periods,
+        "runs": runs_periods["ytd"], "runs_periods": runs_periods, "incidents_periods": inc_periods, "ooa_periods": ooa_periods,
         "busiest": {k: busiest(v) for k, v in runs_periods.items()},
         "tour_counts": {sd: n for sd, n in sorted(__import__("collections").Counter(d["sd"] for d in district).items())},
         "working_fires": wf,
