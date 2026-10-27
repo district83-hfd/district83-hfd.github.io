@@ -1,5 +1,5 @@
 {
- "generated": 1793098819833,
+ "generated": 1793099119878,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,22 +82,22 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-10-27 06:00",
+ "generated_str": "2026-10-27 06:05",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793098813377,
+ "last_ok_poll": 1793099113603,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-10-27 06:00",
- "polls": 6800,
- "polls_ok": 6699,
- "total_incidents_logged": 7417,
- "district_incidents": 26685,
+ "last_ok_poll_str": "2026-10-27 06:05",
+ "polls": 6805,
+ "polls_ok": 6704,
+ "total_incidents_logged": 7421,
+ "district_incidents": 26686,
  "shift_change": "06:30",
  "working_fire_min": 50,
  "multi_unit_wf_min": 60,
@@ -229,8 +229,8 @@
   "city_today": 0,
   "d83_today": 0,
   "prev_day": "2026-10-26",
-  "city_prev": 1109,
-  "d83_prev": 102,
+  "city_prev": 1113,
+  "d83_prev": 103,
   "prev_complete": true
  },
  "runs": [
@@ -393,11 +393,11 @@
    "unit": "M010",
    "station": "10",
    "kind": "ems",
-   "A": 758,
+   "A": 759,
    "B": 759,
    "C": 897,
    "D": 738,
-   "total": 3152,
+   "total": 3153,
    "wf": 27,
    "mvi": 83,
    "mvi_sh": {
@@ -1033,11 +1033,11 @@
     "unit": "M010",
     "station": "10",
     "kind": "ems",
-    "A": 758,
+    "A": 759,
     "B": 759,
     "C": 897,
     "D": 738,
-    "total": 3152,
+    "total": 3153,
     "wf": 27,
     "mvi": 83,
     "mvi_sh": {
@@ -1615,11 +1615,11 @@
     "unit": "M010",
     "station": "10",
     "kind": "ems",
-    "A": 14,
+    "A": 15,
     "B": 0,
     "C": 0,
     "D": 0,
-    "total": 14,
+    "total": 15,
     "wf": 0,
     "mvi": 0,
     "mvi_sh": {
@@ -2090,11 +2090,11 @@
     "unit": "M010",
     "station": "10",
     "kind": "ems",
-    "A": 14,
+    "A": 15,
     "B": 0,
     "C": 0,
     "D": 0,
-    "total": 14,
+    "total": 15,
     "wf": 0,
     "mvi": 0,
     "mvi_sh": {
@@ -2104,7 +2104,7 @@
      "D": 0
     },
     "days": {
-     "2026-10-26": 14
+     "2026-10-26": 15
     },
     "hrs": 12.5,
     "hsh": {
@@ -2657,11 +2657,11 @@
     "unit": "M010",
     "station": "10",
     "kind": "ems",
-    "A": 79,
+    "A": 80,
     "B": 67,
     "C": 74,
     "D": 72,
-    "total": 292,
+    "total": 293,
     "wf": 3,
     "mvi": 12,
     "mvi_sh": {
@@ -45521,7 +45521,7 @@
   "ytd": {
    "10": {
     "unit": "M010",
-    "total": 3152,
+    "total": 3153,
     "hrs": 3637.5
    },
    "69": {
@@ -45543,7 +45543,7 @@
   "tour": {
    "10": {
     "unit": "M010",
-    "total": 14,
+    "total": 15,
     "hrs": 12.5
    },
    "69": {
@@ -45565,7 +45565,7 @@
   "week": {
    "10": {
     "unit": "M010",
-    "total": 14,
+    "total": 15,
     "hrs": 12.5
    },
    "69": {
@@ -45907,7 +45907,7 @@
   "2026-10-23": 96,
   "2026-10-24": 94,
   "2026-10-25": 74,
-  "2026-10-26": 101
+  "2026-10-26": 102
  },
  "working_fires": [
   {
