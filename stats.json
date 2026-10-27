@@ -1,5 +1,5 @@
 {
- "generated": 1793089283752,
+ "generated": 1793089404252,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-10-27 03:21",
+ "generated_str": "2026-10-27 03:23",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793089277538,
+ "last_ok_poll": 1793089398026,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-10-27 03:21",
- "polls": 6641,
- "polls_ok": 6540,
- "total_incidents_logged": 7353,
+ "last_ok_poll_str": "2026-10-27 03:23",
+ "polls": 6643,
+ "polls_ok": 6542,
+ "total_incidents_logged": 7359,
  "district_incidents": 26684,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -196,12 +196,8 @@
   "104": "102",
   "105": "65"
  },
- "wf_live": [
-  "1793081460000|ASHFORD POINT DR|BLK ASHBURNHAM DR"
- ],
- "tk_live": [
-  "1793081460000|ASHFORD POINT DR|BLK ASHBURNHAM DR"
- ],
+ "wf_live": [],
+ "tk_live": [],
  "ticker_min_heavy": 3,
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
@@ -230,7 +226,7 @@
  "city": {
   "day": "2026-10-26",
   "since": "06:00",
-  "city_today": 1045,
+  "city_today": 1051,
   "d83_today": 101,
   "prev_day": "2026-10-25",
   "city_prev": 1048,
@@ -385,9 +381,9 @@
     "C": 34,
     "D": 59
    },
-   "hrs": 3511.7,
+   "hrs": 3511.8,
    "hsh": {
-    "A": 866.36,
+    "A": 866.4,
     "B": 839.27,
     "C": 877.88,
     "D": 928.22
@@ -1025,9 +1021,9 @@
      "C": 34,
      "D": 59
     },
-    "hrs": 3511.7,
+    "hrs": 3511.8,
     "hsh": {
-     "A": 866.36,
+     "A": 866.4,
      "B": 839.27,
      "C": 877.88,
      "D": 928.22
@@ -1609,7 +1605,7 @@
     },
     "hrs": 12.8,
     "hsh": {
-     "A": 12.75,
+     "A": 12.78,
      "B": 0.0,
      "C": 0.0,
      "D": 0.0
@@ -2081,13 +2077,13 @@
     },
     "hrs": 12.8,
     "hsh": {
-     "A": 12.75,
+     "A": 12.78,
      "B": 0.0,
      "C": 0.0,
      "D": 0.0
     },
     "hday": {
-     "2026-10-26": 12.75
+     "2026-10-26": 12.78
     }
    },
    {
@@ -2651,7 +2647,7 @@
     },
     "hrs": 329.4,
     "hsh": {
-     "A": 91.31,
+     "A": 91.35,
      "B": 83.0,
      "C": 73.03,
      "D": 82.05
@@ -45931,8 +45927,8 @@
    "sd": "2026-10-26",
    "sh": "A",
    "fs": 1793081950518,
-   "ls": 1793089277538,
-   "min": 122,
+   "ls": 1793089338548,
+   "min": 123,
    "units": [
     {
      "u": "D078",
@@ -45987,18 +45983,18 @@
     {
      "u": "ARS734",
      "d": false,
-     "min": 112
+     "min": 113
     },
     {
      "u": "ARS744",
      "d": false,
-     "min": 112
+     "min": 113
     }
    ],
-   "cad": 130,
+   "cad": 131,
    "wt": true,
    "xwf": false,
-   "ov2": 122,
+   "ov2": 123,
    "why": "fire box on CAD 50+ min",
    "long_units": [
     "D083",
