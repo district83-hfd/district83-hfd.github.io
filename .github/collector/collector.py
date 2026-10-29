@@ -51,6 +51,97 @@ def reclassify(c):
                      AND ui.station IS NOT NULL) THEN 1 ELSE 0 END)""").rowcount
     c.commit()
     if ch or d: log(f"reclassify: {ch} unit rows, {d} incidents changed district flag")
+    try: merge_recreated(c)   # v62: history follows the re-created-call rule too (idempotent)
+    except Exception: log("merge_recreated error: " + traceback.format_exc())
+
+# ---- v62: one incident when CAD re-creates a call under new keys (location edits) ------------------------------------
+RECREATE_GAP_MS = 120000        # the unit moves to the new key within 2 polls of leaving the old one (overlap up to the same)
+RECREATE_DIST_M = 750           # new location within 750 m of the old one
+RECREATE_A_MAX_MS = 20 * 60000  # no-same-call-time cases only link a call that was open 20 min or less
+RECREATE_B_MAX_MS = 6 * 60000   # ...and a new key that itself lasted 6 min or less (a pure address edit, not a new run)
+
+def _hav_m(a, b):
+    import math
+    if not (a[0] and a[1] and b[0] and b[1]): return None
+    p = math.pi / 180; dl = (b[0] - a[0]) * p; dn = (b[1] - a[1]) * p
+    h = math.sin(dl / 2) ** 2 + math.cos(a[0] * p) * math.cos(b[0] * p) * math.sin(dn / 2) ** 2
+    return 12742000 * math.asin(math.sqrt(h))
+
+def recreate_link(A, B, ua, ub):
+    """True when incident B is CAD's re-creation of incident A (A: earlier first_seen). A, B = dicts with ikey, ct, addr, cs,
+    type, lat, lon, fs, ls; ua, ub = {unit: (first_seen, last_seen)}. All must hold: same type; a shared unit that moves from
+    A to B within RECREATE_GAP_MS (B first seen no later than that after A's last sighting); locations within RECREATE_DIST_M;
+    and one of: (a) the same CAD call-time minute; (b) two or more shared units, B adds no new unit, call time not earlier
+    (crew moved together); (c) B's call time falls inside A's life, B adds no unit, A was open <= 20 min and B <= 6 min."""
+    if (A["type"] or "").strip().upper() != (B["type"] or "").strip().upper(): return False
+    if not (A["fs"] <= B["fs"] <= A["ls"] + RECREATE_GAP_MS): return False
+    sh = set(ua) & set(ub)
+    if not sh: return False
+    ug = min(ub[u][0] - ua[u][1] for u in sh)
+    if not -RECREATE_GAP_MS <= ug <= RECREATE_GAP_MS: return False
+    if (A["addr"], A["cs"]) == (B["addr"], B["cs"]): d = 0
+    else:
+        d = _hav_m((A["lat"], A["lon"]), (B["lat"], B["lon"]))
+        if d is None or d > RECREATE_DIST_M: return False
+    if (A["ct"] or 0) // 60000 == (B["ct"] or 0) // 60000: return True
+    if set(ub) - set(ua) or (A["ct"] or 0) > (B["ct"] or 0): return False
+    if len(sh) >= 2: return A["ls"] - A["fs"] <= RECREATE_A_MAX_MS
+    return (B["ct"] <= A["ls"] and A["ls"] - A["fs"] <= RECREATE_A_MAX_MS and B["ls"] - B["fs"] <= RECREATE_B_MAX_MS)
+
+def recreate_groups(incs, units):
+    """Union incidents linked by recreate_link. incs: list of dicts sorted by first_seen. Returns [[ikey, ...], ...] (size >= 2)."""
+    par = {i["ikey"]: i["ikey"] for i in incs}
+    def find(x):
+        while par[x] != x: par[x] = par[par[x]]; x = par[x]
+        return x
+    for i, A in enumerate(incs):
+        for B in incs[i + 1:]:
+            if B["fs"] > A["ls"] + RECREATE_GAP_MS:
+                if B["fs"] > A["fs"] + 7 * 3600000: break   # sorted by first_seen: nothing later can attach to A
+                continue
+            if recreate_link(A, B, units.get(A["ikey"], {}), units.get(B["ikey"], {})):
+                par[find(B["ikey"])] = find(A["ikey"])
+    g = {}
+    for k in par: g.setdefault(find(k), []).append(k)
+    return [v for v in g.values() if len(v) > 1]
+
+def merge_recreated(c, since=None):
+    """v62: when dispatch edits a call's location CAD re-creates it under a new key (new call time/address) and the feed
+    shows it as a new incident. Link those keys into ONE incident (one run per unit): keep the earliest key, earliest call
+    time/first_seen, latest last_seen, and the LATEST location/type; the other keys become aliases of it so later polls land
+    on the same row. Idempotent (a merged key no longer exists as an incident); since = only look at incidents seen since then.
+    Returns [(survivor_key, [merged keys])]."""
+    lo = (since if since is not None else 0)
+    rows = c.execute("SELECT ikey,call_time,address,cross_street,type,lat,lon,first_seen,last_seen FROM incidents WHERE last_seen>=? ORDER BY first_seen, call_time, ikey", (lo - RECREATE_GAP_MS,)).fetchall()
+    incs = [dict(ikey=r[0], ct=r[1], addr=(r[2] or ""), cs=(r[3] or ""), type=r[4], lat=r[5], lon=r[6], fs=r[7], ls=r[8]) for r in rows]
+    if len(incs) < 2: return []
+    keys = {i["ikey"] for i in incs}; units = {}
+    for k, u, f, l in c.execute("SELECT ikey,unit,first_seen,last_seen FROM unit_incidents WHERE ikey IN (SELECT ikey FROM incidents WHERE last_seen>=?)", (lo - RECREATE_GAP_MS,)):
+        units.setdefault(k, {})[u] = (f, l)
+    by = {i["ikey"]: i for i in incs}; done = []
+    for grp in recreate_groups(incs, units):
+        mem = sorted((by[k] for k in grp), key=lambda i: (i["fs"], i["ct"] or 0, i["ikey"]))
+        sv = mem[0]["ikey"]; fin = max(mem, key=lambda i: (i["ls"], i["fs"], i["ikey"]))
+        others = [m["ikey"] for m in mem if m["ikey"] != sv]
+        ph = ",".join("?" * len(grp))
+        agg = c.execute(f"SELECT MIN(call_time), MAX(max_alarm), MAX(district), MIN(first_seen), MAX(last_seen) FROM incidents WHERE ikey IN ({ph})", grp).fetchone()
+        fr = c.execute("SELECT address,cross_street,type,keymap,lat,lon FROM incidents WHERE ikey=?", (fin["ikey"],)).fetchone()
+        sd, sh_ = shift_date_of(agg[0]) if agg[0] else (None, None)
+        c.execute("""UPDATE incidents SET call_time=?, max_alarm=?, district=?, first_seen=?, last_seen=?, address=?, cross_street=?, type=?,
+                     keymap=?, lat=?, lon=?, shift_date=COALESCE(?, shift_date), shift=COALESCE(?, shift) WHERE ikey=?""",
+                  (agg[0], agg[1], agg[2], agg[3], agg[4], *fr, sd, sh_, sv))
+        for o in others:
+            for u, st, f, l in c.execute("SELECT unit,station,first_seen,last_seen FROM unit_incidents WHERE ikey=?", (o,)).fetchall():
+                c.execute("""INSERT INTO unit_incidents VALUES(?,?,?,?,?) ON CONFLICT(ikey, unit) DO UPDATE SET
+                             last_seen=MAX(last_seen, excluded.last_seen), first_seen=MIN(first_seen, excluded.first_seen)""", (sv, u, st, f, l))
+            c.execute("DELETE FROM unit_incidents WHERE ikey=?", (o,))
+            c.execute("DELETE FROM incidents WHERE ikey=?", (o,))
+            c.execute("UPDATE aliases SET ikey=? WHERE ikey=?", (sv, o))
+            c.execute("INSERT OR REPLACE INTO aliases VALUES(?,?,?)", (o, sv, int(time.time() * 1000)))
+        log(f"recreated call linked: {others} -> {sv} (location edited in CAD; shown at its final location)")
+        done.append((sv, others))
+    c.commit()
+    return done
 
 def load_schedule():
     sched = {}
@@ -171,6 +262,11 @@ def ingest(c, feats, now, ok):
           first_seen=MIN(first_seen, excluded.first_seen),
           type=CASE WHEN excluded.last_seen>=last_seen THEN excluded.type ELSE type END,
           call_time=MIN(call_time, excluded.call_time),
+          address=CASE WHEN excluded.last_seen>=last_seen THEN excluded.address ELSE address END,
+          cross_street=CASE WHEN excluded.last_seen>=last_seen THEN excluded.cross_street ELSE cross_street END,
+          lat=CASE WHEN excluded.last_seen>=last_seen THEN COALESCE(excluded.lat, lat) ELSE lat END,
+          lon=CASE WHEN excluded.last_seen>=last_seen THEN COALESCE(excluded.lon, lon) ELSE lon END,
+          keymap=CASE WHEN excluded.last_seen>=last_seen THEN COALESCE(excluded.keymap, keymap) ELSE keymap END,
           max_alarm=MAX(max_alarm, excluded.max_alarm), district=MAX(district, excluded.district)""",
           (ikey, ct, addr, cs, a.get("IncidentType") or "", alarm, a.get("KeyMap"), a.get("LATITUDE"),
            a.get("LONGITUDE"), sd, sh, now, now, dist))
@@ -873,6 +969,8 @@ def cycle(c):
     try: merge_backup(c)
     except Exception: log("backup merge error: " + traceback.format_exc())
     tm = [time.time()]; poll(c); tm.append(time.time())
+    try: merge_recreated(c, now_ms() - 6 * 3600000)   # v62: re-created calls (location edited in CAD) become one incident
+    except Exception: log("merge_recreated error: " + traceback.format_exc())
     try: apply_manual_units(c)
     except Exception: log("manual units error: " + traceback.format_exc())
     if os.path.exists(f"{BASE}/PUSH_ENABLED"):   # ntfy push alerts: off for now (create PUSH_ENABLED to turn back on)
