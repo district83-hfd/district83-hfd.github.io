@@ -13,6 +13,8 @@ import collector as C
 SRC_PAGE = "https://houstontx.gov/fire/ambulances-pdf.html"
 SRC_PDF = "https://houstontx.gov/fire/HFDUnitsatHospital.pdf"
 OUT = f"{C.BASE}/transport.json"
+LONG_MIN = 90          # v60: a District 83 unit listed at a hospital longer than 1:30 is logged as a long stay
+LONG_KEEP = 150        # newest long stays kept per period in transport.json (the counts cover all of them)
 STALE_MIN = 4 * 60     # listed > 4 h: record not cleared in CAD; dropped from the now list, excluded from times/counts
 RUN_RE = re.compile(r"Report run on:\s*(\d{1,2}/\d{1,2}/\d{4}\s+\d{1,2}:\d{2}:\d{2}\s*[AP]M)")
 TOT_RE = re.compile(r"Total Count of Units at Hospitals\s*-\s*(\d+)")
@@ -105,6 +107,20 @@ def _visits(c, lo, hi, latest):
         out.append({"u": u, "h": h, "a": a, "m": m, "done": done, "stale": m > STALE_MIN, "st": C.unit_station(u)})
     return out
 
+def _long(d):
+    """v60: long stays = District 83 visits over LONG_MIN (1:30) at a hospital, newest first, with the unit's shift (tour of the arrival).
+    The visits themselves are persisted in hosp_visits (merged by merge_db.py), so this log survives handoffs and box merges.
+    A unit still listed counts as soon as it passes 1:30 (done = False, time so far)."""
+    ls = []
+    for v in d:
+        if v["m"] <= LONG_MIN: continue
+        sd, sh = C.shift_date_of(v["a"])
+        ls.append({"u": v["u"], "h": v["h"], "a": v["a"], "m": v["m"], "sh": sh, "sd": sd, "done": v["done"]})
+    ls.sort(key=lambda r: -r["a"])
+    by = {x: 0 for x in "ABCD"}
+    for r in ls: by[r["sh"]] = by.get(r["sh"], 0) + 1
+    return {"min": LONG_MIN, "n": len(ls), "by": by, "list": ls[:LONG_KEEP]}
+
 def _period(vs):
     """Per-unit and per-hospital summary for District 83 units (stale records excluded)."""
     d = [v for v in vs if v["st"] and not v["stale"]]
@@ -123,7 +139,7 @@ def _period(vs):
         r = hosp.setdefault(v["h"], {"h": v["h"], "n": 0, "_m": []}); r["n"] += 1
         if v["done"]: r["_m"].append(v["m"])
     for r in hosp.values(): r["med"] = _med(r.pop("_m"))
-    return {"n": len(d), "med": _med([v["m"] for v in d if v["done"]]), "by": by, "units": sorted(units.values(), key=lambda r: C.unit_sortkey({"unit": r["u"], "station": r["st"]})), "hosp": sorted(hosp.values(), key=lambda r: (-r["n"], r["h"]))}
+    return {"n": len(d), "long": _long(d), "med": _med([v["m"] for v in d if v["done"]]), "by": by, "units": sorted(units.values(), key=lambda r: C.unit_sortkey({"unit": r["u"], "station": r["st"]})), "hosp": sorted(hosp.values(), key=lambda r: (-r["n"], r["h"]))}
 
 def _city(vs):
     hosp = {}

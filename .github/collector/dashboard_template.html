@@ -323,6 +323,7 @@ details.crow[open]>summary{background:#2a2d36}
 .rt.al td{height:40px}
 .rt.al th:first-child,.rt.al td:first-child,.rt.al th.l{text-align:left}
 .rt.al td.hn{text-align:left}
+#xLong .subh{font-size:13px;color:var(--mut);font-weight:650;margin:12px 0 2px}#xLong td.sh{font-weight:800}
 .rt.al td.hn,.rt.al td.w{white-space:normal;max-width:none;padding-top:6px;padding-bottom:6px;overflow:visible}
 .rt.al td .u{vertical-align:middle;font-size:12.5px;padding:2px 7px}
 .rt.al td .note{font-size:12px}
@@ -512,6 +513,7 @@ details.wfp>div{margin-top:10px;color:var(--txt);font-size:15px}
 <div class="xsrc" id="xSrc">Loading hospital report…</div>
 <div id="xNowWrap"><h2>District 83 Units at Hospitals Now</h2><div class="scard" id="xMine"></div></div>
 <h2>District 83 Transports</h2><div class="note" style="padding:0 0 8px" id="xNote"></div><div class="scard" id="xUnits"></div>
+<h2>Over 1:30 at a Hospital</h2><div class="note" style="padding:0 0 8px" id="xLongNote"></div><div class="scard" id="xLong"></div>
 <h2>Where They Go</h2><div class="scard" id="xHosp"></div>
 <div id="xTot"></div>
 <div id="xCityWrap"><h2>Citywide, Units at Hospitals</h2><div class="scard"><div class="xbig" id="xCity"></div><svg class="spark" id="xSpark" viewBox="0 0 300 56" preserveAspectRatio="none"></svg><div class="note" style="padding:0" id="xSparkNote"></div></div>
@@ -725,7 +727,7 @@ async function renderTransport(){const T=await XD();const past=isPast();
   document.querySelectorAll("#xPer button").forEach(b=>b.onclick=()=>{X_PER=b.dataset.k;renderTransport()});
   ["xNowWrap","xCityWrap","xRecentWrap"].forEach(id=>document.getElementById(id).hidden=past);
   const src=document.getElementById("xSrc");
-  if(!T){src.textContent=past?`No hospital-report history for ${SEL_YEAR}.`:"Hospital report not loaded yet.";["xMine","xUnits","xHosp","xTot","xCityH","xCityY"].forEach(id=>document.getElementById(id).innerHTML="");return}
+  if(!T){src.textContent=past?`No hospital-report history for ${SEL_YEAR}.`:"Hospital report not loaded yet.";["xMine","xUnits","xLong","xHosp","xTot","xCityH","xCityY"].forEach(id=>document.getElementById(id).innerHTML="");return}
   const ageMin=T.report_ts?Math.round((Date.now()-T.report_ts)/60000):null;
   src.innerHTML=past?`Full year ${T.year}, logged from ${esc(T.since_str)} CT.`:`City hospital report as of <b>${tm(T.report_ts)}</b> CT`+(ageMin>15?` <span style="color:#e0b52f">(${ageMin} min old)</span>`:"");
   if(!past){const mine=(T.now||[]).filter(x=>x.d);
@@ -753,6 +755,14 @@ async function renderTransport(){const T=await XD();const past=isPast();
   const sht=`<table class="rt rc stot"><thead><tr><th scope="col">Shift</th>${SHIFTS.map(x=>`<th scope="col" style="color:${SHC[x]}">${x}</th>`).join("")}<th scope="col">Total</th></tr></thead><tbody><tr><td class="lb">Transports</td>${SHIFTS.map(x=>z(xsum(r=>r[x]))).join("")}<td class="tot">${xsum(r=>r.n)}</td></tr><tr><td class="lb">Median</td>${SHIFTS.map(x=>`<td class="${(by[x]||{}).med!=null?"":"z"}">${mm((by[x]||{}).med)}</td>`).join("")}<td></td></tr></tbody></table>`;
   const drow=xwk?`<table class="rt rc wk xwk">${xcols}<thead><tr><th scope="col">&nbsp;</th>${dhead}<th scope="col">Total</th><th></th>${nar?"":"<th></th>"}</tr></thead><tbody><tr><td class="lb">Trips</td>${xdays.map(d=>dc(d,xsum(r=>(r.days||{})[d.sd]))).join("")}<td class="tot">${xsum(r=>r.n)}</td><td></td>${nar?"":"<td></td>"}</tr></tbody></table><div class="subh">By Shift</div>`:"";
   const XT_=xsum(r=>r.n);document.getElementById("xTot").innerHTML=`<div class="scard dtot"><h3>District 83 Totals<span>${XT_} Transport${XT_===1?"":"s"}</span></h3>${drow}${sht}</div>`;
+  {const L=P.long||{n:0,by:{},list:[],min:90};const lm=L.min||90,lh=`${Math.floor(lm/60)}:${String(lm%60).padStart(2,"0")}`;
+    document.getElementById("xLongNote").textContent=`Every District 83 unit that stayed at a hospital longer than ${lh} (arrival to last listing on the City report), newest first, in this period. Logged from ${T.since_str?fmtDay(T.since_str.slice(0,10)):"the start of the log"} on.`;
+    const hm=m=>Math.floor(m/60)+":"+String(m%60).padStart(2,"0");
+    const lrow=r=>`<tr><td>${pill(r.u,true)}</td><td class="sh" style="color:${SHC[r.sh]||"inherit"}">${esc(r.sh)}</td><td class="hn">${esc(r.h)}</td><td class="w">${dt(r.a)}</td><td class="w tot">${hm(r.m)}${r.done?"":`<span class="note" style="padding:0"> so far</span>`}</td></tr>`;
+    const lt=rows=>atbl(nar?[19,8,31,22,20]:[14,8,38,20,20],`<th scope="col">Unit</th><th scope="col">Shift</th><th scope="col" class="l">Hospital</th><th scope="col">Arrived</th><th scope="col">Time</th>`,rows.map(lrow).join(""));
+    const lsum=`<table class="rt rc stot"><thead><tr><th scope="col">Shift</th>${SHIFTS.map(x=>`<th scope="col" style="color:${SHC[x]}">${x}</th>`).join("")}<th scope="col">Total</th></tr></thead><tbody><tr><td class="lb">Over ${lh}</td>${SHIFTS.map(x=>z((L.by||{})[x])).join("")}<td class="tot">${L.n||0}</td></tr></tbody></table>`;
+    const ll=L.list||[];
+    document.getElementById("xLong").innerHTML=!L.n?`<div class="note" style="padding:2px 0">None over ${lh} in this period.</div>`:lsum+`<div class="subh">Log</div>`+lt(ll.slice(0,10))+(ll.length>10?`<details class="more" style="margin-top:8px"><summary>Show ${ll.length-10} Older${L.n>ll.length?" (Newest "+ll.length+" Kept)":""}</summary>${lt(ll.slice(10))}</details>`:"")}
   document.getElementById("xHosp").innerHTML=P.hosp.length?atbl([54,22,24],`<th scope="col">Hospital</th><th scope="col">Transports</th><th scope="col">Median Time</th>`,P.hosp.map(r=>`<tr><td class="hn">${esc(r.h)}</td><td class="tot">${r.n}</td><td>${mm(r.med)}</td></tr>`).join("")):`<div class="note" style="padding:2px 0">—</div>`;
   if(!past){const now=T.now||[];const rec=now.filter(x=>!x.s);
     document.getElementById("xCity").innerHTML=`<b>${rec.length}</b><span>HFD Units at Hospitals Now`+`</span>`;
@@ -770,7 +780,7 @@ async function renderTransport(){const T=await XD();const past=isPast();
   document.getElementById("xCityYSum").textContent=`All Hospitals (${CY.length} Hospital${CY.length===1?"":"s"}, ${CY.reduce((a,r)=>a+(r.n||0),0)} Visits)`;
   document.getElementById("xCityY").innerHTML=CY.length?atbl([52,16,16,16],`<th scope="col">Hospital</th><th scope="col">Visits</th><th scope="col">Median</th><th scope="col">90th Pct</th>`,CY.map(r=>`<tr><td class="hn">${esc(r.h)}</td><td class="tot">${r.n}</td><td>${mm(r.med)}</td><td>${mm(r.p90)}</td></tr>`).join("")):`<div class="note" style="padding:2px 0">—</div>`;
   document.getElementById("xAbout").innerHTML=`Source: City of Houston “HFD Units at Hospital” report (<a href="${esc(T.source)}" target="_blank" rel="noopener">houstontx.gov/fire/ambulances-pdf.html</a>), a live PDF the City regenerates about every minute. It lists each HFD unit currently at a hospital with its transport-arrived time. The City keeps no history, so this dashboard logs the report every 2 minutes (history from ${esc(T.since_str)} CT). `+
-    `A transport = a unit/arrival pair seen on the report. Time at hospital = arrival time to the last report that still listed the unit (±2 min). Units listed more than ${Math.round(T.stale_min/60)} h, or listed again at a newer hospital, are treated as records not cleared in dispatch and removed from the list, counts and times. Transports shorter than ~2 minutes can be missed. Hospital names are as the City prints them.`+(T.report_ts?` Latest report: ${esc(T.report_str)} CT (${T.parsed} rows read, report total ${T.declared??"?"}). Fetched ${esc(T.fetched_str)} CT.`:"")}
+    `A transport = a unit/arrival pair seen on the report. Time at hospital = arrival time to the last report that still listed the unit (±2 min). Units listed more than ${Math.round(T.stale_min/60)} h, or listed again at a newer hospital, are treated as records not cleared in dispatch and removed from the list, counts and times. Transports shorter than ~2 minutes can be missed. Hospital names are as the City prints them. Over 1:30 = a District 83 unit listed at a hospital for more than 1 h 30 m by that same measure (this is hospital time, not the full call); a unit still listed counts as soon as it passes 1:30 and shows “so far”. Shift is the shift that worked the tour of the arrival.`+(T.report_ts?` Latest report: ${esc(T.report_str)} CT (${T.parsed} rows read, report total ${T.declared??"?"}). Fetched ${esc(T.fetched_str)} CT.`:"")}
 // ---- all HFD stations (City GIS layer 10), for "From Sta N (closest)" on citywide calls ----
 let ALLST=null;async function loadAllStations(){if(ALLST)return ALLST;try{const r=await fetch("stations.json?v="+encodeURIComponent(BUILD||""));if(r.ok)ALLST=(await r.json()).s}catch(e){}return ALLST}
 function closestCity(la,lo){if(!ALLST)return null;let b=null,bd=1e18;for(const s of ALLST){const d=ft(la,lo,s[2],s[3]);if(d<bd){bd=d;b=s}}return b?{n:b[0],addr:b[1],lat:b[2],lon:b[3],d:bd}:null}
