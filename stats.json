@@ -1,5 +1,5 @@
 {
- "generated": 1793270516457,
+ "generated": 1793270636549,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-10-29 05:41",
+ "generated_str": "2026-10-29 05:43",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793270510261,
+ "last_ok_poll": 1793270630253,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-10-29 05:41",
- "polls": 9662,
- "polls_ok": 9561,
- "total_incidents_logged": 9697,
+ "last_ok_poll_str": "2026-10-29 05:43",
+ "polls": 9664,
+ "polls_ok": 9563,
+ "total_incidents_logged": 9700,
  "district_incidents": 26853,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -196,14 +196,8 @@
   "104": "102",
   "105": "65"
  },
- "wf_live": [
-  "1793258580000|W 6TH ST|BLK N SHEPHERD DR",
-  "1793258880000|W 6TH ST|BLK N SHEPHERD DR"
- ],
- "tk_live": [
-  "1793258580000|W 6TH ST|BLK N SHEPHERD DR",
-  "1793258880000|W 6TH ST|BLK N SHEPHERD DR"
- ],
+ "wf_live": [],
+ "tk_live": [],
  "ticker_min_heavy": 3,
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
@@ -232,7 +226,7 @@
  "city": {
   "day": "2026-10-28",
   "since": "06:00",
-  "city_today": 1124,
+  "city_today": 1127,
   "d83_today": 89,
   "prev_day": "2026-10-27",
   "city_prev": 1116,
@@ -873,7 +867,7 @@
    "hsh": {
     "A": 776.78,
     "B": 783.05,
-    "C": 877.2,
+    "C": 877.23,
     "D": 854.35
    }
   }
@@ -1513,7 +1507,7 @@
     "hsh": {
      "A": 776.78,
      "B": 783.05,
-     "C": 877.2,
+     "C": 877.23,
      "D": 854.35
     }
    }
@@ -1911,7 +1905,7 @@
     "hsh": {
      "A": 0.0,
      "B": 0.0,
-     "C": 13.21,
+     "C": 13.25,
      "D": 0.0
     }
    }
@@ -2543,13 +2537,13 @@
     "hsh": {
      "A": 10.12,
      "B": 10.75,
-     "C": 13.21,
+     "C": 13.25,
      "D": 0.0
     },
     "hday": {
      "2026-10-26": 10.12,
      "2026-10-27": 10.75,
-     "2026-10-28": 13.21
+     "2026-10-28": 13.25
     }
    }
   ],
@@ -3112,7 +3106,7 @@
     "hsh": {
      "A": 76.26,
      "B": 84.82,
-     "C": 89.47,
+     "C": 89.5,
      "D": 87.02
     }
    }
