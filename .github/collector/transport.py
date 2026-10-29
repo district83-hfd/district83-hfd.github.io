@@ -14,7 +14,7 @@ SRC_PAGE = "https://houstontx.gov/fire/ambulances-pdf.html"
 SRC_PDF = "https://houstontx.gov/fire/HFDUnitsatHospital.pdf"
 OUT = f"{C.BASE}/transport.json"
 LONG_MIN = 90          # v60: a District 83 unit listed at a hospital longer than 1:30 is logged as a long stay
-LONG_KEEP = 150        # newest long stays kept per period in transport.json (the counts cover all of them)
+LONG_KEEP = 2000       # newest long stays kept per period in transport.json (enough for a full-year CSV)
 STALE_MIN = 4 * 60     # listed > 4 h: record not cleared in CAD; dropped from the now list, excluded from times/counts
 RUN_RE = re.compile(r"Report run on:\s*(\d{1,2}/\d{1,2}/\d{4}\s+\d{1,2}:\d{2}:\d{2}\s*[AP]M)")
 TOT_RE = re.compile(r"Total Count of Units at Hospitals\s*-\s*(\d+)")
@@ -119,7 +119,31 @@ def _long(d):
     ls.sort(key=lambda r: -r["a"])
     by = {x: 0 for x in "ABCD"}
     for r in ls: by[r["sh"]] = by.get(r["sh"], 0) + 1
-    return {"min": LONG_MIN, "n": len(ls), "by": by, "list": ls[:LONG_KEEP]}
+    hs = {}
+    for r in ls: hs[r["h"]] = hs.get(r["h"], 0) + 1
+    top = [{"h": h, "n": n} for h, n in sorted(hs.items(), key=lambda kv: (-kv[1], kv[0]))[:5]]
+    mx = max(ls, key=lambda r: r["m"]) if ls else None
+    return {"min": LONG_MIN, "n": len(ls), "by": by, "avg": round(sum(r["m"] for r in ls) / len(ls)) if ls else None,
+            "max": ({"m": mx["m"], "u": mx["u"], "h": mx["h"], "a": mx["a"]} if mx else None), "top": top, "list": ls[:LONG_KEEP]}
+
+def _stat(vs):
+    """v61: time-at-hospital stats for a group of visits: stays = finished visits plus ones still listed past 1:30 (a visit that just began has no time yet).
+    n, median, 90th percentile (same rule as the citywide table), count and % over 1:30."""
+    ms = sorted(v["m"] for v in vs if v["done"] or v["m"] > LONG_MIN)
+    if not ms: return {"n": 0, "med": None, "p90": None, "lg": 0, "pct": None}
+    lg = sum(1 for m in ms if m > LONG_MIN)
+    return {"n": len(ms), "med": _med(ms), "p90": ms[min(len(ms) - 1, int(0.9 * len(ms)))], "lg": lg, "pct": round(100.0 * lg / len(ms), 1)}
+
+def _stats(vs, shifts=True):
+    """v61: all stays (stale records already left out) overall, per hospital and (District 83) per shift."""
+    hs = {}
+    for v in vs: hs.setdefault(v["h"], []).append(v)
+    out = {"all": _stat(vs), "hosp": sorted([{"h": h, **_stat(x)} for h, x in hs.items() if any(v["done"] or v["m"] > LONG_MIN for v in x)], key=lambda r: (-r["n"], r["h"]))}
+    if shifts:
+        sh = {x: [] for x in "ABCD"}
+        for v in vs: sh.setdefault(C.shift_date_of(v["a"])[1], []).append(v)
+        out["by"] = {k: _stat(x) for k, x in sh.items()}
+    return out
 
 def _period(vs):
     """Per-unit and per-hospital summary for District 83 units (stale records excluded)."""
@@ -139,7 +163,7 @@ def _period(vs):
         r = hosp.setdefault(v["h"], {"h": v["h"], "n": 0, "_m": []}); r["n"] += 1
         if v["done"]: r["_m"].append(v["m"])
     for r in hosp.values(): r["med"] = _med(r.pop("_m"))
-    return {"n": len(d), "long": _long(d), "med": _med([v["m"] for v in d if v["done"]]), "by": by, "units": sorted(units.values(), key=lambda r: C.unit_sortkey({"unit": r["u"], "station": r["st"]})), "hosp": sorted(hosp.values(), key=lambda r: (-r["n"], r["h"]))}
+    return {"n": len(d), "long": _long(d), "st": _stats(d), "city": _stats([v for v in vs if not v["stale"]], False), "med": _med([v["m"] for v in d if v["done"]]), "by": by, "units": sorted(units.values(), key=lambda r: C.unit_sortkey({"unit": r["u"], "station": r["st"]})), "hosp": sorted(hosp.values(), key=lambda r: (-r["n"], r["h"]))}
 
 def _city(vs):
     hosp = {}
