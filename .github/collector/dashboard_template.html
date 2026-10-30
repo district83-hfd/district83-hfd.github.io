@@ -454,8 +454,32 @@ details.wfp>div{margin-top:10px;color:var(--txt);font-size:15px}
 .wfr .units{margin:0}
 .wfmore{margin-top:10px;background:#262a35;border:1px solid #3a4050;color:#dfe4f0;border-radius:10px;padding:10px 16px;font-size:15px;font-weight:650;width:100%}
 @media(max-width:400px){.wfk .kv{font-size:21px}}
-</style></head><body>
-<header><div class="brand"><picture><source type="image/webp" srcset="img/crest-96.webp 96w, img/crest-192.webp 192w" sizes="(min-width:641px) 86px, 68px"><img class="crest" src="img/crest-96.png" srcset="img/crest-96.png 96w, img/crest-192.png 192w" sizes="(min-width:641px) 86px, 68px" width="68" height="68" alt="District 83 crest" decoding="async"></picture><div class="btxt"><div class="org">Houston Fire Department</div><h1>District 83 Dashboard</h1><div class="sub">Stations 10 · 69 · 76 · 83 — <span id="upd">loading…</span> <span class="citycnt" id="city"></span></div></div></div><div class="cityday" id="cityday" hidden></div>
+/* v63: Halloween theme, client-side, Oct 31 (America/Chicago) only; html.hw is set by the head script. Colors only: no data, layout or logic changes. */
+.hwline{display:none}
+@media screen{
+html.hw{--bg:#1d1b24;--card:#272431;--acc:#a85a1c;--line:#3a3548}
+html.hw header{background:#3d2b57;border-bottom:3px solid #c27a35;box-shadow:none}
+html.hw .org{color:#f1dcc4}
+html.hw .hwline{display:block;margin-top:3px;font-size:15px;font-weight:650;letter-spacing:.2px;color:#f0b97a}
+html.hw .tab.on{background:linear-gradient(180deg,#c9792f,#a85a1c);border-color:#d99556;color:#fff;box-shadow:0 2px 10px rgba(194,122,53,.3)}
+html.hw .tab:hover{border-color:#8a6aa8}
+html.hw .chip.on{background:#a85a1c;border-color:#c27a35;color:#fff}
+html.hw .iconbtn{background:rgba(240,185,122,.14);border-color:rgba(240,185,122,.35)}
+html.hw .hwline .hwb{display:inline-block;animation:hwbob 6s ease-in-out infinite}
+@keyframes hwbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@media (prefers-reduced-motion:reduce){html.hw .hwline .hwb{animation:none}}
+}
+</style>
+<script>(function(){/* v63 Halloween theme switch: on only when the America/Chicago date is Oct 31 (any year); ?theme=halloween forces on, ?theme=off forces off */
+var D=document.documentElement,P="";try{P=new URLSearchParams(location.search).get("theme")||""}catch(e){}P=P.toLowerCase();
+var F=null;try{F=new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",month:"numeric",day:"numeric"})}catch(e){}
+function isOct31(){if(!F)return false;var m=0,d=0;F.formatToParts(new Date()).forEach(function(x){if(x.type==="month")m=+x.value;if(x.type==="day")d=+x.value});return m===10&&d===31}
+function apply(){var on=P==="halloween"?true:P==="off"?false:isOct31();D.classList.toggle("hw",on);
+var tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.setAttribute("content",on?"#3d2b57":"#8B0000")}
+apply();setInterval(apply,60000);document.addEventListener("visibilitychange",function(){if(!document.hidden)apply()});
+})();</script>
+</head><body>
+<header><div class="brand"><picture><source type="image/webp" srcset="img/crest-96.webp 96w, img/crest-192.webp 192w" sizes="(min-width:641px) 86px, 68px"><img class="crest" src="img/crest-96.png" srcset="img/crest-96.png 96w, img/crest-192.png 192w" sizes="(min-width:641px) 86px, 68px" width="68" height="68" alt="District 83 crest" decoding="async"></picture><div class="btxt"><div class="org">Houston Fire Department</div><h1>District 83 Dashboard</h1><div class="sub">Stations 10 · 69 · 76 · 83 — <span id="upd">loading…</span> <span class="citycnt" id="city"></span></div><div class="hwline" aria-hidden="true"><span class="hwb">🎃</span> Happy Halloween</div></div></div><div class="cityday" id="cityday" hidden></div>
 <div class="hr"><div class="clockbox"><span class="shiftbig" id="onduty">—</span><span class="clock" id="clock">--:--:--</span></div><button class="iconbtn" id="infoBtn" aria-label="About This Data" title="About This Data">ⓘ</button><button id="ref">Refresh</button></div></header>
 <div id="ticker" class="ticker" hidden><span class="tk-lbl">🔥 City Fires</span><div class="tk-view"><div class="tk-track" id="tkTrack"></div></div></div>
 <div id="tkBack" class="tkback" hidden><div id="tkDetail" class="tkdet" role="dialog" aria-modal="true" aria-label="Working fire details"></div></div>
