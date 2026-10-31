@@ -944,6 +944,10 @@ def refresh(c):
         archived = list(archived) + transport.export(c, st["year"])
     except Exception: log("transport export error: " + traceback.format_exc())
     st["years"] = sorted(set(archived) | {st["year"]}, reverse=True)
+    if st.get("is_current_year"):   # v66: NWS weather + TranStar crashes (cached, fail soft, never raises)
+        try:
+            import extras; extras.add_to_stats(st, log=log)
+        except Exception as e: log(f"extras error: {e!r}")
     render(st)
     return st
 

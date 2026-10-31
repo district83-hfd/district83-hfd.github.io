@@ -454,6 +454,24 @@ details.wfp>div{margin-top:10px;color:var(--txt);font-size:15px}
 .wfr .units{margin:0}
 .wfmore{margin-top:10px;background:#262a35;border:1px solid #3a4050;color:#dfe4f0;border-radius:10px;padding:10px 16px;font-size:15px;font-weight:650;width:100%}
 @media(max-width:400px){.wfk .kv{font-size:21px}}
+/* v66: weather line + TranStar crashes. Soft colors, big text; neutral so the Halloween theme needs no changes. */
+.wx{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:10px 16px 0;font-size:18px;color:#e4e5ec;line-height:1.35}
+.wx[hidden],.trf[hidden]{display:none}
+.wx .wt{font-weight:800;font-size:22px}
+.wx .wm{color:#cfd0dc}
+.wx .wage{font-size:13px;color:#e0b52f}
+.wchip{display:inline-block;padding:4px 12px;border-radius:999px;font-size:14px;font-weight:700;line-height:1.3}
+.wchip.red{background:#4d2a2c;color:#ffb8b2}.wchip.amber{background:#4a3d22;color:#f3d38e}.wchip.blue{background:#243a54;color:#b0d0f2}.wchip.gray{background:#2c2c3e;color:#d2d3de}
+.srcl{font-size:11px;color:var(--mut)}.srcl a{color:#9fb4d8}
+.trf{margin:8px 16px 0;background:var(--card);border-radius:12px;padding:8px 14px;font-size:15px}
+.trf summary{cursor:pointer;font-size:17px;font-weight:700;color:#e4e5ec;min-height:32px;display:flex;align-items:center;gap:8px}
+.trf .trow{padding:6px 0;border-top:1px solid var(--line);font-size:16px;color:#e4e5ec}
+.trf .trow .ts{color:var(--mut);font-size:13px}
+.trf .tk{display:inline-block;padding:1px 9px;border-radius:999px;font-size:13px;font-weight:700;background:#4d2a2c;color:#ffb8b2;margin-right:6px}
+.trf .tk.soft{background:#2c2c3e;color:#d2d3de}
+.trf .tfoot{margin-top:6px;font-size:12px;color:var(--mut)}.trf .tfoot a{color:#9fb4d8}
+.trfq{padding:6px 16px 0;font-size:13px;color:var(--mut)}.trfq a{color:#9fb4d8}
+@media (max-width:640px){.wx{padding:8px 10px 0;font-size:17px}.trf{margin:8px 10px 0}.trfq{padding-left:10px;padding-right:10px}}
 /* v63: Halloween theme, client-side, Oct 31 (America/Chicago) only; html.hw is set by the head script. Colors only: no data, layout or logic changes. */
 .hwline{display:none}
 @media screen{
@@ -492,6 +510,7 @@ apply();setInterval(apply,60000);document.addEventListener("visibilitychange",fu
 <li><b>City fire ticker</b> &ndash; citywide structure fires with 3+ heavy apparatus (engines, ladders, MPE/MPL); Working fire = box 50+ min, District Chief + full box 25+ min, structure box with 2+ units 60+ min, or a Rehab/Cascade unit</li>
 <li><b>Navigate</b> &ndash; Apple or Google Maps from the station or your location</li>
 <li><b>Hydrants</b> &ndash; nearest hydrants and distance on fire calls</li>
+<li><b>Weather &amp; traffic</b> &ndash; National Weather Service conditions and alerts; crashes on District 83 roads from Houston TranStar</li>
 <li><b>By Shift</b> &ndash; every call for a tour, 06:30 to 06:30</li>
 <li><b>Unit Run Counts</b> &ndash; runs, hours, busiest and out-of-area runs; This Week runs Mon 06:30 to Mon 06:30 and resets every Monday at shift change</li>
 <li><b>Working Fires</b> &ndash; past working fires with a District 83 unit</li>
@@ -503,9 +522,12 @@ apply();setInterval(apply,60000);document.addEventListener("visibilitychange",fu
 <p>District 83 units: E, L, T, TW, SQ, R, RS, RE, A, M and AS units of Stations 10, 69, 76 and 83, plus D83 (District 83 chief). Other units with those numbers (safety officers, investigators, other chiefs, etc.) are not counted.</p>
 <p>Working fire: a fire box (structure-fire type or a 111/211&ndash;811 code) on CAD 50+ minutes from call time, any fire call where a District Chief (D or DC unit) and the first-dispatched box (3+ fire apparatus; at most one released; ambulances not required) are still on CAD 25 minutes after the call and 25 minutes after it first appeared in the City feed (so a late-listed call can&rsquo;t qualify on feed lag), a structure-fire box with 2+ units on it at the same time for more than 60 minutes, or a Rehab (RH) or Cascade (CC) unit on a fire call. An alarm upgrade (211&ndash;811) alone does not make a working fire. When dispatch edits a call&rsquo;s time, the logger keeps it as one call.</p>
 <p>Out of area: a fire unit (E, L, T, TW, SQ, R, RS, RE) on a call in another station&rsquo;s first-due area, or D83 outside District 83, from the City&rsquo;s HFD box map (first-due station of the box the call&rsquo;s point falls in). Outside D83: the call&rsquo;s first-due station is in another HFD district (districts from the HFD Fire Stations page). Only District 83 units are counted. Calls within 150 m of another station&rsquo;s area (or another district, for the district count), or with no first-due on the map, are not counted. Ambulances and EMS supervisors are not counted. The City map may not show recent box changes.</p>
+<p>Weather: National Weather Service (api.weather.gov), nearest airport station, about every 10 minutes; alerts are for Harris County. Traffic: Houston TranStar incident feed, filtered to roads in and around District 83 (Sam Houston Tollway west, Westpark Tollway, I-69 Southwest, I-10 Katy west, Hwy 6, major streets); crashes and hazards, and stalls that block a lane. Not official; see Houston TranStar.</p>
 <p>Hydrants: nearest hydrants show on fire, smoke, alarm, burn and explosion calls, extra-alarm codes, and any call with an alarm level. City of Houston GIS &ldquo;Houston Fire Hydrant&rdquo; layer (in-service hydrants only); distances are straight-line from the City&rsquo;s geocoded point (block or intersection, not the exact address). Verify on arrival. Not an official dispatch or records tool.</p></details></div>
 
 <section class="pane" id="p-live">
+<div class="wx" id="wx" hidden></div>
+<details class="trf" id="trf" hidden></details><div class="trfq" id="trfq" hidden></div>
 <div class="bar chips1"><span id="st" style="display:contents"></span><span class="sep"></span><span id="ty" style="display:contents"></span></div>
 <div class="grid" id="list"></div>
 </section>
@@ -916,8 +938,34 @@ async function load(){
 document.getElementById("infoBtn").onclick=()=>document.getElementById("infoPanel").classList.toggle("on");
 document.getElementById("ref").onclick=load;loadHyd();load();loadHyd().then(()=>{try{renderHistory()}catch(e){}});setInterval(load,60000);
 
+// ---- v66 weather line + TranStar crashes (both come inside stats.json, fetched by the collector) ----
+const TRF_MAP="https://traffic.houstontranstar.org/layers/",TRF_HOME="https://traffic.houstontranstar.org",TRF_DISC="https://traffic.houstontranstar.org/disclaimer.aspx";
+function wxLine(w,now){if(!w)return"";const parts=[];
+  if(w.t!=null&&w.obs&&now-w.obs<3*3600000){parts.push(`<span class="wt">${w.t}°F</span>`);if(w.cond)parts.push(`<span class="wm">${esc(w.cond)}</span>`);if(w.feels!=null)parts.push(`<span class="wm">${w.feels>w.t?"Feels":"Wind chill"} ${w.feels}°</span>`);
+    if(w.wind!=null)parts.push(`<span class="wm">${w.wind?`Wind ${w.dir?esc(w.dir)+" ":""}${w.wind} mph${w.gust?`, gusts ${w.gust}`:""}`:"Wind calm"}</span>`);
+    const age=Math.round((now-w.obs)/60000);if(age>75)parts.push(`<span class="wage">as of ${tm(w.obs)}</span>`)}
+  const al=(w.alerts||[]).map(a=>`<span class="wchip ${["red","amber","blue","gray"].includes(a.k)?a.k:"gray"}" title="${esc(a.h||a.e)}">${esc(a.e)}</span>`).join("");
+  if(!parts.length&&!al)return"";
+  return parts.join("")+al+`<span class="srcl"><a target="_blank" rel="noopener" href="https://www.weather.gov/hgx/">National Weather Service</a></span>`}
+function trfHtml(t,now){if(!t||!t.fetched||now-t.fetched>30*60000)return null;
+  const src=`<div class="tfoot">Source: <a target="_blank" rel="noopener" href="${TRF_HOME}">Houston TranStar</a> · <a target="_blank" rel="noopener" href="${TRF_MAP}">Live traffic map</a> · <a target="_blank" rel="noopener" href="${TRF_DISC}">Disclaimer</a> · crashes and hazards on District 83 roads, not official</div>`;
+  const it=t.items||[];if(!it.length)return {none:`No reported crashes on District 83 roads · <a target="_blank" rel="noopener" href="${TRF_HOME}">Houston TranStar</a> · <a target="_blank" rel="noopener" href="${TRF_MAP}">Map</a> · <a target="_blank" rel="noopener" href="${TRF_DISC}">Disclaimer</a>`};
+  const rows=it.map(i=>{const serious=/accident|crash|collision|fire|hazard|debris|spill|pedestrian|wrong|overturn|jackknif|rollover|flood|clos/i.test(i.kind);
+    const at=i.at?" "+esc(i.at.charAt(0).toLowerCase()+i.at.slice(1)):"";
+    return `<div class="trow"><span class="tk${serious?"":" soft"}">${esc(i.kind)}</span><b>${esc(i.road)}${i.dir?" "+esc(i.dir):""}</b>${at}<div class="ts">${[i.lanes,[i.status,i.time].filter(Boolean).join(" ")].filter(Boolean).map(esc).join(" · ")}</div></div>`}).join("");
+  const n=it.length;return {n,html:`<summary><span>Traffic · ${n} on District 83 roads</span></summary>${rows}${src}`}}
+let TRF_OPEN=null;
+function renderExtras(){const now=Date.now();
+  try{const el=document.getElementById("wx"),h=wxLine(S&&S.wx,now);el.innerHTML=h;el.hidden=!h}catch(e){console.warn("wx",e)}
+  try{const d=document.getElementById("trf"),q=document.getElementById("trfq"),r=trfHtml(S&&S.traffic,now);
+    if(!r){d.hidden=true;q.hidden=true}
+    else if(r.none){d.hidden=true;q.hidden=false;q.innerHTML=r.none}
+    else{q.hidden=true;const was=d.open;d.hidden=false;if(d.dataset.sig!==r.html){d.dataset.sig=r.html;d.innerHTML=r.html}if(TRF_OPEN===null)d.open=r.n<=3;else d.open=TRF_OPEN}
+  }catch(e){console.warn("traffic",e)}}
+document.getElementById("trf").addEventListener("toggle",e=>{TRF_OPEN=e.target.open});
 // HISTORY
 let S=STATS||{runs:[],runs_periods:{},tour_counts:{},working_fires:[],logging_start_str:"—",generated_str:"—"};
+try{renderExtras()}catch(e){}
 function table(el,cols,rows,sortIdx){let si=sortIdx,dir=-1;
   const draw=()=>{const r=[...rows].sort((a,b)=>{const x=cols[si].v(a),y=cols[si].v(b);return (x>y?1:x<y?-1:0)*dir});
     el.innerHTML="<thead><tr>"+cols.map((c,i)=>`<th class="${c.n?"n":""}" data-i="${i}">${c.h}${i===si?(dir<0?" ▾":" ▴"):""}</th>`).join("")+"</tr></thead><tbody>"+(r.map(x=>"<tr>"+cols.map(c=>`<td class="${c.n?"n":""}">${c.f?c.f(x):esc(c.v(x))}</td>`).join("")+"</tr>").join("")||`<tr><td colspan="${cols.length}" class="note">Nothing logged yet.</td></tr>`)+"</tbody>";
@@ -1575,7 +1623,7 @@ function renderCityDay(){const el=document.getElementById("cityday");if(!el)retu
   el.innerHTML=ln("Citywide",c.city_today,c.city_prev,1)+ln("District 83",c.d83_today,c.d83_prev,0);
   el.title=`Incidents (calls). Today = since ${c.since}; `+(y?`Yesterday = ${c.since} to ${c.since}, the City's official day. `:"")+`Citywide = every HFD call on the City's live feed that has an HFD unit; a call re-created at the same location counts once. District 83 = calls with a Station 10, 69, 76 or 83 unit or District Chief 83, as on By Shift.`;el.hidden=false}
 try{renderCityDay()}catch(e){}
-async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();try{renderCityDay()}catch(e){}WF_LIVE=new Set(S.wf_live||[]);TK_LIVE=new Set(S.tk_live||[]);if(PTS)await ensurePoints();renderHistory()}catch(e){console.warn("stats.json",e)}}
+async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();try{renderCityDay()}catch(e){}try{renderExtras()}catch(e){}WF_LIVE=new Set(S.wf_live||[]);TK_LIVE=new Set(S.tk_live||[]);if(PTS)await ensurePoints();renderHistory()}catch(e){console.warn("stats.json",e)}}
 function staleCheck(){const el=document.getElementById("staleBar");if(!el)return;const g=S&&S.generated;if(location.protocol==="file:"||!g){el.hidden=true;return}
   const m=Math.floor((Date.now()-g)/60000);if(m<=15){el.hidden=true;return}
   el.innerHTML=`<b>History data is ${m>=120?Math.floor(m/60)+" h":m+" min"} old</b> (last update ${esc(dt(g))} CT)<small>Shift, run counts and maps may be behind. The Live tab still reads the City feed directly.</small>`+(BK_LINE||"")+(GH_DOWN?GH_LINE:"");el.hidden=false;ghCheck();bkCheck()}

@@ -3,7 +3,8 @@
 counters, running minutes/hours on active calls). publish.sh pushes when this changes, plus a heartbeat push so
 the site's 'generated' time never goes stale. Usage: site_fp.py <site dir>  -> prints a hex digest."""
 import hashlib, json, os, re, sys
-VOLATILE = {"generated", "generated_str", "last_ok_poll", "last_ok_poll_str", "polls", "polls_ok", "fetched_str",
+VOLATILE = {"generated", "generated_str", "last_ok_poll", "last_ok_poll_str", "polls", "polls_ok", "fetched_str", "fetched",   # v66: when the weather / traffic feeds were last read (the readings themselves still count)
+            
             "ls", "min", "cad", "hrs", "ov2", "m",
             # citywide-only numbers (not District 83 data): refreshed by the heartbeat push
             "total_incidents_logged", "city24", "city_year", "report_ts", "report_str", "declared", "parsed", "trend"}
