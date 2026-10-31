@@ -703,19 +703,21 @@ function incNav(key,la,lo,label,assigned,sm){if(la==null||lo==null)return"";cons
   const r=dirStations(assigned,la,lo);r.list.forEach(n=>{const st=STATION_INFO[n];rows.push([`From Sta ${n}${r.closest?" (Closest)":""}<small>${esc(st.addr)}</small>`,nlink(aDirFrom(st,la,lo),"Apple"),nlink(gDirFrom(st,la,lo),"Google")])});
   rows.push(["From Me",nlink(aDir(la,lo),"Apple"),nlink(gDir(la,lo),"Google")]);return navHtml(key,rows,sm)}
 function hydNav(h){const la=h[0],lo=h[1];return navHtml("hyd_"+(h[2]||la+","+lo),[["Map",nlink(aUrl(la,lo,"Hydrant "+(h[2]||"")+" "+(h[3]||"")),"Apple"),nlink(gUrl(la,lo),"Google")],["From Me",nlink(aDir(la,lo),"Apple"),nlink(gDir(la,lo),"Google")]],true)}
-const HYD_LAYER="https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Public_Safety/MapServer/9/query";
+const HYD_LAYER="https://mycity2.houstontx.gov/gisweb02/rest/services/HoustonMap/Public_safety/MapServer/9/query";  // same City layer the City hydrant map uses
 let HYD=null;const hydLive={};
 function ft(la1,lo1,la2,lo2){const R=20902231,r=Math.PI/180,dla=(la2-la1)*r,dlo=(lo2-lo1)*r;const a=Math.sin(dla/2)**2+Math.cos(la1*r)*Math.cos(la2*r)*Math.sin(dlo/2)**2;return 2*R*Math.asin(Math.sqrt(a))}
 function nearestFrom(list,la,lo,k){const out=[];for(const h of list){const d=ft(la,lo,h[0],h[1]);if(out.length<k||d<out[out.length-1].d){out.push({h,d});out.sort((a,b)=>a.d-b.d);if(out.length>k)out.pop()}}return out}
 function inBox(la,lo){const b=HYD&&HYD.bbox;return b&&lo>=b[0]&&la>=b[1]&&lo<=b[2]&&la<=b[3]}
-async function loadHyd(){try{const r=await fetch("hydrants.json?v="+encodeURIComponent(BUILD||Date.now()));if(!r.ok)throw 0;HYD=await r.json()}catch(e){HYD=null}}
+let HYDP=null;
+function loadHyd(){return HYDP||(HYDP=(async()=>{try{const r=await fetch("hydrants.json?v="+encodeURIComponent(BUILD||Date.now()));if(!r.ok)throw 0;HYD=await r.json()}catch(e){HYD=null}})())}
 async function liveHyd(la,lo){const key=la.toFixed(5)+","+lo.toFixed(5);if(hydLive[key])return hydLive[key];
   const d=0.006,env=[lo-d,la-d,lo+d,la+d].join(",");
   const q=`${HYD_LAYER}?where=${encodeURIComponent("LIFECYCLESTATUS='E'")}&geometry=${env}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=FACILITYID,ADDRESS,OWNER,MAINDIAMETER,KEYMAP&outSR=4326&f=json`;
-  try{const j=await (await fetch(q)).json();hydLive[key]=(j.features||[]).filter(f=>f.geometry).map(f=>{const a=f.attributes;return [f.geometry.y,f.geometry.x,(a.FACILITYID||"").trim(),(a.ADDRESS||"").trim(),(a.OWNER||"").trim(),(a.MAINDIAMETER||"").trim(),(a.KEYMAP||"").trim()]})}catch(e){hydLive[key]=null}
+  try{const j=await (await fetch(q)).json();if(j.error)throw new Error("gis");hydLive[key]=(j.features||[]).filter(f=>f.geometry).map(f=>{const a=f.attributes;return [f.geometry.y,f.geometry.x,(a.FACILITYID||"").trim(),(a.ADDRESS||"").trim(),(a.OWNER||"").trim(),(a.MAINDIAMETER||"").trim(),(a.KEYMAP||"").trim()]})}catch(e){hydLive[key]=null}
   return hydLive[key]}
 // returns {list:[{h,d}], src} or null
 async function nearestHyd(la,lo,k){if(la==null||lo==null)return null;
+  if(!HYD)await loadHyd();  // wait for the cached hydrant file instead of racing it
   if(HYD&&inBox(la,lo)){const n=nearestFrom(HYD.h,la,lo,k);if(n.length&&n[0].d<2000)return {list:n,src:"cached"}}
   const L=await liveHyd(la,lo);if(L&&L.length)return {list:nearestFrom(L,la,lo,k),src:"live"};
   return L===null?{err:1}:{list:[],src:"live"}}
@@ -743,7 +745,7 @@ function renderLive(){
     <div class="addr">${esc(d.Address)}${d.CrossStreet?" @ "+esc(d.CrossStreet):""}</div><div class="type">${toneTag(cls)}<b class="ctype">${esc(d.IncidentType||"—")}</b>${alarmLbl(d.IncidentType,d.ALARM_LEVEL,n=>" — <b>Alarm "+n+"</b>")}${oo?" "+oo:""}</div>
     <div class="units">${units}</div>${map}${isFireCall(d.IncidentType,d.ALARM_LEVEL)?`<div id="${hk}">${hydHtml(hydCache[hk])}</div>`:""}</div>`}).join("");
   if(!FDA)loadFda().then(j=>{if(j)renderLive()});
-  rows.forEach(async d=>{if(!isFireCall(d.IncidentType,d.ALARM_LEVEL))return;const hk="h_"+String(d.CALL_TIME)+"_"+String(d.LATITUDE).replace(/\W/g,"");if(hydCache[hk])return;const r=await nearestHyd(d.LATITUDE,d.LONGITUDE,3);if(!r)return;hydCache[hk]=r;const el=document.getElementById(hk);if(el)el.innerHTML=hydHtml(r)});
+  rows.forEach(async d=>{if(!isFireCall(d.IncidentType,d.ALARM_LEVEL))return;const hk="h_"+String(d.CALL_TIME)+"_"+String(d.LATITUDE).replace(/\W/g,"");if(hydCache[hk])return;const r=await nearestHyd(d.LATITUDE,d.LONGITUDE,3);if(!r)return;if(!r.err)hydCache[hk]=r;const el=document.getElementById(hk);if(el)el.innerHTML=hydHtml(r)});
 }
 // ---- Transport tab: built from the City's "HFD Units at Hospital" report (transport.json, logged by the collector) ----
 let XT=null,X_PER="week";const XNARROW=matchMedia("(max-width:640px)");try{XNARROW.addEventListener("change",()=>renderTransport())}catch(e){}const XY={};
@@ -912,7 +914,7 @@ async function load(){
   }catch(e){document.getElementById("list").innerHTML='<div class="err">Could not load the City feed: '+esc(e.message)+'</div>'}
 }
 document.getElementById("infoBtn").onclick=()=>document.getElementById("infoPanel").classList.toggle("on");
-document.getElementById("ref").onclick=load;load();loadHyd().then(()=>{try{renderHistory()}catch(e){}});setInterval(load,60000);
+document.getElementById("ref").onclick=load;loadHyd();load();loadHyd().then(()=>{try{renderHistory()}catch(e){}});setInterval(load,60000);
 
 // HISTORY
 let S=STATS||{runs:[],runs_periods:{},tour_counts:{},working_fires:[],logging_start_str:"—",generated_str:"—"};

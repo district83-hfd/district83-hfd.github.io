@@ -2,7 +2,7 @@
 """Cache the City's HFD Fire Districts (box) polygons to boxes.json (lon/lat, rounded to 5 decimals).
 Public layer: HoustonMap/Public_Safety/MapServer/11. Refreshes at most weekly unless --force."""
 import json, os, sys, time, urllib.request, urllib.parse
-L = "https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Public_Safety/MapServer/11/query"
+L = "https://mycity2.houstontx.gov/gisweb02/rest/services/HoustonMap/Public_safety/MapServer/11/query"
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "boxes.json")
 def main():
     if "--force" not in sys.argv and os.path.exists(OUT) and time.time() - os.path.getmtime(OUT) < 7*86400:

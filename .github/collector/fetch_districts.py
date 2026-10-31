@@ -5,7 +5,7 @@ Primary source: HFD Fire Stations page (Fire Dist. column). Cross-check: City GI
 On any failure the old file is kept."""
 import html, json, os, re, sys, time, urllib.request
 PAGE = "https://www.houstontx.gov/fire/about/firestations.html"
-GIS = ("https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Public_Safety/MapServer/10/query?"
+GIS = ("https://mycity2.houstontx.gov/gisweb02/rest/services/HoustonMap/Public_safety/MapServer/10/query?"
        "where=1%3D1&outFields=LABEL,IN_DIST,DC,Admin&returnGeometry=false&f=json")
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "districts.json")
 def _num(v):
