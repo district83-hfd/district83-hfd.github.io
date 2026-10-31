@@ -1,5 +1,5 @@
 {
- "generated": 1793453651905,
+ "generated": 1793453771749,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-10-31 08:34",
+ "generated_str": "2026-10-31 08:36",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793453647884,
+ "last_ok_poll": 1793453767504,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-10-31 08:34",
- "polls": 12714,
- "polls_ok": 12611,
- "total_incidents_logged": 12080,
+ "last_ok_poll_str": "2026-10-31 08:36",
+ "polls": 12716,
+ "polls_ok": 12613,
+ "total_incidents_logged": 12086,
  "district_incidents": 27039,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -196,14 +196,8 @@
   "104": "102",
   "105": "65"
  },
- "wf_live": [
-  "1793441220000|S BRAESWOOD BLVD|BLK BARGER ST",
-  "1793441400000|S BRAESWOOD BLVD|BLK BARGER ST"
- ],
- "tk_live": [
-  "1793441220000|S BRAESWOOD BLVD|BLK BARGER ST",
-  "1793441400000|S BRAESWOOD BLVD|BLK BARGER ST"
- ],
+ "wf_live": [],
+ "tk_live": [],
  "ticker_min_heavy": 3,
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
@@ -232,7 +226,7 @@
  "city": {
   "day": "2026-10-31",
   "since": "06:00",
-  "city_today": 81,
+  "city_today": 87,
   "d83_today": 3,
   "prev_day": "2026-10-30",
   "city_prev": 1191,
@@ -903,7 +897,7 @@
     "A": 776.78,
     "B": 783.05,
     "C": 893.33,
-    "D": 869.33
+    "D": 869.34
    }
   }
  ],
@@ -1572,7 +1566,7 @@
      "A": 776.78,
      "B": 783.05,
      "C": 893.33,
-     "D": 869.33
+     "D": 869.34
     }
    }
   ],
@@ -2375,7 +2369,7 @@
      "A": 10.12,
      "B": 10.75,
      "C": 29.34,
-     "D": 14.97
+     "D": 14.99
     },
     "hday": {
      "2026-10-26": 10.12,
@@ -2383,7 +2377,7 @@
      "2026-10-28": 14.02,
      "2026-10-29": 12.91,
      "2026-10-30": 15.33,
-     "2026-10-31": 2.07
+     "2026-10-31": 2.09
     }
    }
   ],
@@ -2977,7 +2971,7 @@
      "A": 76.26,
      "B": 84.82,
      "C": 105.6,
-     "D": 101.99
+     "D": 102.01
     }
    }
   ]
@@ -46731,8 +46725,8 @@
    "sd": "2026-10-30",
    "sh": "C",
    "fs": 1793441540559,
-   "ls": 1793453647884,
-   "min": 202,
+   "ls": 1793453707481,
+   "min": 203,
    "units": [
     {
      "u": "A082",
@@ -46757,7 +46751,7 @@
     {
      "u": "E068",
      "d": false,
-     "min": 202
+     "min": 203
     },
     {
      "u": "E073",
@@ -46777,7 +46771,7 @@
     {
      "u": "L068",
      "d": false,
-     "min": 202
+     "min": 203
     },
     {
      "u": "SQ082",
@@ -46815,10 +46809,10 @@
      "min": 44
     }
    ],
-   "cad": 207,
+   "cad": 208,
    "wt": true,
    "xwf": false,
-   "ov2": 202,
+   "ov2": 203,
    "why": "fire box on CAD 50+ min",
    "long_units": [
     "D083",
@@ -55794,12 +55788,12 @@
  ],
  "wx": {
   "t": 70,
-  "obs": 1793451300000,
-  "cond": "Mostly Cloudy",
-  "wind": 5,
-  "dir": "NNE",
+  "obs": 1793452200000,
+  "cond": "Partly Cloudy",
+  "wind": 0,
+  "dir": null,
   "st": "KSGR",
-  "fetched": 1793453111648,
+  "fetched": 1793453711701,
   "alerts": []
  },
  "traffic": {
