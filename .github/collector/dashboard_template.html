@@ -452,6 +452,12 @@ details.wfp>div{margin-top:10px;color:var(--txt);font-size:15px}
 .wfr .l2{font-size:16px;font-weight:700;margin:3px 0 2px;line-height:1.3}
 .wfr .l3{font-size:14px;color:#c9cbd6;margin-bottom:6px}
 .wfr .units{margin:0}
+.wfr .wfi{margin-top:8px;font-size:15px;color:#c9cbd6}
+.wffi{max-width:560px;margin:12px 0 0;padding:12px 14px;border:1px solid #3a4050;border-radius:10px;background:#22252d}
+.wffi-h{font-size:14px;color:#a9adba}
+.wffi-n{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:8px}
+.wffi-n span{display:flex;flex-direction:column;align-items:flex-start;gap:3px;font-size:13px;color:#a9adba}
+.wffi-n b{font-size:26px;color:#f1f2f5;font-variant-numeric:tabular-nums;line-height:1.1}
 .wfmore{margin-top:10px;background:#262a35;border:1px solid #3a4050;color:#dfe4f0;border-radius:10px;padding:10px 16px;font-size:15px;font-weight:650;width:100%}
 @media(max-width:400px){.wfk .kv{font-size:21px}}
 /* v63: Halloween theme, client-side, Oct 31 (America/Chicago) only; html.hw is set by the head script. Colors only: no data, layout or logic changes. */
@@ -975,7 +981,12 @@ function renderWF(){
   // v54: the rescue sits in its own box below the table so it does not read as part of the unit totals
   const reBox=(res.length?res:["RE010"]).map(u=>{const fu=fires.filter(f=>(f.units||[]).some(x=>x.d&&wfNorm(x.u)===u)),inn=fu.filter(f=>STATIONS.includes(String(f.fd||""))).length,nl=fu.filter(f=>!f.fd).length;
     return `<div class="wfre" data-u="${esc(u)}"><div class="wfre-h">${pill(u,true)}<span>Rescue 10 · not part of the table above</span></div><div class="wfre-n"><span><b class="wfre-t">${fu.length}</b> Total Working Fires</span><span><b class="wfre-i">${inn}</b> Inside D83${nl?"*":""}</span></div><div class="note" style="padding:6px 0 0">RE010 has no first-due territory and runs to fires citywide, so most of its fires are outside District 83.${nl?` *At least: ${nl} of its fires ${nl===1?"has":"have"} no mapped location.`:""}</div></div>`}).join("");
-  document.getElementById("wfUnits").innerHTML=tbl+reBox+`<div class="note" style="padding:8px 0 0">One count per fire per unit. District 83 engines, ladders and District Chiefs; manpower units (MPE/MPL) count with their engine or ladder. The rescue (RE010) is counted in its own box, apart from the table. A shift count follows the shift on duty, not a crew. Fires = working fires in the selection; one fire can have several units, and some had only the rescue or an ambulance.</div>`;
+  // v64: first D83 engine on scene, only for fires inside a D83 first-due area with a known first-in (engine id per fire; no times are published)
+  const fiF=fires.filter(f=>f.fi&&STATIONS.includes(String(f.fd||"")));const fic={};for(const f of fiF)fic[f.fi]=(fic[f.fi]||0)+1;
+  const fiK=[...new Set([...WF_BASE.filter(u=>/^E/.test(u)),...Object.keys(fic)])].sort((a,b)=>wfRank(a)-wfRank(b)||a.localeCompare(b));
+  const fiThru=YS().firstin_through||S.firstin_through;
+  const fiBox=fiF.length?`<div class="wffi"><div class="wffi-h">First Engine On Scene · ${fiF.length} Fire${fiF.length===1?"":"s"} Inside D83</div><div class="wffi-n">${fiK.map(u=>`<span>${pill(u,true)}<b>${fic[u]||0}</b></span>`).join("")}</div><div class="note" style="padding:8px 0 0">The first District 83 engine on scene, per HFD records, for working fires inside a District 83 first-due area. Engines from other districts are not included, so one of them may have arrived first.${fiThru?` Records through ${esc(fiThru)}.`:""}</div></div>`:"";
+  document.getElementById("wfUnits").innerHTML=tbl+fiBox+reBox+`<div class="note" style="padding:8px 0 0">One count per fire per unit. District 83 engines, ladders and District Chiefs; manpower units (MPE/MPL) count with their engine or ladder. The rescue (RE010) is counted in its own box, apart from the table. A shift count follows the shift on duty, not a crew. Fires = working fires in the selection; one fire can have several units, and some had only the rescue or an ambulance.</div>`;
   // headline: count, busiest unit (engines, ladders, chiefs), busiest shift
   const ranked=main.map(u=>({u,n:val(u,"t")})).filter(x=>x.n).sort((a,b)=>b.n-a.n||a.u.localeCompare(b.u));const top=ranked.length?ranked.filter(x=>x.n===ranked[0].n):[];
   const sc=SHIFTS.map(x=>({x,n:fires.filter(f=>f.sh===x).length})).sort((a,b)=>b.n-a.n);const tops=WF_SH==="all"&&sc[0].n?sc.filter(x=>x.n===sc[0].n):[];
@@ -994,7 +1005,7 @@ function renderWF(){
   // fire list: newest first, 20 then Show All; District 83 units only; no hydrant or Navigate here
   const sorted=[...fires].sort((a,b)=>b.t-a.t);const show=WF_ALL?sorted:sorted.slice(0,20);
   const card=f=>{const us=(f.units||[]).filter(x=>x.d);const live=f.why&&!/^5-inch/i.test(f.why);
-    return `<div class="wfr"><div class="l1"><span>${esc(dt(f.t))} · <b style="color:${SHC[f.sh]||"inherit"}">${esc(f.sh||"")} Shift</b></span><span>On CAD ${fmtMin(f.cad??f.min)}</span></div><div class="l2">${esc(f.addr)}${f.cs?` <span style="font-weight:500;color:var(--mut)">@ ${esc(f.cs)}</span>`:""}</div><div class="l3">${esc(f.type)}${wfTypeExtra(f)?` · ${esc(wfTypeExtra(f))}`:""}${live?` · <span class="note" style="padding:0">Live Estimate</span>`:""}</div><div class="units">${us.length?us.map(x=>pill(x.u,true)).join(""):`<span class="note" style="padding:0">No District 83 unit listed</span>`}</div></div>`};
+    return `<div class="wfr"><div class="l1"><span>${esc(dt(f.t))} · <b style="color:${SHC[f.sh]||"inherit"}">${esc(f.sh||"")} Shift</b></span><span>On CAD ${fmtMin(f.cad??f.min)}</span></div><div class="l2">${esc(f.addr)}${f.cs?` <span style="font-weight:500;color:var(--mut)">@ ${esc(f.cs)}</span>`:""}</div><div class="l3">${esc(f.type)}${wfTypeExtra(f)?` · ${esc(wfTypeExtra(f))}`:""}${live?` · <span class="note" style="padding:0">Live Estimate</span>`:""}</div><div class="units">${us.length?us.map(x=>pill(x.u,true)).join(""):`<span class="note" style="padding:0">No District 83 unit listed</span>`}</div>${f.fi&&STATIONS.includes(String(f.fd||""))?`<div class="wfi">First in: ${pill(f.fi,true)}</div>`:""}</div>`};
   document.getElementById("wfList").innerHTML=sorted.length?`<div class="wfl">${show.map(card).join("")}</div>${sorted.length>20?`<button type="button" class="wfmore" id="wfMore">${WF_ALL?"Show Fewer":`Show All ${sorted.length}`}</button>`:""}`:`<div class="note">No working fires in this selection.</div>`;
   const mb=document.getElementById("wfMore");if(mb)mb.onclick=()=>{WF_ALL=!WF_ALL;renderWF();if(!WF_ALL)document.getElementById("wfList").scrollIntoView({block:"start"})};
 }

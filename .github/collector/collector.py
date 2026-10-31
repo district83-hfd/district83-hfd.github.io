@@ -408,6 +408,7 @@ def district_rows(c, where, params):
     hose = backfill_hose(c) if hb else set()
     sfg = backfill_sf_group(c) if hb else {}   # v50: first-dispatch group (LB/MB) for fires CAD retyped to 211/311
     tgm = backfill_type_group(c, sfg) if hb else {}   # v52: house / high-rise group for fire-type labels (report codes)
+    fin = backfill_firstin(c) if hb else {}   # v64: first D83 engine on scene, shown only for fires inside a D83 first-due area
     fds = {}
     for r in incs:
         try:
@@ -421,6 +422,7 @@ def district_rows(c, where, params):
              "xwf": R.is_wf_excluded(r[0]), "ov2": round(R.overlap2_ms(spans.get(r[0], [])) / 60000),
              "why": _why(r, spans, uspans, bfk, hose), **({"bf": 1} if r[0] in bfk else {}),
              **({"og": sfg[r[0]]} if r[0] in sfg and re.match(r"^[23]11\b", str(r[4] or "")) else {}),
+             **({"fi": fin[r[0]]} if r[0] in fin and r[0] in bfk and fds[r[0]][0] in STATIONS else {}),
              **({"tg": tgm[r[0]]} if r[0] in tgm and not re.match(r"^[23]11\b", str(r[4] or "")) and (is_fire_box(r[4]) or r[0] in hose) else {})} for r in incs]
 
 HOSE_WHY = "5-inch hose on the ground (HFD report)"
@@ -437,6 +439,11 @@ def has_backfill(c):
     try: c.execute("ATTACH DATABASE ? AS bf", (BACKFILL_DB,)); return True
     except sqlite3.Error as e: log(f"backfill attach failed: {e!r}"); return False
 def backfill_hose(c): return {r[0] for r in c.execute("SELECT ikey FROM bf.hose")}
+def backfill_firstin(c):
+    """v64: {ikey: engine id} first D83 engine on scene per report-backed working fire (source_data/firstin.py; engine id only, no times).
+    Table absent in older private inputs -> {} (no first-in lines)."""
+    try: return {k: u for k, u in c.execute("SELECT ikey, unit FROM bf.firstin") if u}
+    except sqlite3.Error: return {}
 def backfill_sf_group(c):
     try: return {k: g for k, g in c.execute("SELECT ikey, grp FROM bf.sf_group") if g in ("LB", "MB")}
     except sqlite3.Error: return {}
@@ -748,6 +755,7 @@ def stats(c, year=None):
         "year_start": y0, "year_end": y1,
         "logging_start": start, "logging_start_str": fmt(start), "last_ok_poll": last_ok,
         "history_start": backfill_meta(c, "history_start"), "history_end": backfill_meta(c, "live_start"),
+        "firstin_through": (datetime.fromtimestamp(backfill_meta(c, "firstin_records_end") / 1000, TZ).strftime("%b %-d") if backfill_meta(c, "firstin_records_end") else None),   # v64: date only
         "history_end_str": datetime.fromtimestamp(backfill_meta(c, "live_start") / 1000, TZ).strftime("%b %-d %H:%M") if backfill_meta(c, "live_start") else None,
         "last_ok_poll_str": fmt(last_ok) if last_ok else None, "polls": npolls[0], "polls_ok": npolls[1] or 0,
         "total_incidents_logged": c.execute("SELECT COUNT(*) FROM incidents WHERE call_time>=? AND call_time<?", (y0, y1)).fetchone()[0],
