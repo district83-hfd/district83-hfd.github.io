@@ -1,5 +1,5 @@
 {
- "generated": 1793553015833,
+ "generated": 1793553135737,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-01 11:10",
+ "generated_str": "2026-11-01 11:12",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793553009601,
+ "last_ok_poll": 1793553129587,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-01 11:10",
- "polls": 14370,
- "polls_ok": 14267,
- "total_incidents_logged": 13529,
+ "last_ok_poll_str": "2026-11-01 11:12",
+ "polls": 14372,
+ "polls_ok": 14269,
+ "total_incidents_logged": 13532,
  "district_incidents": 27123,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -197,7 +197,9 @@
   "105": "65"
  },
  "wf_live": [],
- "tk_live": [],
+ "tk_live": [
+  "1793552760000|BRICKER ST|BLK COFFEE ST"
+ ],
  "ticker_min_heavy": 3,
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
@@ -226,7 +228,7 @@
  "city": {
   "day": "2026-11-01",
   "since": "06:00",
-  "city_today": 198,
+  "city_today": 201,
   "d83_today": 13,
   "prev_day": "2026-10-31",
   "city_prev": 1299,
@@ -867,9 +869,9 @@
     "C": 40,
     "D": 35
    },
-   "hrs": 4071.1,
+   "hrs": 4071.2,
    "hsh": {
-    "A": 967.29,
+    "A": 967.32,
     "B": 1022.41,
     "C": 1034.82,
     "D": 1046.61
@@ -1536,9 +1538,9 @@
      "C": 40,
      "D": 35
     },
-    "hrs": 4071.1,
+    "hrs": 4071.2,
     "hsh": {
-     "A": 967.29,
+     "A": 967.32,
      "B": 1022.41,
      "C": 1034.82,
      "D": 1046.61
@@ -1748,7 +1750,7 @@
     },
     "hrs": 2.0,
     "hsh": {
-     "A": 1.99,
+     "A": 2.03,
      "B": 0.0,
      "C": 0.0,
      "D": 0.0
@@ -2545,7 +2547,7 @@
     },
     "hrs": 91.4,
     "hsh": {
-     "A": 16.62,
+     "A": 16.65,
      "B": 11.57,
      "C": 29.5,
      "D": 33.7
@@ -2557,7 +2559,7 @@
      "2026-10-29": 17.69,
      "2026-10-30": 15.33,
      "2026-10-31": 16.01,
-     "2026-11-01": 2.18
+     "2026-11-01": 2.22
     }
    },
    {
@@ -2964,7 +2966,7 @@
     },
     "hrs": 8.8,
     "hsh": {
-     "A": 2.18,
+     "A": 2.22,
      "B": 0.0,
      "C": 0.0,
      "D": 6.58
@@ -42811,7 +42813,7 @@
    "83": {
     "unit": "A083",
     "total": 3421,
-    "hrs": 4071.1
+    "hrs": 4071.2
    }
   },
   "tour": {
@@ -52316,13 +52318,13 @@
   "wind": 6,
   "dir": "NE",
   "st": "KSGR",
-  "fetched": 1793552476379,
+  "fetched": 1793553136210,
   "alerts": []
  },
  "traffic": {
   "items": [],
   "n": 0,
-  "total": 8,
-  "fetched": 1793552896232
+  "total": 9,
+  "fetched": 1793553076270
  }
 }
