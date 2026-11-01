@@ -1,5 +1,5 @@
 {
- "generated": 1793509092170,
+ "generated": 1793509212280,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,20 +82,20 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-10-31 23:58",
+ "generated_str": "2026-11-01 00:00",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767247200000,
  "year_end": 1798783200000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793509087527,
+ "last_ok_poll": 1793509207561,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-10-31 23:58",
- "polls": 13638,
- "polls_ok": 13535,
+ "last_ok_poll_str": "2026-11-01 00:00",
+ "polls": 13640,
+ "polls_ok": 13537,
  "total_incidents_logged": 12942,
  "district_incidents": 27087,
  "shift_change": "06:30",
@@ -277,12 +277,12 @@
     "78": 10,
     "59": 4
    },
-   "hrs": 1106.0,
+   "hrs": 1106.1,
    "hsh": {
     "A": 251.49,
     "B": 293.48,
     "C": 299.19,
-    "D": 261.86
+    "D": 261.89
    }
   },
   {
@@ -388,7 +388,7 @@
     "A": 867.22,
     "B": 849.56,
     "C": 903.68,
-    "D": 952.9
+    "D": 952.94
    }
   },
   {
@@ -551,12 +551,12 @@
     "C": 41,
     "D": 44
    },
-   "hrs": 3905.5,
+   "hrs": 3905.6,
    "hsh": {
     "A": 971.68,
     "B": 927.02,
     "C": 992.33,
-    "D": 1014.49
+    "D": 1014.53
    }
   },
   {
@@ -776,7 +776,7 @@
     "A": 263.28,
     "B": 299.9,
     "C": 325.75,
-    "D": 271.03
+    "D": 271.07
    }
   },
   {
@@ -874,7 +874,7 @@
     "A": 965.1,
     "B": 1022.41,
     "C": 1034.82,
-    "D": 1039.72
+    "D": 1039.75
    }
   },
   {
@@ -946,12 +946,12 @@
      "78": 10,
      "59": 4
     },
-    "hrs": 1106.0,
+    "hrs": 1106.1,
     "hsh": {
      "A": 251.49,
      "B": 293.48,
      "C": 299.19,
-     "D": 261.86
+     "D": 261.89
     }
    },
    {
@@ -1057,7 +1057,7 @@
      "A": 867.22,
      "B": 849.56,
      "C": 903.68,
-     "D": 952.9
+     "D": 952.94
     }
    },
    {
@@ -1220,12 +1220,12 @@
      "C": 41,
      "D": 44
     },
-    "hrs": 3905.5,
+    "hrs": 3905.6,
     "hsh": {
      "A": 971.68,
      "B": 927.02,
      "C": 992.33,
-     "D": 1014.49
+     "D": 1014.53
     }
    },
    {
@@ -1445,7 +1445,7 @@
      "A": 263.28,
      "B": 299.9,
      "C": 325.75,
-     "D": 271.03
+     "D": 271.07
     }
    },
    {
@@ -1543,7 +1543,7 @@
      "A": 965.1,
      "B": 1022.41,
      "C": 1034.82,
-     "D": 1039.72
+     "D": 1039.75
     }
    },
    {
@@ -1598,12 +1598,12 @@
     "ood_to": {
      "68": 2
     },
-    "hrs": 2.8,
+    "hrs": 2.9,
     "hsh": {
      "A": 0.0,
      "B": 0.0,
      "C": 0.0,
-     "D": 2.83
+     "D": 2.86
     }
    },
    {
@@ -1658,12 +1658,12 @@
      "C": 0,
      "D": 0
     },
-    "hrs": 8.8,
+    "hrs": 8.9,
     "hsh": {
      "A": 0.0,
      "B": 0.0,
      "C": 0.0,
-     "D": 8.83
+     "D": 8.86
     }
    },
    {
@@ -1733,12 +1733,12 @@
      "C": 0,
      "D": 0
     },
-    "hrs": 9.2,
+    "hrs": 9.3,
     "hsh": {
      "A": 0.0,
      "B": 0.0,
      "C": 0.0,
-     "D": 9.24
+     "D": 9.27
     }
    },
    {
@@ -1883,7 +1883,7 @@
      "A": 0.0,
      "B": 0.0,
      "C": 0.0,
-     "D": 1.15
+     "D": 1.18
     }
    },
    {
@@ -1942,7 +1942,7 @@
      "A": 0.0,
      "B": 0.0,
      "C": 0.0,
-     "D": 9.12
+     "D": 9.15
     }
    },
    {
@@ -2019,12 +2019,12 @@
      "2026-10-27": 1,
      "2026-10-26": 1
     },
-    "hrs": 20.0,
+    "hrs": 20.1,
     "hsh": {
      "A": 2.77,
      "B": 2.28,
      "C": 8.47,
-     "D": 6.53
+     "D": 6.57
     },
     "hday": {
      "2026-10-26": 2.77,
@@ -2032,7 +2032,7 @@
      "2026-10-28": 2.98,
      "2026-10-29": 2.46,
      "2026-10-30": 5.49,
-     "2026-10-31": 4.07
+     "2026-10-31": 4.11
     }
    },
    {
@@ -2131,7 +2131,7 @@
      "A": 13.6,
      "B": 10.28,
      "C": 25.81,
-     "D": 24.68
+     "D": 24.72
     },
     "hday": {
      "2026-10-26": 13.6,
@@ -2139,7 +2139,7 @@
      "2026-10-28": 13.84,
      "2026-10-29": 15.51,
      "2026-10-30": 11.97,
-     "2026-10-31": 9.17
+     "2026-10-31": 9.21
     }
    },
    {
@@ -2324,7 +2324,7 @@
      "A": 10.13,
      "B": 11.02,
      "C": 26.29,
-     "D": 24.33
+     "D": 24.36
     },
     "hday": {
      "2026-10-26": 10.13,
@@ -2332,7 +2332,7 @@
      "2026-10-28": 13.49,
      "2026-10-29": 14.49,
      "2026-10-30": 12.8,
-     "2026-10-31": 9.83
+     "2026-10-31": 9.87
     }
    },
    {
@@ -2614,7 +2614,7 @@
      "A": 1.51,
      "B": 2.14,
      "C": 8.09,
-     "D": 2.66
+     "D": 2.69
     },
     "hday": {
      "2026-10-26": 1.51,
@@ -2622,7 +2622,7 @@
      "2026-10-28": 4.25,
      "2026-10-29": 1.16,
      "2026-10-30": 3.84,
-     "2026-10-31": 1.49
+     "2026-10-31": 1.53
     }
    },
    {
@@ -2711,7 +2711,7 @@
      "A": 14.44,
      "B": 11.57,
      "C": 29.5,
-     "D": 26.8
+     "D": 26.84
     },
     "hday": {
      "2026-10-26": 14.44,
@@ -2719,7 +2719,7 @@
      "2026-10-28": 14.17,
      "2026-10-29": 17.69,
      "2026-10-30": 15.33,
-     "2026-10-31": 9.12
+     "2026-10-31": 9.15
     }
    },
    {
@@ -2767,600 +2767,7 @@
     }
    }
   ],
-  "month": [
-   {
-    "unit": "E010",
-    "station": "10",
-    "kind": "fire",
-    "A": 83,
-    "B": 91,
-    "C": 78,
-    "D": 83,
-    "total": 335,
-    "wf": 8,
-    "mvi": 24,
-    "mvi_sh": {
-     "A": 3,
-     "B": 7,
-     "C": 8,
-     "D": 6
-    },
-    "ooa": 86,
-    "ooa_to": {
-     "73": 28,
-     "68": 8,
-     "76": 10,
-     "51": 11,
-     "60": 17,
-     "57": 1,
-     "75": 1,
-     "82": 1,
-     "83": 5,
-     "86": 1,
-     "69": 1,
-     "28": 2
-    },
-    "ood": 76,
-    "ood_to": {
-     "68": 54,
-     "28": 19,
-     "78": 3
-    },
-    "hrs": 118.6,
-    "hsh": {
-     "A": 30.13,
-     "B": 31.37,
-     "C": 33.22,
-     "D": 23.9
-    }
-   },
-   {
-    "unit": "RE010",
-    "station": "10",
-    "kind": "fire",
-    "A": 44,
-    "B": 29,
-    "C": 23,
-    "D": 31,
-    "total": 127,
-    "wf": 20,
-    "mvi": 16,
-    "mvi_sh": {
-     "A": 7,
-     "B": 5,
-     "C": 2,
-     "D": 2
-    },
-    "ooa": 84,
-    "ooa_to": {
-     "73": 12,
-     "49": 4,
-     "68": 3,
-     "51": 5,
-     "28": 6,
-     "60": 9,
-     "59": 5,
-     "33": 4,
-     "48": 2,
-     "78": 4,
-     "57": 3,
-     "76": 4,
-     "82": 4,
-     "86": 2,
-     "75": 2,
-     "77": 4,
-     "38": 1,
-     "21": 3,
-     "83": 3,
-     "69": 2,
-     "90": 1,
-     "80": 1
-    },
-    "ood": 84,
-    "ood_to": {
-     "68": 26,
-     "5": 9,
-     "28": 17,
-     "59": 11,
-     "21": 7,
-     "78": 14
-    },
-    "hrs": 32.5,
-    "hsh": {
-     "A": 11.18,
-     "B": 6.6,
-     "C": 8.01,
-     "D": 6.66
-    }
-   },
-   {
-    "unit": "A010",
-    "station": "10",
-    "kind": "ems",
-    "A": 88,
-    "B": 89,
-    "C": 84,
-    "D": 82,
-    "total": 343,
-    "wf": 0,
-    "mvi": 23,
-    "mvi_sh": {
-     "A": 3,
-     "B": 10,
-     "C": 5,
-     "D": 5
-    },
-    "hrs": 391.0,
-    "hsh": {
-     "A": 92.16,
-     "B": 93.28,
-     "C": 98.84,
-     "D": 106.73
-    }
-   },
-   {
-    "unit": "M010",
-    "station": "10",
-    "kind": "ems",
-    "A": 80,
-    "B": 77,
-    "C": 94,
-    "D": 87,
-    "total": 338,
-    "wf": 4,
-    "mvi": 12,
-    "mvi_sh": {
-     "A": 1,
-     "B": 7,
-     "C": 2,
-     "D": 2
-    },
-    "hrs": 376.0,
-    "hsh": {
-     "A": 82.82,
-     "B": 88.75,
-     "C": 89.15,
-     "D": 115.28
-    }
-   },
-   {
-    "unit": "E069",
-    "station": "69",
-    "kind": "fire",
-    "A": 58,
-    "B": 68,
-    "C": 63,
-    "D": 56,
-    "total": 245,
-    "wf": 2,
-    "mvi": 7,
-    "mvi_sh": {
-     "A": 2,
-     "B": 2,
-     "C": 3,
-     "D": 0
-    },
-    "ooa": 68,
-    "ooa_to": {
-     "60": 22,
-     "83": 17,
-     "57": 14,
-     "75": 2,
-     "73": 1,
-     "86": 1,
-     "49": 3,
-     "68": 1,
-     "82": 2,
-     "10": 3,
-     "77": 1,
-     "28": 1
-    },
-    "ood": 50,
-    "ood_to": {
-     "28": 25,
-     "78": 17,
-     "68": 4,
-     "5": 4
-    },
-    "hrs": 94.9,
-    "hsh": {
-     "A": 23.75,
-     "B": 25.86,
-     "C": 24.88,
-     "D": 20.36
-    }
-   },
-   {
-    "unit": "L069",
-    "station": "69",
-    "kind": "fire",
-    "A": 32,
-    "B": 31,
-    "C": 21,
-    "D": 24,
-    "total": 108,
-    "wf": 4,
-    "mvi": 4,
-    "mvi_sh": {
-     "A": 3,
-     "B": 0,
-     "C": 1,
-     "D": 0
-    },
-    "ooa": 53,
-    "ooa_to": {
-     "83": 13,
-     "49": 5,
-     "60": 14,
-     "57": 8,
-     "75": 2,
-     "73": 2,
-     "39": 1,
-     "76": 2,
-     "78": 1,
-     "77": 2,
-     "10": 3
-    },
-    "ood": 35,
-    "ood_to": {
-     "5": 7,
-     "28": 14,
-     "78": 11,
-     "68": 2,
-     "34": 1
-    },
-    "hrs": 51.3,
-    "hsh": {
-     "A": 13.4,
-     "B": 14.82,
-     "C": 10.61,
-     "D": 12.5
-    }
-   },
-   {
-    "unit": "A069",
-    "station": "69",
-    "kind": "ems",
-    "A": 69,
-    "B": 86,
-    "C": 92,
-    "D": 83,
-    "total": 330,
-    "wf": 0,
-    "mvi": 16,
-    "mvi_sh": {
-     "A": 3,
-     "B": 2,
-     "C": 6,
-     "D": 5
-    },
-    "hrs": 399.0,
-    "hsh": {
-     "A": 85.51,
-     "B": 102.17,
-     "C": 103.37,
-     "D": 107.97
-    }
-   },
-   {
-    "unit": "AS069",
-    "station": "69",
-    "kind": "ems",
-    "A": 34,
-    "B": 31,
-    "C": 30,
-    "D": 35,
-    "total": 130,
-    "wf": 4,
-    "mvi": 11,
-    "mvi_sh": {
-     "A": 4,
-     "B": 4,
-     "C": 3,
-     "D": 0
-    },
-    "hrs": 89.5,
-    "hsh": {
-     "A": 20.31,
-     "B": 28.45,
-     "C": 14.51,
-     "D": 26.24
-    }
-   },
-   {
-    "unit": "E076",
-    "station": "76",
-    "kind": "fire",
-    "A": 59,
-    "B": 73,
-    "C": 89,
-    "D": 82,
-    "total": 303,
-    "wf": 5,
-    "mvi": 11,
-    "mvi_sh": {
-     "A": 5,
-     "B": 2,
-     "C": 2,
-     "D": 2
-    },
-    "ooa": 50,
-    "ooa_to": {
-     "73": 30,
-     "10": 9,
-     "75": 9,
-     "83": 2
-    },
-    "ood": 39,
-    "ood_to": {
-     "68": 30,
-     "78": 9
-    },
-    "hrs": 127.0,
-    "hsh": {
-     "A": 29.96,
-     "B": 35.8,
-     "C": 33.18,
-     "D": 28.03
-    }
-   },
-   {
-    "unit": "L076",
-    "station": "76",
-    "kind": "fire",
-    "A": 29,
-    "B": 23,
-    "C": 31,
-    "D": 24,
-    "total": 107,
-    "wf": 5,
-    "mvi": 8,
-    "mvi_sh": {
-     "A": 3,
-     "B": 3,
-     "C": 1,
-     "D": 1
-    },
-    "ooa": 33,
-    "ooa_to": {
-     "73": 23,
-     "75": 3,
-     "10": 3,
-     "83": 3,
-     "86": 1
-    },
-    "ood": 28,
-    "ood_to": {
-     "68": 23,
-     "78": 5
-    },
-    "hrs": 41.1,
-    "hsh": {
-     "A": 16.29,
-     "B": 8.19,
-     "C": 10.63,
-     "D": 6.03
-    }
-   },
-   {
-    "unit": "MPL076",
-    "station": "76",
-    "kind": "fire",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 4,
-    "total": 4,
-    "wf": 0,
-    "mvi": 0,
-    "mvi_sh": {
-     "A": 0,
-     "B": 0,
-     "C": 0,
-     "D": 0
-    },
-    "ooa": 1,
-    "ooa_to": {
-     "10": 1
-    },
-    "hrs": 1.0,
-    "hsh": {
-     "A": 0.0,
-     "B": 0.0,
-     "C": 0.0,
-     "D": 1.03
-    }
-   },
-   {
-    "unit": "A076",
-    "station": "76",
-    "kind": "ems",
-    "A": 72,
-    "B": 84,
-    "C": 92,
-    "D": 86,
-    "total": 334,
-    "wf": 1,
-    "mvi": 13,
-    "mvi_sh": {
-     "A": 5,
-     "B": 3,
-     "C": 5,
-     "D": 0
-    },
-    "hrs": 385.0,
-    "hsh": {
-     "A": 81.25,
-     "B": 91.35,
-     "C": 109.34,
-     "D": 103.03
-    }
-   },
-   {
-    "unit": "E083",
-    "station": "83",
-    "kind": "fire",
-    "A": 66,
-    "B": 78,
-    "C": 63,
-    "D": 61,
-    "total": 268,
-    "wf": 4,
-    "mvi": 8,
-    "mvi_sh": {
-     "A": 3,
-     "B": 3,
-     "C": 1,
-     "D": 1
-    },
-    "ood": 35,
-    "ood_to": {
-     "78": 16,
-     "68": 8,
-     "28": 11
-    },
-    "ooa": 55,
-    "ooa_to": {
-     "76": 5,
-     "68": 1,
-     "60": 11,
-     "57": 3,
-     "75": 8,
-     "73": 6,
-     "78": 2,
-     "69": 8,
-     "10": 10,
-     "86": 1
-    },
-    "hrs": 105.2,
-    "hsh": {
-     "A": 21.9,
-     "B": 30.55,
-     "C": 28.67,
-     "D": 24.06
-    }
-   },
-   {
-    "unit": "MPE083",
-    "station": "83",
-    "kind": "fire",
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 1,
-    "total": 1,
-    "wf": 0,
-    "mvi": 0,
-    "mvi_sh": {
-     "A": 0,
-     "B": 0,
-     "C": 0,
-     "D": 0
-    },
-    "hrs": 0.4,
-    "hsh": {
-     "A": 0.0,
-     "B": 0.0,
-     "C": 0.0,
-     "D": 0.4
-    }
-   },
-   {
-    "unit": "D083",
-    "station": "83",
-    "kind": "fire",
-    "A": 25,
-    "B": 19,
-    "C": 14,
-    "D": 18,
-    "total": 76,
-    "wf": 10,
-    "mvi": 3,
-    "mvi_sh": {
-     "A": 1,
-     "B": 1,
-     "C": 1,
-     "D": 0
-    },
-    "ood": 44,
-    "ood_to": {
-     "78": 15,
-     "68": 17,
-     "28": 11,
-     "5": 1
-    },
-    "ooa": 42,
-    "ooa_to": {
-     "73": 16,
-     "68": 1,
-     "60": 10,
-     "57": 5,
-     "86": 2,
-     "75": 1,
-     "78": 4,
-     "77": 1,
-     "90": 1,
-     "28": 1
-    },
-    "hrs": 20.6,
-    "hsh": {
-     "A": 7.92,
-     "B": 5.42,
-     "C": 3.84,
-     "D": 3.38
-    }
-   },
-   {
-    "unit": "A083",
-    "station": "83",
-    "kind": "ems",
-    "A": 94,
-    "B": 79,
-    "C": 92,
-    "D": 95,
-    "total": 360,
-    "wf": 1,
-    "mvi": 11,
-    "mvi_sh": {
-     "A": 4,
-     "B": 0,
-     "C": 4,
-     "D": 3
-    },
-    "hrs": 415.4,
-    "hsh": {
-     "A": 93.19,
-     "B": 103.33,
-     "C": 111.88,
-     "D": 106.96
-    }
-   },
-   {
-    "unit": "M083",
-    "station": "83",
-    "kind": "ems",
-    "A": 66,
-    "B": 81,
-    "C": 73,
-    "D": 72,
-    "total": 292,
-    "wf": 0,
-    "mvi": 5,
-    "mvi_sh": {
-     "A": 1,
-     "B": 1,
-     "C": 3,
-     "D": 0
-    },
-    "hrs": 375.1,
-    "hsh": {
-     "A": 76.26,
-     "B": 84.82,
-     "C": 105.6,
-     "D": 108.44
-    }
-   }
-  ]
+  "month": []
  },
  "incidents_periods": {
   "ytd": {
@@ -3385,11 +2792,11 @@
    "total": 505
   },
   "month": {
-   "A": 662,
-   "B": 704,
-   "C": 742,
-   "D": 705,
-   "total": 2813
+   "A": 0,
+   "B": 0,
+   "C": 0,
+   "D": 0,
+   "total": 0
   }
  },
  "ooa_periods": {
@@ -42857,4001 +42264,235 @@
   "month": {
    "by": {
     "A": [
-     133,
-     396
+     0,
+     0
     ],
     "B": [
-     109,
-     412
+     0,
+     0
     ],
     "C": [
-     102,
-     382
+     0,
+     0
     ],
     "D": [
-     128,
-     384
+     0,
+     0
     ]
    },
-   "list": [
-    [
-     1793498340000,
-     "D083",
-     "73",
-     "D",
-     "APARTMENT FIRE",
-     "WOODFAIR DR @ BLK DUCHAMP DR"
-    ],
-    [
-     1793498340000,
-     "E010",
-     "73",
-     "D",
-     "APARTMENT FIRE",
-     "WOODFAIR DR @ BLK DUCHAMP DR"
-    ],
-    [
-     1793498340000,
-     "E076",
-     "73",
-     "D",
-     "APARTMENT FIRE",
-     "WOODFAIR DR @ BLK DUCHAMP DR"
-    ],
-    [
-     1793498340000,
-     "L076",
-     "73",
-     "D",
-     "APARTMENT FIRE",
-     "WOODFAIR DR @ BLK DUCHAMP DR"
-    ],
-    [
-     1793498340000,
-     "RE010",
-     "73",
-     "D",
-     "APARTMENT FIRE",
-     "WOODFAIR DR @ BLK DUCHAMP DR"
-    ],
-    [
-     1793459160000,
-     "RE010",
-     "49",
-     "D",
-     "BUILDING FIRE",
-     "GESSNER RD"
-    ],
-    [
-     1793450520000,
-     "E076",
-     "73",
-     "D",
-     "AUTOMATIC ALARM",
-     "S GLEN DR @ BLK S KIRKWOOD RD"
-    ],
-    [
-     1793441220000,
-     "D083",
-     "68",
-     "C",
-     "APARTMENT FIRE",
-     "S BRAESWOOD BLVD @ BLK BARGER ST"
-    ],
-    [
-     1793441220000,
-     "E010",
-     "68",
-     "C",
-     "APARTMENT FIRE",
-     "S BRAESWOOD BLVD @ BLK BARGER ST"
-    ],
-    [
-     1793441220000,
-     "RE010",
-     "68",
-     "C",
-     "APARTMENT FIRE",
-     "S BRAESWOOD BLVD @ BLK BARGER ST"
-    ],
-    [
-     1793410020000,
-     "RE010",
-     "51",
-     "C",
-     "ELEVATOR RESCUE",
-     "HARWIN DR @ BLK HILLCROFT AVE"
-    ],
-    [
-     1793407980000,
-     "E076",
-     "10",
-     "C",
-     "FIRE EVENT",
-     "TURTLEWOOD CT @ BLK TURTLEWOOD DR"
-    ],
-    [
-     1793398200000,
-     "E069",
-     "60",
-     "C",
-     "EMS EVENT",
-     "WESTHEIMER RD @ BLK W SHADY LN"
-    ],
-    [
-     1793387700000,
-     "E069",
-     "83",
-     "C",
-     "NON EMERGENCY RESPONSE",
-     "RICHMOND AVE @ BLK WALNUT BEND LN"
-    ],
-    [
-     1793387700000,
-     "L069",
-     "83",
-     "C",
-     "NON EMERGENCY RESPONSE",
-     "RICHMOND AVE @ BLK WALNUT BEND LN"
-    ],
-    [
-     1793374620000,
-     "RE010",
-     "28",
-     "C",
-     "NON EMERGENCY RESPONSE",
-     "WINSOME LN @ BLK GREENRIDGE DR"
-    ],
-    [
-     1793369940000,
-     "E010",
-     "73",
-     "C",
-     "SMOKE DETECTOR",
-     "FORUM WEST DR @ BLK FORUM PLACE DR"
-    ],
-    [
-     1793351400000,
-     "D083",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "HERALD SQUARE DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1793351400000,
-     "E010",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "HERALD SQUARE DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1793351400000,
-     "E076",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "HERALD SQUARE DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1793351400000,
-     "L076",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "HERALD SQUARE DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1793329920000,
-     "D083",
-     "60",
-     "D",
-     "APARTMENT FIRE",
-     "OLD FARM RD @ BLK WESTHEIMER RD"
-    ],
-    [
-     1793329920000,
-     "RE010",
-     "60",
-     "D",
-     "APARTMENT FIRE",
-     "OLD FARM RD @ BLK WESTHEIMER RD"
-    ],
-    [
-     1793322960000,
-     "RE010",
-     "49",
-     "D",
-     "APARTMENT FIRE",
-     "WESTVIEW DR @ BLK CONRAD SAUER DR"
-    ],
-    [
-     1793322120000,
-     "E010",
-     "76",
-     "D",
-     "EMS EVENT",
-     "ROWAN LN @ BLK BELLE PARK DR"
-    ],
-    [
-     1793320740000,
-     "E083",
-     "76",
-     "D",
-     "EMS EVENT",
-     "BRAYSWORTH DR @ BLK BANDLON DR"
-    ],
-    [
-     1793319120000,
-     "E010",
-     "51",
-     "D",
-     "FIRE EVENT",
-     "BELLAIRE BLVD @ BLK WALDO ST"
-    ],
-    [
-     1793315520000,
-     "L069",
-     "49",
-     "D",
-     "APARTMENT FIRE",
-     "BRITTMOORE RD @ BLK DAY RD"
-    ],
-    [
-     1793315220000,
-     "RE010",
-     "59",
-     "D",
-     "NON EMERGENCY RESPONSE",
-     "DRAKESTONE BLVD @ BLK INGOMAR WAY"
-    ],
-    [
-     1793304840000,
-     "E076",
-     "73",
-     "D",
-     "EMS EVENT",
-     "SPICE LN @ BLK CINNAMON LN"
-    ],
-    [
-     1793304780000,
-     "MPL076",
-     "10",
-     "D",
-     "HOUSE ON FIRE",
-     "ROWAN LN @ BLK KENDALIA DR"
-    ],
-    [
-     1793252400000,
-     "E010",
-     "60",
-     "C",
-     "EMS EVENT",
-     "RICHMOND AVE @ BLK S GESSNER RD"
-    ],
-    [
-     1793235420000,
-     "E076",
-     "75",
-     "C",
-     "EMS EVENT",
-     "SHADOWBRIAR DR @ BLK OXFORD PARK DR"
-    ],
-    [
-     1793233140000,
-     "E083",
-     "68",
-     "C",
-     "EMS EVENT",
-     "JASON ST @ BLK S GESSNER RD"
-    ],
-    [
-     1793231100000,
-     "E010",
-     "73",
-     "C",
-     "EMS EVENT",
-     "WILCREST DR"
-    ],
-    [
-     1793230440000,
-     "L076",
-     "73",
-     "C",
-     "EMS EVENT",
-     "BISSONNET ST @ BLK S KIRKWOOD RD"
-    ],
-    [
-     1793230320000,
-     "E076",
-     "73",
-     "C",
-     "EMS EVENT",
-     "CLIFTON PARK DR @ BLK AYSHA PARK DR"
-    ],
-    [
-     1793207220000,
-     "RE010",
-     "33",
-     "C",
-     "NON EMERGENCY RESPONSE",
-     "HOLCOMBE BLVD @ BLK RINGNESS AVE"
-    ],
-    [
-     1793195280000,
-     "RE010",
-     "48",
-     "C",
-     "APARTMENT FIRE",
-     "DUNLAP ST @ BLK FONMEADOW DR"
-    ],
-    [
-     1793141700000,
-     "RE010",
-     "33",
-     "B",
-     "APARTMENT FIRE",
-     "BELLEFONTAINE ST @ BLK WAKEFOREST ST"
-    ],
-    [
-     1793137740000,
-     "E076",
-     "73",
-     "B",
-     "EMS EVENT",
-     "GLADEFIELD DR @ BLK LEAWOOD BLVD"
-    ],
-    [
-     1793129520000,
-     "E069",
-     "57",
-     "B",
-     "EMS EVENT",
-     "WILCREST DR @ BLK RIVERVIEW DR"
-    ],
-    [
-     1793113020000,
-     "E010",
-     "60",
-     "B",
-     "LIGHT WIRES ARCING",
-     "MONSEY DR @ BLK BLANCO ST"
-    ],
-    [
-     1793065020000,
-     "E010",
-     "68",
-     "A",
-     "BUS FIRE",
-     "BISSONNET ST"
-    ],
-    [
-     1793059920000,
-     "RE010",
-     "78",
-     "A",
-     "FIRE EVENT",
-     "N ELDRIDGE PKWY @ BLK MEMORIAL DR"
-    ],
-    [
-     1793059560000,
-     "E010",
-     "60",
-     "A",
-     "EMS EVENT",
-     "JEANETTA ST @ BLK MONSEY DR"
-    ],
-    [
-     1793054700000,
-     "E010",
-     "76",
-     "A",
-     "SMOKE DETECTOR",
-     "BELLAIRE BLVD @ BLK S DAIRY ASHFORD RD"
-    ],
-    [
-     1793046900000,
-     "E076",
-     "73",
-     "A",
-     "FIRE EVENT",
-     "CREEKHURST DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1793046900000,
-     "L076",
-     "73",
-     "A",
-     "EMS EVENT",
-     "WILCREST DR"
-    ],
-    [
-     1793041320000,
-     "D083",
-     "60",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "WESTERLAND DR @ BLK WESTHEIMER RD"
-    ],
-    [
-     1793041320000,
-     "E010",
-     "60",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "WESTERLAND DR @ BLK WESTHEIMER RD"
-    ],
-    [
-     1793041320000,
-     "E069",
-     "60",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "WESTERLAND DR @ BLK WESTHEIMER RD"
-    ],
-    [
-     1793041320000,
-     "E083",
-     "60",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "WESTERLAND DR @ BLK WESTHEIMER RD"
-    ],
-    [
-     1793041320000,
-     "L069",
-     "60",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "WESTERLAND DR @ BLK WESTHEIMER RD"
-    ],
-    [
-     1793041320000,
-     "RE010",
-     "60",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "WESTERLAND DR @ BLK WESTHEIMER RD"
-    ],
-    [
-     1793025960000,
-     "D083",
-     "57",
-     "A",
-     "GAS LEAK",
-     "MEMORIAL DR @ BLK W SAM HOUSTON PKWY N"
-    ],
-    [
-     1793025960000,
-     "E010",
-     "57",
-     "A",
-     "GAS LEAK",
-     "MEMORIAL DR @ BLK W SAM HOUSTON PKWY N"
-    ],
-    [
-     1793025960000,
-     "E083",
-     "57",
-     "A",
-     "GAS LEAK",
-     "MEMORIAL DR @ BLK W SAM HOUSTON PKWY N"
-    ],
-    [
-     1793025960000,
-     "L069",
-     "57",
-     "A",
-     "GAS LEAK",
-     "MEMORIAL DR @ BLK W SAM HOUSTON PKWY N"
-    ],
-    [
-     1792969680000,
-     "L069",
-     "60",
-     "B",
-     "FIRE EVENT",
-     "WOODCHASE DR @ BLK PAGEWOOD LN"
-    ],
-    [
-     1792968720000,
-     "D083",
-     "57",
-     "B",
-     "HOUSE ON FIRE",
-     "WICKCHESTER LN @ BLK MOORWICK LN"
-    ],
-    [
-     1792968720000,
-     "E069",
-     "57",
-     "B",
-     "HOUSE ON FIRE",
-     "WICKCHESTER LN @ BLK MOORWICK LN"
-    ],
-    [
-     1792968720000,
-     "RE010",
-     "57",
-     "B",
-     "HOUSE ON FIRE",
-     "WICKCHESTER LN @ BLK MOORWICK LN"
-    ],
-    [
-     1792943220000,
-     "E010",
-     "76",
-     "B",
-     "APARTMENT FIRE",
-     "COOK RD @ BLK SANDSTONE ST"
-    ],
-    [
-     1792943220000,
-     "E083",
-     "76",
-     "B",
-     "APARTMENT FIRE",
-     "COOK RD @ BLK SANDSTONE ST"
-    ],
-    [
-     1792943220000,
-     "RE010",
-     "76",
-     "B",
-     "APARTMENT FIRE",
-     "COOK RD @ BLK SANDSTONE ST"
-    ],
-    [
-     1792916520000,
-     "D083",
-     "60",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "CROSSVIEW DR @ BLK CLARKCREST ST"
-    ],
-    [
-     1792916520000,
-     "L069",
-     "60",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "CROSSVIEW DR @ BLK CLARKCREST ST"
-    ],
-    [
-     1792882500000,
-     "E010",
-     "75",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "OVERBROOK LN @ BLK SHADOW VIEW LN"
-    ],
-    [
-     1792882500000,
-     "E069",
-     "75",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "OVERBROOK LN @ BLK SHADOW VIEW LN"
-    ],
-    [
-     1792882500000,
-     "E083",
-     "75",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "OVERBROOK LN @ BLK SHADOW VIEW LN"
-    ],
-    [
-     1792882500000,
-     "L069",
-     "75",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "OVERBROOK LN @ BLK SHADOW VIEW LN"
-    ],
-    [
-     1792877520000,
-     "L076",
-     "73",
-     "A",
-     "EMS EVENT",
-     "WILCREST DR @ BLK BISSONNET ST"
-    ],
-    [
-     1792873140000,
-     "E083",
-     "60",
-     "A",
-     "FIRE EVENT",
-     "WESTERLAND DR @ BLK WESTHEIMER RD"
-    ],
-    [
-     1792869660000,
-     "D083",
-     "60",
-     "A",
-     "HOUSE ON FIRE",
-     "MEADOWBRIAR LN @ BLK WESTERLAND DR"
-    ],
-    [
-     1792869660000,
-     "E010",
-     "60",
-     "A",
-     "HOUSE ON FIRE",
-     "MEADOWBRIAR LN @ BLK WESTERLAND DR"
-    ],
-    [
-     1792869660000,
-     "E069",
-     "60",
-     "A",
-     "HOUSE ON FIRE",
-     "MEADOWBRIAR LN @ BLK WESTERLAND DR"
-    ],
-    [
-     1792869660000,
-     "E083",
-     "60",
-     "A",
-     "HOUSE ON FIRE",
-     "MEADOWBRIAR LN @ BLK WESTERLAND DR"
-    ],
-    [
-     1792869660000,
-     "L069",
-     "60",
-     "A",
-     "HOUSE ON FIRE",
-     "MEADOWBRIAR LN @ BLK WESTERLAND DR"
-    ],
-    [
-     1792869660000,
-     "RE010",
-     "60",
-     "A",
-     "HOUSE ON FIRE",
-     "MEADOWBRIAR LN @ BLK WESTERLAND DR"
-    ],
-    [
-     1792868460000,
-     "E010",
-     "82",
-     "A",
-     "APARTMENT FIRE",
-     "FONDREN RD"
-    ],
-    [
-     1792868460000,
-     "RE010",
-     "82",
-     "A",
-     "APARTMENT FIRE",
-     "FONDREN RD"
-    ],
-    [
-     1792845360000,
-     "RE010",
-     "48",
-     "A",
-     "NON EMERGENCY RESPONSE",
-     "DUNLAP ST @ BLK FONMEADOW DR"
-    ],
-    [
-     1792820580000,
-     "E076",
-     "10",
-     "D",
-     "EMS EVENT",
-     "BELLAIRE BLVD"
-    ],
-    [
-     1792814100000,
-     "L076",
-     "73",
-     "D",
-     "EMS EVENT",
-     "BISSONNET ST @ BLK COURT GLEN DR"
-    ],
-    [
-     1792809420000,
-     "L076",
-     "73",
-     "D",
-     "EMS EVENT",
-     "BELLE GLEN DR @ BLK HERALD SQUARE DR"
-    ],
-    [
-     1792806660000,
-     "E076",
-     "73",
-     "D",
-     "BUILDING FIRE",
-     "BISSONNET ST @ BLK LEAWOOD BLVD"
-    ],
-    [
-     1792801320000,
-     "E083",
-     "75",
-     "D",
-     "CK. OUTLET, PLUG OR SOCKET",
-     "BRIAR FOREST DR @ BLK BRIAR BAYOU DR"
-    ],
-    [
-     1792799040000,
-     "E010",
-     "83",
-     "D",
-     "EMS EVENT",
-     "WILCREST DR @ BLK HIGH STAR DR"
-    ],
-    [
-     1792794060000,
-     "D083",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "PLUMBROOK DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1792794060000,
-     "E010",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "PLUMBROOK DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1792794060000,
-     "E069",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "PLUMBROOK DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1792794060000,
-     "E076",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "PLUMBROOK DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1792794060000,
-     "E083",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "PLUMBROOK DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1792794060000,
-     "L069",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "PLUMBROOK DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1792794060000,
-     "L076",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "PLUMBROOK DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1792794060000,
-     "RE010",
-     "73",
-     "D",
-     "HOUSE ON FIRE",
-     "PLUMBROOK DR @ BLK AMBLEWOOD DR"
-    ],
-    [
-     1792792740000,
-     "D083",
-     "86",
-     "D",
-     "NON EMERGENCY RESPONSE",
-     "RICHMOND AVE"
-    ],
-    [
-     1792792740000,
-     "E010",
-     "86",
-     "D",
-     "NON EMERGENCY RESPONSE",
-     "RICHMOND AVE"
-    ],
-    [
-     1792792740000,
-     "E069",
-     "86",
-     "D",
-     "NON EMERGENCY RESPONSE",
-     "RICHMOND AVE"
-    ],
-    [
-     1792792740000,
-     "RE010",
-     "86",
-     "D",
-     "NON EMERGENCY RESPONSE",
-     "RICHMOND AVE"
-    ],
-    [
-     1792792560000,
-     "E083",
-     "76",
-     "D",
-     "EMS EVENT",
-     "YUPON RIDGE DR @ BLK WILDACRES DR"
-    ],
-    [
-     1792791420000,
-     "E010",
-     "51",
-     "D",
-     "EMS EVENT",
-     "FONDREN RD"
-    ],
-    [
-     1792790160000,
-     "D083",
-     "75",
-     "D",
-     "APARTMENT FIRE",
-     "ASHFORD MEADOW DR @ BLK ASHFORD PARK DR"
-    ],
-    [
-     1792790160000,
-     "E069",
-     "75",
-     "D",
-     "APARTMENT FIRE",
-     "ASHFORD MEADOW DR @ BLK ASHFORD PARK DR"
-    ],
-    [
-     1792790160000,
-     "E076",
-     "75",
-     "D",
-     "APARTMENT FIRE",
-     "ASHFORD MEADOW DR @ BLK ASHFORD PARK DR"
-    ],
-    [
-     1792790160000,
-     "E083",
-     "75",
-     "D",
-     "APARTMENT FIRE",
-     "ASHFORD MEADOW DR @ BLK ASHFORD PARK DR"
-    ],
-    [
-     1792790160000,
-     "L069",
-     "75",
-     "D",
-     "APARTMENT FIRE",
-     "ASHFORD MEADOW DR @ BLK ASHFORD PARK DR"
-    ],
-    [
-     1792790160000,
-     "L076",
-     "75",
-     "D",
-     "APARTMENT FIRE",
-     "ASHFORD MEADOW DR @ BLK ASHFORD PARK DR"
-    ],
-    [
-     1792790160000,
-     "RE010",
-     "75",
-     "D",
-     "APARTMENT FIRE",
-     "ASHFORD MEADOW DR @ BLK ASHFORD PARK DR"
-    ],
-    [
-     1792788120000,
-     "L069",
-     "83",
-     "D",
-     "FIRE EVENT",
-     "WALNUT BEND LN @ BLK RICHMOND AVE"
-    ],
-    [
-     1792782780000,
-     "E069",
-     "60",
-     "D",
-     "EMS EVENT",
-     "WESTERLAND DR @ BLK WESTHEIMER RD"
-    ],
-    [
-     1792778940000,
-     "E076",
-     "73",
-     "D",
-     "EMS EVENT",
-     "VILLAGE BEND LN @ BLK BOONE RD"
-    ],
-    [
-     1792772760000,
-     "E069",
-     "60",
-     "D",
-     "EMS EVENT",
-     "TANGLEWILDE ST @ BLK ELLA LEE LN"
-    ],
-    [
-     1792770480000,
-     "E076",
-     "75",
-     "D",
-     "EMS EVENT",
-     "S DAIRY ASHFORD RD"
-    ],
-    [
-     1792707840000,
-     "L069",
-     "57",
-     "C",
-     "FIRE EVENT",
-     "WILCHESTER BLVD @ BLK HERMITAGE LN"
-    ],
-    [
-     1792707120000,
-     "E069",
-     "60",
-     "C",
-     "EMS EVENT",
-     "WESTHEIMER RD @ BLK S GESSNER RD"
-    ],
-    [
-     1792701420000,
-     "E069",
-     "57",
-     "C",
-     "TREE ON FIRE",
-     "BOHEME DR"
-    ],
-    [
-     1792698960000,
-     "E069",
-     "49",
-     "C",
-     "AUTOMATIC ALARM",
-     "FROSTWOOD DR @ BLK KATY FWY IB"
-    ],
-    [
-     1792681320000,
-     "L069",
-     "49",
-     "C",
-     "FIRE EVENT",
-     "GESSNER RD @ BLK EDDYSTONE DR"
-    ],
-    [
-     1792676940000,
-     "E069",
-     "60",
-     "C",
-     "EMS EVENT",
-     "MEADOWGLEN LN @ BLK ELMSIDE DR"
-    ],
-    [
-     1792671960000,
-     "E069",
-     "83",
-     "C",
-     "EMS EVENT",
-     "WESTHEIMER RD @ BLK S KIRKWOOD RD"
-    ],
-    [
-     1792668180000,
-     "E010",
-     "76",
-     "D",
-     "APARTMENT FIRE",
-     "CLAREWOOD DR @ BLK S BRIAR BAYOU DR"
-    ],
-    [
-     1792668180000,
-     "RE010",
-     "76",
-     "D",
-     "APARTMENT FIRE",
-     "CLAREWOOD DR @ BLK S BRIAR BAYOU DR"
-    ],
-    [
-     1792647600000,
-     "RE010",
-     "51",
-     "D",
-     "APARTMENT FIRE",
-     "HILLCROFT AVE @ BLK BISSONNET ST"
-    ],
-    [
-     1792634580000,
-     "D083",
-     "78",
-     "D",
-     "APARTMENT FIRE",
-     "MEMORIAL DR @ BLK S MAYDE CREEK DR"
-    ],
-    [
-     1792634580000,
-     "E083",
-     "78",
-     "D",
-     "APARTMENT FIRE",
-     "MEMORIAL DR @ BLK S MAYDE CREEK DR"
-    ],
-    [
-     1792634580000,
-     "RE010",
-     "78",
-     "D",
-     "APARTMENT FIRE",
-     "MEMORIAL DR @ BLK S MAYDE CREEK DR"
-    ],
-    [
-     1792628820000,
-     "E010",
-     "51",
-     "D",
-     "NON EMERGENCY RESPONSE",
-     "HILLCROFT AVE @ BLK HARWIN DR"
-    ],
-    [
-     1792628820000,
-     "RE010",
-     "51",
-     "D",
-     "NON EMERGENCY RESPONSE",
-     "HILLCROFT AVE @ BLK HARWIN DR"
-    ],
-    [
-     1792623660000,
-     "E069",
-     "83",
-     "D",
-     "EMS EVENT",
-     "WALNUT BEND LN"
-    ],
-    [
-     1792616100000,
-     "L069",
-     "39",
-     "D",
-     "FIRE EVENT",
-     "LAVENDER ST @ BLK DENMARK ST"
-    ],
-    [
-     1792611360000,
-     "RE010",
-     "59",
-     "D",
-     "BUILDING FIRE",
-     "CANDLESHADE LN @ BLK W OREM DR"
-    ],
-    [
-     1792607760000,
-     "L069",
-     "57",
-     "D",
-     "FIRE EVENT",
-     "TOWN AND COUNTRY BLVD @ BLK CITY CENTRE WAY"
-    ],
-    [
-     1792601700000,
-     "E069",
-     "57",
-     "D",
-     "CHECK PATIENT*",
-     "W BOUGH LN @ BLK KIMBERLEY LN"
-    ],
-    [
-     1792552160000,
-     "E083",
-     "69",
-     "C",
-     "SMOKE DETECTOR",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1792549606000,
-     "E076",
-     "73",
-     "C",
-     "EMS EVENT",
-     "W BELLFORT AVE"
-    ],
-    [
-     1792548870000,
-     "E069",
-     "68",
-     "C",
-     "EMS EVENT",
-     "MCAFEE DR"
-    ],
-    [
-     1792545645000,
-     "L069",
-     "76",
-     "C",
-     "EMS EVENT",
-     "DASHWOOD DR"
-    ],
-    [
-     1792545334000,
-     "E069",
-     "82",
-     "C",
-     "EMS EVENT",
-     "ROCKAMPTON DR"
-    ],
-    [
-     1792544311000,
-     "L076",
-     "10",
-     "C",
-     "GAS LEAK",
-     "TOWN PARK DR"
-    ],
-    [
-     1792543503000,
-     "E069",
-     "82",
-     "C",
-     "AUTOMATIC ALARM",
-     "WIGTON DR"
-    ],
-    [
-     1792537392000,
-     "E010",
-     "76",
-     "C",
-     "EMS EVENT",
-     "S KIRKWOOD RD"
-    ],
-    [
-     1792535544000,
-     "E083",
-     "10",
-     "C",
-     "EMS EVENT",
-     "W BW 8 S TWY"
-    ],
-    [
-     1792534183000,
-     "E010",
-     "83",
-     "C",
-     "AUTOMATIC ALARM",
-     "WALNUT BEND LN"
-    ],
-    [
-     1792533616000,
-     "E069",
-     "83",
-     "C",
-     "EMS EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1792530141000,
-     "D083",
-     "73",
-     "C",
-     "APARTMENT FIRE",
-     "KIPP WAY DR"
-    ],
-    [
-     1792530141000,
-     "E076",
-     "73",
-     "C",
-     "APARTMENT FIRE",
-     "KIPP WAY DR"
-    ],
-    [
-     1792530141000,
-     "L076",
-     "73",
-     "C",
-     "APARTMENT FIRE",
-     "KIPP WAY DR"
-    ],
-    [
-     1792530141000,
-     "RE010",
-     "73",
-     "C",
-     "APARTMENT FIRE",
-     "KIPP WAY DR"
-    ],
-    [
-     1792526705000,
-     "E069",
-     "57",
-     "C",
-     "EMS EVENT",
-     "W IH 10 FWY"
-    ],
-    [
-     1792523543000,
-     "E069",
-     "57",
-     "C",
-     "EMS EVENT",
-     "KATY IB FWY"
-    ],
-    [
-     1792521656000,
-     "RE010",
-     "77",
-     "C",
-     "FIRE EVENT",
-     "EQUITY DR"
-    ],
-    [
-     1792520734000,
-     "L076",
-     "83",
-     "C",
-     "EMS EVENT",
-     "W HOUSTON CENTER BLVD"
-    ],
-    [
-     1792520451000,
-     "D083",
-     "73",
-     "C",
-     "GAS LEAKING",
-     "DUCHAMP DR"
-    ],
-    [
-     1792519823000,
-     "E010",
-     "83",
-     "C",
-     "AUTOMATIC ALARM",
-     "ROGERDALE RD"
-    ],
-    [
-     1792515505000,
-     "E069",
-     "83",
-     "C",
-     "EMS EVENT",
-     "RICHMOND AVE"
-    ],
-    [
-     1792514112000,
-     "E076",
-     "73",
-     "C",
-     "EMS EVENT",
-     "COURT GLEN DR"
-    ],
-    [
-     1792513590000,
-     "E010",
-     "73",
-     "C",
-     "EMS EVENT",
-     "WILCREST DR"
-    ],
-    [
-     1792512737000,
-     "E076",
-     "73",
-     "C",
-     "EMS EVENT",
-     "COURT GLEN DR"
-    ],
-    [
-     1792511450000,
-     "E010",
-     "76",
-     "C",
-     "EMS EVENT",
-     "BELLE PARK DR"
-    ],
-    [
-     1792504422000,
-     "E069",
-     "83",
-     "C",
-     "EMS EVENT",
-     "RICHMOND AVE"
-    ],
-    [
-     1792477922000,
-     "E076",
-     "75",
-     "B",
-     "CK APPILANCE OR FIXTURE",
-     "CREEKVIEW PARK DR"
-    ],
-    [
-     1792476347000,
-     "RE010",
-     "77",
-     "B",
-     "APARTMENT FIRE",
-     "KEMPWOOD DR"
-    ],
-    [
-     1792468791000,
-     "E069",
-     "83",
-     "B",
-     "AUTOMATIC ALARM",
-     "RICHMOND AVE"
-    ],
-    [
-     1792466739000,
-     "E076",
-     "73",
-     "B",
-     "EMS EVENT",
-     "W BELLFORT AVE"
-    ],
-    [
-     1792456598000,
-     "D083",
-     "73",
-     "B",
-     "APARTMENT FIRE",
-     "WOODFAIR DR"
-    ],
-    [
-     1792456598000,
-     "E010",
-     "73",
-     "B",
-     "APARTMENT FIRE",
-     "WOODFAIR DR"
-    ],
-    [
-     1792456598000,
-     "RE010",
-     "73",
-     "B",
-     "APARTMENT FIRE",
-     "WOODFAIR DR"
-    ],
-    [
-     1792454005000,
-     "L069",
-     "49",
-     "B",
-     "FIRE EVENT",
-     "BEAUREGARD DR"
-    ],
-    [
-     1792445248000,
-     "RE010",
-     "59",
-     "B",
-     "HOUSE ON FIRE",
-     "MASON OAKS"
-    ],
-    [
-     1792435801000,
-     "E069",
-     "83",
-     "B",
-     "EMS EVENT",
-     "WALNUT BEND LN"
-    ],
-    [
-     1792429759000,
-     "E076",
-     "75",
-     "B",
-     "EMS EVENT",
-     "SHADOWBRIAR DR"
-    ],
-    [
-     1792428224000,
-     "L069",
-     "76",
-     "B",
-     "EMS EVENT",
-     "COOK RD"
-    ],
-    [
-     1792423161000,
-     "E083",
-     "76",
-     "B",
-     "EMS EVENT",
-     "BELLAIRE BLVD"
-    ],
-    [
-     1792411751000,
-     "E083",
-     "75",
-     "B",
-     "AUTOMATIC ALARM",
-     "PIPING ROCK DR"
-    ],
-    [
-     1792389696000,
-     "D083",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "HENDON LN"
-    ],
-    [
-     1792389696000,
-     "E010",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "HENDON LN"
-    ],
-    [
-     1792389696000,
-     "E076",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "HENDON LN"
-    ],
-    [
-     1792389696000,
-     "E083",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "HENDON LN"
-    ],
-    [
-     1792389696000,
-     "L076",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "HENDON LN"
-    ],
-    [
-     1792389696000,
-     "RE010",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "HENDON LN"
-    ],
-    [
-     1792376459000,
-     "D083",
-     "78",
-     "A",
-     "BUILDING FIRE",
-     "MEMORIAL DR"
-    ],
-    [
-     1792376459000,
-     "E083",
-     "78",
-     "A",
-     "BUILDING FIRE",
-     "MEMORIAL DR"
-    ],
-    [
-     1792376459000,
-     "L069",
-     "78",
-     "A",
-     "BUILDING FIRE",
-     "MEMORIAL DR"
-    ],
-    [
-     1792376459000,
-     "RE010",
-     "78",
-     "A",
-     "BUILDING FIRE",
-     "MEMORIAL DR"
-    ],
-    [
-     1792374698000,
-     "RE010",
-     "59",
-     "A",
-     "BUILDING FIRE",
-     "S SAM HOUSTON W PKWY"
-    ],
-    [
-     1792351913000,
-     "RE010",
-     "38",
-     "A",
-     "BUILDING FIRE",
-     "MANGUM RD"
-    ],
-    [
-     1792335007000,
-     "E083",
-     "69",
-     "A",
-     "MOTOR VEHICLE INCIDENT",
-     "W BW 8 S TWY"
-    ],
-    [
-     1792322341000,
-     "RE010",
-     "21",
-     "B",
-     "MOTOR VEHICLE INCIDENT",
-     "MAIN ST"
-    ],
-    [
-     1792318135000,
-     "E083",
-     "10",
-     "B",
-     "MOTOR VEHICLE INCIDENT",
-     "W BW 8 S TWY"
-    ],
-    [
-     1792306154000,
-     "E083",
-     "69",
-     "B",
-     "EMS EVENT",
-     "W BW 8 S TWY"
-    ],
-    [
-     1792306004000,
-     "L069",
-     "57",
-     "B",
-     "FIRE EVENT",
-     "TOSCA LN"
-    ],
-    [
-     1792295424000,
-     "E010",
-     "76",
-     "B",
-     "EMS EVENT",
-     "S KIRKWOOD RD"
-    ],
-    [
-     1792284532000,
-     "E083",
-     "10",
-     "B",
-     "EMS EVENT",
-     "W BW 8 S TWY"
-    ],
-    [
-     1792282787000,
-     "E010",
-     "51",
-     "B",
-     "EMS EVENT",
-     "S US 59 FWY"
-    ],
-    [
-     1792275217000,
-     "E069",
-     "60",
-     "B",
-     "EMS EVENT",
-     "CROSSVIEW DR"
-    ],
-    [
-     1792275217000,
-     "L069",
-     "60",
-     "B",
-     "EMS EVENT",
-     "CROSSVIEW DR"
-    ],
-    [
-     1792274303000,
-     "E069",
-     "60",
-     "B",
-     "EMS EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1792274109000,
-     "E083",
-     "10",
-     "B",
-     "TRASH FIRE",
-     "TOWN PARK DR"
-    ],
-    [
-     1792272426000,
-     "D083",
-     "60",
-     "B",
-     "HOUSE ON FIRE",
-     "MEADOWVALE DR"
-    ],
-    [
-     1792272426000,
-     "E010",
-     "60",
-     "B",
-     "HOUSE ON FIRE",
-     "MEADOWVALE DR"
-    ],
-    [
-     1792272426000,
-     "RE010",
-     "60",
-     "B",
-     "HOUSE ON FIRE",
-     "MEADOWVALE DR"
-    ],
-    [
-     1792268221000,
-     "D083",
-     "57",
-     "B",
-     "APARTMENT FIRE",
-     "BATESWOOD DR"
-    ],
-    [
-     1792268221000,
-     "E069",
-     "57",
-     "B",
-     "APARTMENT FIRE",
-     "BATESWOOD DR"
-    ],
-    [
-     1792268221000,
-     "RE010",
-     "57",
-     "B",
-     "APARTMENT FIRE",
-     "BATESWOOD DR"
-    ],
-    [
-     1792258624000,
-     "RE010",
-     "28",
-     "B",
-     "APARTMENT FIRE",
-     "EL CAMINO DEL REY ST"
-    ],
-    [
-     1792248885000,
-     "L069",
-     "60",
-     "B",
-     "FIRE EVENT",
-     "ELMSIDE DR"
-    ],
-    [
-     1792236227000,
-     "D083",
-     "86",
-     "A",
-     "APARTMENT FIRE",
-     "BRIAR FOREST DR"
-    ],
-    [
-     1792236227000,
-     "RE010",
-     "86",
-     "A",
-     "APARTMENT FIRE",
-     "BRIAR FOREST DR"
-    ],
-    [
-     1792216172000,
-     "E069",
-     "60",
-     "A",
-     "EMS EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1792216051000,
-     "D083",
-     "60",
-     "A",
-     "MOTOR VEHICLE INCIDENT",
-     "ELMSIDE DR"
-    ],
-    [
-     1792216051000,
-     "L069",
-     "60",
-     "A",
-     "MOTOR VEHICLE INCIDENT",
-     "ELMSIDE DR"
-    ],
-    [
-     1792216051000,
-     "RE010",
-     "60",
-     "A",
-     "MOTOR VEHICLE INCIDENT",
-     "ELMSIDE DR"
-    ],
-    [
-     1792213946000,
-     "D083",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "FORUM WEST DR"
-    ],
-    [
-     1792213946000,
-     "E010",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "FORUM WEST DR"
-    ],
-    [
-     1792213946000,
-     "L076",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "FORUM WEST DR"
-    ],
-    [
-     1792213946000,
-     "RE010",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "FORUM WEST DR"
-    ],
-    [
-     1792210303000,
-     "L069",
-     "77",
-     "A",
-     "GAS LEAK",
-     "HAMMERLY BLVD"
-    ],
-    [
-     1792209123000,
-     "E069",
-     "57",
-     "A",
-     "EMS EVENT",
-     "W IH 10 FWY"
-    ],
-    [
-     1792192833000,
-     "E076",
-     "73",
-     "A",
-     "EMS EVENT",
-     "SOUTH DR"
-    ],
-    [
-     1792191641000,
-     "E010",
-     "51",
-     "A",
-     "EMS EVENT",
-     "BELLAIRE BLVD"
-    ],
-    [
-     1792186299000,
-     "E010",
-     "76",
-     "A",
-     "CHECK PATIENT*",
-     "BISSONNET ST"
-    ],
-    [
-     1792185336000,
-     "E083",
-     "60",
-     "A",
-     "AUTOMATIC ALARM",
-     "WESTERLAND DR"
-    ],
-    [
-     1792184161000,
-     "L069",
-     "83",
-     "A",
-     "EMS EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1792184161000,
-     "RE010",
-     "83",
-     "A",
-     "EMS EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1792177290000,
-     "D083",
-     "73",
-     "A",
-     "211 FIRE",
-     "FORUM PARK DR"
-    ],
-    [
-     1792177290000,
-     "E076",
-     "73",
-     "A",
-     "211 FIRE",
-     "FORUM PARK DR"
-    ],
-    [
-     1792177290000,
-     "E083",
-     "73",
-     "A",
-     "211 FIRE",
-     "FORUM PARK DR"
-    ],
-    [
-     1792177290000,
-     "L069",
-     "73",
-     "A",
-     "211 FIRE",
-     "FORUM PARK DR"
-    ],
-    [
-     1792177290000,
-     "L076",
-     "73",
-     "A",
-     "211 FIRE",
-     "FORUM PARK DR"
-    ],
-    [
-     1792177290000,
-     "RE010",
-     "73",
-     "A",
-     "211 FIRE",
-     "FORUM PARK DR"
-    ],
-    [
-     1792174129000,
-     "L069",
-     "83",
-     "A",
-     "FIRE EVENT",
-     "WALNUT BEND LN"
-    ],
-    [
-     1792173993000,
-     "D083",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "BEECHNUT ST"
-    ],
-    [
-     1792173993000,
-     "E083",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "BEECHNUT ST"
-    ],
-    [
-     1792173993000,
-     "L076",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "BEECHNUT ST"
-    ],
-    [
-     1792173993000,
-     "RE010",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "BEECHNUT ST"
-    ],
-    [
-     1792165230000,
-     "RE010",
-     "21",
-     "A",
-     "APARTMENT FIRE",
-     "WESTRIDGE ST"
-    ],
-    [
-     1792163769000,
-     "E083",
-     "10",
-     "A",
-     "TRASH FIRE",
-     "WESTPARK DR"
-    ],
-    [
-     1792128223000,
-     "E069",
-     "60",
-     "D",
-     "EMS EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1792127942000,
-     "E076",
-     "10",
-     "D",
-     "BUILDING FIRE",
-     "BELLAIRE BLVD"
-    ],
-    [
-     1792121153000,
-     "E069",
-     "57",
-     "D",
-     "EMS EVENT",
-     "W VISTAWOOD DR"
-    ],
-    [
-     1792107581000,
-     "E076",
-     "75",
-     "D",
-     "EMS EVENT",
-     "ASHFORD POINT DR"
-    ],
-    [
-     1792107581000,
-     "L076",
-     "75",
-     "D",
-     "EMS EVENT",
-     "ASHFORD POINT DR"
-    ],
-    [
-     1792106717000,
-     "L069",
-     "60",
-     "D",
-     "EMS EVENT",
-     "S GESSNER RD"
-    ],
-    [
-     1792099949000,
-     "E083",
-     "60",
-     "D",
-     "EMS EVENT",
-     "RICHMOND AVE"
-    ],
-    [
-     1792078532000,
-     "E069",
-     "60",
-     "D",
-     "EMS EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1792075612000,
-     "E010",
-     "60",
-     "D",
-     "CHECK PATIENT*",
-     "S GESSNER RD"
-    ],
-    [
-     1792054719000,
-     "E069",
-     "83",
-     "C",
-     "EMS EVENT",
-     "RICHMOND AVE"
-    ],
-    [
-     1792049695000,
-     "RE010",
-     "82",
-     "C",
-     "APARTMENT FIRE",
-     "FONDREN RD"
-    ],
-    [
-     1792027519000,
-     "RE010",
-     "28",
-     "C",
-     "APARTMENT FIRE",
-     "GLENMONT DR"
-    ],
-    [
-     1792024773000,
-     "L069",
-     "83",
-     "C",
-     "EMS EVENT",
-     "WALLINGFORD DR"
-    ],
-    [
-     1792022477000,
-     "E069",
-     "83",
-     "C",
-     "HOUSE ON FIRE",
-     "WOODLAND SPRINGS ST"
-    ],
-    [
-     1792022477000,
-     "L069",
-     "83",
-     "C",
-     "HOUSE ON FIRE",
-     "WOODLAND SPRINGS ST"
-    ],
-    [
-     1792022477000,
-     "RE010",
-     "83",
-     "C",
-     "HOUSE ON FIRE",
-     "WOODLAND SPRINGS ST"
-    ],
-    [
-     1792011041000,
-     "E010",
-     "69",
-     "C",
-     "VAN FIRE",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791992837000,
-     "L076",
-     "10",
-     "C",
-     "MOTOR VEHICLE INCIDENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791992294000,
-     "L069",
-     "83",
-     "C",
-     "EMS EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1791980663000,
-     "D083",
-     "78",
-     "C",
-     "HOUSE ON FIRE",
-     "DARIA DR"
-    ],
-    [
-     1791980663000,
-     "RE010",
-     "78",
-     "C",
-     "HOUSE ON FIRE",
-     "DARIA DR"
-    ],
-    [
-     1791960273000,
-     "RE010",
-     "51",
-     "D",
-     "MOTOR VEHICLE INCIDENT",
-     "S US 59 FWY"
-    ],
-    [
-     1791951507000,
-     "L069",
-     "83",
-     "D",
-     "FIRE EVENT",
-     "MEADOWGLEN LN"
-    ],
-    [
-     1791944660000,
-     "E069",
-     "83",
-     "D",
-     "GAS LEAK",
-     "WOODLAND PARK DR"
-    ],
-    [
-     1791944660000,
-     "L069",
-     "83",
-     "D",
-     "GAS LEAK",
-     "WOODLAND PARK DR"
-    ],
-    [
-     1791936633000,
-     "E069",
-     "57",
-     "D",
-     "EMS EVENT",
-     "MEMORIAL DR"
-    ],
-    [
-     1791932909000,
-     "E010",
-     "73",
-     "D",
-     "EMS EVENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791931973000,
-     "E069",
-     "10",
-     "D",
-     "EMS EVENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791930205000,
-     "L076",
-     "83",
-     "D",
-     "EMS EVENT",
-     "WILCREST DR"
-    ],
-    [
-     1791929291000,
-     "E069",
-     "83",
-     "D",
-     "CHECK WATER FLOW ALARM",
-     "WILCREST DR"
-    ],
-    [
-     1791929062000,
-     "E083",
-     "69",
-     "D",
-     "EMS EVENT",
-     "BRIAR FOREST DR"
-    ],
-    [
-     1791928173000,
-     "L069",
-     "60",
-     "D",
-     "EMS EVENT",
-     "WOODWAY DR"
-    ],
-    [
-     1791917188000,
-     "L069",
-     "83",
-     "D",
-     "EMS EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1791916963000,
-     "E010",
-     "60",
-     "D",
-     "EMS EVENT",
-     "HARWIN DR"
-    ],
-    [
-     1791905813000,
-     "E069",
-     "83",
-     "D",
-     "EMS EVENT",
-     "MEADOW LAKE DR"
-    ],
-    [
-     1791904911000,
-     "E083",
-     "60",
-     "D",
-     "EMS EVENT",
-     "FONDREN RD"
-    ],
-    [
-     1791904603000,
-     "E076",
-     "10",
-     "D",
-     "EMS EVENT",
-     "BELLAIRE BLVD"
-    ],
-    [
-     1791903773000,
-     "D083",
-     "78",
-     "D",
-     "FIRE EVENT",
-     "MEMORIAL DR"
-    ],
-    [
-     1791891874000,
-     "E010",
-     "68",
-     "D",
-     "APARTMENT FIRE",
-     "FONDREN RD"
-    ],
-    [
-     1791891874000,
-     "RE010",
-     "68",
-     "D",
-     "APARTMENT FIRE",
-     "FONDREN RD"
-    ],
-    [
-     1791891298000,
-     "D083",
-     "77",
-     "D",
-     "BUILDING FIRE",
-     "W SAM HOUSTON N PKWY"
-    ],
-    [
-     1791891298000,
-     "L069",
-     "77",
-     "D",
-     "BUILDING FIRE",
-     "W SAM HOUSTON N PKWY"
-    ],
-    [
-     1791891298000,
-     "RE010",
-     "77",
-     "D",
-     "BUILDING FIRE",
-     "W SAM HOUSTON N PKWY"
-    ],
-    [
-     1791856259000,
-     "E083",
-     "75",
-     "C",
-     "EMS EVENT",
-     "OVERBROOK LN"
-    ],
-    [
-     1791856072000,
-     "E010",
-     "73",
-     "C",
-     "EMS EVENT",
-     "WILCREST DR"
-    ],
-    [
-     1791848022000,
-     "E076",
-     "73",
-     "C",
-     "EMS EVENT",
-     "BISSONNET ST"
-    ],
-    [
-     1791844472000,
-     "E010",
-     "76",
-     "C",
-     "EMS EVENT",
-     "COOK RD"
-    ],
-    [
-     1791842426000,
-     "E010",
-     "68",
-     "C",
-     "EMS EVENT",
-     "S GESSNER RD"
-    ],
-    [
-     1791841710000,
-     "D083",
-     "73",
-     "C",
-     "APARTMENT FIRE",
-     "DEERING DR"
-    ],
-    [
-     1791841710000,
-     "E010",
-     "73",
-     "C",
-     "APARTMENT FIRE",
-     "DEERING DR"
-    ],
-    [
-     1791841710000,
-     "RE010",
-     "73",
-     "C",
-     "APARTMENT FIRE",
-     "DEERING DR"
-    ],
-    [
-     1791835879000,
-     "E069",
-     "49",
-     "C",
-     "EMS EVENT",
-     "WESTVIEW DR"
-    ],
-    [
-     1791826833000,
-     "E076",
-     "73",
-     "C",
-     "EMS EVENT",
-     "BEECHNUT ST"
-    ],
-    [
-     1791824691000,
-     "E010",
-     "60",
-     "C",
-     "MOTOR VEHICLE INCIDENT",
-     "HARWIN DR"
-    ],
-    [
-     1791823625000,
-     "D083",
-     "60",
-     "C",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791823625000,
-     "E010",
-     "60",
-     "C",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791823625000,
-     "E069",
-     "60",
-     "C",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791823625000,
-     "E083",
-     "60",
-     "C",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791823625000,
-     "L069",
-     "60",
-     "C",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791823625000,
-     "RE010",
-     "60",
-     "C",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791822616000,
-     "E010",
-     "51",
-     "C",
-     "AUTOMATIC ALARM",
-     "SOUTHWEST OB FWY"
-    ],
-    [
-     1791820957000,
-     "E010",
-     "51",
-     "C",
-     "AUTOMATIC ALARM",
-     "SOUTHWEST IB FWY"
-    ],
-    [
-     1791820656000,
-     "E010",
-     "68",
-     "C",
-     "SMOKE DETECTOR",
-     "BEECHNUT ST"
-    ],
-    [
-     1791820084000,
-     "E069",
-     "60",
-     "C",
-     "EMS EVENT",
-     "S GESSNER RD"
-    ],
-    [
-     1791818594000,
-     "E010",
-     "60",
-     "C",
-     "UNKNOWN EVENT A LEVEL RESPONSE",
-     "PAGEWOOD LN"
-    ],
-    [
-     1791796110000,
-     "RE010",
-     "21",
-     "B",
-     "APARTMENT FIRE",
-     "W BELLFORT AVE"
-    ],
-    [
-     1791775507000,
-     "E076",
-     "10",
-     "B",
-     "EMS EVENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791758418000,
-     "E083",
-     "86",
-     "B",
-     "EMS EVENT",
-     "PARKHOLLOW DR"
-    ],
-    [
-     1791754266000,
-     "E083",
-     "10",
-     "B",
-     "APARTMENT FIRE",
-     "HARWIN DR"
-    ],
-    [
-     1791754266000,
-     "L069",
-     "10",
-     "B",
-     "APARTMENT FIRE",
-     "HARWIN DR"
-    ],
-    [
-     1791752317000,
-     "E083",
-     "69",
-     "B",
-     "EMS EVENT",
-     "WOODLAND PARK DR"
-    ],
-    [
-     1791752171000,
-     "RE010",
-     "82",
-     "B",
-     "APARTMENT FIRE",
-     "SANDPIPER DR"
-    ],
-    [
-     1791737782000,
-     "E069",
-     "60",
-     "B",
-     "EMS EVENT",
-     "WOODWAY DR"
-    ],
-    [
-     1791726166000,
-     "RE010",
-     "76",
-     "B",
-     "MOTOR VEHICLE INCIDENT",
-     "BISSONNET ST"
-    ],
-    [
-     1791704953000,
-     "E083",
-     "57",
-     "A",
-     "EMS EVENT",
-     "W BW 8 N TWY"
-    ],
-    [
-     1791704953000,
-     "L069",
-     "57",
-     "A",
-     "EMS EVENT",
-     "W BW 8 N TWY"
-    ],
-    [
-     1791703710000,
-     "E076",
-     "10",
-     "A",
-     "MOTORCYCLE",
-     "BELLAIRE BLVD"
-    ],
-    [
-     1791683702000,
-     "D083",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "SOUTH DR"
-    ],
-    [
-     1791683702000,
-     "E010",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "SOUTH DR"
-    ],
-    [
-     1791683702000,
-     "E076",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "SOUTH DR"
-    ],
-    [
-     1791683702000,
-     "L076",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "SOUTH DR"
-    ],
-    [
-     1791683702000,
-     "RE010",
-     "73",
-     "A",
-     "APARTMENT FIRE",
-     "SOUTH DR"
-    ],
-    [
-     1791679552000,
-     "E069",
-     "60",
-     "A",
-     "EMS EVENT",
-     "TANGLEWILDE ST"
-    ],
-    [
-     1791677428000,
-     "RE010",
-     "59",
-     "A",
-     "HOUSE ON FIRE",
-     "MAIN OB ST"
-    ],
-    [
-     1791676901000,
-     "E069",
-     "60",
-     "A",
-     "FIRE EVENT",
-     "WESTERLAND DR"
-    ],
-    [
-     1791673345000,
-     "D083",
-     "60",
-     "A",
-     "BUILDING FIRE",
-     "RICHMOND AVE"
-    ],
-    [
-     1791673345000,
-     "E010",
-     "60",
-     "A",
-     "BUILDING FIRE",
-     "RICHMOND AVE"
-    ],
-    [
-     1791673345000,
-     "E083",
-     "60",
-     "A",
-     "BUILDING FIRE",
-     "RICHMOND AVE"
-    ],
-    [
-     1791673345000,
-     "RE010",
-     "60",
-     "A",
-     "BUILDING FIRE",
-     "RICHMOND AVE"
-    ],
-    [
-     1791671036000,
-     "L069",
-     "10",
-     "A",
-     "FIRE EVENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791665489000,
-     "E010",
-     "73",
-     "A",
-     "EMS EVENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791662639000,
-     "E069",
-     "77",
-     "A",
-     "EMS EVENT",
-     "GESSNER RD"
-    ],
-    [
-     1791660758000,
-     "E083",
-     "10",
-     "A",
-     "EMS EVENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791660596000,
-     "E076",
-     "10",
-     "A",
-     "UNKNOWN EVENT A LEVEL RESPONSE",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791653038000,
-     "E069",
-     "60",
-     "A",
-     "UNKNOWN EVENT A LEVEL RESPONSE",
-     "TANGLEWILDE ST"
-    ],
-    [
-     1791612757000,
-     "RE010",
-     "49",
-     "B",
-     "BUILDING FIRE",
-     "BUNKER HILL RD"
-    ],
-    [
-     1791607309000,
-     "E083",
-     "75",
-     "B",
-     "EMS EVENT",
-     "CARRIAGE HILL DR"
-    ],
-    [
-     1791605898000,
-     "E069",
-     "57",
-     "B",
-     "MOTORCYCLE",
-     "MEMORIAL DR"
-    ],
-    [
-     1791602196000,
-     "E069",
-     "49",
-     "B",
-     "EMS EVENT",
-     "W IH 10 FWY"
-    ],
-    [
-     1791600694000,
-     "E076",
-     "83",
-     "B",
-     "EMS EVENT",
-     "WILCREST DR"
-    ],
-    [
-     1791600694000,
-     "L076",
-     "83",
-     "B",
-     "EMS EVENT",
-     "WILCREST DR"
-    ],
-    [
-     1791596816000,
-     "E076",
-     "75",
-     "B",
-     "EMS EVENT",
-     "ASHFORD MEADOW DR"
-    ],
-    [
-     1791596816000,
-     "L076",
-     "75",
-     "B",
-     "EMS EVENT",
-     "ASHFORD MEADOW DR"
-    ],
-    [
-     1791596061000,
-     "L069",
-     "60",
-     "B",
-     "EMS EVENT",
-     "RICHMOND AVE"
-    ],
-    [
-     1791595678000,
-     "E069",
-     "60",
-     "B",
-     "EMS EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1791587454000,
-     "E069",
-     "57",
-     "B",
-     "EMS EVENT",
-     "W SAM HOUSTON N PKWY"
-    ],
-    [
-     1791573127000,
-     "E083",
-     "76",
-     "B",
-     "EMS EVENT",
-     "SHARPVIEW DR"
-    ],
-    [
-     1791571870000,
-     "E010",
-     "73",
-     "B",
-     "EMS EVENT",
-     "BOONE RD"
-    ],
-    [
-     1791570094000,
-     "D083",
-     "73",
-     "B",
-     "GAS LEAKING",
-     "CORNER OAKS LN"
-    ],
-    [
-     1791568207000,
-     "E010",
-     "83",
-     "B",
-     "APARTMENT FIRE",
-     "WOODLAND PARK DR"
-    ],
-    [
-     1791568207000,
-     "E076",
-     "83",
-     "B",
-     "APARTMENT FIRE",
-     "WOODLAND PARK DR"
-    ],
-    [
-     1791568207000,
-     "L069",
-     "83",
-     "B",
-     "APARTMENT FIRE",
-     "WOODLAND PARK DR"
-    ],
-    [
-     1791568207000,
-     "RE010",
-     "83",
-     "B",
-     "APARTMENT FIRE",
-     "WOODLAND PARK DR"
-    ],
-    [
-     1791565070000,
-     "L069",
-     "60",
-     "B",
-     "EMS EVENT",
-     "SUGARBERRY CIR"
-    ],
-    [
-     1791560719000,
-     "L069",
-     "57",
-     "B",
-     "FIRE EVENT",
-     "ST MARYS LN"
-    ],
-    [
-     1791559676000,
-     "E010",
-     "73",
-     "B",
-     "GAS LEAKING",
-     "DUCHAMP DR"
-    ],
-    [
-     1791554970000,
-     "E010",
-     "73",
-     "B",
-     "EMS EVENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791524339000,
-     "D083",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "LANGDON LN"
-    ],
-    [
-     1791524339000,
-     "E010",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "LANGDON LN"
-    ],
-    [
-     1791524339000,
-     "E076",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "LANGDON LN"
-    ],
-    [
-     1791524339000,
-     "E083",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "LANGDON LN"
-    ],
-    [
-     1791524339000,
-     "L076",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "LANGDON LN"
-    ],
-    [
-     1791524339000,
-     "RE010",
-     "73",
-     "A",
-     "HOUSE ON FIRE",
-     "LANGDON LN"
-    ],
-    [
-     1791515377000,
-     "RE010",
-     "60",
-     "A",
-     "MOTOR VEHICLE INCIDENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1791511377000,
-     "E069",
-     "10",
-     "A",
-     "EMS EVENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791511218000,
-     "E083",
-     "10",
-     "A",
-     "EMS EVENT",
-     "RANCHESTER DR"
-    ],
-    [
-     1791497701000,
-     "L076",
-     "86",
-     "A",
-     "MOTOR VEHICLE INCIDENT",
-     "RICHMOND AVE"
-    ],
-    [
-     1791495597000,
-     "E010",
-     "76",
-     "A",
-     "APARTMENT FIRE",
-     "S DAIRY ASHFORD RD"
-    ],
-    [
-     1791495597000,
-     "RE010",
-     "76",
-     "A",
-     "APARTMENT FIRE",
-     "S DAIRY ASHFORD RD"
-    ],
-    [
-     1791495145000,
-     "E083",
-     "10",
-     "A",
-     "FIRE EVENT",
-     "TURTLEWOOD CT"
-    ],
-    [
-     1791492707000,
-     "E010",
-     "73",
-     "A",
-     "TRASH FIRE",
-     "S BW 8 W TWY"
-    ],
-    [
-     1791492124000,
-     "L076",
-     "73",
-     "A",
-     "EMS EVENT",
-     "LEAWOOD BLVD"
-    ],
-    [
-     1791489703000,
-     "E010",
-     "68",
-     "A",
-     "AUTOMATIC ALARM",
-     "BEECHNUT ST"
-    ],
-    [
-     1791484056000,
-     "E010",
-     "73",
-     "A",
-     "EMS EVENT",
-     "S COURSE DR"
-    ],
-    [
-     1791456536000,
-     "RE010",
-     "28",
-     "D",
-     "MOTOR VEHICLE INCIDENT",
-     "S US 59 FWY"
-    ],
-    [
-     1791429047000,
-     "E076",
-     "73",
-     "D",
-     "MOTOR VEHICLE INCIDENT",
-     "BISSONNET ST"
-    ],
-    [
-     1791429047000,
-     "L076",
-     "73",
-     "D",
-     "MOTOR VEHICLE INCIDENT",
-     "BISSONNET ST"
-    ],
-    [
-     1791428066000,
-     "D083",
-     "60",
-     "D",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791428066000,
-     "E010",
-     "60",
-     "D",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791428066000,
-     "E069",
-     "60",
-     "D",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791428066000,
-     "E083",
-     "60",
-     "D",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791428066000,
-     "L069",
-     "60",
-     "D",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791428066000,
-     "RE010",
-     "60",
-     "D",
-     "APARTMENT FIRE",
-     "WESTERLAND DR"
-    ],
-    [
-     1791422349000,
-     "D083",
-     "57",
-     "D",
-     "GAS LEAK",
-     "KATY OB FWY"
-    ],
-    [
-     1791422349000,
-     "E083",
-     "57",
-     "D",
-     "GAS LEAK",
-     "KATY OB FWY"
-    ],
-    [
-     1791422349000,
-     "L069",
-     "57",
-     "D",
-     "GAS LEAK",
-     "KATY OB FWY"
-    ],
-    [
-     1791417325000,
-     "E010",
-     "51",
-     "D",
-     "AUTOMATIC ALARM",
-     "MARINETTE DR"
-    ],
-    [
-     1791397374000,
-     "E083",
-     "69",
-     "D",
-     "EMS EVENT",
-     "BRIAR FOREST DR"
-    ],
-    [
-     1791396737000,
-     "E083",
-     "69",
-     "D",
-     "APARTMENT FIRE",
-     "LAKESIDE ESTATES DR"
-    ],
-    [
-     1791396737000,
-     "RE010",
-     "69",
-     "D",
-     "APARTMENT FIRE",
-     "LAKESIDE ESTATES DR"
-    ],
-    [
-     1791331076000,
-     "D083",
-     "73",
-     "C",
-     "HOUSE ON FIRE",
-     "GLADEFIELD DR"
-    ],
-    [
-     1791331076000,
-     "E010",
-     "73",
-     "C",
-     "HOUSE ON FIRE",
-     "GLADEFIELD DR"
-    ],
-    [
-     1791331076000,
-     "E076",
-     "73",
-     "C",
-     "HOUSE ON FIRE",
-     "GLADEFIELD DR"
-    ],
-    [
-     1791331076000,
-     "E083",
-     "73",
-     "C",
-     "HOUSE ON FIRE",
-     "GLADEFIELD DR"
-    ],
-    [
-     1791331076000,
-     "L076",
-     "73",
-     "C",
-     "HOUSE ON FIRE",
-     "GLADEFIELD DR"
-    ],
-    [
-     1791331076000,
-     "RE010",
-     "73",
-     "C",
-     "HOUSE ON FIRE",
-     "GLADEFIELD DR"
-    ],
-    [
-     1791330516000,
-     "L069",
-     "10",
-     "C",
-     "EMS EVENT",
-     "TOWN PARK DR"
-    ],
-    [
-     1791329503000,
-     "E083",
-     "60",
-     "C",
-     "EMS EVENT",
-     "OCEE ST"
-    ],
-    [
-     1791314123000,
-     "E010",
-     "68",
-     "C",
-     "AUTOMATIC ALARM",
-     "BEECHNUT ST"
-    ],
-    [
-     1791309769000,
-     "L069",
-     "49",
-     "C",
-     "FIRE EVENT",
-     "KATY IB FWY"
-    ],
-    [
-     1791254076000,
-     "E083",
-     "10",
-     "D",
-     "EMS EVENT",
-     "WESTPARK DR"
-    ],
-    [
-     1791250799000,
-     "E076",
-     "75",
-     "D",
-     "AUTOMATIC ALARM",
-     "ASHFORD MEADOW DR"
-    ],
-    [
-     1791248927000,
-     "E083",
-     "75",
-     "D",
-     "CAR FIRE",
-     "WESTHEIMER RD"
-    ],
-    [
-     1791248148000,
-     "E010",
-     "28",
-     "D",
-     "APARTMENT FIRE",
-     "WINDSWEPT LN"
-    ],
-    [
-     1791248148000,
-     "RE010",
-     "28",
-     "D",
-     "APARTMENT FIRE",
-     "WINDSWEPT LN"
-    ],
-    [
-     1791242238000,
-     "E010",
-     "51",
-     "D",
-     "AUTOMATIC ALARM",
-     "BELLAIRE BLVD"
-    ],
-    [
-     1791234361000,
-     "E083",
-     "69",
-     "D",
-     "AUTOMATIC ALARM",
-     "CITYWEST BLVD"
-    ],
-    [
-     1791232661000,
-     "E010",
-     "51",
-     "D",
-     "GAS LEAK",
-     "BEECHNUT ST"
-    ],
-    [
-     1791226925000,
-     "E076",
-     "73",
-     "D",
-     "MOTOR VEHICLE INCIDENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791226217000,
-     "E010",
-     "73",
-     "D",
-     "EMS EVENT",
-     "W BELLFORT AVE"
-    ],
-    [
-     1791224864000,
-     "RE010",
-     "82",
-     "D",
-     "FIRE EVENT",
-     "BOB WHITE DR"
-    ],
-    [
-     1791222873000,
-     "E010",
-     "73",
-     "D",
-     "MOTOR VEHICLE INCIDENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1791220672000,
-     "E076",
-     "75",
-     "D",
-     "EMS EVENT",
-     "ELLA LEE LN"
-    ],
-    [
-     1791218332000,
-     "E076",
-     "73",
-     "D",
-     "EMS EVENT",
-     "BOONE RD"
-    ],
-    [
-     1791214420000,
-     "E076",
-     "73",
-     "D",
-     "EMS EVENT",
-     "BOONE RD"
-    ],
-    [
-     1791153134000,
-     "L069",
-     "49",
-     "C",
-     "FIRE EVENT",
-     "BARRYKNOLL LN"
-    ],
-    [
-     1791135957000,
-     "E010",
-     "73",
-     "C",
-     "EMS EVENT",
-     "SPICE LN"
-    ],
-    [
-     1791135497000,
-     "L076",
-     "73",
-     "C",
-     "EMS EVENT",
-     "LANDS END DR"
-    ],
-    [
-     1791127758000,
-     "E069",
-     "83",
-     "C",
-     "EMS EVENT",
-     "WILCREST DR"
-    ],
-    [
-     1791114269000,
-     "D083",
-     "90",
-     "C",
-     "HOTEL FIRE",
-     "KATY FWY"
-    ],
-    [
-     1791114269000,
-     "RE010",
-     "90",
-     "C",
-     "HOTEL FIRE",
-     "KATY FWY"
-    ],
-    [
-     1791103056000,
-     "E010",
-     "73",
-     "B",
-     "EMS EVENT",
-     "W BW 8 S TWY"
-    ],
-    [
-     1791086625000,
-     "E010",
-     "73",
-     "B",
-     "EMS EVENT",
-     "S COURSE DR"
-    ],
-    [
-     1791079812000,
-     "E069",
-     "57",
-     "B",
-     "EMS EVENT",
-     "BUTTERFLY LN"
-    ],
-    [
-     1791077038000,
-     "RE010",
-     "33",
-     "B",
-     "BUILDING FIRE",
-     "MAIN ST"
-    ],
-    [
-     1791075786000,
-     "E069",
-     "83",
-     "B",
-     "EMS EVENT",
-     "RICHMOND AVE"
-    ],
-    [
-     1791075694000,
-     "D083",
-     "73",
-     "B",
-     "HOUSE ON FIRE",
-     "CONCHO ST"
-    ],
-    [
-     1791075694000,
-     "E010",
-     "73",
-     "B",
-     "HOUSE ON FIRE",
-     "CONCHO ST"
-    ],
-    [
-     1791075694000,
-     "E076",
-     "73",
-     "B",
-     "HOUSE ON FIRE",
-     "CONCHO ST"
-    ],
-    [
-     1791075694000,
-     "L076",
-     "73",
-     "B",
-     "HOUSE ON FIRE",
-     "CONCHO ST"
-    ],
-    [
-     1791053969000,
-     "E076",
-     "10",
-     "B",
-     "EMS EVENT",
-     "WESTPARK TWY"
-    ],
-    [
-     1791053969000,
-     "L076",
-     "10",
-     "B",
-     "EMS EVENT",
-     "WESTPARK TWY"
-    ],
-    [
-     1791043486000,
-     "D083",
-     "60",
-     "B",
-     "APARTMENT FIRE",
-     "MEADOWGLEN LN"
-    ],
-    [
-     1791043486000,
-     "E010",
-     "60",
-     "B",
-     "APARTMENT FIRE",
-     "MEADOWGLEN LN"
-    ],
-    [
-     1791043486000,
-     "E069",
-     "60",
-     "B",
-     "APARTMENT FIRE",
-     "MEADOWGLEN LN"
-    ],
-    [
-     1791043486000,
-     "E083",
-     "60",
-     "B",
-     "APARTMENT FIRE",
-     "MEADOWGLEN LN"
-    ],
-    [
-     1791043486000,
-     "L069",
-     "60",
-     "B",
-     "APARTMENT FIRE",
-     "MEADOWGLEN LN"
-    ],
-    [
-     1790997829000,
-     "RE010",
-     "75",
-     "A",
-     "FIRE EVENT",
-     "WESTHEIMER RD"
-    ],
-    [
-     1790996898000,
-     "RE010",
-     "33",
-     "A",
-     "FIRE EVENT",
-     "MAIN ST"
-    ],
-    [
-     1790992771000,
-     "E076",
-     "73",
-     "A",
-     "EMS EVENT",
-     "S KIRKWOOD RD"
-    ],
-    [
-     1790991904000,
-     "RE010",
-     "80",
-     "A",
-     "HOUSE ON FIRE",
-     "GALLING DR"
-    ],
-    [
-     1790984785000,
-     "RE010",
-     "68",
-     "A",
-     "MOTOR VEHICLE INCIDENT",
-     "S BRAESWOOD BLVD"
-    ],
-    [
-     1790981765000,
-     "RE010",
-     "77",
-     "A",
-     "MOTOR VEHICLE INCIDENT",
-     "W BW 8 N TWY"
-    ],
-    [
-     1790972055000,
-     "L076",
-     "73",
-     "A",
-     "UNKNOWN EVENT A LEVEL RESPONSE",
-     "RIDERWOOD DR"
-    ],
-    [
-     1790970442000,
-     "L069",
-     "83",
-     "A",
-     "EMS EVENT",
-     "MEADOWGLEN LN"
-    ],
-    [
-     1790969064000,
-     "E069",
-     "83",
-     "A",
-     "EMS EVENT",
-     "HAYES RD"
-    ],
-    [
-     1790964023000,
-     "E069",
-     "10",
-     "A",
-     "UNKNOWN EVENT A LEVEL RESPONSE",
-     "W BW 8 S TWY"
-    ],
-    [
-     1790964023000,
-     "E076",
-     "10",
-     "A",
-     "UNKNOWN EVENT A LEVEL RESPONSE",
-     "W BW 8 S TWY"
-    ],
-    [
-     1790963824000,
-     "E010",
-     "51",
-     "A",
-     "APARTMENT FIRE",
-     "HILLCROFT AVE"
-    ],
-    [
-     1790963824000,
-     "RE010",
-     "51",
-     "A",
-     "APARTMENT FIRE",
-     "HILLCROFT AVE"
-    ],
-    [
-     1790960215000,
-     "L069",
-     "57",
-     "A",
-     "EMS EVENT",
-     "WYCLIFFE DR"
-    ],
-    [
-     1790944944000,
-     "RE010",
-     "69",
-     "A",
-     "FIRE EVENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1790901507000,
-     "L076",
-     "73",
-     "B",
-     "EMS EVENT",
-     "COURT GLEN DR"
-    ],
-    [
-     1790901070000,
-     "E069",
-     "60",
-     "B",
-     "EMS EVENT",
-     "S GESSNER RD"
-    ],
-    [
-     1790897196000,
-     "D083",
-     "57",
-     "B",
-     "HOUSE ON FIRE",
-     "CINDYWOOD DR"
-    ],
-    [
-     1790897196000,
-     "E069",
-     "57",
-     "B",
-     "HOUSE ON FIRE",
-     "CINDYWOOD DR"
-    ],
-    [
-     1790897196000,
-     "RE010",
-     "57",
-     "B",
-     "HOUSE ON FIRE",
-     "CINDYWOOD DR"
-    ],
-    [
-     1790895805000,
-     "RE010",
-     "49",
-     "B",
-     "MOTOR VEHICLE INCIDENT",
-     "LONG POINT RD"
-    ],
-    [
-     1790893835000,
-     "E010",
-     "73",
-     "B",
-     "EMS EVENT",
-     "W SAM HOUSTON S PKWY"
-    ],
-    [
-     1790890162000,
-     "E010",
-     "60",
-     "B",
-     "EMS EVENT",
-     "S GESSNER RD"
-    ],
-    [
-     1790881943000,
-     "E010",
-     "68",
-     "B",
-     "EMS EVENT",
-     "S GESSNER RD"
-    ],
-    [
-     1790879505000,
-     "E010",
-     "60",
-     "B",
-     "EMS EVENT",
-     "MEADOWLAND DR"
-    ],
-    [
-     1790877003000,
-     "D083",
-     "28",
-     "B",
-     "GAS LEAK",
-     "HIDALGO ST"
-    ],
-    [
-     1790877003000,
-     "E069",
-     "28",
-     "B",
-     "GAS LEAK",
-     "HIDALGO ST"
-    ],
-    [
-     1790876165000,
-     "E010",
-     "28",
-     "B",
-     "APARTMENT FIRE",
-     "GULFTON ST"
-    ],
-    [
-     1790876165000,
-     "RE010",
-     "28",
-     "B",
-     "APARTMENT FIRE",
-     "GULFTON ST"
-    ],
-    [
-     1790872655000,
-     "L069",
-     "83",
-     "B",
-     "EMS EVENT",
-     "HAYES RD"
-    ],
-    [
-     1790872159000,
-     "E083",
-     "75",
-     "B",
-     "EMS EVENT",
-     "BURGOYNE RD"
-    ],
-    [
-     1790870769000,
-     "E010",
-     "83",
-     "B",
-     "FIRE EVENT",
-     "WESTPARK DR"
-    ],
-    [
-     1790870170000,
-     "E069",
-     "83",
-     "B",
-     "EMS EVENT",
-     "MEADOWGLEN LN"
-    ],
-    [
-     1790840326000,
-     "L076",
-     "73",
-     "A",
-     "EMS EVENT",
-     "VANDERFORD DR"
-    ],
-    [
-     1790834568000,
-     "E010",
-     "60",
-     "A",
-     "EMS EVENT",
-     "S GESSNER RD"
-    ],
-    [
-     1790831050000,
-     "E076",
-     "73",
-     "A",
-     "EMS EVENT",
-     "BISSONNET ST"
-    ]
-   ],
+   "list": [],
    "prev": {
-    "RE010|51|A": 3,
-    "L069|49|A": 2,
-    "E069|49|A": 1,
-    "D083|57|A": 1,
-    "E010|57|A": 2,
-    "E069|57|A": 7,
-    "E083|57|A": 2,
-    "L069|57|A": 4,
-    "E083|60|A": 1,
-    "E069|60|A": 8,
-    "RE010|57|A": 1,
-    "E010|73|A": 7,
-    "L069|60|A": 3,
-    "E069|28|A": 1,
-    "RE010|67|A": 1,
-    "E069|83|A": 4,
-    "E010|73|D": 10,
-    "L069|57|D": 1,
-    "E069|301|D": 1,
-    "D083|90|D": 1,
-    "RE010|90|D": 1,
-    "E076|10|D": 7,
-    "L076|10|D": 2,
-    "E069|83|D": 9,
-    "E076|73|D": 7,
-    "L069|49|D": 2,
-    "E069|49|D": 2,
-    "E069|57|D": 2,
+    "D083|73|D": 3,
+    "E010|73|D": 6,
+    "E076|73|D": 11,
+    "L076|73|D": 6,
+    "RE010|73|D": 2,
+    "RE010|49|D": 2,
+    "D083|68|C": 1,
+    "E010|68|C": 4,
+    "RE010|68|C": 1,
+    "RE010|51|C": 1,
+    "E076|10|C": 1,
+    "E069|60|C": 5,
     "E069|83|C": 8,
-    "L076|10|C": 1,
-    "RE010|59|C": 1,
-    "E010|83|C": 2,
-    "L076|83|C": 1,
-    "RE010|83|C": 1,
-    "E076|73|C": 16,
-    "E069|60|C": 6,
-    "E076|10|C": 4,
-    "RE010|86|D": 2,
-    "RE010|49|D": 3,
-    "RE010|21|D": 1,
-    "L076|73|D": 4,
-    "E010|83|D": 4,
-    "L069|83|D": 4,
-    "E083|10|D": 1,
-    "L069|10|D": 1,
-    "E010|51|D": 3,
-    "E069|51|D": 1,
-    "E010|60|D": 4,
-    "RE010|51|D": 5,
-    "RE010|60|D": 5,
-    "E010|60|C": 6,
-    "E083|76|C": 2,
-    "L076|73|C": 4,
     "L069|83|C": 4,
-    "D083|75|C": 1,
-    "E069|75|C": 1,
-    "E076|75|C": 1,
-    "E083|75|C": 2,
-    "L069|75|C": 1,
-    "RE010|75|C": 1,
-    "E010|51|C": 2,
-    "L069|51|C": 1,
-    "E083|69|C": 2,
-    "E069|57|C": 4,
-    "E010|59|C": 1,
-    "E010|60|B": 5,
-    "E076|73|B": 8,
-    "E069|49|B": 1,
-    "L069|49|B": 1,
-    "RE010|49|B": 2,
-    "E069|83|B": 6,
-    "E083|60|B": 1,
-    "E010|73|B": 9,
-    "RE010|38|B": 1,
-    "E010|76|B": 1,
-    "E083|76|B": 2,
-    "RE010|76|B": 1,
-    "E069|57|B": 2,
-    "E010|51|B": 2,
-    "D083|75|B": 2,
-    "E069|75|B": 1,
-    "E076|75|B": 1,
-    "E083|75|B": 6,
-    "L076|75|B": 2,
-    "D083|73|B": 2,
-    "L076|73|B": 5,
-    "RE010|73|B": 3,
-    "E083|75|A": 4,
-    "L069|83|A": 1,
-    "E076|73|A": 6,
-    "E083|76|A": 3,
-    "RE010|76|A": 3,
-    "D083|60|B": 1,
-    "RE010|60|B": 1,
-    "RE010|59|B": 3,
-    "E076|83|B": 3,
-    "E083|10|B": 2,
-    "L069|10|B": 1,
-    "L069|57|B": 2,
-    "E010|83|B": 1,
-    "E069|60|B": 3,
-    "E083|57|B": 1,
-    "E010|76|A": 3,
-    "RE010|82|A": 3,
-    "L076|73|A": 3,
-    "E083|10|A": 2,
-    "E076|10|A": 5,
-    "E010|51|A": 2,
-    "E076|51|A": 1,
-    "E010|60|A": 1,
-    "E069|10|A": 4,
-    "D083|57|D": 1,
-    "RE010|57|D": 1,
-    "D083|75|D": 2,
-    "E076|75|D": 3,
-    "E083|75|D": 4,
-    "L076|75|D": 3,
-    "RE010|75|D": 2,
-    "D083|86|D": 2,
-    "E083|69|D": 1,
+    "RE010|28|C": 2,
+    "E010|73|C": 7,
     "D083|60|D": 2,
-    "E069|60|D": 7,
-    "L069|60|D": 5,
-    "D083|60|C": 2,
-    "L069|60|C": 2,
-    "RE010|60|C": 1,
-    "E010|69|C": 1,
-    "L069|57|C": 3,
-    "E010|76|C": 2,
-    "RE010|76|C": 1,
-    "E010|73|C": 6,
-    "RE010|67|C": 1,
-    "RE010|5|C": 1,
-    "E083|69|B": 1,
-    "RE010|59|A": 1,
-    "E083|69|A": 2,
-    "RE010|49|A": 1,
-    "RE010|2|A": 1,
-    "RE010|78|A": 1,
-    "RE010|78|B": 1,
-    "L069|83|B": 1,
-    "L076|83|B": 3,
-    "RE010|83|B": 1,
-    "D083|57|B": 1,
-    "RE010|57|B": 1,
-    "E010|82|B": 1,
-    "RE010|82|B": 3,
-    "E076|10|B": 1,
-    "L069|10|A": 2,
-    "L076|10|A": 1,
-    "D083|73|A": 2,
-    "RE010|73|A": 2,
-    "E010|83|A": 1,
-    "E010|68|A": 1,
-    "D083|75|A": 1,
-    "E069|75|A": 1,
-    "RE010|82|D": 3,
+    "RE010|60|D": 2,
     "E010|76|D": 2,
     "E083|76|D": 2,
-    "RE010|76|D": 4,
-    "RE010|48|D": 2,
-    "RE010|33|D": 2,
-    "RE010|51|C": 1,
-    "L076|86|C": 1,
-    "RE010|73|C": 3,
-    "E076|86|D": 1,
-    "L076|86|D": 1,
+    "E010|51|D": 6,
+    "L069|49|D": 1,
+    "RE010|59|D": 2,
+    "MPL076|10|D": 1,
+    "E010|60|C": 4,
+    "E076|75|C": 1,
+    "E083|68|C": 1,
+    "L076|73|C": 4,
+    "E076|73|C": 8,
     "RE010|33|C": 1,
-    "E083|10|C": 3,
-    "E083|57|C": 1,
-    "L069|10|C": 1,
-    "RE010|80|B": 1,
-    "E076|51|B": 1,
-    "L069|51|B": 1,
-    "RE010|37|B": 1,
-    "E083|86|A": 1,
-    "RE010|86|A": 1,
-    "L069|68|A": 1,
-    "E083|68|A": 1,
-    "L076|82|A": 1,
-    "RE010|86|B": 1,
-    "E083|73|B": 1,
-    "RE010|51|B": 1,
-    "RE010|28|D": 2,
-    "D083|28|D": 1,
-    "E069|28|D": 1,
-    "RE010|37|C": 1,
-    "E069|10|C": 1,
-    "E010|68|C": 1,
+    "RE010|48|C": 1,
+    "RE010|33|B": 2,
+    "E076|73|B": 3,
+    "E069|57|B": 7,
+    "E010|60|B": 5,
+    "E010|68|A": 2,
+    "RE010|78|A": 2,
+    "E010|60|A": 5,
+    "E010|76|A": 3,
+    "E076|73|A": 8,
+    "L076|73|A": 11,
+    "D083|60|A": 5,
+    "E069|60|A": 6,
+    "E083|60|A": 5,
+    "L069|60|A": 4,
+    "RE010|60|A": 5,
+    "D083|57|A": 1,
+    "E010|57|A": 1,
+    "E083|57|A": 2,
+    "L069|57|A": 3,
+    "L069|60|B": 6,
+    "D083|57|B": 3,
+    "RE010|57|B": 3,
+    "E010|76|B": 2,
+    "E083|76|B": 3,
+    "RE010|76|B": 2,
+    "E010|75|A": 1,
+    "E069|75|A": 1,
+    "E083|75|A": 1,
+    "L069|75|A": 1,
+    "E010|82|A": 1,
+    "RE010|82|A": 1,
+    "RE010|48|A": 1,
+    "E076|10|D": 3,
+    "E083|75|D": 3,
+    "E010|83|D": 1,
+    "E069|73|D": 1,
+    "E083|73|D": 1,
+    "L069|73|D": 1,
+    "D083|86|D": 1,
+    "E010|86|D": 1,
+    "E069|86|D": 1,
+    "RE010|86|D": 1,
+    "D083|75|D": 1,
+    "E069|75|D": 1,
+    "E076|75|D": 5,
+    "L069|75|D": 1,
+    "L076|75|D": 2,
+    "RE010|75|D": 1,
+    "L069|83|D": 4,
+    "E069|60|D": 5,
+    "L069|57|C": 1,
+    "E069|57|C": 3,
+    "E069|49|C": 2,
+    "L069|49|C": 3,
+    "RE010|76|D": 1,
+    "RE010|51|D": 3,
+    "D083|78|D": 2,
+    "E083|78|D": 1,
+    "RE010|78|D": 1,
+    "E069|83|D": 4,
+    "L069|39|D": 1,
+    "L069|57|D": 2,
+    "E069|57|D": 3,
+    "E083|69|C": 1,
+    "E069|68|C": 1,
+    "L069|76|C": 1,
+    "E069|82|C": 2,
+    "L076|10|C": 2,
+    "E010|76|C": 3,
+    "E083|10|C": 1,
+    "E010|83|C": 2,
+    "D083|73|C": 4,
+    "RE010|73|C": 3,
     "RE010|77|C": 1,
-    "D083|73|C": 2,
+    "L076|83|C": 1,
+    "E076|75|B": 3,
+    "RE010|77|B": 1,
+    "E069|83|B": 4,
+    "D083|73|B": 3,
+    "E010|73|B": 8,
+    "RE010|73|B": 1,
+    "L069|49|B": 1,
+    "RE010|59|B": 1,
+    "L069|76|B": 1,
+    "E083|75|B": 3,
+    "D083|73|A": 6,
+    "E010|73|A": 7,
+    "E083|73|A": 4,
+    "RE010|73|A": 6,
+    "D083|78|A": 1,
+    "E083|78|A": 1,
+    "L069|78|A": 1,
+    "RE010|59|A": 2,
+    "RE010|38|A": 1,
+    "E083|69|A": 1,
+    "RE010|21|B": 2,
+    "E083|10|B": 4,
+    "E083|69|B": 2,
+    "L069|57|B": 2,
+    "E010|51|B": 1,
+    "E069|60|B": 6,
+    "D083|60|B": 2,
+    "RE010|60|B": 1,
+    "RE010|28|B": 2,
+    "D083|86|A": 1,
+    "RE010|86|A": 1,
+    "L069|77|A": 1,
+    "E069|57|A": 1,
+    "E010|51|A": 2,
+    "L069|83|A": 3,
+    "RE010|83|A": 1,
+    "L069|73|A": 1,
+    "RE010|21|A": 1,
+    "E083|10|A": 4,
+    "L069|60|D": 3,
+    "E083|60|D": 3,
+    "E010|60|D": 3,
+    "RE010|82|C": 1,
+    "RE010|83|C": 1,
+    "E010|69|C": 1,
+    "D083|78|C": 1,
+    "RE010|78|C": 1,
+    "E069|10|D": 1,
+    "L076|83|D": 1,
+    "E083|69|D": 4,
+    "E010|68|D": 1,
+    "RE010|68|D": 1,
+    "D083|77|D": 1,
+    "L069|77|D": 1,
+    "RE010|77|D": 1,
+    "E083|75|C": 1,
+    "D083|60|C": 1,
+    "E083|60|C": 2,
+    "L069|60|C": 1,
+    "RE010|60|C": 1,
+    "E010|51|C": 2,
+    "E076|10|B": 2,
+    "E083|86|B": 1,
+    "L069|10|B": 1,
+    "RE010|82|B": 1,
+    "E076|10|A": 3,
+    "L069|10|A": 1,
+    "E069|77|A": 1,
+    "RE010|49|B": 2,
+    "E069|49|B": 1,
+    "E076|83|B": 2,
+    "L076|83|B": 1,
+    "L076|75|B": 1,
+    "E010|83|B": 2,
+    "L069|83|B": 2,
+    "RE010|83|B": 1,
+    "E069|10|A": 2,
+    "L076|86|A": 1,
+    "RE010|76|A": 1,
+    "RE010|28|D": 2,
+    "D083|57|D": 1,
+    "E083|57|D": 1,
+    "RE010|69|D": 1,
     "E083|73|C": 1,
-    "E069|76|D": 1,
-    "L069|76|D": 1,
-    "E083|60|D": 1,
-    "E069|49|C": 1,
-    "L069|301|B": 1,
-    "D083|78|B": 1,
-    "L069|11|B": 1,
-    "RE010|77|B": 1
+    "L069|10|C": 1,
+    "E083|10|D": 1,
+    "E010|28|D": 1,
+    "RE010|82|D": 1,
+    "D083|90|C": 1,
+    "RE010|90|C": 1,
+    "L076|73|B": 2,
+    "L076|10|B": 1,
+    "E083|60|B": 1,
+    "RE010|75|A": 1,
+    "RE010|33|A": 1,
+    "RE010|80|A": 1,
+    "RE010|68|A": 1,
+    "RE010|77|A": 1,
+    "E069|83|A": 1,
+    "RE010|51|A": 1,
+    "RE010|69|A": 1,
+    "E010|68|B": 1,
+    "D083|28|B": 1,
+    "E069|28|B": 1,
+    "E010|28|B": 1
    }
   }
  },
@@ -46865,7 +42506,7 @@
    "69": {
     "unit": "A069",
     "total": 3121,
-    "hrs": 3905.5
+    "hrs": 3905.6
    },
    "76": {
     "unit": "A076",
@@ -46882,12 +42523,12 @@
    "10": {
     "unit": "E010",
     "total": 10,
-    "hrs": 2.8
+    "hrs": 2.9
    },
    "69": {
     "unit": "A069",
     "total": 7,
-    "hrs": 9.2
+    "hrs": 9.3
    },
    "76": {
     "unit": "A076",
@@ -46922,28 +42563,7 @@
     "hrs": 82.3
    }
   },
-  "month": {
-   "10": {
-    "unit": "A010",
-    "total": 343,
-    "hrs": 391.0
-   },
-   "69": {
-    "unit": "A069",
-    "total": 330,
-    "hrs": 399.0
-   },
-   "76": {
-    "unit": "A076",
-    "total": 334,
-    "hrs": 385.0
-   },
-   "83": {
-    "unit": "A083",
-    "total": 360,
-    "hrs": 415.4
-   }
-  }
+  "month": {}
  },
  "tour_counts": {
   "2025-12-31": 35,
