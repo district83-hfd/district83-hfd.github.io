@@ -286,7 +286,11 @@ details.crow[open]>summary{background:#2a2d36}
 .otr svg{width:100%;max-width:620px;height:auto;display:block}.otr .lg{font-weight:500;margin-left:8px}.otr .lg i{display:inline-block;width:10px;height:3px;border-radius:2px;margin:0 3px 3px 6px}
 @media (max-width:640px){.rt.rc.wk{font-size:14px}.rt.rc.wk th,.rt.rc.wk td{padding-right:3px}.rt.rc.wk td .u{font-size:11.5px;padding:2px 5px}.rt.rc.wk th{font-size:11.5px}.rt.rc.wk th.dh .dn{font-size:10.5px}
  .opr{font-size:15px;gap:6px}.orun{font-size:13.5px}.osh{gap:6px}.osh button .ov{font-size:19px}}
-.ysel{padding:6px 10px;font-weight:650;font-size:14px;border-radius:10px}
+.ysel,.msel{padding:6px 10px;font-weight:650;font-size:14px;border-radius:10px}
+.mcsv{padding:6px 12px;font-weight:650;font-size:13px;border-radius:10px;background:#20232a;color:#b4b6c2;border:1px solid var(--line)}
+.rt.rc col.c-v{width:17%}.rt.rc.mo col.c-u{width:25%}.rt.rc.mo col.c-s{width:10%}.rt.rc.mo col.c-t{width:15%}
+.rt.rc.mo td.tot{font-size:1.12em}.rt.rc td.dl{font-size:13px;font-weight:650;color:#7f8391}.rt.rc td.dl.up{color:#e6c07b}.rt.rc td.dl.dn{color:#8db4e2}
+.rt.rc.mo th.dlh{font-size:11.5px}
 
 /* citywide count + working-fire ticker */
 .citycnt{display:inline-block;margin-left:4px;padding:1px 8px;border-radius:999px;background:rgba(0,0,0,.22);font-weight:650}
@@ -539,11 +543,11 @@ apply();setInterval(apply,60000);document.addEventListener("visibilitychange",fu
 </section>
 
 <section class="pane" id="p-runs">
-<div class="segwrap" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><select class="ysel" aria-label="Year"></select><div class="seg sm" id="rPer"></div></div>
+<div class="segwrap" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><select class="ysel" aria-label="Year"></select><div class="seg sm" id="rPer"></div><select class="msel" id="mSel" aria-label="Month" hidden></select><button type="button" class="mcsv" id="mCsv" hidden title="Download this month as a spreadsheet (CSV)">CSV &#8681;</button></div>
 <div class="sec"><div class="note" style="padding:0 0 8px" id="rNote"></div><div id="runCards"></div>
 <details class="more about" id="rAbout"><summary>ⓘ About This Data</summary>
 <p><b>Run</b> = one unit on one call (3 District 83 units on one call = 3 runs). <b>Incident</b> = one call with at least one District 83 unit on it (those 3 units = 1 incident), so the District 83 Totals card shows both. Incidents are also counted on By Shift and Metrics.</p>
-<p><b>This Week</b> = Monday 06:30 to Monday 06:30 CT; each day is one tour, 06:30 to 06:30 the next morning, with the shift that worked it. Month and Year to Date go by call time (CT).</p>
+<p><b>This Week</b> = Monday 06:30 to Monday 06:30 CT; each day is one tour, 06:30 to 06:30 the next morning, with the shift that worked it. Month and Year to Date use the same 06:30 to 06:30 shift day, so a call at 02:00 on the 1st counts in the month and year that shift started in. <b>Month</b> lets you pick any month this year (it opens on the current month, month to date); each unit shows its runs by shift and the change from the month before. <b>CSV</b> downloads that month&rsquo;s unit counts as a spreadsheet.</p>
 <p><b>Busiest</b> = the station&rsquo;s unit with the most runs in the period (tie: most hours). District Chiefs (D, DC) and EMS Supervisors (AS) are not ranked.</p>
 <p><b>Heavy</b> = the station&rsquo;s busiest engine or ladder in the period, with MPE runs counted toward its engine and MPL runs toward its ladder; hidden when the station has no engine or ladder runs.</p>
 <p><b>MVI</b> = runs on motor vehicle incidents (crashes, pedestrian and motorcycle calls); vehicle fires count as Fire. Same call types as Metrics.</p>
@@ -998,7 +1002,7 @@ let WF_PER="ytd",WF_SH="all",WF_ALL=false;
 const wfNorm=u=>{u=String(u||"").toUpperCase();let m=u.match(/^(MPE|MPL|E|L|T|TW|Q)(\d+)$/);if(m)return (m[1]==="MPE"?"E":m[1]==="MPL"?"L":m[1])+m[2];m=u.match(/^(DC|D)(\d+)$/);if(m)return u;if(/^RE\d+$/.test(u))return u;return null};
 const wfRank=u=>{const p=(u.match(/^[A-Z]+/)||[""])[0];return ({D:0,DC:0,E:1,L:2,T:2,TW:2,Q:3,RE:9})[p]??5};
 const WF_BASE=["D083","E010","E069","E076","E083","L069","L076"];
-function wfLocal(t){const d=new Date(t);const p=Object.fromEntries(new Intl.DateTimeFormat("en-US",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hourCycle:"h23",weekday:"short"}).formatToParts(d).map(x=>[x.type,x.value]));return {ym:p.year+"-"+p.month,hr:+p.hour%24,dow:p.weekday}}
+function wfLocal(t){const d=new Date(t);const p=Object.fromEntries(new Intl.DateTimeFormat("en-US",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hourCycle:"h23",weekday:"short"}).formatToParts(d).map(x=>[x.type,x.value]));return {ym:shiftDateOf(t).slice(0,7),hr:+p.hour%24,dow:p.weekday}}
 function renderWF(){
   const past=isPast();const per=past?[["ytd","Full Year"]]:[["ytd","Year to Date"],["month","This Month"],["d30","Last 30 Days"]];if(past)WF_PER="ytd";
   const pe=document.getElementById("wfPer");if(!pe)return;
@@ -1085,7 +1089,41 @@ async function renderTour(){
   body.querySelectorAll("details.crow").forEach(e=>{if(open.has(e.dataset.k))e.open=true});
   const sa=document.getElementById("showAll");if(sa)sa.onclick=()=>{SHOW_ALL=true;renderTour()}}
 // ---- Unit Run Counts: Fire | EMS, by station ----
-let R_PER="week";  // opens on "This Week" (Mon 06:30 to Mon 06:30 CT), so it visibly resets at the Monday shift change
+let R_PER="week";
+// v68: Month view (Run Counts). Month = the 06:30-06:30 shift day (same as the Week and Year views), so the months add up to the Year.
+let M_SEL=null;  // "YYYY-MM"
+const monthKey=ms=>shiftDateOf(ms).slice(0,7);  // month of the 06:30-06:30 shift day (a call at 02:00 on the 1st is still last month)
+const MONTHS_FULL=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const mLabel=k=>MONTHS_FULL[+k.slice(5)-1]+" "+k.slice(0,4),mShort=k=>MONTHS_FULL[+k.slice(5)-1].slice(0,3);
+const prevMonthKey=k=>+k.slice(5)>1?k.slice(0,5)+String(+k.slice(5)-1).padStart(2,"0"):null;  // January has no previous month in its own year
+function monthKeys(Y){const yr=+(Y.year||curYear());const cur=monthKey(Date.now());const last=isPast()||+cur.slice(0,4)!==yr?12:+cur.slice(5);
+  return [...Array(last)].map((_,i)=>`${yr}-${String(i+1).padStart(2,"0")}`)}
+// One month's unit rows from stats.months ("A,B,C,D,hrs" strings), with last month's runs beside them (null for the first month of the data).
+function monthData(Y,mk){const M=Y.months||{};const stn={};for(const r of [...(Y.runs_periods||{}).ytd||[],...Y.runs||[]])stn[r.unit]=r.station;
+  const pk=prevMonthKey(mk),first=Object.keys(M).sort()[0];const hasPrev=!!pk&&!!first&&pk>=first;
+  const cu=(M[mk]||{}).u||{},pu=hasPrev?((M[pk]||{}).u||{}):{};const pn=s=>String(s||"").split(",").map(Number);
+  const rows=[...new Set([...Object.keys(cu),...Object.keys(pu)])].map(u=>{const c=pn(cu[u]),p=pn(pu[u]);const sh={};SHIFTS.forEach((x,i)=>sh[x]=c[i]||0);
+    return Object.assign({unit:u,station:stn[u]||unitStation(u),total:SHIFTS.reduce((a,x)=>a+sh[x],0),hrs:c[4]||0,prev:hasPrev?SHIFTS.reduce((a,_,i)=>a+(p[i]||0),0):null},sh)}).filter(r=>r.station);
+  const ic=pn((M[mk]||{}).i),ip=hasPrev?pn((M[pk]||{}).i):null;const inc={total:0},incP=ip?{total:0}:null;
+  SHIFTS.forEach((x,i)=>{inc[x]=ic[i]||0;inc.total+=inc[x];if(ip){incP[x]=ip[i]||0;incP.total+=incP[x]}});
+  return {rows,inc,incP,hasPrev,pk}}
+// Same rule as the collector's busiest(): most runs, tie most hours; District Chiefs (D, DC) and EMS Supervisors (AS) are not ranked.
+function busiestOf(us){let b=null;for(const r of us){if(["D","DC","AS"].includes((String(r.unit).match(/^[A-Z]+/)||[""])[0])||!r.total)continue;
+  if(!b||r.total>b.total||(r.total===b.total&&(r.hrs||0)>(b.hrs||0)))b=r}return b?{unit:b.unit,total:b.total,hrs:b.hrs||0}:null}
+// Out of First-Due Area for a month, cut from the year's list (+ its per-month shift counts); "Last Mo" = the month before (none for January).
+function ooaMonth(Y,mk){const Yo=((Y.ooa_periods||{}).ytd)||null;if(!Yo)return null;
+  const by={};SHIFTS.forEach(x=>by[x]=(((Yo.months||{})[mk]||{})[x])||[0,0]);const list=(Yo.list||[]).filter(r=>monthKey(r[0])===mk);
+  const pk=prevMonthKey(mk),first=Object.keys(Yo.months||{}).sort()[0];let prev=null;
+  if(pk&&first&&pk>=first){prev={};(Yo.list||[]).forEach(r=>{if(monthKey(r[0])===pk){const k=`${r[1]}|${r[2]}|${r[3]}`;prev[k]=(prev[k]||0)+1}})}
+  return {by,list,prev}}
+function monthCsv(Y,mk){const D=monthData(Y,mk);const ORDp=["E","MPE","L","MPL","T","R","RS","RE","D","DC","A","M","AS"];const pr=u=>(String(u).match(/^[A-Z]+/)||[""])[0];
+  const rows=D.rows.filter(r=>r.total||r.prev).sort((a,b)=>(+a.station)-(+b.station)||((ORDp.indexOf(pr(a.unit))+1||99)-(ORDp.indexOf(pr(b.unit))+1||99))||a.unit.localeCompare(b.unit));
+  const q=v=>/[",\n]/.test(String(v))?'"'+String(v).replace(/"/g,'""')+'"':String(v);
+  const L=[["month","station","unit","runs","prev_month_runs","change",...SHIFTS.map(x=>"shift_"+x)]];
+  rows.forEach(r=>L.push([mk,r.station,r.unit,r.total,r.prev==null?"":r.prev,r.prev==null?"":r.total-r.prev,...SHIFTS.map(x=>r[x])]));
+  return L.map(r=>r.map(q).join(",")).join("\r\n")+"\r\n"}
+function dlCsv(name,text){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/csv"}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+const dChg=(v,p)=>{if(p==null)return"";const d=v-p;return d>0?"+"+d:d<0?"\u2212"+(-d):"0"};  // opens on "This Week" (Mon 06:30 to Mon 06:30 CT), so it visibly resets at the Monday shift change
 const weekStartOf=ds=>addDays(ds,-((new Date(ds+"T12:00:00Z").getUTCDay()+6)%7));  // Monday of a tour's week
 const wkRange=ws=>{const we=addDays(ws,6),f=(ds,o)=>new Date(ds+"T12:00:00Z").toLocaleDateString("en-US",Object.assign({timeZone:"UTC"},o));return f(ws,{month:"short",day:"numeric"})+"–"+(ws.slice(5,7)===we.slice(5,7)?String(+we.slice(8)):f(we,{month:"short",day:"numeric"}))};  // "Oct 19–25"
 let O_PER="week",O_SH=(()=>{try{const x=shiftOfDate(shiftDateOf(Date.now()));return SHIFTS.includes(x)?x:""}catch(e){return""}})(),O_ALL=false;  // shift filter opens on the shift working now (06:30 change); tap the letter again for all shifts
@@ -1098,15 +1136,21 @@ function busiestHeavy(us){const m={};for(const r of us||[]){const x=String(r.uni
   const k=(x[1]==="MPE"?"E":x[1]==="MPL"?"L":x[1])+x[2];const o=m[k]||(m[k]={unit:k,total:0,hrs:0});o.total+=+r.total||0;o.hrs+=+r.hrs||0}
   const v=Object.values(m).sort((a,b)=>b.total-a.total||b.hrs-a.hrs||a.unit.localeCompare(b.unit));return v.length?v[0]:null}
 function renderRuns(){
-  const Y=YS();const per=isPast()?[["ytd","Full Year"]]:[["week","This Week"],["month","This Month"],["ytd","Year to Date"]];if(isPast()){R_PER="ytd"}O_PER=R_PER;  // v41: Out of First-Due follows the Run Counts period
+  const Y=YS();const hasM=!!Y.months;const per=isPast()?[["ytd","Full Year"],...(hasM?[["month","Month"]]:[])]:[["week","This Week"],...(hasM?[["month","Month"]]:[["month","This Month"]]),["ytd","Year to Date"]];
+  if(isPast()&&R_PER==="week")R_PER="ytd";if(R_PER==="month"&&!hasM&&isPast())R_PER="ytd";O_PER=R_PER;const mo=R_PER==="month"&&hasM;
+  const MK=monthKeys(Y);if(!M_SEL||!MK.includes(M_SEL))M_SEL=MK.includes(monthKey(Date.now()))?monthKey(Date.now()):MK[MK.length-1];
+  const msel=document.getElementById("mSel"),mcsv=document.getElementById("mCsv");msel.hidden=mcsv.hidden=!mo;
+  if(mo){msel.innerHTML=MK.slice().reverse().map(k=>`<option value="${k}"${k===M_SEL?" selected":""}>${mLabel(k)}</option>`).join("");msel.value=M_SEL;msel.onchange=()=>{M_SEL=msel.value;O_ALL=false;O_OPEN.clear();O_MORE.clear();renderRuns()};
+    mcsv.onclick=()=>dlCsv(`D83_run_counts_${M_SEL}.csv`,monthCsv(Y,M_SEL))}
+  const MD=mo?monthData(Y,M_SEL):null;  // v41: Out of First-Due follows the Run Counts period
   document.getElementById("rPer").innerHTML=per.map(([k,l])=>`<button data-k="${k}" class="${k===R_PER?"on":""}">${l}</button>`).join("");
   document.querySelectorAll("#rPer button").forEach(b=>b.onclick=()=>{R_PER=b.dataset.k;O_PER=R_PER;O_ALL=false;renderRuns()});
   // stats.json can lag the Monday 06:30 change by a few minutes; until it catches up, "This Week" is the new week with 0 runs
   const WS=weekStartOf(TODAY);const lag=!isPast()&&!!S.current_week&&S.current_week.start_sd!==WS;const wlag=lag&&R_PER==="week";
   const ct=(!S.current_tour||S.current_tour.sd!==TODAY)?{sd:TODAY,sh:shiftOfDate(TODAY)}:S.current_tour;
-  document.getElementById("rNote").textContent=R_PER==="week"?`Week of ${wkRange(WS)} · Resets Monday 06:30`+(wlag?" · New week just started; counts update within a few minutes":""):R_PER==="month"?new Date().toLocaleDateString("en-US",{timeZone:TZ,month:"long",year:"numeric"}):isPast()?`Full Year ${Y.year}`:`${Y.year||""} Year to Date`;
+  document.getElementById("rNote").textContent=mo?mLabel(M_SEL)+(M_SEL===monthKey(Date.now())&&!isPast()?" · Month to date":"")+(MD.hasPrev?` · Change is vs ${mLabel(MD.pk)}`:""):R_PER==="week"?`Week of ${wkRange(WS)} · Resets Monday 06:30`+(wlag?" · New week just started; counts update within a few minutes":""):R_PER==="month"?new Date().toLocaleDateString("en-US",{timeZone:TZ,month:"long",year:"numeric"}):isPast()?`Full Year ${Y.year}`:`${Y.year||""} Year to Date`;
   const ORD=["E","MPE","L","MPL","T","R","RS","RE","D","DC","A","M","AS"];const pre=u=>(String(u).match(/^[A-Z]+/)||[""])[0];
-  const list=[...(wlag?[]:((Y.runs_periods||{})[R_PER]||[]))].sort((a,b)=>{const x=ORD.indexOf(pre(a.unit)),y=ORD.indexOf(pre(b.unit));return (x<0?99:x)-(y<0?99:y)||a.unit.localeCompare(b.unit)});
+  const list=[...(mo?MD.rows:wlag?[]:((Y.runs_periods||{})[R_PER]||[]))].sort((a,b)=>{const x=ORD.indexOf(pre(a.unit)),y=ORD.indexOf(pre(b.unit));return (x<0?99:x)-(y<0?99:y)||a.unit.localeCompare(b.unit)});
   const wk=R_PER==="week";const days=DOW.map((n,i)=>{const sd=addDays(WS,i);return {sd,n,sh:shiftOfDate(sd),fut:sd>TODAY||sd<logStartSd(),today:sd===TODAY}});
   const hr=h=>(h==null?"—":(+h).toFixed(1));const sum=(us,f)=>us.reduce((a,r)=>a+(+f(r)||0),0);
   const cols=wk?`<col class="c-u">${days.map(()=>'<col class="c-d">').join("")}<col class="c-t"><col class="c-m"><col class="c-h">`:`<col class="c-u">${SHIFTS.map(()=>'<col class="c-s">').join("")}<col class="c-t"><col class="c-m"><col class="c-h">`;
@@ -1117,16 +1161,23 @@ function renderRuns(){
   const cells=r=>wk?days.map(d=>dcell(d,(r.days||{})[d.sd])).join(""):SHIFTS.map(x=>num(r[x])).join("");
   const foot=us=>`<tfoot><tr><td>Total</td>${wk?days.map(d=>dcell(d,sum(us,r=>(r.days||{})[d.sd]))).join(""):SHIFTS.map(x=>num(sum(us,r=>r[x]))).join("")}<td class="tot">${sum(us,r=>r.total)}</td>${num(sum(us,r=>r.mvi))}<td class="${sum(us,r=>r.hrs)>=1000?"n3":""}">${hr(sum(us,r=>r.hrs))}</td></tr></tfoot>`;
   const tbl=(us,ft)=>`<table class="rt rc${wk?" wk":""}"><colgroup>${cols}</colgroup><thead><tr>${head}</tr></thead><tbody>`+us.map(r=>`<tr><td>${isManpower(r.unit)?pill(r.unit,true,`title="Manpower ${r.unit.startsWith("MPE")?"Engine":"Ladder"}: staffed while Station ${r.station}'s ${r.unit.startsWith("MPE")?"engine":"ladder"} is out of service"`)+'<span class="mpn" title="Manpower unit">Manpower</span>':pill(r.unit,true)}</td>${cells(r)}<td class="tot">${r.total}</td>${num(r.mvi)}<td class="${r.hrs?"":"z"}">${hr(r.hrs)}</td></tr>`).join("")+`</tbody>${ft?foot(us):""}</table>`;
+  // v68: Month table: unit, shifts A-D, month total, change vs the previous month (column left out for the first month of the data)
+  const hp=mo&&MD.hasPrev,pl=mo&&MD.pk?mShort(MD.pk):"";const dcl=(v,p)=>{const t=dChg(v,p);return `<td class="dl${t[0]==="+"?" up":t[0]==="\u2212"?" dn":""}">${t||"–"}</td>`};
+  const tblM=us=>`<table class="rt rc mo"><colgroup><col class="c-u">${SHIFTS.map(()=>'<col class="c-s">').join("")}<col class="c-t">${hp?'<col class="c-v">':""}</colgroup><thead><tr><th scope="col">Unit</th>${SHIFTS.map(x=>`<th scope="col">${x}</th>`).join("")}<th scope="col">Total</th>${hp?`<th scope="col" class="dlh">vs ${pl}</th>`:""}</tr></thead><tbody>`+us.map(r=>`<tr><td>${isManpower(r.unit)?pill(r.unit,true,`title="Manpower ${r.unit.startsWith("MPE")?"Engine":"Ladder"}: staffed while Station ${r.station}'s ${r.unit.startsWith("MPE")?"engine":"ladder"} is out of service"`)+'<span class="mpn" title="Manpower unit">Manpower</span>':pill(r.unit,true)}</td>${SHIFTS.map(x=>num(r[x])).join("")}<td class="tot">${r.total}</td>${hp?dcl(r.total,r.prev):""}</tr>`).join("")+`</tbody><tfoot><tr><td>Total</td>${SHIFTS.map(x=>num(sum(us,r=>r[x]))).join("")}<td class="tot">${sum(us,r=>r.total)}</td>${hp?dcl(sum(us,r=>r.total),sum(us,r=>r.prev)):""}</tr></tfoot></table>`;
   const cards=STATIONS.map(st=>{const us=list.filter(r=>r.station===st);const tot=sum(us,r=>r.total);
-    const bz=wlag?null:((Y.busiest||{})[R_PER]||{})[st];
+    const bz=mo?busiestOf(us):wlag?null:((Y.busiest||{})[R_PER]||{})[st];
     const hv=busiestHeavy(us);
-    return `<div class="scard"><h3 class="sch">Station ${st} <span class="stt">— ${tot} Run${tot===1?"":"s"}</span>${(bz&&us.length)||hv?`<span class="bzw">${bz&&us.length?`<span class="bzb" title="Busiest unit: most runs (tie: most hours) · ${hr(bz.hrs)} Hrs"><span class="bzl">Busiest:</span>${pill(bz.unit,true)}<span>· ${bz.total} Run${bz.total===1?"":"s"}</span></span>`:""}${hv?`<span class="bzb bzh" title="Busiest heavy apparatus: engine or ladder with the most runs (its MPE/MPL manpower runs included; tie: most hours) · ${hr(hv.hrs)} Hrs"><span class="bzl">Heavy:</span>${pill(hv.unit,true)}<span>· ${hv.total}</span></span>`:""}</span>`:""}</h3>`+(us.length?tbl(us,true):`<div class="note" style="padding:2px 0 4px">No runs in this period.</div>`)+`</div>`}).join("");
+    return `<div class="scard"><h3 class="sch">Station ${st} <span class="stt">— ${tot} Run${tot===1?"":"s"}</span>${(bz&&us.length)||hv?`<span class="bzw">${bz&&us.length?`<span class="bzb" title="Busiest unit: most runs (tie: most hours) · ${hr(bz.hrs)} Hrs"><span class="bzl">Busiest:</span>${pill(bz.unit,true)}<span>· ${bz.total} Run${bz.total===1?"":"s"}</span></span>`:""}${hv?`<span class="bzb bzh" title="Busiest heavy apparatus: engine or ladder with the most runs (its MPE/MPL manpower runs included; tie: most hours) · ${hr(hv.hrs)} Hrs"><span class="bzl">Heavy:</span>${pill(hv.unit,true)}<span>· ${hv.total}</span></span>`:""}</span>`:""}</h3>`+(us.length?(mo?tblM(us):tbl(us,true)):`<div class="note" style="padding:2px 0 4px">No runs in this period.</div>`)+`</div>`}).join("");
   // District 83 totals: every station's units added up, by shift (and by day in This Week)
-  const T=sum(list,r=>r.total);const IPd=wlag?{A:0,B:0,C:0,D:0,total:0}:((Y.incidents_periods||{})[R_PER]||null);  // v59: incidents = unique calls with a District 83 unit on them
+  const T=sum(list,r=>r.total);const IPd=mo?MD.inc:wlag?{A:0,B:0,C:0,D:0,total:0}:((Y.incidents_periods||{})[R_PER]||null);  // v59: incidents = unique calls with a District 83 unit on them
   const shs=SHIFTS.map(x=>({x,n:sum(list,r=>r[x]),h:sum(list,r=>(r.hsh||{})[x]),v:sum(list,r=>(r.mvi_sh||{})[x])}));
-  const shTbl=`<table class="rt rc stot"><thead><tr><th scope="col">Shift</th>${shs.map(s=>`<th scope="col" style="color:${SHC[s.x]}">${s.x}</th>`).join("")}<th scope="col">Total</th></tr></thead><tbody>${IPd?`<tr><td class="lb">Incidents</td>${SHIFTS.map(x=>num(IPd[x])).join("")}<td class="tot">${IPd.total||0}</td></tr>`:""}<tr><td class="lb">Runs</td>${shs.map(s=>num(s.n)).join("")}<td class="tot">${T}</td></tr><tr><td class="lb">MVI</td>${shs.map(s=>num(s.v)).join("")}<td class="tot">${sum(list,r=>r.mvi)}</td></tr><tr><td class="lb">Hrs</td>${shs.map(s=>`<td class="${s.h?"":"z"}">${hr(s.h)}</td>`).join("")}<td class="tot">${hr(sum(list,r=>r.hrs))}</td></tr></tbody></table>`;
+  const pT=hp?sum(list,r=>r.prev):null;
+  const shTblM=`<table class="rt rc stot mo"><colgroup><col class="c-u">${SHIFTS.map(()=>'<col class="c-s">').join("")}<col class="c-t">${hp?'<col class="c-v">':""}</colgroup><thead><tr><th scope="col">Shift</th>${shs.map(s=>`<th scope="col" style="color:${SHC[s.x]}">${s.x}</th>`).join("")}<th scope="col">Total</th>${hp?`<th scope="col" class="dlh">vs ${pl}</th>`:""}</tr></thead><tbody><tr><td class="lb">Incidents</td>${SHIFTS.map(x=>num(IPd[x])).join("")}<td class="tot">${IPd.total||0}</td>${hp?dcl(IPd.total||0,MD.incP?MD.incP.total:null):""}</tr><tr><td class="lb">Runs</td>${shs.map(s=>num(s.n)).join("")}<td class="tot">${T}</td>${hp?dcl(T,pT):""}</tr></tbody></table>`;
+  const shTbl0=`<table class="rt rc stot"><thead><tr><th scope="col">Shift</th>${shs.map(s=>`<th scope="col" style="color:${SHC[s.x]}">${s.x}</th>`).join("")}<th scope="col">Total</th></tr></thead><tbody>${IPd?`<tr><td class="lb">Incidents</td>${SHIFTS.map(x=>num(IPd[x])).join("")}<td class="tot">${IPd.total||0}</td></tr>`:""}<tr><td class="lb">Runs</td>${shs.map(s=>num(s.n)).join("")}<td class="tot">${T}</td></tr><tr><td class="lb">MVI</td>${shs.map(s=>num(s.v)).join("")}<td class="tot">${sum(list,r=>r.mvi)}</td></tr><tr><td class="lb">Hrs</td>${shs.map(s=>`<td class="${s.h?"":"z"}">${hr(s.h)}</td>`).join("")}<td class="tot">${hr(sum(list,r=>r.hrs))}</td></tr></tbody></table>`;
+  const shTbl=mo?shTblM:shTbl0;
   const dist=`<div class="scard dtot"><h3 class="sch">District 83 Totals <span class="stt">— ${IPd?`${IPd.total||0} Incident${IPd.total===1?"":"s"} · `:""}${T} Run${T===1?"":"s"}</span></h3>${shTbl}</div>`;
-  document.getElementById("runCards").innerHTML='<div class="rcgrid">'+cards+'</div>'+dist+ooaCard(Y,per,lag);
+  const mpfn=mo&&S.history_end&&!isPast()&&+M_SEL.slice(0,4)===+(Y.year||curYear())&&new Date(+M_SEL.slice(0,4),+M_SEL.slice(5)-1,1).getTime()<S.history_end?`<div class="note" style="padding:2px 0 10px">Manpower (MPE/MPL) runs are only counted from ${new Date(S.history_end).toLocaleDateString("en-US",{timeZone:TZ,month:"short",day:"numeric"})} on (live feed), so this month may be missing some.</div>`:"";
+  document.getElementById("runCards").innerHTML='<div class="rcgrid">'+cards+'</div>'+dist+ooaCard(Y,per,lag)+mpfn;
   const oc=document.getElementById("ooaCard");if(oc)wireOoa(oc)}
 function wireOoa(oc){
   oc.querySelectorAll(".osh button").forEach(b=>b.onclick=()=>{O_SH=O_SH===b.dataset.s?"":b.dataset.s;O_ALL=false;O_OPEN.clear();O_MORE.clear();renderRuns()});
@@ -1138,7 +1189,7 @@ const odt=ms=>{const p=parts(ms);return `${new Date(ms).toLocaleDateString([],{t
 // Out of First-Due Area: one row per (D83 unit -> station area it ran into), counted for the period and shift; tap a row for its runs
 function ooaPairs(all,sh){const P={};all.forEach(r=>{if(sh&&r[3]!==sh)return;const k=r[1]+"|"+r[2];(P[k]=P[k]||{k,u:r[1],to:r[2],runs:[]}).runs.push(r)});
   return Object.values(P).sort((a,b)=>b.runs.length-a.runs.length||a.u.localeCompare(b.u)||(+a.to)-(+b.to))}
-function ooaCard(Y,per,lag){const OP=(Y.ooa_periods||{})[O_PER];const wl=lag&&O_PER==="week";
+function ooaCard(Y,per,lag){const OP=O_PER==="month"&&Y.months?ooaMonth(Y,M_SEL):(Y.ooa_periods||{})[O_PER];const wl=lag&&O_PER==="week";
   
   if(!OP&&!wl)return `<div class="scard" id="ooaCard"><h3 class="sch">Out of First-Due Area</h3><div class="note" style="padding:8px 0 4px">Not available for this period.</div></div>`;
   const by=wl?{}:OP.by||{};const all=wl?[]:OP.list||[];
@@ -1160,7 +1211,7 @@ function ooaCard(Y,per,lag){const OP=(Y.ooa_periods||{})[O_PER];const wl=lag&&O_
   const trend=O_PER==="ytd"&&OP&&OP.months?ooaTrend(OP.months,Y.year||curYear()):"";
   const ttl=O_SH?`${O_SH} Shift: ${n} Run${n===1?"":"s"}`:`${n} Run${n===1?"":"s"}`;
   return `<div class="scard" id="ooaCard"><h3 class="sch">Out of First-Due Area <span class="stt">— ${ttl}</span></h3>${btns}${tbl}${trend}</div>`}
-function ooaTrend(M,yr){const last=isPast()?12:(+parts(Date.now()).month);const ls=DATA_START()?parts(DATA_START()):null;const first=ls&&+ls.year===+yr?+ls.month:1;  // no line before logging began
+function ooaTrend(M,yr){const last=isPast()?12:(+shiftDateOf(Date.now()).slice(5,7));const ls=DATA_START()?shiftDateOf(DATA_START()):null;const first=ls&&+ls.slice(0,4)===+yr?+ls.slice(5,7):1;  // no line before logging began
   const ms=[...Array(Math.max(1,last-first+1))].map((_,i)=>`${yr}-${String(first+i).padStart(2,"0")}`);const MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const mx=Math.max(1,...ms.flatMap(m=>SHIFTS.map(s=>((M[m]||{})[s]||[0])[0])));const W=320,H=120,L=22,Rr=8,Tp=10,B=22;
   const x=i=>ms.length===1?(L+W-Rr)/2:L+i*(W-L-Rr)/(ms.length-1),y=v=>Tp+(H-Tp-B)*(1-v/mx);
@@ -1186,7 +1237,7 @@ const isBk=g=>g[2]==="covered by backup";
 function gapNote(per){const G=(S.feed_gaps||[]).filter(g=>perOK(g[0],null,per)||perOK(g[1],null,per));const f=a=>a.map(g=>`${gapSpan(g)} CT (${g[2]||"feed gap"})`).join("; ");
   const N=G.filter(g=>!isBk(g)),B=G.filter(isBk);return (N.length?" No data "+f(N)+".":"")+(B.length?" Backup logger only "+f(B)+"; times may be up to 15 min off.":"")}
 function perOK(t,sd,per){if(per==="week"){const WS=weekStartOf(TODAY),WE=addDays(WS,7);const x=sd||shiftDateOf(t);return x>=WS&&x<WE}
-  if(per==="month"){const p=parts(t),n=parts(Date.now());return p.year===n.year&&p.month===n.month}return true}
+  if(per==="month"){return (sd||shiftDateOf(t)).slice(0,7)===shiftDateOf(Date.now()).slice(0,7)}return true}
 const mPer=()=>isPast()?"ytd":M_PER;
 const med=a=>{if(!a.length)return 0;const b=[...a].sort((x,y)=>x-y),m=b.length>>1;return b.length%2?b[m]:(b[m-1]+b[m])/2};
 const pc=(n,t)=>t?Math.round(100*n/t)+"%":"–";
@@ -1257,8 +1308,8 @@ const R_DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const rLong=ds=>new Date(ds+"T12:00:00Z").toLocaleDateString("en-US",{timeZone:"UTC",weekday:"short",month:"short",day:"numeric",year:"numeric"});
 const rCT=ms=>new Date(ms).toLocaleString("en-US",{timeZone:TZ,month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"})+" CT";
 function rRange(per){const y=SEL_YEAR||curYear();if(isPast())return [`${y}-01-01`,`${y}-12-31`,`Full Year ${y}`];
-  if(per==="week"){const WS=weekStartOf(TODAY);return [WS,addDays(WS,6),"Week"]}const n=parts(Date.now());
-  return per==="month"?[`${n.year}-${n.month}-01`,TODAY,"Month to Date"]:[`${n.year}-01-01`,TODAY,"Year to Date"]}
+  if(per==="week"){const WS=weekStartOf(TODAY);return [WS,addDays(WS,6),"Week"]}const n=TODAY;
+  return per==="month"?[`${n.slice(0,7)}-01`,TODAY,"Month to Date"]:[`${n.slice(0,4)}-01-01`,TODAY,"Year to Date"]}
 // v52 fire-type label (report + tab). tg/og come from the collector: HR = high-rise box, MB = house box, LB = large-building box
 const WF_LBT="Apartment or Commercial (Multi-Alarm)";
 function wfType(f){const t=String(f.type||"").toUpperCase();
@@ -1316,7 +1367,7 @@ async function openReport(per,sh){
   const TGc={},TGr={};rows.forEach(d=>{const g=TG(d.type);TGc[g]=(TGc[g]||0)+1;TGr[g]=(TGr[g]||0)+d.units.filter(x=>x.d).length});
   const fCat=(TGc.fir||0)+(TGc.fev||0)+(TGc.alm||0);
   // ---- months (year views) ----
-  const curM=past?12:+parts(now).month,MC=Array(12).fill(0),MR=Array(12).fill(0);
+  const curM=past?12:+shiftDateOf(now).slice(5,7),MC=Array(12).fill(0),MR=Array(12).fill(0);
   rows.forEach(d=>{const sd=d.sd||shiftDateOf(d.t);const m=+sd.slice(0,4)<y?0:+sd.slice(5,7)-1;MC[m]++;MR[m]+=d.units.filter(x=>x.d).length});
   const mT=i=>sh?tM[i][sh]:sum(SHIFTS,x=>tM[i][x]);const fullM=[...Array(past?12:curM-1).keys()].filter(i=>mT(i)>0);
   const mRate=i=>mT(i)?MC[i]/mT(i):0;const perW=sh?"per shift worked":"per day";

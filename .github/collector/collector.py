@@ -165,6 +165,20 @@ def shift_date_of(ms):
     ds = t.date().isoformat()
     return ds, shift_for_date(ds)
 
+def shift_year(ms):
+    """Year of the 06:30-06:30 shift day a time falls in (Jan 1 00:00-06:29 still belongs to the previous year's last shift day)."""
+    return int(shift_date_of(ms)[0][:4])
+
+def month_start_ms(mk):
+    """First instant of a Run Counts month ("YYYY-MM"): the 1st at 06:30 CT, the same shift-day boundary as the week and year."""
+    return int(datetime(int(mk[:4]), int(mk[5:7]), 1, *SHIFT_CHANGE, tzinfo=TZ).timestamp() * 1000)
+
+def next_month_key(mk):
+    y, m = int(mk[:4]), int(mk[5:7]); return f"{y + (m == 12)}-{m % 12 + 1:02d}"
+
+def prev_month_key(mk):
+    y, m = int(mk[:4]), int(mk[5:7]); return f"{y - (m == 1)}-{(m - 2) % 12 + 1:02d}"
+
 def week_of(sd):
     """Run Counts week for a shift date: the Monday..Sunday tours, i.e. Mon 06:30 CT to the next Mon 06:30 CT.
     Works on shift dates (already CT- and DST-correct), so a call belongs to its tour's week; tours never split.
@@ -377,8 +391,9 @@ def now_ms():
     return int(v) if v else int(time.time() * 1000)
 
 def year_bounds(year):
-    """Calendar year in Central time: Jan 1 00:00:00 CT to the next Jan 1 00:00:00 CT (exclusive)."""
-    return (int(datetime(year, 1, 1, tzinfo=TZ).timestamp() * 1000), int(datetime(year + 1, 1, 1, tzinfo=TZ).timestamp() * 1000))
+    """Run Counts year in Central time, on the 06:30-06:30 shift day like the week and month: Jan 1 06:30 CT to the next Jan 1
+    06:30 CT (exclusive). Calls Jan 1 00:00-06:29 belong to the previous year's last shift day (v68; was midnight)."""
+    return (month_start_ms(f"{year}-01"), month_start_ms(f"{year + 1}-01"))
 
 def district_rows(c, where, params):
     """District 83 incidents (with all units on each call) matching a WHERE clause on incidents."""
@@ -525,6 +540,23 @@ def run_table(rows, wf_keys, iv=None, hosp=None, days=False):
         if days: r["hday"] = {sd: round(v / 3600000, 2) for sd, v in byd.items()}
     return sorted(runs.values(), key=unit_sortkey)
 
+def month_rollup(rows, wf_keys, iv, hv):
+    """v68: per-month roll-up for the Run Counts "Month" view. A month is a run of 06:30-06:30 shift days (a call belongs to the month
+    of its shift date, same as the Week and Year views), so the months add up to the Year. {"YYYY-MM": {"i": "A,B,C,D" incidents with a District 83 unit,
+    "u": {unit: "A,B,C,D,hrs" runs by shift + hours committed}}}, built with the same run_table / inc_table as every other period
+    (a unit counts once per call; re-created calls are already one row). Counts only, as strings, to keep stats.json small."""
+    by = {}
+    for d in rows: by.setdefault((d.get("sd") or shift_date_of(d["t"])[0])[:7], []).append(d)
+    out = {}
+    for mk, rs in sorted(by.items()):
+        lo = month_start_ms(mk); hi = month_start_ms(next_month_key(mk))
+        t = run_table(rs, wf_keys, iv, [v for v in hv if lo <= v["a"] < hi])
+        if not t: continue
+        it = inc_table(rs)
+        out[mk] = {"i": ",".join(str(it[x]) for x in "ABCD"),
+                   "u": {r["unit"]: ",".join([str(r[x]) for x in "ABCD"] + [str(r["hrs"])]) for r in t}}
+    return out
+
 def inc_table(rows):
     """v59: District 83 incidents by shift for one period (same rows and shift as run_table). An incident is one call row
     (CAD re-keys are already linked to one row by the aliases table) with at least one District 83 unit on it, so a call
@@ -539,11 +571,11 @@ OOA_FIRE = FD.OOA_PREFIXES | {"D"}   # units the out-of-area rule applies to (fi
 def ooa_shift(rows, months=False):
     """Out-of-first-due runs by shift for one period, same rule as run_table (FD.ooa_dest: fire units only, 150 m buffer,
     D83 units only). by[sh] = [ooa runs, fire-unit runs]; list = [call ms, unit, first-due station, shift, call type, address] newest first;
-    months (Year views) = {"YYYY-MM" by call time CT: {sh: [ooa, runs]}}."""
+    months (Year views) = {"YYYY-MM" by shift day (06:30-06:30): {sh: [ooa, runs]}}."""
     by = {sh: [0, 0] for sh in "ABCD"}; lst = []; mon = {}
     for d in rows:
         sh = d["sh"]
-        mk = datetime.fromtimestamp(d["t"] / 1000, TZ).strftime("%Y-%m") if months else None
+        mk = (d.get("sd") or shift_date_of(d["t"])[0])[:7] if months else None
         for u in sorted({x["u"] for x in d["units"] if x["d"]}):
             m = UNIT_RE.match(u)
             if not m or m.group(1) not in OOA_FIRE: continue
@@ -624,7 +656,9 @@ def live_ticker_keys(c):
 def years_with_data(c):
     lo, hi = c.execute("SELECT MIN(call_time), MAX(call_time) FROM incidents WHERE district=1").fetchone()
     if not lo: return []
-    return list(range(datetime.fromtimestamp(lo / 1000, TZ).year, datetime.fromtimestamp(hi / 1000, TZ).year + 1))
+    # first year = calendar year of the first call (a few early-Jan-1 calls from before logging began would otherwise invent a stub
+    # year); last year = the shift-day year, so Jan 1 00:00-06:29 stays in the old year until 06:30
+    return list(range(datetime.fromtimestamp(lo / 1000, TZ).year, shift_year(hi) + 1))
 
 HEADER_DAY_START = (6, 0)   # v57 header: the City's official daily fire-activity window is 06:00 to 05:59
 HFD_RESPONSE_PREFIXES = set(R.STATION_PREFIXES) | {"D"}
@@ -675,7 +709,7 @@ def city_counts(c, now):
 def stats(c, year=None):
     """Stats for one calendar year (CT). A call belongs to the year of its call time, so a 12/31 tour that runs past
     midnight is split: calls before 00:00 count toward the old year, calls after count toward the new one."""
-    now = now_ms(); cur_year = datetime.fromtimestamp(now / 1000, TZ).year
+    now = now_ms(); cur_year = shift_year(now)
     year = year or cur_year; is_current = year == cur_year
     start = int(c.execute("SELECT v FROM meta WHERE k='logging_start'").fetchone()[0])
     y0, y1 = year_bounds(year)
@@ -689,10 +723,11 @@ def stats(c, year=None):
     runs_periods = {"ytd": run_table(district, wf_keys, iv, hv)}
     inc_periods = {"ytd": inc_table(district)}
     ooa_periods = {"ytd": ooa_shift(district, months=True)}
+    months = month_rollup(district, wf_keys, iv, hv)
     cur_sd, cur_sh = shift_date_of(now); current_week = None
     if is_current:
         # "This shift" = the whole current tour (all its calls, even ones before midnight on Jan 1);
-        # "This month" = the current calendar month by call time.
+        # "This month" = the current shift-day month (1st 06:30 CT on).
         tour_rows = district_rows(c, "shift_date=?", (cur_sd,))
         twf, _ = working_fires(tour_rows)
         tiv = unit_intervals(c, [d["k"] for d in tour_rows])
@@ -708,13 +743,12 @@ def stats(c, year=None):
         runs_periods["week"] = run_table(week_rows, {w["k"]: set(w["long_units"]) for w in wwf}, wiv, whv, days=True)
         inc_periods["week"] = inc_table(week_rows)
         current_week = {"start_sd": wk0, "end_sd": wk1, "start": wks, "end": wke}
-        n = datetime.fromtimestamp(now / 1000, TZ)
-        m0 = int(datetime(n.year, n.month, 1, tzinfo=TZ).timestamp() * 1000)
+        cur_mk = cur_sd[:7]; m0 = month_start_ms(cur_mk)   # "This month" = the shift-day month (1st 06:30 CT on)
         runs_periods["month"] = run_table([d for d in district if d["t"] >= m0], wf_keys, iv, [v for v in hv if v["a"] >= m0])
         inc_periods["month"] = inc_table([d for d in district if d["t"] >= m0])
         ooa_periods["week"] = ooa_shift(week_rows); ooa_periods["month"] = ooa_shift([d for d in district if d["t"] >= m0])
         # Change vs the previous week / month: unit -> area pair counts by shift, only when that period was fully logged.
-        pm = (n.replace(day=1) - timedelta(days=1)); pm0 = int(datetime(pm.year, pm.month, 1, tzinfo=TZ).timestamp() * 1000)
+        pm0 = month_start_ms(prev_month_key(cur_mk))
         pw0 = (date.fromisoformat(wk0) - timedelta(days=7)).isoformat()
         for k, lo, rows_fn in (("week", wks - 7 * 86400000, lambda: district_rows(c, "shift_date>=? AND shift_date<?", (pw0, wk0))),
                                ("month", pm0, lambda: district_rows(c, "call_time>=? AND call_time<?", (pm0, m0)))):
@@ -756,7 +790,7 @@ def stats(c, year=None):
         "multi_unit_wf_min": R.MULTI_UNIT_WF_MIN, "dc_wf_min": R.DC_WF_MIN, "support_wf_units": "RH, CC", "crew_added": manual_applied(c), "ooa_boundary_m": FD.BOUNDARY_M, "districts": FD.districts(), "wf_live": live_multi_unit_wf(c) if is_current else [], "tk_live": live_ticker_keys(c) if is_current else [], "ticker_min_heavy": R.TICKER_MIN_HEAVY,
         "non_working_fire_types": sorted(NON_WORKING_FIRE_TYPES), "mvi_re": R.MVI_RE.pattern, "fire_word_re": R.FIRE_WORD_RE.pattern, "box_words": STRUCT_RE.pattern, "box_exclude": NOT_BOX_RE.pattern,
         "current_tour": {"sd": cur_sd, "sh": cur_sh}, "current_week": current_week, "city": city_counts(c, now) if is_current else None,
-        "runs": runs_periods["ytd"], "runs_periods": runs_periods, "incidents_periods": inc_periods, "ooa_periods": ooa_periods,
+        "months": months, "runs": runs_periods["ytd"], "runs_periods": runs_periods, "incidents_periods": inc_periods, "ooa_periods": ooa_periods,
         "busiest": {k: busiest(v) for k, v in runs_periods.items()},
         "tour_counts": {sd: n for sd, n in sorted(__import__("collections").Counter(d["sd"] for d in district).items())},
         "working_fires": wf,

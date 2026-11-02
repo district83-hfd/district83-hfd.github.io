@@ -176,7 +176,7 @@ def _city(vs):
 
 def build(c, year):
     init(c)
-    now = C.now_ms(); cur = datetime.fromtimestamp(now / 1000, C.TZ).year
+    now = C.now_ms(); cur = C.shift_year(now)
     lo, hi = C.year_bounds(year)
     first = c.execute("SELECT MIN(report_ts) FROM hosp_reports").fetchone()[0]
     last = c.execute("SELECT report_ts, fetched_ts, declared, parsed FROM hosp_reports ORDER BY report_ts DESC LIMIT 1").fetchone()
@@ -198,7 +198,7 @@ def build(c, year):
                              if not (v["stale"] or units_seen[v["u"]] != v["a"])], key=lambda r: (r["h"], r["a"]))
         sd, sh = C.shift_date_of(now)
         tour = [v for v in _visits(c, now - 2 * 86400000, now + 1, rts) if C.shift_date_of(v["a"])[0] == sd]
-        mstart = int(datetime.fromtimestamp(now / 1000, C.TZ).replace(day=1, hour=0, minute=0, second=0, microsecond=0).timestamp() * 1000)
+        mstart = C.month_start_ms(sd[:7])   # shift-day month, like Run Counts (v68)
         out["periods"]["tour"] = _period(tour); out["periods"]["month"] = _period([v for v in vs if v["a"] >= mstart])
         out["tour"] = {"sd": sd, "sh": sh}
         # This Week = the Monday..Sunday tours (Mon 06:30 CT to the next Mon 06:30 CT), same as Run Counts (collector.week_of)
@@ -220,7 +220,7 @@ def years(c):
     lo, hi = c.execute("SELECT MIN(report_ts), MAX(report_ts) FROM hosp_reports").fetchone()
     if lo is None: return []
     y = lambda ms: datetime.fromtimestamp(ms / 1000, C.TZ).year
-    return list(range(y(lo), y(hi) + 1))
+    return list(range(y(lo), C.shift_year(hi) + 1))
 
 def export(c, cur_year):
     t = build(c, cur_year)
