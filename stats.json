@@ -1,5 +1,5 @@
 {
- "generated": 1793694843725,
+ "generated": 1793694963599,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,20 +82,20 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-03 02:34",
+ "generated_str": "2026-11-03 02:36",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793694839468,
+ "last_ok_poll": 1793694959480,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-03 02:33",
- "polls": 16733,
- "polls_ok": 16630,
+ "last_ok_poll_str": "2026-11-03 02:35",
+ "polls": 16735,
+ "polls_ok": 16632,
  "total_incidents_logged": 15628,
  "district_incidents": 27263,
  "shift_change": "06:30",
@@ -52694,7 +52694,7 @@
  "traffic": {
   "items": [],
   "n": 0,
-  "total": 8,
-  "fetched": 1793694783976
+  "total": 7,
+  "fetched": 1793694963925
  }
 }
