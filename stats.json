@@ -1,5 +1,5 @@
 {
- "generated": 1793694004619,
+ "generated": 1793694123758,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-03 02:20",
+ "generated_str": "2026-11-03 02:22",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793693999934,
+ "last_ok_poll": 1793694119442,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-03 02:19",
- "polls": 16719,
- "polls_ok": 16616,
- "total_incidents_logged": 15621,
+ "last_ok_poll_str": "2026-11-03 02:21",
+ "polls": 16721,
+ "polls_ok": 16618,
+ "total_incidents_logged": 15626,
  "district_incidents": 27263,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -226,7 +226,7 @@
  "city": {
   "day": "2026-11-02",
   "since": "06:00",
-  "city_today": 1105,
+  "city_today": 1110,
   "d83_today": 98,
   "prev_day": "2026-11-01",
   "city_prev": 1155,
@@ -945,7 +945,7 @@
    "hrs": 3824.7,
    "hsh": {
     "A": 932.08,
-    "B": 959.52,
+    "B": 959.53,
     "C": 973.2,
     "D": 959.92
    }
@@ -1614,7 +1614,7 @@
     "hrs": 3824.7,
     "hsh": {
      "A": 932.08,
-     "B": 959.52,
+     "B": 959.53,
      "C": 973.2,
      "D": 959.92
     }
@@ -2103,7 +2103,7 @@
     "hrs": 13.1,
     "hsh": {
      "A": 0.0,
-     "B": 13.07,
+     "B": 13.08,
      "C": 0.0,
      "D": 0.0
     }
@@ -2602,12 +2602,12 @@
     "hrs": 13.1,
     "hsh": {
      "A": 0.0,
-     "B": 13.07,
+     "B": 13.08,
      "C": 0.0,
      "D": 0.0
     },
     "hday": {
-     "2026-11-02": 13.07
+     "2026-11-02": 13.08
     }
    },
    {
@@ -3078,7 +3078,7 @@
     "hrs": 25.8,
     "hsh": {
      "A": 11.82,
-     "B": 14.01,
+     "B": 14.02,
      "C": 0.0,
      "D": 0.0
     }
@@ -52683,18 +52683,18 @@
  ],
  "wx": {
   "t": 72,
-  "obs": 1793691600000,
-  "cond": "Clear",
+  "obs": 1793692500000,
+  "cond": "Mostly Clear",
   "wind": 0,
   "dir": null,
   "st": "KSGR",
-  "fetched": 1793693460848,
+  "fetched": 1793694064240,
   "alerts": []
  },
  "traffic": {
   "items": [],
   "n": 0,
-  "total": 13,
-  "fetched": 1793693880904
+  "total": 11,
+  "fetched": 1793694064436
  }
 }
