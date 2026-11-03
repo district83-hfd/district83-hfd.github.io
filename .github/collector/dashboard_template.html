@@ -263,7 +263,7 @@ details.crow[open]>summary{background:#2a2d36}
 #p-metrics .rt.mt{font-size:15px}#p-metrics .rt.mt th{font-size:12.5px}#p-metrics .rt.mt td{padding:8px 6px}#p-metrics .rt tr.dim td{opacity:.5}#p-metrics .rt td.dimc{opacity:.45}
 #p-metrics .rt tr.tot td{border-top:1px solid var(--line);color:#cfd2dc}.mpc{font-size:12.5px;color:var(--mut);font-weight:600}td.cp2{line-height:1.15}td.cp2 .cn{display:block;font-size:16px;font-weight:750}td.cp2 .mpc{display:block;margin-top:3px;font-size:12px;font-weight:600;letter-spacing:.2px}.mpc.f{color:#e79a93}.mpc.e{color:#93bde8}.mpc.v{color:#e6c47f}
 .shl{font-weight:800}#p-metrics .subh{font-size:13px;font-weight:700;color:var(--mut);margin:12px 0 2px;letter-spacing:.3px}
-#p-metrics .rt.mt{max-width:720px}.msel{padding:6px 10px;font-size:14px;border-radius:10px;font-weight:600}
+#p-metrics .rt.mt{max-width:720px}.msel{padding:6px 10px;font-size:14px;border-radius:10px;font-weight:600}#metnote .vup{color:#e6c07b}#metnote .vdn{color:#8db4e2}
 .slist{list-style:none;margin:8px 0 0;padding:0}.slist li{display:grid;grid-template-columns:minmax(0,1fr) 64px 76px 22px;gap:8px;padding:8px 2px;border-bottom:1px solid #2b2e37;font-size:15px;font-variant-numeric:tabular-nums}
 .slist .sdu{text-align:right;font-weight:700}.slist .sst{color:#d9c9a3}
 .osh{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-width:620px}
@@ -595,7 +595,7 @@ apply();setInterval(apply,60000);document.addEventListener("visibilitychange",fu
 <section class="pane" id="p-metrics">
 <div class="sec"><h2>Metrics, District 83</h2>
 <div class="note" style="padding:0 0 6px" id="metnote"></div>
-<div class="segwrap hseg"><div class="seg sm" id="mPer"></div><select class="ysel" aria-label="Year"></select><select id="mUnit" class="msel" aria-label="Unit"></select><button type="button" id="mRpt" class="rptbtn">Generate Report</button></div>
+<div class="segwrap hseg"><div class="seg sm" id="mPer"></div><select class="msel" id="mMsel" aria-label="Month" hidden></select><select class="ysel" aria-label="Year"></select><select id="mUnit" class="msel" aria-label="Unit"></select><button type="button" id="mRpt" class="rptbtn">Generate Report</button></div>
 <div class="osh hsh" id="mSh"></div>
 <details class="more mp" id="mpHour" open><summary>Calls by Hour of Day (CT, 24-Hour)</summary><div class="hcw" id="mHour"></div></details>
 <details class="more mp" id="mpDow"><summary>Calls by Day of Week</summary><div class="bars" id="mDow"></div></details>
@@ -636,10 +636,17 @@ const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&g
 // Same rule as d83rules.py: allow-listed station-unit prefixes with a D83 station number, plus D83 (District 83 chief, credited to Sta 83).
 const UNIT_PREFIXES=new Set(["E","L","T","TW","SQ","R","RS","RE","A","M","AS","MPE","MPL"]);/* MPE/MPL = manpower engine/ladder (d83rules.MANPOWER) */
 const isManpower=u=>/^MP[EL]\d/.test(String(u||"").trim().toUpperCase());
-const unitStation=u=>{const m=String(u||"").trim().toUpperCase().match(/^([A-Z]+)0*(\d+)$/);if(!m)return null;const n=String(+m[2]);if(m[1]==="D")return n==="83"?"83":null;return UNIT_PREFIXES.has(m[1])&&STATIONS.includes(n)?n:null};
-const cat=t=>{t=(t||"").toUpperCase();if(/FIRE|SMOKE|ALARM|BURN|EXPLOS|FLAME/.test(t))return["Fire","t-fire"];if(t.includes("EMS")||t.includes("PATIENT"))return["EMS","t-ems"];if(t.includes("MOTOR VEHICLE")||t.includes("MVI"))return["MVI","t-mvi"];if(t.includes("HAZ")||t.includes("GAS")||t.includes("ODOR"))return["Hazmat/Gas","t-haz"];return["Other","t-other"]};
+const unitStation_=u=>{const m=String(u||"").trim().toUpperCase().match(/^([A-Z]+)0*(\d+)$/);if(!m)return null;const n=String(+m[2]);if(m[1]==="D")return n==="83"?"83":null;return UNIT_PREFIXES.has(m[1])&&STATIONS.includes(n)?n:null};
+const US_C=new Map();const unitStation=u=>{let r=US_C.get(u);if(r===undefined){r=unitStation_(u);US_C.set(u,r)}return r};  // v70: memo per unit name
+const cat_=t=>{t=(t||"").toUpperCase();if(/FIRE|SMOKE|ALARM|BURN|EXPLOS|FLAME/.test(t))return["Fire","t-fire"];if(t.includes("EMS")||t.includes("PATIENT"))return["EMS","t-ems"];if(t.includes("MOTOR VEHICLE")||t.includes("MVI"))return["MVI","t-mvi"];if(t.includes("HAZ")||t.includes("GAS")||t.includes("ODOR"))return["Hazmat/Gas","t-haz"];return["Other","t-other"]};
+const CAT_C=new Map();const cat0=t=>{let r=CAT_C.get(t);if(r===undefined){r=cat_(t)[0];CAT_C.set(t,r)}return r};const cat=t=>cat_(t);  // v70: cat0 = the category name, memo per type text
 // Chicago local parts for a timestamp
-function parts(ms){const p={};new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date(ms)).forEach(x=>p[x.type]=x.value);return p}
+// v70: parts() was building a new Intl.DateTimeFormat on every call (27,000+ calls per Metrics/Heat render). The formatter is built once, and the Chicago UTC offset is cached per UTC hour (DST changes always fall on a whole UTC hour), so the local fields come from plain date math. Same values as before.
+var PF_=null,PO_=new Map();
+function parts_slow(ms){const p={};(PF_||(PF_=new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}))).formatToParts(new Date(ms)).forEach(x=>{if(x.type!=="literal")p[x.type]=x.value});return p}
+function parts(ms){ms=+ms;if(!isFinite(ms))return parts_slow(ms);const hk=Math.floor(ms/36e5);let off=PO_.get(hk);
+  if(off===undefined){const q=parts_slow(hk*36e5);off=Date.UTC(+q.year,+q.month-1,+q.day,+q.hour,+q.minute)-hk*36e5;if(PO_.size>20000)PO_.clear();PO_.set(hk,off)}
+  const d=new Date(ms+off),z=n=>n<10?"0"+n:""+n;return{year:String(d.getUTCFullYear()).padStart(4,"0"),month:z(d.getUTCMonth()+1),day:z(d.getUTCDate()),hour:z(d.getUTCHours()),minute:z(d.getUTCMinutes())}}
 function addDays(ds,n){const d=new Date(ds+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
 function shiftOfDate(ds){if(SCHED[ds])return SCHED[ds];const keys=Object.keys(SCHED).sort();const d0=keys[0];const diff=Math.round((new Date(ds+"T12:00:00Z")-new Date(d0+"T12:00:00Z"))/864e5);return SCHED[addDays(d0,((diff%8)+8)%8)]||"?"}
 function shiftDateOf(ms){const p=parts(ms);let ds=`${p.year}-${p.month}-${p.day}`;if(+p.hour*60+ +p.minute < SHIFT_CHANGE[0]*60+SHIFT_CHANGE[1])ds=addDays(ds,-1);return ds}
@@ -650,9 +657,12 @@ function unitKind(u){const m=String(u).trim().toUpperCase().match(/^([A-Z]+)\d/)
 const pill=(u,mine,extra,txt)=>`<span class="u ${unitKind(u)} ${mine?"mine":"out"}" ${extra||""}>${esc(txt??u)}</span>`;
 const isEmsType=t=>/EMS|PATIENT|MEDICAL/.test(String(t||"").toUpperCase());
 const MVI_DEF="MOTOR ?VEHICLE|\\bMV[IA]\\b|VEHICLE (ACCIDENT|INCIDENT|COLLISION|CRASH)|MAJOR ACCIDENT|AUTO[ -]?PED|PEDESTRIAN|MOTORCYCLE|\\bCRASH\\b|ROLLOVER|EXTRICAT";
-function isMvi(type){const u=String(type||"").toUpperCase();let re;try{re=new RegExp((typeof S!=="undefined"&&S&&S.mvi_re)||MVI_DEF)}catch(e){re=new RegExp(MVI_DEF)}return re.test(u)&&!/\b(FIRE|FIRES|SMOKE|FLAMES?|EXPLOSION|EXPLOSIVE|BURNING)\b/.test(u)}
+var MVI_K_=null,MVI_C_=null;
+function isMvi(type){const u=String(type||"").toUpperCase();const src=(typeof S!=="undefined"&&S&&S.mvi_re)||MVI_DEF;if(MVI_C_===null||src!==MVI_K_){let re;try{re=new RegExp(src)}catch(e){re=new RegExp(MVI_DEF)}MVI_C_=re;MVI_K_=src}return MVI_C_.test(u)&&!/\b(FIRE|FIRES|SMOKE|FLAMES?|EXPLOSION|EXPLOSIVE|BURNING)\b/.test(u)}  // v70: regex compiled once per pattern
 // Metrics / Run Counts call class: Fire (any fire word or alarm), then MVI, then EMS, else Other
-function kind4(type){const c=tone(type,0);return c==="t-fire"?"f":isMvi(type)?"v":c==="t-ems"?"e":"o"}
+function kind4_(type){const c=tone(type,0);return c==="t-fire"?"f":isMvi(type)?"v":c==="t-ems"?"e":"o"}
+var K4C_=new Map(),K4K_=null;  // v70: the answer depends only on the type text (and the MVI pattern), so keep it per type
+function kind4(type){const k=(typeof S!=="undefined"&&S&&S.mvi_re)||"";if(k!==K4K_){K4C_.clear();K4K_=k}let r=K4C_.get(type);if(r===undefined){r=kind4_(type);K4C_.set(type,r)}return r}
 function tone(type,alarm){const F=/FIRE|SMOKE|ALARM|BURN|EXPLOS|FLAME/.test(String(type||"").toUpperCase())||(+alarm||0)>=1;return F?"t-fire":isEmsType(type)?"t-ems":"t-other"}
 const toneTag=c=>c==="t-fire"?'<span class="tag fire">FIRE</span>':c==="t-ems"?'<span class="tag ems">EMS</span>':'<span class="tag other">OTHER</span>';
 const unitsHtml=us=>us.map(u=>pill(u.u,(u.d??unitStation(u.u)),`title="${u.min!=null?"listed ~"+u.min+" min":""}"`,u.u+(u.min!=null&&u.min>=1?" · "+u.min+"m":""))).join("");
@@ -678,7 +688,7 @@ const fmtMin=m=>m>=60?Math.floor(m/60)+"h "+(m%60)+"m":m+"m";
 
 // tabs
 const TABS=[["live","Live"],["shift","By Shift"],["runs","Unit Run Counts"],["transport","Transport"],["wf","Working Fires"],["heat","Heat Map"],["metrics","Metrics"]];
-window.RPT_H0=location.hash;function showTab(k){try{closeNavs();NAV_OPEN.clear()}catch(e){/* first call runs before NAV_OPEN exists */}document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.dataset.k===k));document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="p-"+k));if(location.hash&&location.hash.slice(1)!==k)history.replaceState(null,"",location.pathname+location.search);if(k==="transport")loadTransport();if(k==="runs")try{renderRuns()}catch(e){/* runs code not loaded yet on first call; renderHistory draws it */}if(k==="heat"||k==="metrics")setTimeout(async()=>{await ensurePoints();renderMetrics();renderHeatTable();if(k==="heat")initHeat();else drawHeat()},0);const at=document.querySelector(".tab.on");if(at&&at.scrollIntoView)at.scrollIntoView({block:"nearest",inline:"center"})}
+window.RPT_H0=location.hash;function showTab(k){try{closeNavs();NAV_OPEN.clear()}catch(e){/* first call runs before NAV_OPEN exists */}document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.dataset.k===k));document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="p-"+k));if(location.hash&&location.hash.slice(1)!==k)history.replaceState(null,"",location.pathname+location.search);if(k==="transport")loadTransport();if(k==="runs")try{renderRuns()}catch(e){/* runs code not loaded yet on first call; renderHistory draws it */}if(k==="heat"||k==="metrics")setTimeout(async()=>{await ensurePoints();if(k==="heat")initHeat();else renderMetrics()},0);/* v70: only the tab being opened is drawn (initHeat draws the table and the map itself) */const at=document.querySelector(".tab.on");if(at&&at.scrollIntoView)at.scrollIntoView({block:"nearest",inline:"center"})}
 document.getElementById("tabs").innerHTML=TABS.map(([k,l])=>`<div class="tab" data-k="${k}">${l}</div>`).join("");
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>showTab(t.dataset.k));
 showTab((location.hash.slice(1)&&TABS.some(t=>t[0]===location.hash.slice(1)))?location.hash.slice(1):"live");
@@ -985,7 +995,8 @@ function fillYears(){const ys=(S.years&&S.years.length?S.years:[curYear()]);cons
 async function setYear(y){SEL_YEAR=(y===curYear())?null:y;
   if(isPast()&&!YCACHE[y]){try{const r=await fetch(`archive/${y}/stats.json`,{cache:"no-store"});if(r.ok)YCACHE[y]=await r.json()}catch(e){}}
   if(isPast())R_PER="ytd";PTS=null;renderHistory();
-  const on=document.querySelector(".tab.on");const k=on&&on.dataset.k;if(k==="heat"||k==="metrics"){await ensurePoints();renderMetrics();renderHeatTable();drawHeat()}}
+  const on=document.querySelector(".tab.on");const k=on&&on.dataset.k;if(k==="metrics"){await ensurePoints();renderMetrics()}else if(k==="heat"){await ensurePoints();renderHeatTable();drawHeat()}}
+const curTabK=()=>{const on=document.querySelector(".tab.on");return on?on.dataset.k:""};
 const safe=(f,n)=>{try{return f()}catch(e){console.error("render "+(n||""),e)}};
 function renderHistory(){
 safe(fillYears,"years");safe(renderRuns,"runs");
@@ -994,7 +1005,7 @@ safe(()=>document.getElementById("since").innerHTML=`<b>Counts since ${esc(S.his
 safe(()=>{const p=renderTour();if(p&&p.catch)p.catch(e=>console.error("render tour",e))},"tour");const _on=document.querySelector(".tab.on");if(_on&&_on.dataset.k==="transport")loadTransport();
 document.getElementById("wfrule").textContent=`A working fire is a fire where HFD put 5-inch hose on the ground, per HFD unit run reports (January 1 through October 20 come from those reports). Newer fires are live estimates until a report confirms them. A live estimate is a call with a District 83 unit on it that meets any one of these: (1) a fire box on CAD ${S.working_fire_min||50}+ minutes from call time; (2) any fire call where a District Chief (D or DC unit) and the box first dispatched (3+ engines, ladders, squads or rescues; at most one released; ambulances not required) are all still on CAD ${S.dc_wf_min||25} minutes after the call and ${S.dc_wf_min||25} minutes after it first appeared in the City feed (whichever is later, so a call the feed lists late can’t qualify on lag alone); (3) any structure-fire box with 2+ units on it at the same time for more than ${S.multi_unit_wf_min||60} minutes (total time listed together); (4) any fire call with a Rehab (RH) or Cascade (CC) unit assigned, tagged right away since those units go only to working fires. Fire boxes: structure-fire types (house, apartment, store/commercial, building, high rise, townhome, warehouse, etc.) and 111 / 211–811 FIRE codes. An alarm upgrade (211–811) means more units were called; it counts only when the call also meets one of the rules above. Fire calls include fire events and trash, grass, vehicle and dumpster fires. Not counted: alarms, detectors, stand-bys, investigations, checks and gas leaks. Time on CAD is approximate (±5 min). A call can also be removed from this list by hand when it was not a working fire.`;
 safe(renderWF,"wf");
-if(PTS){renderMetrics();renderHeatTable();drawHeat()}
+if(PTS){const k=curTabK();if(k==="metrics")renderMetrics();else if(k==="heat"){renderHeatTable();drawHeat()}}  // v70: only the open tab is redrawn (the other draws when it is opened)
 }
 
 // ---- v46 Working Fires tab: period + shift filters, unit table, timing bars, fire list ----
@@ -1224,10 +1235,11 @@ function ooaTrend(M,yr){const last=isPast()?12:(+shiftDateOf(Date.now()).slice(5
 const LOG_START_NOTE=()=>isPast()?`${SEL_YEAR} full year (by call time, CT).`:`${curYear()} year to date. ${HNOTE()}`;
 let PTS=null,PTS_G=0,PSTRIP=null;
 async function ensurePoints(){if(location.protocol==="file:"){PTS=PTS||[];return}const key=(SEL_YEAR||curYear())+":"+(isPast()?"a":S.generated);if(PTS&&PTS_G===key)return;try{const r=await fetch(isPast()?`archive/${SEL_YEAR}/points.json`:`points.json?g=${S.generated||Date.now()}`,{cache:"no-store"});const j=await r.json();
-  PTS=j.p.map(p=>({t:p[0],lat:p[1],lon:p[2],km:p[3],sh:p[4],type:j.types[p[5]],units:p[6].map((i,k)=>({u:j.units[i],d:true,m:(p[8]||[])[k]})),sd:p[9],addr:(j.locs[p[7]]||[])[0]||"",cs:(j.locs[p[7]]||[])[1]||""}));PSTRIP=j.strip||null;PTS_G=key}catch(e){PTS=PTS||[]}}
-function unitOpts(sel){const cur=sel.value;const us=[...new Set((PTS||[]).flatMap(d=>d.units.filter(u=>u.d).map(u=>u.u)))].sort();
+  PTS=j.p.map(p=>{const lc=j.locs[p[7]]||[],um=p[8]||[];return {t:p[0],lat:p[1],lon:p[2],km:p[3],sh:p[4],type:j.types[p[5]],units:p[6].map((i,k)=>({u:j.units[i],d:true,m:um[k]})),sd:p[9],addr:lc[0]||"",cs:lc[1]||""}});PSTRIP=j.strip||null;PTS_G=key}catch(e){PTS=PTS||[]}}
+var UO_={p:null,n:-1,v:null};  // v70: the sorted unit list is built once per loaded data set
+function unitOpts(sel){const cur=sel.value;if(UO_.p!==PTS||UO_.n!==(PTS||[]).length||!UO_.v){UO_={p:PTS,n:(PTS||[]).length,v:[...new Set((PTS||[]).flatMap(d=>d.units.filter(u=>u.d).map(u=>u.u)))].sort()}}const us=UO_.v;
   sel.innerHTML='<option value="">All Units</option>'+STATIONS.map(st=>`<option value="st:${st}">Station ${st}</option>`).join("")+us.map(u=>`<option>${u}</option>`).join("");sel.value=cur}
-function filt(unit,shift,type){return (PTS||[]).filter(d=>(!shift||d.sh===shift)&&(!type||cat(d.type)[0]===type)&&(!unit||(unit.startsWith("st:")?d.units.some(u=>u.d&&unitStation(u.u)===unit.slice(3)):d.units.some(u=>u.u===unit))))}
+function filt(unit,shift,type){const stn=unit&&unit.startsWith("st:")?unit.slice(3):null;return (PTS||[]).filter(d=>(!shift||d.sh===shift)&&(!type||cat0(d.type)===type)&&(!unit||(stn!==null?d.units.some(u=>u.d&&unitStation(u.u)===stn):d.units.some(u=>u.u===unit))))}
 function bars(el,rows,wide){const mx=Math.max(1,...rows.map(r=>r[1]));el.innerHTML=rows.length?rows.map(([l,n,t])=>`<div class="brow${wide?" wide":""}"><span class="bl" title="${esc(t||l)}">${esc(l)}</span><span class="btrack"><span class="bfill" style="display:block;width:${(n/mx*100).toFixed(1)}%"></span></span><span class="bn">${n}</span></div>`).join(""):'<div class="note" style="padding:0">Nothing logged yet.</div>'}
 // ---- Metrics (v29): period buttons + shift boxes like Heat Map / Out of First-Due Area ----
 let M_PER="week",M_SH="",M_HOUR=-1;  /* v35: All Shifts (A+B+C+D combined) is the default */
@@ -1236,9 +1248,17 @@ function gapSpan(g){const a=parts(g[0]),b=parts(g[1]);const d=p=>`${+p.month}/${
 const isBk=g=>g[2]==="covered by backup";
 function gapNote(per){const G=(S.feed_gaps||[]).filter(g=>perOK(g[0],null,per)||perOK(g[1],null,per));const f=a=>a.map(g=>`${gapSpan(g)} CT (${g[2]||"feed gap"})`).join("; ");
   const N=G.filter(g=>!isBk(g)),B=G.filter(isBk);return (N.length?" No data "+f(N)+".":"")+(B.length?" Backup logger only "+f(B)+"; times may be up to 15 min off.":"")}
-function perOK(t,sd,per){if(per==="week"){const WS=weekStartOf(TODAY),WE=addDays(WS,7);const x=sd||shiftDateOf(t);return x>=WS&&x<WE}
-  if(per==="month"){return (sd||shiftDateOf(t)).slice(0,7)===shiftDateOf(Date.now()).slice(0,7)}return true}
-const mPer=()=>isPast()?"ytd":M_PER;
+// v70: the week bounds and "this month" are worked out once, not once per call
+var WK_={td:null,WS:"",WE:""},NM_={m:-1,v:""};
+function perOK(t,sd,per){if(per==="week"){if(WK_.td!==TODAY){const WS0=weekStartOf(TODAY);WK_={td:TODAY,WS:WS0,WE:addDays(WS0,7)}}const WS=WK_.WS,WE=WK_.WE;const x=sd||shiftDateOf(t);return x>=WS&&x<WE}
+  if(per==="month"){const mi=Math.floor(Date.now()/6e4);if(NM_.m!==mi){NM_={m:mi,v:shiftDateOf(Date.now()).slice(0,7)}}return (sd||shiftDateOf(t)).slice(0,7)===NM_.v}
+  if(per&&per.slice(0,2)==="m:"){return (sd||shiftDateOf(t)).slice(0,7)===per.slice(2)}  // v69: one picked month ("m:YYYY-MM"), by 06:30-06:30 shift day
+  return true}
+// v69: Metrics Month. Same months and shift-day rule as Run Counts (monthKeys / monthKey); the pick is kept separately from Run Counts.
+let MM_SEL=null;
+function mMonth(){const MK=monthKeys(YS());if(!MM_SEL||!MK.includes(MM_SEL))MM_SEL=MK.includes(monthKey(Date.now()))?monthKey(Date.now()):MK[MK.length-1];return MM_SEL}
+// current month (this year) = "month" (same as the old This Month, and the one the Generate Report has data for); any other month = "m:YYYY-MM"
+const mPer=()=>M_PER==="month"?((isPast()||mMonth()!==monthKey(Date.now()))?"m:"+mMonth():"month"):(isPast()?"ytd":M_PER);
 const med=a=>{if(!a.length)return 0;const b=[...a].sort((x,y)=>x-y),m=b.length>>1;return b.length%2?b[m]:(b[m-1]+b[m])/2};
 const pc=(n,t)=>t?Math.round(100*n/t)+"%":"–";
 const fmtM=m=>m>=60?`${Math.floor(m/60)}h ${String(Math.round(m%60)).padStart(2,"0")}m`:`${Math.round(m)} min`;
@@ -1252,22 +1272,28 @@ function mxBar(l,rows,cls){const n=mixOf(rows),t=rows.length;const seg=k=>{const
   return `<div class="mxr ${cls||""}"><span class="ml">${l}</span><span class="mxb">${t?["f","e","v","o"].map(seg).join(""):""}</span><span class="mt">${t}</span></div>`}
 function wireTips(root){const tl=root.querySelector(".tipline");if(!tl)return;const d0=tl.innerHTML;root.querySelectorAll("[data-tip]").forEach(b=>{const show=()=>{root.querySelectorAll(".sel").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");tl.innerHTML=b.dataset.tip.replace(/(\d+)( Calls?| \()/,"<b>$1</b>$2")};b.onclick=show;b.onmouseenter=show});root.onmouseleave=()=>{}}
 function renderMetrics(){const u=document.getElementById("mUnit");unitOpts(u);const per=mPer(),past=isPast();
-  const pb=past?[["ytd","Full Year"]]:[["week","This Week"],["month","This Month"],["ytd","Year to Date"]];
-  const mp=document.getElementById("mPer");mp.innerHTML=pb.map(([k,l])=>`<button data-k="${k}" class="${k===per?"on":""}">${l}</button>`).join("");
-  mp.querySelectorAll("button").forEach(b=>b.onclick=()=>{if(!isPast())M_PER=b.dataset.k;renderMetrics()});
+  const MO=M_PER==="month"?mMonth():null,CUR=!!MO&&!past&&MO===monthKey(Date.now()),pk=MO&&CUR===false?prevMonthKey(MO):null;  // v69: MO = the picked month (YYYY-MM)
+  const pb=past?[["ytd","Full Year"],["month","Month"]]:[["week","This Week"],["month","Month"],["ytd","Year to Date"]];
+  const bk=MO?"month":per;if(past&&M_PER==="week")M_PER="ytd";
+  const mp=document.getElementById("mPer");mp.innerHTML=pb.map(([k,l])=>`<button data-k="${k}" class="${k===bk?"on":""}">${l}</button>`).join("");
+  mp.querySelectorAll("button").forEach(b=>b.onclick=()=>{M_PER=b.dataset.k;renderMetrics()});
+  const ms=document.getElementById("mMsel");ms.hidden=!MO;if(MO){ms.innerHTML=monthKeys(YS()).slice().reverse().map(k=>`<option value="${k}"${k===MO?" selected":""}>${mLabel(k)}</option>`).join("");ms.value=MO;ms.onchange=()=>{MM_SEL=ms.value;renderMetrics()}}
+  const rb=document.getElementById("mRpt");if(rb)rb.hidden=per.slice(0,2)==="m:";  // the printable report has data for the current month, week and year, not for earlier months
   const base=filt(u.value,"","").filter(d=>perOK(d.t,d.sd,per));const rows=M_SH?base.filter(d=>d.sh===M_SH):base;
   const sh=document.getElementById("mSh");sh.innerHTML=`<button type="button" data-s="" class="all${M_SH?" dim":" on"}" aria-pressed="${!M_SH}" style="--sc:#c9ccd6"><span class="ol">All</span><span class="ov">${base.length}</span><span class="ot">Call${base.length===1?"":"s"}</span></button>`+SHIFTS.map(x=>{const n=base.filter(d=>d.sh===x).length;return `<button type="button" data-s="${x}" class="${M_SH===x?"on":""}${M_SH&&M_SH!==x?" dim":""}${n?"":" zero"}" aria-pressed="${M_SH===x}" style="--sc:${SHC[x]}"><span class="ol">${x}</span><span class="ov">${n}</span><span class="ot">Call${n===1?"":"s"}</span></button>`}).join("");
   sh.querySelectorAll("button").forEach(b=>b.onclick=()=>{M_SH=(!b.dataset.s||M_SH===b.dataset.s)?"":b.dataset.s;renderMetrics()});
-  const pl=past?`${SEL_YEAR} full year.`:{week:"This week (Mon 06:30 to Mon 06:30).",month:"This month.",ytd:`${curYear()} year to date.`}[per];
-  const gG=(S.feed_gaps||[]).filter(g=>perOK(g[0],null,past?"ytd":per)||perOK(g[1],null,past?"ytd":per));
-  const plab=past?`Full Year ${SEL_YEAR}`:{week:"This Week",month:"This Month",ytd:"Year to Date"}[per];
-  const mn=document.getElementById("metnote");mn.innerHTML=[`<b>${rows.length}</b> Call${rows.length===1?"":"s"}`,plab,M_SH?`${M_SH} Shift`:"",u.value?esc(u.value.startsWith("st:")?"Station "+u.value.slice(3):u.value):"",gG.length?`${gG.length} Data Gap${gG.length===1?"":"s"}`:""].filter(Boolean).join(" · ")+` <button type="button" class="ginfo" aria-label="About This Data" title="About This Data">ⓘ</button>`;
+  const gG=(S.feed_gaps||[]).filter(g=>perOK(g[0],null,per)||perOK(g[1],null,per));
+  const plab=MO?mLabel(MO)+(CUR?" · Month to Date":""):past?`Full Year ${SEL_YEAR}`:{week:"This Week",ytd:"Year to Date"}[per];
+  // v69: change vs the month before, only for a finished month (a month in progress would always look down) and when that month is in the data (January has none)
+  let vsTxt="";if(pk){const pn=filt(u.value,"","").filter(d=>perOK(d.t,d.sd,"m:"+pk)&&(!M_SH||d.sh===M_SH)).length;
+    if(pn){const df=rows.length-pn,pc=Math.round(100*df/pn);vsTxt=`vs ${mShort(pk)} ${pn.toLocaleString("en-US")} <span class="${df>0?"vup":df<0?"vdn":""}">(${df>0?"+":df<0?"−":""}${Math.abs(pc)}%)</span>`}}
+  const mn=document.getElementById("metnote");mn.innerHTML=[`<b>${rows.length}</b> Call${rows.length===1?"":"s"}`,plab,vsTxt,M_SH?`${M_SH} Shift`:"",u.value?esc(u.value.startsWith("st:")?"Station "+u.value.slice(3):u.value):"",gG.length?`${gG.length} Data Gap${gG.length===1?"":"s"}`:""].filter(Boolean).join(" · ")+` <button type="button" class="ginfo" aria-label="About This Data" title="About This Data">ⓘ</button>`;
   mn.querySelector(".ginfo").onclick=()=>{const a=document.getElementById("mpAbout");a.open=true;a.scrollIntoView({behavior:"smooth",block:"start"})};
   document.getElementById("mpDow").hidden=false;  // v48b: Day of Week shows for every period
   const H=Array(24).fill(0),HS=Array.from({length:24},()=>({})),W=Array(7).fill(0),L={};
-  rows.forEach(d=>{const p=parts(d.t);H[+p.hour]++;HS[+p.hour][d.sh]=(HS[+p.hour][d.sh]||0)+1;W[new Date(`${p.year}-${p.month}-${p.day}T12:00:00Z`).getUTCDay()]++;
+  rows.forEach(d=>{if(d._h===undefined){const p=parts(d.t);d._h=+p.hour;d._w=new Date(`${p.year}-${p.month}-${p.day}T12:00:00Z`).getUTCDay()}const hh=d._h;H[hh]++;HS[hh][d.sh]=(HS[hh][d.sh]||0)+1;W[d._w]++;  // v70: hour and weekday worked out once per call record
     const loc=d.addr?(d.addr+(d.cs?" @ "+d.cs:"")):("Key Map "+(d.km||"?"));L[loc]=(L[loc]||0)+1});
-  const nh=past?-1:+parts(Date.now()).hour;M_HOUR=nh;const mx=Math.max(1,...H);
+  const nh=(past||(MO&&!CUR))?-1:+parts(Date.now()).hour;M_HOUR=nh;const mx=Math.max(1,...H);
   const LS=SHIFTS.filter(x=>base.some(d=>d.sh===x));
   // v33 Calls by Hour: 24-column bar chart
   {const hEl=document.getElementById("mHour");const tot=H.reduce((a,b)=>a+b,0);const pk=H.indexOf(mx);
@@ -1279,7 +1305,7 @@ function renderMetrics(){const u=document.getElementById("mUnit");unitOpts(u);co
   const DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];bars(document.getElementById("mDow"),[1,2,3,4,5,6,0].map(i=>[DN[i],W[i]]));
   bars(document.getElementById("mLoc"),Object.entries(L).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,10),true);
   // Call Type Mix
-  const stRows=st=>rows.filter(d=>d.units.some(x=>x.d&&unitStation(x.u)===st));
+  const SRC_={};const stRows=st=>SRC_[st]||(SRC_[st]=rows.filter(d=>d.units.some(x=>x.d&&unitStation(x.u)===st)));  // v70: each station list is built once (bars and table share it)
   {const mEl=document.getElementById("mMix");const leg=`<div class="mleg">${Object.values(MXC).map(([l,c])=>`<span><i class="${c}"></i>${l}</span>`).join("")}</div>`;
   mEl.innerHTML=`<div class="mxw"><div class="tipline">Tap a Segment for Count and %</div>${leg}<div class="subh">By Shift</div>${LS.length?LS.map(x=>mxBar(`<span class="shl" style="color:${SHC[x]}">${x} Shift</span>`,base.filter(d=>d.sh===x),M_SH&&M_SH!==x?"dim":"")).join("")+(LS.length>1?mxBar("All",base,"tot"):""):'<div class="note" style="padding:0">Nothing logged yet.</div>'}
     <div class="subh">By Station${M_SH?` (${M_SH} Shift)`:""}</div>${STATIONS.map(st=>mxBar("Sta "+st,stRows(st))).join("")}</div>
@@ -1296,7 +1322,7 @@ function renderMetrics(){const u=document.getElementById("mUnit");unitOpts(u);co
 `;
   // v41: one About This Data pane (definitions, call types, stripped, data gaps)
   const gl=gG.map(g=>`<li>${gapSpan(g)} CT${isBk(g)?" (backup logger only; times may be up to 15 min off)":` (${esc(g[2]||"feed gap")}; no data)`}</li>`).join("");
-  document.getElementById("mAbout").innerHTML=`<p><b>Call</b> = one District 83 incident. <b>Run</b> = one unit on one call (3 units on one call = 3 runs). This Week = Monday 06:30 to Monday 06:30 CT; each day is one tour, 06:30 to 06:30.</p>
+  document.getElementById("mAbout").innerHTML=`<p><b>Call</b> = one District 83 incident. <b>Run</b> = one unit on one call (3 units on one call = 3 runs). This Week = Monday 06:30 to Monday 06:30 CT; each day is one tour, 06:30 to 06:30. <b>Month</b> = the tours that start in that month (the 1st at 06:30 to the 1st at 06:30), the same as Run Counts, so the months add up to the year; a call at 02:00 on the 1st counts in the month before. The change is against the month before, for finished months only.</p>
     <p><b>Call types:</b> Fire = any call type with a fire word (fire, smoke, burning, explosion) or an alarm, so vehicle fires stay Fire. MVI = motor vehicle incidents: types with Motor Vehicle, MVI/MVA, Vehicle Accident/Collision/Crash, Major Accident, Auto Ped, Pedestrian, Motorcycle, Rollover or Extrication. EMS = EMS Event and Check Patient types. Other = everything else.</p>
     <p><b>Call Type Mix:</b> a call counts for every station that had a unit on it, so station rows can add up to more than the total. By Shift ignores the shift boxes so shifts compare side by side; shifts with no calls in this period are hidden.</p>
     <p><b>Top 10 Locations:</b> address @ cross street as the City feed gives it (block-level, e.g. &ldquo;BLK ...&rdquo;). The Key Map page is shown when the address is blank.</p>
@@ -1618,7 +1644,8 @@ let HM=null,HL=null,HPTS=null,HR=null;
 // vehicle, grass, trash and dumpster fires and FIRE EVENT; not alarms, checks, stand-bys, gas leaks or burn injuries).
 const FIRE_WORD_RE=/\b(FIRE|FIRES|SMOKE|FLAMES?|EXPLOSION|EXPLOSIVE|BURNING|ON FIRE)\b/;
 const NON_FIRE_RE=/ALARM|DETECTOR|WATER ?FLOW|STAND-?BY|INVESTIGAT|\bCHECK\b|\bCK\b|WATCH|CARBON MONOXIDE|\bCO\b|GAS LEAK|GAS ODOR|ODOR OF GAS|NATURAL GAS|\bBURNS\b|BURN (INJ|PAT|VICT)/;
-function isRealFire(t){t=String(t||"").toUpperCase().trim();return isMulti(t)||(t.includes("FIRE")&&STRUCT_RE.test(t)&&!NOT_WF_RE.test(t))||(FIRE_WORD_RE.test(t)&&!NON_FIRE_RE.test(t))}
+function isRealFire_(t){t=String(t||"").toUpperCase().trim();return isMulti(t)||(t.includes("FIRE")&&STRUCT_RE.test(t)&&!NOT_WF_RE.test(t))||(FIRE_WORD_RE.test(t)&&!NON_FIRE_RE.test(t))}
+const IRF_C=new Map();function isRealFire(t){let r=IRF_C.get(t);if(r===undefined){r=isRealFire_(t);IRF_C.set(t,r)}return r}  // v70: memo per type text
 const DOT_FIRE="#f04e4e",DOT_OTHER="#f1c40f";
 function loadScript(src){return new Promise((ok,no)=>{const e=document.createElement("script");e.src=src;e.crossOrigin="";e.onload=ok;e.onerror=no;document.head.appendChild(e)})}
 async function initHeat(){renderHeatTable();if(HM){setTimeout(()=>HM.invalidateSize(),50);drawHeat();return}
@@ -1643,24 +1670,34 @@ async function initHeat(){renderHeatTable();if(HM){setTimeout(()=>HM.invalidateS
   drawHeat()}
 // Heat Map filters: period (This Week = Mon 06:30-Mon 06:30 tours, like Run Counts), shift boxes, Fires Only, unit, type
 let H_PER="week",H_SH=(()=>{try{const x=shiftOfDate(shiftDateOf(Date.now()));return SHIFTS.includes(x)?x:""}catch(e){return""}})(),H_FIRE=false;  // v27: opens on the shift on duty (06:30 change), like Out of First-Due Area
-function heatBase(){const past=isPast();const per=past?"ytd":H_PER;const WS=weekStartOf(TODAY),WE=addDays(WS,7);const pn=parts(Date.now());
-  return filt(document.getElementById("hUnit").value,"",document.getElementById("hType").value).filter(d=>{
-    if(per==="week"){const sd=shiftDateOf(d.t);if(sd<WS||sd>=WE)return false}
-    else if(per==="month"){const p=parts(d.t);if(p.year!==pn.year||p.month!==pn.month)return false}
-    return !H_FIRE||isRealFire(d.type)})}
+// v70: the filtered list is kept until a filter, the period, the shift day or the loaded data changes (it was rebuilt twice per tap); each call record keeps its own shift day and year-month
+var HB_=null;
+function heatBase(){const past=isPast();const per=past?"ytd":H_PER;const hu=document.getElementById("hUnit").value,ht=document.getElementById("hType").value;const WS=weekStartOf(TODAY),WE=addDays(WS,7);const pn=parts(Date.now());const smo=shiftDateOf(Date.now()).slice(0,7);  /* v71: "this month" = 06:30-06:30 shift-day month, like Metrics and Run Counts */
+  const key=[hu,ht,per,H_FIRE?1:0,TODAY,pn.year,pn.month,smo].join("|");if(PTS&&HB_&&HB_.p===PTS&&HB_.n===PTS.length&&HB_.k===key)return HB_.v;
+  const v=filt(hu,"",ht).filter(d=>{
+    if(per==="week"){const sd=d._hs||(d._hs=shiftDateOf(d.t));if(sd<WS||sd>=WE)return false}
+    else if(per==="month"){const sd=d.sd||d._hs||(d._hs=shiftDateOf(d.t));if(sd.slice(0,7)!==smo)return false}
+    return !H_FIRE||isRealFire(d.type)});
+  if(PTS)HB_={p:PTS,n:PTS.length,k:key,v};return v}
 function heatRows(){const b=heatBase();return H_SH?b.filter(d=>d.sh===H_SH):b}
 function heatControls(){const past=isPast();const per=past?[["ytd","Full Year"]]:[["week","This Week"],["month","This Month"],["ytd","Year to Date"]];
   const cur=past?"ytd":H_PER;const hp=document.getElementById("hPer");hp.innerHTML=per.map(([k,l])=>`<button data-k="${k}" class="${k===cur?"on":""}">${l}</button>`).join("");
   hp.querySelectorAll("button").forEach(b=>b.onclick=()=>{if(!isPast())H_PER=b.dataset.k;heatRefresh()});
   const f=document.getElementById("hFire");f.classList.toggle("on",H_FIRE);f.setAttribute("aria-pressed",H_FIRE);f.onclick=()=>{H_FIRE=!H_FIRE;heatRefresh()};
-  const base=heatBase();const cnt=x=>base.filter(d=>d.sh===x).length;
+  const base=heatBase();const CN_={};base.forEach(d=>{CN_[d.sh]=(CN_[d.sh]||0)+1});const cnt=x=>CN_[x]||0;
   const sh=document.getElementById("hSh");sh.innerHTML=SHIFTS.map(x=>`<button type="button" data-s="${x}" class="${H_SH===x?"on":""}${H_SH&&H_SH!==x?" dim":""}" aria-pressed="${H_SH===x}" style="--sc:${SHC[x]}"><span class="ol">${x}</span><span class="ov">${cnt(x)}</span><span class="ot">${H_FIRE?"Fire":"Incident"}${cnt(x)===1?"":"s"}</span></button>`).join("");
   sh.querySelectorAll("button").forEach(b=>b.onclick=()=>{H_SH=H_SH===b.dataset.s?"":b.dataset.s;heatRefresh()})}
 function heatRefresh(){renderHeatTable();drawHeat()}
+var HD_=null;  // v70: what is on the map now; asking for the same thing again (tab switch) draws nothing new
 function drawHeat(){if(!HM)return;const rows=heatRows().filter(d=>d.lat!=null&&d.lon!=null);
+  const dk=[document.getElementById("hUnit").value,document.getElementById("hType").value,isPast()?"ytd":H_PER,H_FIRE?1:0,H_SH,TODAY,parts(Date.now()).month,shiftDateOf(Date.now()).slice(0,7),S&&S.generated].join("|");
+  if(HD_&&HD_.p===PTS&&HD_.n===(PTS||[]).length&&HD_.k===dk&&HD_.hm===HM&&HD_.cnt===rows.length&&HD_.hl===HL){return}
   if(HL)HM.removeLayer(HL);HL=L.heatLayer(rows.map(d=>[d.lat,d.lon,1]),{radius:22,blur:18,minOpacity:.35,maxZoom:15}).addTo(HM);
-  HPTS.clearLayers();rows.map(d=>[isRealFire(d.type),d]).sort((a,b)=>a[0]-b[0]).forEach(([f,d])=>L.circleMarker([d.lat,d.lon],{renderer:HR,pane:"dots",radius:f?8:7,color:"#fff",weight:1.5,opacity:.95,fillColor:f?DOT_FIRE:DOT_OTHER,fillOpacity:.95,bubblingMouseEvents:false}).bindPopup(`<b>${esc(d.addr)}${d.cs?" @ "+esc(d.cs):""}</b><br>${esc(d.type)}<br>${dt(d.t)} · ${d.sh} Shift<br>${d.units.map(u=>esc(u.u)).join(", ")}`).addTo(HPTS));
-  const hl=isPast()?null:{week:"This week (Mon 06:30 to Mon 06:30).",month:"This month."}[H_PER];document.getElementById("heatnote").textContent=(hl?hl+" "+HNOTE():LOG_START_NOTE())+` Showing ${rows.length} ${H_FIRE?"fire":"incident"}${rows.length===1?"":"s"} with coordinates${H_SH?`, ${H_SH} Shift`:""}.${gapNote(isPast()?"ytd":H_PER)}`}
+  HPTS.clearLayers();const OF={renderer:HR,pane:"dots",radius:8,color:"#fff",weight:1.5,opacity:.95,fillColor:DOT_FIRE,fillOpacity:.95,bubblingMouseEvents:false},OO={renderer:HR,pane:"dots",radius:7,color:"#fff",weight:1.5,opacity:.95,fillColor:DOT_OTHER,fillOpacity:.95,bubblingMouseEvents:false};
+  const fl=[],ot=[];rows.forEach(d=>(isRealFire(d.type)?fl:ot).push(d));  // other dots first, fires on top (same order as before)
+  ot.concat(fl).forEach(d=>L.circleMarker([d.lat,d.lon],isRealFire(d.type)?OF:OO).bindPopup(()=>`<b>${esc(d.addr)}${d.cs?" @ "+esc(d.cs):""}</b><br>${esc(d.type)}<br>${dt(d.t)} · ${d.sh} Shift<br>${d.units.map(u=>esc(u.u)).join(", ")}`).addTo(HPTS));  // popup text is built when a dot is tapped
+  HD_={p:PTS,n:(PTS||[]).length,k:dk,hm:HM,cnt:rows.length,hl:HL};
+  const hl=isPast()?null:{week:"This week (Mon 06:30 to Mon 06:30).",month:"This month (06:30 to 06:30 shift days)."}[H_PER];document.getElementById("heatnote").textContent=(hl?hl+" "+HNOTE():LOG_START_NOTE())+` Showing ${rows.length} ${H_FIRE?"fire":"incident"}${rows.length===1?"":"s"} with coordinates${H_SH?`, ${H_SH} Shift`:""}.${gapNote(isPast()?"ytd":H_PER)}`}
 function renderHeatTable(){unitOpts(document.getElementById("hUnit"));heatControls()}  // v27: Key Map table removed; keeps filter controls in sync
 ["hUnit","hType"].forEach(id=>document.getElementById(id).onchange=()=>{heatRefresh()});
 document.getElementById("mUnit").onchange=renderMetrics;
@@ -1674,7 +1711,7 @@ function renderCityDay(){const el=document.getElementById("cityday");if(!el)retu
   el.innerHTML=ln("Citywide",c.city_today,c.city_prev,1)+ln("District 83",c.d83_today,c.d83_prev,0);
   el.title=`Incidents (calls). Today = since ${c.since}; `+(y?`Yesterday = ${c.since} to ${c.since}, the City's official day. `:"")+`Citywide = every HFD call on the City's live feed that has an HFD unit; a call re-created at the same location counts once. District 83 = calls with a Station 10, 69, 76 or 83 unit or District Chief 83, as on By Shift.`;el.hidden=false}
 try{renderCityDay()}catch(e){}
-async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();try{renderCityDay()}catch(e){}try{renderExtras()}catch(e){}WF_LIVE=new Set(S.wf_live||[]);TK_LIVE=new Set(S.tk_live||[]);if(PTS)await ensurePoints();renderHistory()}catch(e){console.warn("stats.json",e)}}
+async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();try{renderCityDay()}catch(e){}try{renderExtras()}catch(e){}WF_LIVE=new Set(S.wf_live||[]);TK_LIVE=new Set(S.tk_live||[]);if(PTS){const k=curTabK();if(k==="metrics"||k==="heat")await ensurePoints()}renderHistory()}catch(e){console.warn("stats.json",e)}}  // v70: the 2 MB points file is only re-read while Heat Map or Metrics is open
 function staleCheck(){const el=document.getElementById("staleBar");if(!el)return;const g=S&&S.generated;if(location.protocol==="file:"||!g){el.hidden=true;return}
   const m=Math.floor((Date.now()-g)/60000);if(m<=15){el.hidden=true;return}
   el.innerHTML=`<b>History data is ${m>=120?Math.floor(m/60)+" h":m+" min"} old</b> (last update ${esc(dt(g))} CT)<small>Shift, run counts and maps may be behind. The Live tab still reads the City feed directly.</small>`+(BK_LINE||"")+(GH_DOWN?GH_LINE:"");el.hidden=false;ghCheck();bkCheck()}
