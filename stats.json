@@ -1,5 +1,5 @@
 {
- "generated": 1793788299676,
+ "generated": 1793788480073,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,20 +82,20 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-04 04:31",
+ "generated_str": "2026-11-04 04:34",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793788294290,
+ "last_ok_poll": 1793788474680,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-04 04:31",
- "polls": 18288,
- "polls_ok": 18185,
+ "last_ok_poll_str": "2026-11-04 04:34",
+ "polls": 18291,
+ "polls_ok": 18188,
  "total_incidents_logged": 16848,
  "district_incidents": 27366,
  "shift_change": "06:30",
@@ -53393,13 +53393,13 @@
   "wind": 5,
   "dir": "NNW",
   "st": "KSGR",
-  "fetched": 1793787815106,
+  "fetched": 1793788420050,
   "alerts": []
  },
  "traffic": {
   "items": [],
   "n": 0,
-  "total": 9,
-  "fetched": 1793788180047
+  "total": 8,
+  "fetched": 1793788360031
  }
 }
