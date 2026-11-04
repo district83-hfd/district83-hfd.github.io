@@ -3,12 +3,12 @@ name: Deploy Pages
 on:
   push: { branches: [main] }
   workflow_dispatch:
-permissions: { contents: read, pages: write, id-token: write }
+permissions: { contents: read, pages: write, id-token: write, deployments: read }
 concurrency: { group: pages, cancel-in-progress: false }
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: { name: github-pages, url: "${{ steps.d.outputs.page_url }}" }
+    environment: { name: github-pages, url: "${{ steps.d.outputs.page_url || steps.d2.outputs.page_url }}" }
     steps:
       - uses: actions/checkout@v4
       # v26b: a late run must deploy the newest main, not the commit that queued it (checkout alone pins github.sha)
@@ -19,4 +19,23 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with: { path: . }
       - id: d
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      # v73: a stuck Pages deployment (status never finishes) blocks every later deploy.
+      # If the deploy failed, cancel any github-pages deployment older than 4 min that is not finished, then retry once.
+      - if: steps.d.outcome == 'failure'
+        env: { GH_TOKEN: "${{ github.token }}", R: "${{ github.repository }}" }
+        run: |
+          now=$(date +%s)
+          gh api "repos/$R/deployments?environment=github-pages&per_page=10" --jq '.[] | "\(.sha) \(.created_at)"' |
+          while read -r sha created; do
+            age=$(( now - $(date -d "$created" +%s) ))
+            st=$(gh api "repos/$R/pages/deployments/$sha" --jq '.status' 2>/dev/null || echo gone)
+            echo "pages deployment $sha age ${age}s status '$st'"
+            case "$st" in succeed|deployment_failed|deployment_cancelled|deployment_lost|deployment_content_failed|deployment_perms_error|gone) continue;; esac
+            if [ "$age" -gt 240 ]; then echo "cancelling stuck $sha"; gh api -X POST "repos/$R/pages/deployments/$sha/cancel" || true; fi
+          done
+          sleep 10
+      - id: d2
+        if: steps.d.outcome == 'failure'
         uses: actions/deploy-pages@v4
