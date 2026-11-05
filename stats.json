@@ -1,5 +1,5 @@
 {
- "generated": 1793865122351,
+ "generated": 1793865242432,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,20 +82,20 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-05 01:52",
+ "generated_str": "2026-11-05 01:54",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793865116938,
+ "last_ok_poll": 1793865236945,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-05 01:51",
- "polls": 19568,
- "polls_ok": 19465,
+ "last_ok_poll_str": "2026-11-05 01:53",
+ "polls": 19570,
+ "polls_ok": 19467,
  "total_incidents_logged": 17943,
  "district_incidents": 27446,
  "shift_change": "06:30",
@@ -198,7 +198,9 @@
  },
  "wf_live": [
   "1793858400000|LOS ANGELES ST|BLK KELLEY ST",
-  "1793858580000|LOS ANGELES ST|BLK KELLEY ST"
+  "1793858580000|LOS ANGELES ST|BLK KELLEY ST",
+  "1793863260000|BEASLEY HILLS LN|BLK BENTLY GREEN LN",
+  "1793863560000|BEASLEY HILLS LN|BLK BENTLY GREEN LN"
  ],
  "tk_live": [
   "1793858400000|LOS ANGELES ST|BLK KELLEY ST",
