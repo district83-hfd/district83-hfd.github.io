@@ -1,5 +1,5 @@
 {
- "generated": 1793882524305,
+ "generated": 1793882650402,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-05 06:42",
+ "generated_str": "2026-11-05 06:44",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793882519461,
+ "last_ok_poll": 1793882645328,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-05 06:41",
- "polls": 19858,
- "polls_ok": 19755,
- "total_incidents_logged": 18089,
+ "last_ok_poll_str": "2026-11-05 06:44",
+ "polls": 19860,
+ "polls_ok": 19757,
+ "total_incidents_logged": 18091,
  "district_incidents": 27455,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -203,7 +203,8 @@
  "tk_live": [
   "1793863260000|BEASLEY HILLS LN|BLK BENTLY GREEN LN",
   "1793863560000|BEASLEY HILLS LN|BLK BENTLY GREEN LN",
-  "1793881740000|LOS ANGELES ST|"
+  "1793881740000|LOS ANGELES ST|",
+  "1793882040000|LOS ANGELES ST|"
  ],
  "ticker_min_heavy": 3,
  "non_working_fire_types": [
@@ -233,7 +234,7 @@
  "city": {
   "day": "2026-11-05",
   "since": "06:00",
-  "city_today": 33,
+  "city_today": 35,
   "d83_today": 0,
   "prev_day": "2026-11-04",
   "city_prev": 1156,
@@ -637,11 +638,11 @@
     "C": 21,
     "D": 21
    },
-   "hrs": 3751.5,
+   "hrs": 3751.6,
    "hsh": {
     "A": 945.69,
     "B": 934.66,
-    "C": 846.57,
+    "C": 846.6,
     "D": 1024.63
    }
   },
@@ -1308,11 +1309,11 @@
      "C": 21,
      "D": 21
     },
-    "hrs": 3751.5,
+    "hrs": 3751.6,
     "hsh": {
      "A": 945.69,
      "B": 934.66,
-     "C": 846.57,
+     "C": 846.6,
      "D": 1024.63
     }
    },
@@ -1979,14 +1980,14 @@
     "hsh": {
      "A": 11.89,
      "B": 30.29,
-     "C": 0.2,
+     "C": 0.23,
      "D": 0.0
     },
     "hday": {
      "2026-11-02": 16.28,
      "2026-11-03": 11.89,
      "2026-11-04": 14.0,
-     "2026-11-05": 0.2
+     "2026-11-05": 0.23
     }
    },
    {
@@ -2590,7 +2591,7 @@
     "hsh": {
      "A": 27.02,
      "B": 30.29,
-     "C": 0.2,
+     "C": 0.23,
      "D": 0.0
     }
    },
@@ -43463,7 +43464,7 @@
    "10": {
     "unit": "M010",
     "total": 3237,
-    "hrs": 3751.5
+    "hrs": 3751.6
    },
    "69": {
     "unit": "A069",
