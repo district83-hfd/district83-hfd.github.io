@@ -1,5 +1,5 @@
 {
- "generated": 1793859053412,
+ "generated": 1793859173318,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-05 00:10",
+ "generated_str": "2026-11-05 00:12",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793859047999,
+ "last_ok_poll": 1793859168000,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-05 00:10",
- "polls": 19467,
- "polls_ok": 19364,
- "total_incidents_logged": 17883,
+ "last_ok_poll_str": "2026-11-05 00:12",
+ "polls": 19469,
+ "polls_ok": 19366,
+ "total_incidents_logged": 17885,
  "district_incidents": 27445,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -198,7 +198,8 @@
  },
  "wf_live": [],
  "tk_live": [
-  "1793858400000|LOS ANGELES ST|BLK KELLEY ST"
+  "1793858400000|LOS ANGELES ST|BLK KELLEY ST",
+  "1793858580000|LOS ANGELES ST|BLK KELLEY ST"
  ],
  "ticker_min_heavy": 3,
  "non_working_fire_types": [
@@ -228,7 +229,7 @@
  "city": {
   "day": "2026-11-04",
   "since": "06:00",
-  "city_today": 985,
+  "city_today": 987,
   "d83_today": 77,
   "prev_day": "2026-11-03",
   "city_prev": 1188,
@@ -53695,13 +53696,13 @@
   "wind": 3,
   "dir": "S",
   "st": "KSGR",
-  "fetched": 1793858513824,
+  "fetched": 1793859173737,
   "alerts": []
  },
  "traffic": {
   "items": [],
   "n": 0,
   "total": 6,
-  "fetched": 1793858993803
+  "fetched": 1793859174369
  }
 }
