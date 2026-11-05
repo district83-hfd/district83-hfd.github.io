@@ -1,5 +1,5 @@
 {
- "generated": 1793860257833,
+ "generated": 1793860377836,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,20 +82,20 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-05 00:30",
+ "generated_str": "2026-11-05 00:32",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793860252438,
+ "last_ok_poll": 1793860372476,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-05 00:30",
- "polls": 19487,
- "polls_ok": 19384,
+ "last_ok_poll_str": "2026-11-05 00:32",
+ "polls": 19489,
+ "polls_ok": 19386,
  "total_incidents_logged": 17889,
  "district_incidents": 27445,
  "shift_change": "06:30",
@@ -196,7 +196,10 @@
   "104": "102",
   "105": "65"
  },
- "wf_live": [],
+ "wf_live": [
+  "1793858400000|LOS ANGELES ST|BLK KELLEY ST",
+  "1793858580000|LOS ANGELES ST|BLK KELLEY ST"
+ ],
  "tk_live": [
   "1793858400000|LOS ANGELES ST|BLK KELLEY ST",
   "1793858580000|LOS ANGELES ST|BLK KELLEY ST"
@@ -53691,12 +53694,12 @@
  ],
  "wx": {
   "t": 59,
-  "obs": 1793858700000,
+  "obs": 1793859300000,
   "cond": "Clear",
-  "wind": 3,
-  "dir": "SSW",
+  "wind": 0,
+  "dir": null,
   "st": "KSGR",
-  "fetched": 1793859773802,
+  "fetched": 1793860378248,
   "alerts": []
  },
  "traffic": {
