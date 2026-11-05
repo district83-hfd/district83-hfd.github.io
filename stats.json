@@ -1,5 +1,5 @@
 {
- "generated": 1793883909638,
+ "generated": 1793884029645,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-05 07:05",
+ "generated_str": "2026-11-05 07:07",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793883904743,
+ "last_ok_poll": 1793884024770,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-05 07:05",
- "polls": 19881,
- "polls_ok": 19778,
- "total_incidents_logged": 18103,
+ "last_ok_poll_str": "2026-11-05 07:07",
+ "polls": 19883,
+ "polls_ok": 19780,
+ "total_incidents_logged": 18106,
  "district_incidents": 27455,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -203,8 +203,7 @@
  "tk_live": [
   "1793863260000|BEASLEY HILLS LN|BLK BENTLY GREEN LN",
   "1793863560000|BEASLEY HILLS LN|BLK BENTLY GREEN LN",
-  "1793881740000|LOS ANGELES ST|",
-  "1793882040000|LOS ANGELES ST|",
+  "1793882040000|LOS ANGELES ST|BLK KELLEY ST",
   "1793883060000|CRAIGMONT ST|BLK CARROLTON ST"
  ],
  "ticker_min_heavy": 3,
@@ -235,7 +234,7 @@
  "city": {
   "day": "2026-11-05",
   "since": "06:00",
-  "city_today": 47,
+  "city_today": 50,
   "d83_today": 0,
   "prev_day": "2026-11-04",
   "city_prev": 1156,
@@ -53291,7 +53290,7 @@
  "traffic": {
   "items": [],
   "n": 0,
-  "total": 23,
-  "fetched": 1793883789962
+  "total": 26,
+  "fetched": 1793883970008
  }
 }
