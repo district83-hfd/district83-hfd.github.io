@@ -1,5 +1,5 @@
 {
- "generated": 1793883429598,
+ "generated": 1793883549592,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-05 06:57",
+ "generated_str": "2026-11-05 06:59",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793883424752,
+ "last_ok_poll": 1793883544775,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-05 06:57",
- "polls": 19873,
- "polls_ok": 19770,
- "total_incidents_logged": 18096,
+ "last_ok_poll_str": "2026-11-05 06:59",
+ "polls": 19875,
+ "polls_ok": 19772,
+ "total_incidents_logged": 18098,
  "district_incidents": 27455,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -204,7 +204,8 @@
   "1793863260000|BEASLEY HILLS LN|BLK BENTLY GREEN LN",
   "1793863560000|BEASLEY HILLS LN|BLK BENTLY GREEN LN",
   "1793881740000|LOS ANGELES ST|",
-  "1793882040000|LOS ANGELES ST|"
+  "1793882040000|LOS ANGELES ST|",
+  "1793883060000|CRAIGMONT ST|BLK CARROLTON ST"
  ],
  "ticker_min_heavy": 3,
  "non_working_fire_types": [
@@ -234,7 +235,7 @@
  "city": {
   "day": "2026-11-05",
   "since": "06:00",
-  "city_today": 40,
+  "city_today": 42,
   "d83_today": 0,
   "prev_day": "2026-11-04",
   "city_prev": 1156,
