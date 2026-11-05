@@ -4,7 +4,8 @@ on:
   push: { branches: [main] }
   workflow_dispatch:
 permissions: { contents: read, pages: write, id-token: write, deployments: read }
-concurrency: { group: pages, cancel-in-progress: false }
+# v74: a newer deploy cancels older queued/running ones (no pile-up of failure emails); the fetch/reset step below still deploys newest main
+concurrency: { group: pages, cancel-in-progress: true }
 jobs:
   deploy:
     runs-on: ubuntu-latest
