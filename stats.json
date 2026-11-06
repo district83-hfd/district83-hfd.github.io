@@ -1,5 +1,5 @@
 {
- "generated": 1793980223023,
+ "generated": 1793980342391,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-06 09:50",
+ "generated_str": "2026-11-06 09:52",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1793980215798,
+ "last_ok_poll": 1793980335598,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-06 09:50",
- "polls": 21483,
- "polls_ok": 21379,
- "total_incidents_logged": 19437,
+ "last_ok_poll_str": "2026-11-06 09:52",
+ "polls": 21485,
+ "polls_ok": 21381,
+ "total_incidents_logged": 19442,
  "district_incidents": 27546,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -197,10 +197,7 @@
   "105": "65"
  },
  "wf_live": [],
- "tk_live": [
-  "1793976840000|LAKE VILLAGE DR|BLK TRAILWOOD VILLAGE SQ",
-  "1793977080000|LAKE VILLAGE DR|BLK TRAILWOOD VILLAGE SQ"
- ],
+ "tk_live": [],
  "ticker_min_heavy": 3,
  "non_working_fire_types": [
   "AUTOMATIC ALARM",
@@ -229,7 +226,7 @@
  "city": {
   "day": "2026-11-06",
   "since": "06:00",
-  "city_today": 169,
+  "city_today": 174,
   "d83_today": 7,
   "prev_day": "2026-11-05",
   "city_prev": 1180,
@@ -53672,7 +53669,7 @@
  "traffic": {
   "items": [],
   "n": 0,
-  "total": 14,
-  "fetched": 1793980096750
+  "total": 12,
+  "fetched": 1793980282775
  }
 }
