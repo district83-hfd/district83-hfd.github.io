@@ -1,5 +1,5 @@
 {
- "generated": 1794069193113,
+ "generated": 1794069313072,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-07 10:33",
+ "generated_str": "2026-11-07 10:35",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1794069186193,
+ "last_ok_poll": 1794069306197,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-07 10:33",
- "polls": 22965,
- "polls_ok": 22856,
- "total_incidents_logged": 20700,
+ "last_ok_poll_str": "2026-11-07 10:35",
+ "polls": 22967,
+ "polls_ok": 22858,
+ "total_incidents_logged": 20710,
  "district_incidents": 27648,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -202,9 +202,7 @@
  ],
  "tk_live": [
   "1794055560000|CHESTERFIELD DR|BLK DULCREST ST",
-  "1794055800000|CHESTERFIELD DR|BLK DULCREST ST",
-  "1794066780000|BROOK FOREST DR|BLK PLUM HOLLOW DR",
-  "1794066960000|BROOK FOREST DR|BLK PLUM HOLLOW DR"
+  "1794055800000|CHESTERFIELD DR|BLK DULCREST ST"
  ],
  "ticker_min_heavy": 3,
  "non_working_fire_types": [
@@ -234,7 +232,7 @@
  "city": {
   "day": "2026-11-07",
   "since": "06:00",
-  "city_today": 148,
+  "city_today": 158,
   "d83_today": 9,
   "prev_day": "2026-11-06",
   "city_prev": 1258,
@@ -449,7 +447,7 @@
    "u": {
     "E010": "22,21,12,17,22.0",
     "RE010": "11,4,2,2,4.2",
-    "A010": "20,21,15,9,84.1",
+    "A010": "20,21,15,9,84.2",
     "M010": "17,23,15,13,85.1",
     "E069": "14,19,6,9,16.6",
     "L069": "10,7,2,3,7.4",
@@ -617,7 +615,7 @@
    "hsh": {
     "A": 896.63,
     "B": 875.48,
-    "C": 918.29,
+    "C": 918.33,
     "D": 970.46
    }
   },
@@ -1288,7 +1286,7 @@
     "hsh": {
      "A": 896.63,
      "B": 875.48,
-     "C": 918.29,
+     "C": 918.33,
      "D": 970.46
     }
    },
@@ -1891,11 +1889,11 @@
      "C": 0,
      "D": 0
     },
-    "hrs": 0.3,
+    "hrs": 0.4,
     "hsh": {
      "A": 0.0,
      "B": 0.0,
-     "C": 0.33,
+     "C": 0.37,
      "D": 0.0
     }
    },
@@ -2238,7 +2236,7 @@
     "hsh": {
      "A": 14.78,
      "B": 25.92,
-     "C": 14.61,
+     "C": 14.64,
      "D": 14.27
     },
     "hday": {
@@ -2247,7 +2245,7 @@
      "2026-11-04": 12.07,
      "2026-11-05": 14.27,
      "2026-11-06": 14.27,
-     "2026-11-07": 0.33
+     "2026-11-07": 0.37
     }
    },
    {
@@ -2928,11 +2926,11 @@
      "C": 2,
      "D": 0
     },
-    "hrs": 84.1,
+    "hrs": 84.2,
     "hsh": {
      "A": 29.34,
      "B": 25.92,
-     "C": 14.61,
+     "C": 14.64,
      "D": 14.27
     }
    },
@@ -54185,6 +54183,6 @@
   "items": [],
   "n": 0,
   "total": 14,
-  "fetched": 1794069073794
+  "fetched": 1794069254048
  }
 }
