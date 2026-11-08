@@ -1,5 +1,5 @@
 {
- "generated": 1794116815314,
+ "generated": 1794116941033,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-07 23:46",
+ "generated_str": "2026-11-07 23:49",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1794116808619,
+ "last_ok_poll": 1794116934410,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-07 23:46",
- "polls": 23758,
- "polls_ok": 23649,
- "total_incidents_logged": 21469,
+ "last_ok_poll_str": "2026-11-07 23:48",
+ "polls": 23760,
+ "polls_ok": 23651,
+ "total_incidents_logged": 21471,
  "district_incidents": 27699,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -235,7 +235,7 @@
  "city": {
   "day": "2026-11-07",
   "since": "06:00",
-  "city_today": 899,
+  "city_today": 901,
   "d83_today": 60,
   "prev_day": "2026-11-06",
   "city_prev": 1258,
@@ -45175,8 +45175,8 @@
    "sd": "2026-11-07",
    "sh": "C",
    "fs": 1794109357211,
-   "ls": 1794116808619,
-   "min": 124,
+   "ls": 1794116934410,
+   "min": 126,
    "units": [
     {
      "u": "E086",
@@ -45231,18 +45231,18 @@
     {
      "u": "ARS719",
      "d": false,
-     "min": 88
+     "min": 90
     },
     {
      "u": "ARS763",
      "d": false,
-     "min": 88
+     "min": 90
     }
    ],
-   "cad": 131,
+   "cad": 133,
    "wt": true,
    "xwf": false,
-   "ov2": 118,
+   "ov2": 120,
    "why": "fire box on CAD 50+ min",
    "long_units": [
     "D083",
@@ -54887,19 +54887,19 @@
   2026
  ],
  "wx": {
-  "t": 70,
-  "obs": 1794113700000,
+  "t": 68,
+  "obs": 1794115500000,
   "cond": "Cloudy",
   "wind": 0,
   "dir": null,
   "st": "KSGR",
-  "fetched": 1794116276284,
+  "fetched": 1794116882204,
   "alerts": []
  },
  "traffic": {
   "items": [],
   "n": 0,
   "total": 11,
-  "fetched": 1794116755885
+  "fetched": 1794116941564
  }
 }
