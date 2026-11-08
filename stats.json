@@ -1,5 +1,5 @@
 {
- "generated": 1794115555248,
+ "generated": 1794115675708,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-07 23:25",
+ "generated_str": "2026-11-07 23:27",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1794115548627,
+ "last_ok_poll": 1794115669063,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-07 23:25",
- "polls": 23737,
- "polls_ok": 23628,
- "total_incidents_logged": 21449,
+ "last_ok_poll_str": "2026-11-07 23:27",
+ "polls": 23739,
+ "polls_ok": 23630,
+ "total_incidents_logged": 21453,
  "district_incidents": 27699,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -235,7 +235,7 @@
  "city": {
   "day": "2026-11-07",
   "since": "06:00",
-  "city_today": 879,
+  "city_today": 883,
   "d83_today": 60,
   "prev_day": "2026-11-06",
   "city_prev": 1258,
@@ -45175,13 +45175,13 @@
    "sd": "2026-11-07",
    "sh": "C",
    "fs": 1794109357211,
-   "ls": 1794115548627,
-   "min": 103,
+   "ls": 1794115669063,
+   "min": 105,
    "units": [
     {
      "u": "E086",
      "d": false,
-     "min": 103
+     "min": 104
     },
     {
      "u": "D078",
@@ -45231,18 +45231,18 @@
     {
      "u": "ARS719",
      "d": false,
-     "min": 67
+     "min": 69
     },
     {
      "u": "ARS763",
      "d": false,
-     "min": 67
+     "min": 69
     }
    ],
-   "cad": 110,
+   "cad": 112,
    "wt": true,
    "xwf": false,
-   "ov2": 97,
+   "ov2": 99,
    "why": "fire box on CAD 50+ min",
    "long_units": [
     "D083",
@@ -54893,13 +54893,13 @@
   "wind": 0,
   "dir": null,
   "st": "KSGR",
-  "fetched": 1794115015866,
+  "fetched": 1794115616046,
   "alerts": []
  },
  "traffic": {
   "items": [],
   "n": 0,
-  "total": 9,
-  "fetched": 1794115496134
+  "total": 10,
+  "fetched": 1794115676261
  }
 }
