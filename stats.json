@@ -1,5 +1,5 @@
 {
- "generated": 1794115675708,
+ "generated": 1794115855316,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,20 +82,20 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-07 23:27",
+ "generated_str": "2026-11-07 23:30",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1794115669063,
+ "last_ok_poll": 1794115848665,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-07 23:27",
- "polls": 23739,
- "polls_ok": 23630,
+ "last_ok_poll_str": "2026-11-07 23:30",
+ "polls": 23742,
+ "polls_ok": 23633,
  "total_incidents_logged": 21453,
  "district_incidents": 27699,
  "shift_change": "06:30",
@@ -45175,8 +45175,8 @@
    "sd": "2026-11-07",
    "sh": "C",
    "fs": 1794109357211,
-   "ls": 1794115669063,
-   "min": 105,
+   "ls": 1794115848665,
+   "min": 108,
    "units": [
     {
      "u": "E086",
@@ -45231,18 +45231,18 @@
     {
      "u": "ARS719",
      "d": false,
-     "min": 69
+     "min": 72
     },
     {
      "u": "ARS763",
      "d": false,
-     "min": 69
+     "min": 72
     }
    ],
-   "cad": 112,
+   "cad": 115,
    "wt": true,
    "xwf": false,
-   "ov2": 99,
+   "ov2": 102,
    "why": "fire box on CAD 50+ min",
    "long_units": [
     "D083",
@@ -54900,6 +54900,6 @@
   "items": [],
   "n": 0,
   "total": 10,
-  "fetched": 1794115676261
+  "fetched": 1794115856033
  }
 }
