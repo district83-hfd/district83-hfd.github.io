@@ -1,5 +1,5 @@
 {
- "generated": 1794116455231,
+ "generated": 1794116575240,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-07 23:40",
+ "generated_str": "2026-11-07 23:42",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1794116448630,
+ "last_ok_poll": 1794116568642,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-07 23:40",
- "polls": 23752,
- "polls_ok": 23643,
- "total_incidents_logged": 21459,
+ "last_ok_poll_str": "2026-11-07 23:42",
+ "polls": 23754,
+ "polls_ok": 23645,
+ "total_incidents_logged": 21469,
  "district_incidents": 27699,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -235,7 +235,7 @@
  "city": {
   "day": "2026-11-07",
   "since": "06:00",
-  "city_today": 889,
+  "city_today": 899,
   "d83_today": 60,
   "prev_day": "2026-11-06",
   "city_prev": 1258,
@@ -45175,8 +45175,8 @@
    "sd": "2026-11-07",
    "sh": "C",
    "fs": 1794109357211,
-   "ls": 1794116448630,
-   "min": 118,
+   "ls": 1794116568642,
+   "min": 120,
    "units": [
     {
      "u": "E086",
@@ -45231,18 +45231,18 @@
     {
      "u": "ARS719",
      "d": false,
-     "min": 82
+     "min": 84
     },
     {
      "u": "ARS763",
      "d": false,
-     "min": 82
+     "min": 84
     }
    ],
-   "cad": 125,
+   "cad": 127,
    "wt": true,
    "xwf": false,
-   "ov2": 112,
+   "ov2": 114,
    "why": "fire box on CAD 50+ min",
    "long_units": [
     "D083",
@@ -54900,6 +54900,6 @@
   "items": [],
   "n": 0,
   "total": 11,
-  "fetched": 1794116395914
+  "fetched": 1794116575800
  }
 }
