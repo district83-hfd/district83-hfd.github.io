@@ -1,5 +1,5 @@
 {
- "generated": 1794185442038,
+ "generated": 1794185562171,
  "feed_gaps": [
   [
    1792669538474,
@@ -82,21 +82,21 @@
    "covered by backup"
   ]
  ],
- "generated_str": "2026-11-08 18:50",
+ "generated_str": "2026-11-08 18:52",
  "year": 2026,
  "is_current_year": true,
  "year_start": 1767270600000,
  "year_end": 1798806600000,
  "logging_start": 1792555525221,
  "logging_start_str": "2026-10-20 23:05",
- "last_ok_poll": 1794185437055,
+ "last_ok_poll": 1794185557023,
  "history_start": 1767247200000,
  "history_end": 1792555525221,
  "history_end_str": "Oct 20 23:05",
- "last_ok_poll_str": "2026-11-08 18:50",
- "polls": 24901,
- "polls_ok": 24792,
- "total_incidents_logged": 22305,
+ "last_ok_poll_str": "2026-11-08 18:52",
+ "polls": 24903,
+ "polls_ok": 24794,
+ "total_incidents_logged": 22311,
  "district_incidents": 27763,
  "shift_change": "06:30",
  "working_fire_min": 50,
@@ -226,7 +226,7 @@
  "city": {
   "day": "2026-11-08",
   "since": "06:00",
-  "city_today": 562,
+  "city_today": 567,
   "d83_today": 40,
   "prev_day": "2026-11-07",
   "city_prev": 1155,
@@ -55169,13 +55169,13 @@
   2026
  ],
  "wx": {
-  "t": 61,
-  "obs": 1794183600000,
+  "t": 63,
+  "obs": 1794184500000,
   "cond": "Clear",
-  "wind": 8,
+  "wind": 7,
   "dir": "NNE",
   "st": "KSGR",
-  "fetched": 1794184842596,
+  "fetched": 1794185502594,
   "alerts": []
  },
  "traffic": {
