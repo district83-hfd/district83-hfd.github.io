@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>D83 Dashboard (Unofficial)</title>
+<title>District 83 Dashboard</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="D83"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#4F2D7F"><link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png"><link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png"><link rel="icon" href="favicon.ico" sizes="any"><link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<link rel="stylesheet" href="lib/leaflet-1.9.4.css">
 <style>
 :root{--bg:#14141f;--card:#1f1f2e;--txt:#f2f2f5;--mut:#9a9ab0;--acc:#c0392b}
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.35;background:var(--bg);color:var(--txt)}
@@ -790,6 +790,22 @@ html.th-july4 header{background:linear-gradient(180deg,#1e3358 0%,#1b2c4a 68%,#3
 html.th-newyears header{background:linear-gradient(180deg,#22243a 0%,#1a1c2c 100%)}
 html.th-halloween header{background:linear-gradient(180deg,#4a3468 0%,#3d2b57 55%,#2a1c3e 100%)}
 html.th-labor header{background:linear-gradient(180deg,#32384c 0%,#2a3040 100%)}
+/* ---- v79 ---- */
+.feednote{margin:8px 0 10px;padding:10px 14px;border-radius:12px;background:#3a3320;border:1px solid #6b5d33;color:#f3e3b5;font-size:15px;line-height:1.4}.feednote b{color:#fff3cf}
+#list.fstale>*{opacity:.55;filter:saturate(.6)}
+.fwait{grid-column:1/-1;padding:28px 16px;text-align:center;color:#c9ccd6;font-size:16px}.fwait small{display:block;margin-top:6px;font-size:14px;color:var(--mut)}
+.fspin{display:inline-block;width:14px;height:14px;margin-right:8px;vertical-align:-2px;border-radius:50%;border:2px solid #5a5f6e;border-top-color:#c9ccd6;animation:fspin 1s linear infinite}
+@keyframes fspin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.fspin{animation:none}}
+#upd.old{color:#f2c46b!important;font-weight:700}
+/* text at least 13 px */
+.mxb button{font-size:13px}.mpc,td.cp2 .mpc{font-size:13px}#p-metrics .rt.mt th{font-size:13px}
+/* drawn US flag (Windows has no flag emoji) */
+html.th-memorial .thicon::before,html.th-veterans .thicon::before{content:"";display:inline-block;width:1.3em;height:.86em;vertical-align:-.04em;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.35);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 38 26'%3E%3Crect width='38' height='26' fill='%23fff'/%3E%3Cg fill='%23B22234'%3E%3Crect y='0' width='38' height='2'/%3E%3Crect y='4' width='38' height='2'/%3E%3Crect y='8' width='38' height='2'/%3E%3Crect y='12' width='38' height='2'/%3E%3Crect y='16' width='38' height='2'/%3E%3Crect y='20' width='38' height='2'/%3E%3Crect y='24' width='38' height='2'/%3E%3C/g%3E%3Crect width='16' height='14' fill='%233C3B6E'/%3E%3Cg fill='%23fff'%3E%3Ccircle cx='2.5' cy='2.3' r='.8'/%3E%3Ccircle cx='6.3' cy='2.3' r='.8'/%3E%3Ccircle cx='10.1' cy='2.3' r='.8'/%3E%3Ccircle cx='13.9' cy='2.3' r='.8'/%3E%3Ccircle cx='4.4' cy='5' r='.8'/%3E%3Ccircle cx='8.2' cy='5' r='.8'/%3E%3Ccircle cx='12' cy='5' r='.8'/%3E%3Ccircle cx='2.5' cy='7.7' r='.8'/%3E%3Ccircle cx='6.3' cy='7.7' r='.8'/%3E%3Ccircle cx='10.1' cy='7.7' r='.8'/%3E%3Ccircle cx='13.9' cy='7.7' r='.8'/%3E%3Ccircle cx='4.4' cy='10.4' r='.8'/%3E%3Ccircle cx='8.2' cy='10.4' r='.8'/%3E%3Ccircle cx='12' cy='10.4' r='.8'/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat}
+/* phone: "Citywide since 6 AM" on one line (13.5 px, tighter dots) and a slimmer header + tab block (taps stay >= 40 px) */
+@media (max-width:640px){.cityday{font-size:13.5px;letter-spacing:0}.cityday .hdot{margin:0 4px}
+ header{padding-bottom:6px}.hstat{gap:2px}
+ .tabs{gap:5px;padding:6px 10px 3px}.tab{min-height:40px}}
+#infoPanel,#infoPanel details.finep{font-size:13.5px}
 </style>
 <script>(function(){/* Holiday themes, America/Chicago. Everyday default is Tarleton purple. ?theme=tarleton|red|charcoal|navy|none overrides for this load only (not saved). ?theme=off = none. */
 var D=document.documentElement,P="";
@@ -867,7 +883,7 @@ function syncMotion(){D.classList.toggle("th-paused",document.hidden)}apply();sy
 <div class="wx" id="wx" hidden></div>
 <details class="trf" id="trf" hidden></details><div class="trfq" id="trfq" hidden></div>
 <div class="bar chips1"><span id="st" style="display:contents"></span><span class="sep"></span><span id="ty" style="display:contents"></span></div>
-<div class="grid" id="list"></div>
+<div id="feedNote" class="feednote" role="status" hidden></div><div class="grid" id="list"></div>
 </section>
 
 <section class="pane" id="p-shift">
@@ -957,7 +973,7 @@ const BUILD=/*__BUILD__*/null;
 // Auto-update: GitHub Pages caches pages ~10 min, so poll version.json and reload when the page code changes.
 (function(){if(location.protocol==="file:"||!BUILD)return;const KEY="d83_reload_"+BUILD;
   async function check(){try{const r=await fetch("version.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)return;const v=(await r.json()).build;
-    if(v&&v!==BUILD){const k="d83_tried_"+v;const n=+(sessionStorage.getItem(k)||0);if(n>=3)return;sessionStorage.setItem(k,n+1);location.replace("./?v="+encodeURIComponent(v))}}catch(e){}}
+    if(v&&v!==BUILD){const k="d83_tried_"+v;const n=+(sessionStorage.getItem(k)||0);if(n>=3)return;sessionStorage.setItem(k,n+1);{const q=new URLSearchParams(location.search);q.set("v",v);location.replace("./?"+q.toString()+location.hash)}}}catch(e){}}
   setInterval(check,180000);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")check()});window.addEventListener("pageshow",e=>{if(e.persisted)check()});setTimeout(check,3000)})();
 const STATS=/*__STATS__*/null;
 const SCHED=/*__SCHED__*/null;
@@ -1345,13 +1361,36 @@ function openTk(i){const a=TK[i];if(!a)return;const det=document.getElementById(
     det.querySelector(".x").onclick=closeTk};
   draw(null);bk.hidden=false;box.classList.add("paused");bk.scrollTop=0;
   Promise.all([loadAllStations(),has?nearestHyd(a.LATITUDE,a.LONGITUDE,3):null]).then(([,h])=>{if(!det.hidden&&det.querySelector(".x"))draw(h)})}
+// ---- v79: City feed resilience. A 200 reply with 0 features citywide is a feed hiccup (citywide never drops below ~15),
+// not a quiet day: keep the last good list (dimmed) with a plain note and retry in 15 s. 20 s timeout, one request at a time,
+// a "Waiting on the City feed…" state before the first answer, never raw error text, "Updated" amber after 3 min, refresh on wake.
+let FEED_BUSY=false,FEED_OK_AT=0,FEED_GOOD=null,FEED_RETRY=0;const FEED_TIMEOUT_MS=20000,FEED_RETRY_MS=15000,FEED_AMBER_MS=180000;
+function feedNote(msg){const n=document.getElementById("feedNote"),L=document.getElementById("list");if(!n)return;
+  if(!msg){n.hidden=true;n.textContent="";L.classList.remove("fstale");return}n.innerHTML=msg;n.hidden=false;if(FEED_GOOD)L.classList.add("fstale")}
+function feedWaiting(){const L=document.getElementById("list");if(!FEED_GOOD&&L&&!L.querySelector(".fwait"))L.innerHTML='<div class="fwait" role="status"><span class="fspin" aria-hidden="true"></span>Waiting on the City feed…</div>'}
+function updAge(){const u=document.getElementById("upd");if(!u)return;const old=FEED_OK_AT&&Date.now()-FEED_OK_AT>FEED_AMBER_MS;u.classList.toggle("old",!!old);
+  if(FEED_OK_AT)u.title=old?`Last good City feed read ${tm(FEED_OK_AT)} CT (${Math.round((Date.now()-FEED_OK_AT)/60000)} min ago)`:"Live list refreshes every 60 s"}
+function feedRetry(){clearTimeout(FEED_RETRY);FEED_RETRY=setTimeout(load,FEED_RETRY_MS)}
+function feedBad(kind){   // kind: "empty" (0 calls citywide) or "down" (error, bad reply or timeout)
+  if(FEED_GOOD){feedNote(`<b>City feed ${kind==="empty"?"hiccup":"not answering"}</b>, showing last good data from ${tm(FEED_OK_AT)} CT. Retrying…`);}
+  else{const L=document.getElementById("list");L.innerHTML=`<div class="fwait" role="status"><span class="fspin" aria-hidden="true"></span>Waiting on the City feed…<small>${kind==="empty"?"It answered with no calls citywide, which means a hiccup on its end.":"It hasn't answered yet."} Trying again shortly.</small></div>`}
+  updAge();feedRetry()}
 async function load(){
-  try{const r=await fetch(URL_+"&_="+Date.now());const j=await r.json();if(j.error)throw new Error(j.error.message);
-    const all=(j.features||[]).map(f=>f.attributes);CITY_ACTIVE=all.length;renderTicker(all);
+  if(FEED_BUSY)return;FEED_BUSY=true;feedWaiting();
+  const ac=new AbortController(),to=setTimeout(()=>ac.abort(),FEED_TIMEOUT_MS);
+  try{let j=null;try{const r=await fetch(URL_+"&_="+Date.now(),{signal:ac.signal,cache:"no-store"});if(r.ok)j=await r.json()}catch(e){j=null}
+    if(!j||j.error||!Array.isArray(j.features)){feedBad("down");return}
+    if(!j.features.length){feedBad("empty");return}
+    const all=j.features.map(f=>f.attributes);FEED_GOOD=all;FEED_OK_AT=Date.now();clearTimeout(FEED_RETRY);feedNote("");
+    CITY_ACTIVE=all.length;renderTicker(all);
     data=all.map(a=>({...a,_st:[...new Set((a.Units||"").split(",").map(unitStation).filter(Boolean))]})).filter(a=>a._st.length);
-    LIVE_N=data.length;document.getElementById("upd").textContent=" · Updated "+tm(Date.now());try{renderHdr();renderCityDay()}catch(e){}renderLive();
-  }catch(e){document.getElementById("list").innerHTML='<div class="err">Could not load the City feed: '+esc(e.message)+'</div>'}
+    LIVE_N=data.length;document.getElementById("upd").textContent=" · Updated "+tm(FEED_OK_AT);updAge();try{renderHdr();renderCityDay()}catch(e){}renderLive();
+  }catch(e){console.warn("live",e);if(FEED_GOOD)feedNote(`<b>Live list problem</b>, showing data from ${tm(FEED_OK_AT)} CT. Retrying…`);feedRetry()}
+  finally{clearTimeout(to);FEED_BUSY=false}
 }
+function feedWake(){if(document.visibilityState!=="visible")return;if(Date.now()-FEED_OK_AT>30000)load();updAge()}
+document.addEventListener("visibilitychange",feedWake);window.addEventListener("pageshow",e=>{if(e.persisted)feedWake()});window.addEventListener("online",()=>load());
+setInterval(updAge,15000);
 document.getElementById("infoBtn").onclick=()=>document.getElementById("infoPanel").classList.toggle("on");
 load();setInterval(load,60000);  // v75: no Refresh button (it refreshes itself every 60 s); hydrants.json loads only when a fire call needs it
 
@@ -1406,7 +1445,7 @@ safe(fillYears,"years");safe(renderRuns,"runs");
 safe(()=>{const h=document.getElementById("rHist");if(h)h.innerHTML="<b>Data</b> = "+esc(HNOTE())+" Hours before the City feed use each unit&rsquo;s dispatch to in-service times from the backfilled history."},"hist");
 safe(()=>document.getElementById("since").innerHTML=`<b>Counts since ${esc(S.history_start?"Jan 1":S.logging_start_str)}${S.history_start?"":" CT"}</b> (${S.history_start?"earlier history backfilled, then the City feed":"logging start"}) · stats as of ${esc(S.generated_str)} CT · ${S.total_incidents_logged||0} HFD incidents logged, ${S.district_incidents||0} with a District 83 unit.`,"since");
 safe(()=>{const p=renderTour();if(p&&p.catch)p.catch(e=>console.error("render tour",e))},"tour");const _on=document.querySelector(".tab.on");if(_on&&_on.dataset.k==="transport")loadTransport();
-document.getElementById("wfrule").textContent=`A working fire is a fire where 5-inch hose went on the ground; January 1 through October 20 come from earlier history backfilled. Newer fires are live estimates. A live estimate is a call with a District 83 unit on it that meets any one of these: (1) a fire box on CAD ${S.working_fire_min||50}+ minutes from call time; (2) any fire call where a District Chief (D or DC unit) and the box first dispatched (3+ engines, ladders, squads or rescues; at most one released; ambulances not required) are all still on CAD ${S.dc_wf_min||25} minutes after the call and ${S.dc_wf_min||25} minutes after it first appeared in the City feed (whichever is later, so a call the feed lists late can’t qualify on lag alone); (3) any structure-fire box with 2+ units on it at the same time for more than ${S.multi_unit_wf_min||60} minutes (total time listed together); (4) any fire call with a Rehab (RH) or Cascade (CC) unit assigned, tagged right away since those units go only to working fires. Fire boxes: structure-fire types (house, apartment, store/commercial, building, high rise, townhome, warehouse, etc.) and 111 / 211–811 FIRE codes. An alarm upgrade (211–811) means more units were called; it counts only when the call also meets one of the rules above. Fire calls include fire events and trash, grass, vehicle and dumpster fires. Not counted: alarms, detectors, stand-bys, investigations, checks and gas leaks. Time on CAD is approximate (±5 min). A call can also be removed from this list by hand when it was not a working fire.`;
+document.getElementById("wfrule").textContent=`A working fire is a fire where 5-inch hose went on the ground; January 1 through October 20 come from earlier history backfilled. Newer fires are live estimates. A live estimate is a call with a District 83 unit on it that meets any one of these: (1) a fire box on CAD ${S.working_fire_min||50}+ minutes from call time; (2) any fire call where a District Chief (D or DC unit) and the box first dispatched (3+ engines, ladders, squads or rescues; at most one released; ambulances not required) are all still on CAD ${S.dc_wf_min||25} minutes after the call and ${S.dc_wf_min||25} minutes after it first appeared in the City feed (whichever is later, so a call the feed lists late can’t qualify on lag alone); (3) any structure-fire box with 2+ units on it at the same time for more than ${S.multi_unit_wf_min||60} minutes (total time listed together); (4) any fire call with a Rehab (RH) or Cascade (CC) unit assigned, tagged right away since those units go only to working fires. Fire boxes: structure-fire types (house, apartment, store/commercial, building, high rise, townhome, warehouse, etc.) and 111 / 211–811 FIRE codes. A 111 or 211–811 code means extra alarms were called (more units); it counts only when the call also meets one of the rules above. Fire calls include fire events and trash, grass, vehicle and dumpster fires. Not counted: alarms, detectors, stand-bys, investigations, checks and gas leaks. Time on CAD is approximate (±5 min). A call can also be removed from this list by hand when it was not a working fire.`;
 safe(renderWF,"wf");
 if(PTS){const k=curTabK();if(k==="metrics")renderMetrics();else if(k==="heat"){renderHeatTable();drawHeat()}}  // v70: only the open tab is redrawn (the other draws when it is opened)
 }
@@ -1444,8 +1483,8 @@ function renderWF(){
   const reBox=(res.length?res:["RE010"]).map(u=>{const fu=fires.filter(f=>(f.units||[]).some(x=>x.d&&wfNorm(x.u)===u)),inn=fu.filter(f=>STATIONS.includes(String(f.fd||""))).length,nl=fu.filter(f=>!f.fd).length;
     return `<div class="wfre" data-u="${esc(u)}"><div class="wfre-h">${pill(u,true)}<span>Rescue 10 · not part of the table above</span></div><div class="wfre-n"><span><b class="wfre-t">${fu.length}</b> Total Working Fires</span><span><b class="wfre-i">${inn}</b> Inside D83${nl?"*":""}</span></div><div class="note" style="padding:6px 0 0">RE010 has no first-due territory and runs to fires citywide, so most of its fires are outside District 83.${nl?` *At least: ${nl} of its fires ${nl===1?"has":"have"} no mapped location.`:""}</div></div>`}).join("");
   document.getElementById("wfUnits").innerHTML=tbl+reBox+`<div class="note" style="padding:8px 0 0">One count per fire per unit. District 83 engines, ladders and District Chiefs; manpower units (MPE/MPL) count with their engine or ladder. The rescue (RE010) is counted in its own box, apart from the table. A shift count follows the shift on duty, not a crew. Fires = working fires in the selection; one fire can have several units, and some had only the rescue or an ambulance.</div>`;
-  // headline: count, busiest unit (engines, ladders, chiefs), busiest shift
-  const ranked=main.map(u=>({u,n:val(u,"t")})).filter(x=>x.n).sort((a,b)=>b.n-a.n||a.u.localeCompare(b.u));const top=ranked.length?ranked.filter(x=>x.n===ranked[0].n):[];
+  // headline: count, busiest unit (engines and ladders; v79: District Chiefs D/DC and EMS Supervisors AS are not ranked, as on Run Counts), busiest shift
+  const ranked=main.filter(u=>!["D","DC","AS"].includes((String(u).toUpperCase().match(/^[A-Z]+/)||[""])[0])).map(u=>({u,n:val(u,"t")})).filter(x=>x.n).sort((a,b)=>b.n-a.n||a.u.localeCompare(b.u));const top=ranked.length?ranked.filter(x=>x.n===ranked[0].n):[];
   const sc=SHIFTS.map(x=>({x,n:fires.filter(f=>f.sh===x).length})).sort((a,b)=>b.n-a.n);const tops=WF_SH==="all"&&sc[0].n?sc.filter(x=>x.n===sc[0].n):[];
   // v47 Inside D83: fire location in the first-due area of Station 10, 69, 76 or 83 (same box map as Out of First-Due); no location = not counted
   const inD83=fires.filter(f=>STATIONS.includes(String(f.fd||""))).length;
@@ -1604,7 +1643,12 @@ const odt=ms=>{const p=parts(ms);return `${new Date(ms).toLocaleDateString([],{t
 // Out of First-Due Area: one row per (D83 unit -> station area it ran into), counted for the period and shift; tap a row for its runs
 function ooaPairs(all,sh){const P={};all.forEach(r=>{if(sh&&r[3]!==sh)return;const k=r[1]+"|"+r[2];(P[k]=P[k]||{k,u:r[1],to:r[2],runs:[]}).runs.push(r)});
   return Object.values(P).sort((a,b)=>b.runs.length-a.runs.length||a.u.localeCompare(b.u)||(+a.to)-(+b.to))}
-function ooaCard(Y,per,lag){const OP=O_PER==="month"&&Y.months?ooaMonth(Y,M_SEL):(Y.ooa_periods||{})[O_PER];const wl=lag&&O_PER==="week";
+// v79: the out-of-first-due lists (about 2/3 of stats.json) moved to ooa.json and load only for Run Counts or a report
+let OOA=null,OOA_AT=0,OOA_P=null;
+function ensureOoa(force){if(YS()!==S||S.ooa_periods&&!force&&Date.now()-OOA_AT<120000)return Promise.resolve();
+  if(OOA&&!force&&Date.now()-OOA_AT<120000){S.ooa_periods=OOA;return Promise.resolve()}
+  return OOA_P||(OOA_P=(async()=>{try{const r=await fetch("ooa.json?_="+Date.now(),{cache:"no-store"});if(r.ok){OOA=await r.json();OOA_AT=Date.now()}}catch(e){}if(OOA)S.ooa_periods=OOA})().finally(()=>{OOA_P=null}))}
+function ooaCard(Y,per,lag){if(Y===S&&!Y.ooa_periods){if(curTabK()==="runs")ensureOoa().then(()=>{if(S.ooa_periods&&curTabK()==="runs")renderRuns()});return `<div class="scard" id="ooaCard"><h3 class="sch">Out of First-Due Area</h3><div class="note" style="padding:8px 0 4px">Loading…</div></div>`}const OP=O_PER==="month"&&Y.months?ooaMonth(Y,M_SEL):(Y.ooa_periods||{})[O_PER];const wl=lag&&O_PER==="week";
   
   if(!OP&&!wl)return `<div class="scard" id="ooaCard"><h3 class="sch">Out of First-Due Area</h3><div class="note" style="padding:8px 0 4px">Not available for this period.</div></div>`;
   const by=wl?{}:OP.by||{};const all=wl?[]:OP.list||[];
@@ -1754,7 +1798,7 @@ const rN=(n,t)=>`<td class="n">${n}</td><td class="p">${t?Math.round(100*n/t)+"%
 function rBars(rows){const mx=Math.max(1,...rows.map(r=>r[1]));return `<div class="r-bars">${rows.map(([l,n])=>`<div class="r-br"><span class="r-bl">${esc(l)}</span><span class="r-bt"><i style="width:${(n/mx*100).toFixed(1)}%"></i></span><span class="r-bn">${n}</span></div>`).join("")}</div>`}
 const rTbl=(head,body,cls)=>`<table class="r-t ${cls||""}"><thead><tr>${head.map((h,i)=>h===""?"":`<th${head[i+1]===""?' colspan="2" class="c2"':""}>${h}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table>`;
 const rSec=(t,h)=>`<section class="r-sec"><h2>${t}</h2>${h}</section>`;
-async function openReport(per,sh){
+async function openReport(per,sh){try{await ensureOoa()}catch(e){}
   if(!isPast()&&!XT){try{const r=await fetch("transport.json?_="+Date.now(),{cache:"no-store"});if(r.ok)XT=await r.json()}catch(e){}}
   await ensurePoints();await loadFda();let XTD=null;try{XTD=await XD()}catch(e){}
   const Y=YS(),past=isPast();per=past?"ytd":(per||mPer());sh=SHIFTS.includes(sh)?sh:"";
@@ -2056,7 +2100,7 @@ function heatGuard(){const P=L.HeatLayer&&L.HeatLayer.prototype;if(!P||P._d83g)r
   const ic=P._initCanvas;if(ic)P._initCanvas=function(){const gc=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k,o){return gc.call(this,k,k==="2d"?Object.assign({willReadFrequently:true},o||{}):o)};try{return ic.apply(this,arguments)}finally{HTMLCanvasElement.prototype.getContext=gc}}}
 function loadScript(src){return new Promise((ok,no)=>{const e=document.createElement("script");e.src=src;e.crossOrigin="";e.onload=ok;e.onerror=no;document.head.appendChild(e)})}
 async function initHeat(){renderHeatTable();if(HM){HM.invalidateSize();setTimeout(()=>HM.invalidateSize(),50);drawHeat();return}
-  try{if(!window.L)await loadScript("https://unpkg.com/leaflet@1.9.4/dist/leaflet.js");if(!L.heatLayer)await loadScript("https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js")}
+  try{if(!window.L)await loadScript("lib/leaflet-1.9.4.js");if(!L.heatLayer)await loadScript("lib/leaflet-heat-0.2.0.js")}
   catch(e){document.getElementById("hmap").innerHTML='<div class="err">Map library could not load (offline?). Try again in a minute.</div>';return}
   heatGuard();
   HM=L.map("hmap",{zoomControl:true,zoomSnap:0.25}).setView([29.725,-95.57],13);
@@ -2070,9 +2114,9 @@ async function initHeat(){renderHeatTable();if(HM){HM.invalidateSize();setTimeou
     this._fireEvent(best?[best]:false,e)}});
   HR=new NearCanvas({pane:"dots",padding:.5,tolerance:coarse?14:8});
   HPTS=L.layerGroup().addTo(HM);
-  [["10",29.70664689,-95.55147949],["69",29.75096437,-95.55835238],["76",29.69934028,-95.59608793],["83",29.72663116,-95.57731468]].forEach(([n,la,lo])=>L.marker([la,lo],{interactive:false,keyboard:false,icon:L.divIcon({className:"",html:`<div style="background:#8B0000;color:#fff;border:2px solid #f1c40f;border-radius:6px;padding:1px 4px;font-weight:800;font-size:12px;white-space:nowrap">Sta ${n}</div>`,iconSize:null})}).addTo(HM));
+  [["10",29.70664689,-95.55147949],["69",29.75096437,-95.55835238],["76",29.69934028,-95.59608793],["83",29.72663116,-95.57731468]].forEach(([n,la,lo])=>L.marker([la,lo],{interactive:false,keyboard:false,icon:L.divIcon({className:"",html:`<div style="background:#8B0000;color:#fff;border:2px solid #f1c40f;border-radius:6px;padding:1px 4px;font-weight:800;font-size:13px;white-space:nowrap">Sta ${n}</div>`,iconSize:null})}).addTo(HM));
   fetch("neighbors.json?v="+encodeURIComponent(BUILD||"")).then(r=>r.ok?r.json():null).then(ns=>{if(!ns||!HM)return;ns.forEach(n=>{L.polyline(n.lines,{color:"#9aa3b5",weight:1,opacity:.35,dashArray:"2 6",interactive:false}).addTo(HM);
-    L.marker(n.at,{interactive:false,keyboard:false,icon:L.divIcon({className:"",html:`<div style="color:#b9bfcc;opacity:.75;font-size:12px;font-weight:650;letter-spacing:.3px;white-space:nowrap;text-shadow:0 1px 2px #000">D${esc(n.d)}</div>`,iconSize:null})}).addTo(HM)})}).catch(()=>{});
+    L.marker(n.at,{interactive:false,keyboard:false,icon:L.divIcon({className:"",html:`<div style="color:#b9bfcc;opacity:.75;font-size:13px;font-weight:650;letter-spacing:.3px;white-space:nowrap;text-shadow:0 1px 2px #000">D${esc(n.d)}</div>`,iconSize:null})}).addTo(HM)})}).catch(()=>{});
   fetch("d83area.json?v="+encodeURIComponent(BUILD||"")).then(r=>r.ok?r.json():null).then(ls=>{if(ls&&HM)L.polyline(ls,{color:"#e6d3a3",weight:1.5,opacity:.55,dashArray:"5 5",interactive:false}).addTo(HM)}).catch(()=>{});
   const fit=()=>{HM.invalidateSize();HM.fitBounds([[29.657,-95.631],[29.791,-95.513]],{padding:[10,10]})};fit();setTimeout(fit,150);
   drawHeat()}
@@ -2127,11 +2171,11 @@ function renderHdr(){const el=document.getElementById("d83day");if(!el)return;co
 function renderCityDay(){const el=document.getElementById("cityday");if(!el)return;const c=S&&S.city;if(!c||c.city_today==null){el.hidden=true;return}
   const n=v=>Number(v).toLocaleString("en-US"),y=c.prev_complete;
   const ln=(k,t,p,u)=>`<div class="cdl"><span class="cdk">${k}</span><span class="cdt">Today <b>${n(t)}</b></span>`+(y?`<span class="dot">·</span>Yesterday <b>${n(p)}</b>`:"")+(u?`<span class="cdu">Incidents</span>`:"")+`</div>`;
-  el.innerHTML=`<span class="cdk">Citywide</span> today <b>${n(c.city_today)}</b>`+(y?`<span class="hdot">·</span>yesterday <b>${n(c.city_prev)}</b>`:"")+(CITY_ACTIVE!=null?`<span class="hdot">·</span><b>${CITY_ACTIVE}</b> active`:"");
+  el.innerHTML=`<span class="cdk">Citywide</span> since 6 AM <b>${n(c.city_today)}</b>`+(y?`<span class="hdot">·</span><span class="lfull">yesterday</span><span class="lshort">yest.</span> <b>${n(c.city_prev)}</b>`:"")+(CITY_ACTIVE!=null?`<span class="hdot">·</span><b>${CITY_ACTIVE}</b> active`:"");
   el.title=`Incidents (calls). Today = since ${c.since}; `+(y?`Yesterday = ${c.since} to ${c.since}, the City's official day. `:"")+`Citywide = every HFD call on the City's live feed that has an HFD unit; a call re-created at the same location counts once. The District 83 count on the line above is the 06:30 tour, as on By Shift.`;el.hidden=false}
 try{renderCityDay();renderHdr()}catch(e){}
 if(!TOURS[TODAY])loadTour(TODAY).catch(()=>{});
-async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();try{renderCityDay();renderHdr()}catch(e){}try{renderExtras()}catch(e){}WF_LIVE=new Set(S.wf_live||[]);TK_LIVE=new Set(S.tk_live||[]);if(PTS){const k=curTabK();if(k==="metrics"||k==="heat")await ensurePoints()}renderHistory()}catch(e){console.warn("stats.json",e)}}  // v70: the 2 MB points file is only re-read while Heat Map or Metrics is open
+async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();if(OOA&&!S.ooa_periods&&YS()===S)S.ooa_periods=OOA;if(curTabK()==="runs"&&Date.now()-OOA_AT>=120000)ensureOoa(true).then(()=>{try{renderRuns()}catch(e){}});try{renderCityDay();renderHdr()}catch(e){}try{renderExtras()}catch(e){}WF_LIVE=new Set(S.wf_live||[]);TK_LIVE=new Set(S.tk_live||[]);if(PTS){const k=curTabK();if(k==="metrics"||k==="heat")await ensurePoints()}renderHistory()}catch(e){console.warn("stats.json",e)}}  // v70: the 2 MB points file is only re-read while Heat Map or Metrics is open
 function staleCheck(){const el=document.getElementById("staleBar");if(!el)return;const g=S&&S.generated;if(location.protocol==="file:"||!g){el.hidden=true;return}
   const m=Math.floor((Date.now()-g)/60000);if(m<=15){el.hidden=true;return}
   el.innerHTML=`<b>History data is ${m>=120?Math.floor(m/60)+" h":m+" min"} old</b> (last update ${esc(dt(g))} CT)<small>Shift, run counts and maps may be behind. The Live tab still reads the City feed directly.</small>`+(BK_LINE||"")+(GH_DOWN?GH_LINE:"");el.hidden=false;ghCheck();bkCheck()}
@@ -2148,5 +2192,5 @@ async function ghCheck(){if(Date.now()-GH_AT<120000)return;GH_AT=Date.now();let 
     if(r.ok){const j=await r.json();down=(j.components||[]).some(c=>(c.name==="Actions"||c.name==="Pages")&&c.status&&c.status!=="operational")}}catch(e){down=false}
   const el=document.getElementById("staleBar");if(!el)return;const had=GH_DOWN;GH_DOWN=down;
   if(el.hidden)return;const x=el.querySelector(".ghline");if(down&&!x)el.insertAdjacentHTML("beforeend",GH_LINE);else if(!down&&x)x.remove()}
-loadStats().then(staleCheck).then(reportFromHash);try{wireReport()}catch(e){console.error("report",e)}setInterval(()=>loadStats().then(staleCheck),60000);setInterval(staleCheck,30000);staleCheck();
+(STATS&&STATS.generated&&Date.now()-STATS.generated<120000?Promise.resolve():loadStats()).then(staleCheck).then(reportFromHash);try{wireReport()}catch(e){console.error("report",e)}setInterval(()=>loadStats().then(staleCheck),60000);setInterval(staleCheck,30000);staleCheck();
 </script><div id="rpt" hidden role="dialog" aria-label="District 83 Report"><div class="rpt-ctl"><button type="button" class="r-print">Print / Save as PDF</button><button type="button" class="r-share">Share</button><button type="button" class="r-close">Close</button></div><div class="rpt-doc" id="rptDoc"></div></div></body></html>

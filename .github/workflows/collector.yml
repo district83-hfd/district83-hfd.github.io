@@ -5,6 +5,7 @@
 # when the new one is up, saves, and the new one restores that save. Restarts: GitHub's schedule (twice an hour) and
 # the Backup Logger only start a run when none is running; a run that finds another collector running exits at once.
 # Private data (citywide incident DB, report roll-ups, manual edits) never enters git: see .github/collector/state.sh.
+# v79: checkpoints kept 30 days (was 3); the fallback seed (draft release asset) is refreshed from a checkpoint when over 7 days old.
 # Box failback / rollback: see the comments at the end of this file.
 name: Collector
 run-name: ${{ inputs.handoff && 'Collector (handoff)' || (inputs.dry_run && 'Collector (dry run)' || 'Collector') }}
@@ -69,7 +70,11 @@ jobs:
         run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
       - uses: actions/upload-artifact@v4
         if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
-        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 30, compression-level: 0 }
+      - name: Refresh the fallback seed (only when it is over 7 days old)
+        if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
+        continue-on-error: true
+        run: bash state.sh seed
       - name: Clear checkpoint (1)
         if: steps.gate.outputs.go == '1' && !cancelled()
         run: rm -f out/state.enc
@@ -82,7 +87,7 @@ jobs:
         run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
       - uses: actions/upload-artifact@v4
         if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
-        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 30, compression-level: 0 }
       - name: Clear checkpoint (2)
         if: steps.gate.outputs.go == '1' && !cancelled()
         run: rm -f out/state.enc
@@ -95,7 +100,7 @@ jobs:
         run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
       - uses: actions/upload-artifact@v4
         if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
-        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 30, compression-level: 0 }
       - name: Clear checkpoint (3)
         if: steps.gate.outputs.go == '1' && !cancelled()
         run: rm -f out/state.enc
@@ -108,7 +113,7 @@ jobs:
         run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
       - uses: actions/upload-artifact@v4
         if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
-        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 30, compression-level: 0 }
       - name: Clear checkpoint (4)
         if: steps.gate.outputs.go == '1' && !cancelled()
         run: rm -f out/state.enc
@@ -121,7 +126,7 @@ jobs:
         run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
       - uses: actions/upload-artifact@v4
         if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
-        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 30, compression-level: 0 }
       - name: Clear checkpoint (5)
         if: steps.gate.outputs.go == '1' && !cancelled()
         run: rm -f out/state.enc
@@ -134,7 +139,7 @@ jobs:
         run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
       - uses: actions/upload-artifact@v4
         if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
-        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 30, compression-level: 0 }
       - name: Clear checkpoint (6)
         if: steps.gate.outputs.go == '1' && !cancelled()
         run: rm -f out/state.enc
@@ -147,14 +152,14 @@ jobs:
         run: bash state.sh snapshot && { [ ! -f STOPPED ] || touch SAVED; }
       - uses: actions/upload-artifact@v4
         if: steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && hashFiles('out/state.enc') != '' && !cancelled()
-        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 3, compression-level: 0 }
+        with: { name: d83-state, path: out/state.enc, overwrite: true, retention-days: 30, compression-level: 0 }
       - name: Clear checkpoint (7)
         if: steps.gate.outputs.go == '1' && !cancelled()
         run: rm -f out/state.enc
       - name: Dry-run output (for comparison with the live site)
         if: steps.gate.outputs.go == '1' && env.DRY_RUN == 'true'
         uses: actions/upload-artifact@v4
-        with: { name: dry-run-site, path: "site/index.html\nsite/stats.json\nsite/version.json\nsite/points.json\nsite/transport.json\nsite/tours/", retention-days: 2 }
+        with: { name: dry-run-site, path: "site/index.html\nsite/stats.json\nsite/version.json\nsite/points.json\nsite/ooa.json\nsite/transport.json\nsite/tours/", retention-days: 2 }
       - name: Keep the chain going
         if: always() && steps.gate.outputs.go == '1' && env.DRY_RUN != 'true' && !cancelled()
         run: |

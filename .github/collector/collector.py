@@ -439,6 +439,8 @@ def district_rows(c, where, params):
              **({"tg": tgm[r[0]]} if r[0] in tgm and not re.match(r"^[23]11\b", str(r[4] or "")) and (is_fire_box(r[4]) or r[0] in hose) else {})} for r in incs]
 
 HOSE_WHY = "5-inch hose on the ground (backfilled history)"   # v75: neutral wording (this text is in the public JSON)
+PUBLIC_SCRUB = re.compile(r"\([A-Z]{3} report\)")   # v79: old backfilled rows named an internal report; never publish it
+def public_scrub(s): return PUBLIC_SCRUB.sub("(backfilled history)", s)
 def _why(r, spans, uspans, bfk, hose):
     """Live rules for feed calls; HFD's own 5-inch-hose list is the truth for report calls and also tags any feed call on it."""
     if R.is_wf_excluded(r[0]): return None
@@ -1003,7 +1005,7 @@ def export_tours(c, district):
     for sd in sds:
         path = f"{TOURS_DIR}/{sd}.json"
         if sd < recent and os.path.exists(path): continue
-        write_if_changed(path, json.dumps({"sd": sd, "incidents": district_rows(c, "shift_date=?", (sd,))}, separators=(",", ":")))
+        write_if_changed(path, public_scrub(json.dumps({"sd": sd, "incidents": district_rows(c, "shift_date=?", (sd,))}, separators=(",", ":"))))
 
 def export_archives(c, cur_year):
     """archive/<year>/stats.json + points.json for each finished year. Automatic: written on the first poll after New Year,
@@ -1025,6 +1027,7 @@ def export_archives(c, cur_year):
 
 HYDRANTS = f"{BASE}/hydrants.json"
 VERSION = f"{BASE}/version.json"
+OOA = f"{BASE}/ooa.json"   # v79: out-of-first-due lists, loaded by the page only for Run Counts / reports
 
 def build_id(tpl, sched_js):
     """Changes only when page code/config changes (template, calendar, shift constant, hydrant data), never on stats updates."""
@@ -1081,6 +1084,7 @@ def _ntfy():
 
 def render(st):
     st.pop("_district", None)
+    st = dict(st); ooa = st.pop("ooa_periods", None)   # v79: kept out of the page and stats.json
     tpl = open(TEMPLATE).read()
     sched_js = json.dumps(SCHED, separators=(",", ":"))
     build = build_id(tpl, sched_js + json.dumps(_ntfy()))
@@ -1088,7 +1092,9 @@ def render(st):
                .replace("/*__SCHED__*/null", sched_js)
                .replace("/*__SHIFT_CHANGE__*/null", json.dumps(list(SHIFT_CHANGE)))
                .replace("/*__NTFY__*/null", json.dumps(_ntfy())))
-    for path, data in ((DASH, html), (STATS, json.dumps(st, indent=1)), (VERSION, json.dumps({"build": build}))):
+    out = [(DASH, html), (STATS, json.dumps(st, separators=(",", ":"))), (VERSION, json.dumps({"build": build}))]
+    if ooa is not None: out.append((OOA, json.dumps(ooa, separators=(",", ":"))))
+    for path, data in out:
         tmp = path + ".tmp"
         open(tmp, "w").write(data); os.replace(tmp, path)
 

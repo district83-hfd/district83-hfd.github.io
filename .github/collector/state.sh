@@ -1,10 +1,10 @@
 #!/bin/bash
 # Private collector state for GitHub Actions (v56). Nothing private is ever committed: the citywide incident DB,
 # the report-history roll-up DB and the hand-edited inputs travel only AES-256 encrypted (key = secret D83_STATE_KEY):
-#   state  -> Actions artifact "d83-state" (state.enc; overwritten at each checkpoint, kept 3 days)
+#   state  -> Actions artifact "d83-state" (state.enc; overwritten at each checkpoint, kept 30 days since v79)
 #   seed   -> draft release "collector-inputs", asset seed.enc   (box snapshot: used when it is newer than any artifact)
 #   inputs -> same draft release, asset inputs.enc              (backfill roll-up, manual units, WF exclusions, schedule)
-# Usage: state.sh restore | snapshot | inputs     (env: D83_BASE, D83_STATE_KEY, GH_TOKEN, GITHUB_REPOSITORY)
+# Usage: state.sh restore | snapshot | inputs | seed     (env: D83_BASE, D83_STATE_KEY, GH_TOKEN, GITHUB_REPOSITORY)
 set -euo pipefail
 B=$D83_BASE; R=$GITHUB_REPOSITORY; TAG=collector-inputs
 [ -n "${D83_STATE_KEY:-}" ] || { echo "D83_STATE_KEY secret missing"; exit 1; }
@@ -38,6 +38,16 @@ case "$1" in
     cp "$B/boxes.json" "$B/districts.json" "$B/.snap/" 2>/dev/null || true
     tar cz -C "$B/.snap" . | enc > "$B/out/state.enc"; rm -rf "$B/.snap"
     echo "snapshot $(du -h "$B/out/state.enc" | cut -f1)" ;;
+  seed)   # v79: refresh the fallback seed (draft release asset seed.enc) from the newest checkpoint when it is over 7 days old
+    [ -f "$B/out/state.enc" ] || { echo "no checkpoint to seed from"; exit 0; }
+    s=$(asset seed.enc); sid=${s%% *}; sat=${s#* }
+    if [ -n "$sid" ] && [ $(( $(date +%s) - $(date -d "$sat" +%s) )) -lt 604800 ]; then echo "seed is fresh ($sat)"; exit 0; fi
+    rid=$(gh api "repos/$R/releases?per_page=50" --jq "[.[] | select(.draft and .tag_name==\"$TAG\")][0].id")
+    [ -n "$rid" ] && [ "$rid" != null ] || { echo "no draft release $TAG"; exit 1; }
+    nid=$(gh api -X POST -H "Content-Type: application/octet-stream" "https://uploads.github.com/repos/$R/releases/$rid/assets?name=seed-new.enc" --input "$B/out/state.enc" --jq .id)
+    [ -n "$nid" ] || { echo "seed upload failed"; exit 1; }
+    [ -n "$sid" ] && gh api -X DELETE "repos/$R/releases/assets/$sid" >/dev/null
+    gh api -X PATCH "repos/$R/releases/assets/$nid" -f name=seed.enc >/dev/null && echo "seed refreshed (was ${sat:-none})" ;;
   inputs) inputs ;;
   *) echo "usage: state.sh restore|snapshot|inputs"; exit 2 ;;
 esac

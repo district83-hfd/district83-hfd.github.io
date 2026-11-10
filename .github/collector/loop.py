@@ -11,7 +11,7 @@ every HEARTBEAT s; pull first (backup-logger commits), never force; then start t
 (pushes made with the built-in token do not trigger workflows) unless one is already queued/running.
 Handoff: at NEXT_MIN the run starts its successor ("handoff" run). When this run sees a newer handoff run in
 progress it stops, the job saves state, and the successor restores it."""
-import calendar, json, os, shutil, subprocess, sys, time, traceback, glob, urllib.request
+import calendar, json, os, re, shutil, subprocess, sys, time, traceback, glob, urllib.request
 BASE = os.environ["D83_BASE"]; SITE = os.path.join(BASE, "site"); sys.path.insert(0, BASE)
 REPO = os.environ["GITHUB_REPOSITORY"]; RUN_ID = int(os.environ["GITHUB_RUN_ID"])
 START = float(os.environ.get("RUN_START") or time.time())
@@ -37,13 +37,17 @@ if os.path.exists(ST_FILE): S.update(json.load(open(ST_FILE)))
 def save_state(): json.dump(S, open(ST_FILE, "w"))
 
 # ---------- publishing (mirrors publish.sh) ----------
-COPY = ["stats.json", "version.json", "points.json", "transport.json", "fdareas.json", "d83area.json", "neighbors.json"]
+COPY = ["stats.json", "ooa.json", "version.json", "points.json", "transport.json", "fdareas.json", "d83area.json", "neighbors.json"]
 def stage():
     shutil.copyfile(f"{BASE}/District83_Dashboard.html", f"{SITE}/index.html")
     for f in COPY:
         if os.path.exists(f"{BASE}/{f}"): shutil.copyfile(f"{BASE}/{f}", f"{SITE}/{f}")
     os.makedirs(f"{SITE}/tours", exist_ok=True)
-    for f in glob.glob(f"{BASE}/tours/*.json"): shutil.copyfile(f, f"{SITE}/tours/{os.path.basename(f)}")
+    for f in glob.glob(f"{BASE}/tours/*.json"):   # v79: scrubbed on copy too, so an old cached tour file can't republish the report name
+        s = open(f).read()
+        t = re.sub(r"\([A-Z]{3} report\)", "(backfilled history)", s)
+        if t != s: open(f, "w").write(t)
+        shutil.copyfile(f, f"{SITE}/tours/{os.path.basename(f)}")
     if os.path.isdir(f"{BASE}/archive"): shutil.copytree(f"{BASE}/archive", f"{SITE}/archive", dirs_exist_ok=True)
 def fingerprint():
     r = sh(sys.executable, f"{BASE}/site_fp.py", SITE, timeout=60); return r.stdout.strip()
