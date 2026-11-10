@@ -895,6 +895,91 @@ def stripped(c, t0, t1):
     ev.sort(key=lambda e: -e[1])
     return {"units": units, "ev": ev}
 
+# ---- v77: Shift-change recap (Live): the tour that just ended, for the oncoming crew. Roll-ups only, from data already logged. ----
+RECAP_USUAL_N = 10          # "usual" = average of this many earlier tours worked by the same shift
+RECAP_OPEN_POLL_MS = 15 * 60000   # "open at shift change" needs an ok poll within 15 min after 06:30, else not shown yet
+LONG_MIN_RECAP = 90               # same 1:30 threshold as transport.LONG_MIN (the Transport tab long stays)
+
+def _sd_ms(sd):
+    d = date.fromisoformat(sd); return int(datetime(d.year, d.month, d.day, *SHIFT_CHANGE, tzinfo=TZ).timestamp() * 1000)
+
+def _st_calls(rows):
+    """Calls per station: a call counts once for each station that had a unit on it (same rule as Metrics), so they can add up to more than the total."""
+    n = {s: 0 for s in STATIONS}
+    for d in rows:
+        for s in {unit_station(x["u"]) for x in d["units"] if x["d"]}:
+            if s in n: n[s] += 1
+    return n
+
+def last_tour(c, district, strip, now=None):
+    """{sd, sh, t0, t1, calls, runs, st, usual, busiest, fires, empty, open, long, gaps} for the tour that ended at the last 06:30.
+    calls/rows = district_rows(shift_date) -- the same rows as tours/<sd>.json, By Shift and the header count.
+    busiest = busiest(run_table(...)) with the same inputs as the Run Counts "tour" period (re-created calls already one row)."""
+    now = now or now_ms()
+    cur_sd, _ = shift_date_of(now)
+    sd = (date.fromisoformat(cur_sd) - timedelta(days=1)).isoformat(); sh = shift_for_date(sd)
+    t0, t1 = _sd_ms(sd), _sd_ms(cur_sd)
+    rows = district_rows(c, "shift_date=?", (sd,))
+    twf, _ = working_fires(rows)
+    tiv = unit_intervals(c, [d["k"] for d in rows])
+    thv = [v for v in hosp_spans(c, t0 - 86400000, t1 + 86400000) if shift_date_of(v["a"])[0] == sd]
+    table = run_table(rows, {w["k"]: set(w["long_units"]) for w in twf}, tiv, thv)
+    # usual: the last RECAP_USUAL_N earlier tours this shift worked (from the year's rows), only tours after logging/history began
+    first = min(x for x in (int(c.execute("SELECT v FROM meta WHERE k='logging_start'").fetchone()[0]), backfill_meta(c, "history_start")) if x)
+    by = {}
+    for d in district: by.setdefault(d["sd"], []).append(d)
+    prev = sorted((s for s in by if s < sd and shift_for_date(s) == sh and _sd_ms(s) >= first), reverse=True)[:RECAP_USUAL_N]
+    usual = None
+    if prev:
+        sc = [_st_calls(by[s]) for s in prev]
+        usual = {"n": len(prev), "from": prev[-1], "to": prev[0], "calls": round(sum(len(by[s]) for s in prev) / len(prev), 1),
+                 "st": {s: round(sum(x[s] for x in sc) / len(sc), 1) for s in STATIONS}}
+    # fires and alarms: working fires (same rule and exclusions as the Working Fires tab) + extra alarms (a 111-811 code or ALARM_LEVEL 2+).
+    # ALARM_LEVEL 1 alone is the normal first-alarm assignment (gas leaks, non-emergency boxes too), so it is not listed by itself.
+    fires = []
+    for d in sorted(rows, key=lambda d: d["t"]):
+        du = [x["u"] for x in d["units"] if x["d"]]
+        alarm = is_multi_alarm(d["type"]) or (d.get("alarm") or 0) >= 2
+        if not du or not (d.get("why") or (alarm and not d.get("xwf"))): continue
+        fires.append({"t": d["t"], "type": d["type"], "addr": d["addr"], "cs": d["cs"], "alarm": d.get("alarm") or 0,
+                      "wf": int(bool(d.get("why"))), "units": du, "cad": d.get("cad")})
+    # station empty: Station Stripped events (all of a station's units on calls at once) that overlap the tour, cut to 06:30-06:30
+    empty = []
+    for st_, f, l, _sd, _sh, on in (strip or {}).get("ev", []):
+        a, b = max(f, t0), min(l, t1)
+        if b - a < STRIP_MIN_MS: continue
+        empty.append({"st": st_, "a": a, "b": b, "m": round((b - a) / 60000), "pre": int(f < t0), "post": int(l > t1)})
+    empty.sort(key=lambda e: e["a"])
+    # open at shift change: calls that came in before 06:30 and were still on the City feed at the first ok poll after 06:30, with a
+    # District 83 unit still on them then. (Calls reach the feed 5-10 min late, so a call from 06:25 can first show at 06:33: it still counts.)
+    q = (c.execute("SELECT MIN(ts) FROM polls WHERE ok>=1 AND ts>=? AND ts<?", (t1, t1 + RECAP_OPEN_POLL_MS)).fetchone() or [None])[0]
+    last_poll = (c.execute("SELECT MAX(ts) FROM polls WHERE ok=1").fetchone() or [0])[0] or 0
+    opn = None
+    if q:
+        opn = []
+        for d in district_rows(c, "call_time<? AND last_seen>=?", (t1, q)):
+            on = sorted(u for u, s_ in c.execute("SELECT unit, station FROM unit_incidents WHERE ikey=? AND last_seen>=?", (d["k"], q)) if s_)
+            if not on: continue
+            opn.append({"t": d["t"], "type": d["type"], "addr": d["addr"], "cs": d["cs"], "units": on, "now": int(d["ls"] >= last_poll)})
+        opn.sort(key=lambda o: o["t"])
+    # long hospital stays (over 1:30) by District 83 units arriving during the tour: same list as the Transport tab's long stays
+    lng = []
+    try:
+        import transport as T
+        T.init(c)
+        latest = c.execute("SELECT MAX(report_ts) FROM hosp_reports").fetchone()[0]
+        if latest:
+            for v in T._visits(c, t0, t1, latest):
+                if v["st"] and not v["stale"] and v["m"] > T.LONG_MIN:
+                    lng.append({"u": v["u"], "h": v["h"], "a": v["a"], "m": v["m"], "done": int(v["done"])})
+        lng.sort(key=lambda v: v["a"])
+    except Exception: log("recap transport error: " + traceback.format_exc())
+    seg = _coverage(c, t0, t1)   # polling breaks > 15 min inside the tour (counts there may be low)
+    gaps = [[a, b] for a, b in zip([t0] + [x[1] for x in seg], [x[0] for x in seg] + [min(t1, now)]) if b - a > STRIP_GAP_MS]
+    return {"sd": sd, "sh": sh, "t0": t0, "t1": t1, "calls": len(rows), "runs": sum(r["total"] for r in table),
+            "st": _st_calls(rows), "usual": usual, "busiest": busiest(table), "fires": fires, "empty": empty,
+            "open": opn, "open_poll": q, "long": lng, "long_min": LONG_MIN_RECAP, "gaps": gaps}
+
 def points_json(district, strip=None):
     units, types, locs, ui, ti, li, pts = [], [], [], {}, {}, {}, []
     def idx(m, lst, v):
@@ -972,6 +1057,9 @@ def refresh(c):
     try: strip = stripped(c, *year_bounds(st["year"]))
     except Exception: strip = None; log("stripped error: " + traceback.format_exc())
     if strip and strip.get("units"): st["roster"] = strip["units"]   # v76: station units for the Live unit status board
+    if st.get("is_current_year"):   # v77: shift-change recap (Live) for the tour that ended at the last 06:30
+        try: st["last_tour"] = last_tour(c, district, strip)
+        except Exception: log("last tour error: " + traceback.format_exc())
     write_if_changed(POINTS, points_json(district, strip))
     archived = export_archives(c, st["year"])
     try:

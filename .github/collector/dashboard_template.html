@@ -613,11 +613,54 @@ details.more>summary::after{font-size:13px}
 @media (max-width:640px){
  .ubw>summary{padding:10px 12px}
  .ubs{flex-basis:100%;margin-left:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
- .ubsc{text-align:center;padding:4px 2px;font-size:14px}
+ .ubsc{text-align:center;padding:4px 2px;font-size:14px;white-space:normal;line-height:1.25;min-width:0;min-height:40px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:4px}.ubk{white-space:nowrap}
  .ubw>summary::after{position:absolute;right:14px}.ubw>summary{position:relative;padding-right:34px}
  .ubg{grid-template-columns:minmax(0,1fr);gap:8px;padding:2px 10px 4px}
  .ubr{font-size:15px}.ubh{font-size:16px}
  .ubn{padding:6px 12px 12px}
+}
+/* v77 shift-change recap (Live) */
+.ltw{grid-column:1/-1;background:var(--card);border:1px solid var(--line);border-radius:14px;min-width:0}
+.ltw.ltop{border-color:#3d4a66;background:linear-gradient(180deg,rgba(141,180,226,.08),rgba(141,180,226,0) 60%),var(--card)}
+.ltw>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:10px 14px;min-height:48px;border-radius:14px;position:relative;padding-right:36px}
+.ltw>summary::-webkit-details-marker{display:none}
+.ltw>summary::after{content:"\25BE";color:var(--mut);font-size:15px;position:absolute;right:14px;top:50%;transform:translateY(-50%);transition:transform .15s}
+.ltw[open]>summary::after{transform:translateY(-50%) rotate(180deg)}
+@media (hover:hover){.ltw>summary:hover{background:#2a2d36}}
+.ltt{font-size:16px;font-weight:700;color:var(--txt)}.ltsh{font-weight:800}
+.ltd{font-size:14px;color:var(--mut)}.ltbr{display:none}
+.ltc{font-size:15px;color:#d6d9e2;margin-left:auto;white-space:nowrap}.ltc b{font-size:18px;color:var(--txt);font-variant-numeric:tabular-nums}
+.ltu{font-size:14px;color:var(--mut);margin-left:4px}
+.ltf{font-size:14px;font-weight:600;color:#f1c4c1;background:rgba(208,84,79,.15);border:1px solid rgba(208,84,79,.45);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.ltw.lbot .ltt{font-weight:650;color:#c9cbd4}.ltw.lbot{background:transparent}
+.ltg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:2px 14px 4px}
+.ltg section{background:#21242b;border:1px solid var(--line);border-radius:12px;padding:10px 12px 8px;min-width:0}
+.ltcol{display:flex;flex-direction:column;gap:10px;min-width:0}
+.ltg h4{margin:0 0 6px;font-size:15px;font-weight:700;color:var(--txt)}
+.ltb{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.ltb th{font-size:13px;font-weight:600;color:var(--mut);text-align:right;padding:2px 6px 4px}.ltb th:last-child,.ltb th:first-child{text-align:left}
+.ltb td{padding:7px 6px;border-top:1px solid var(--line);white-space:nowrap}.ltb td.n{text-align:right}.ltb td.b{font-weight:700;font-size:17px}.ltb td.m{color:var(--mut)}
+.ltb tr.tot td{font-weight:650;border-top:1px solid #3d4456}
+.ltb .lbu{white-space:nowrap}
+.ltr{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;font-size:14px;padding:6px 0;border-top:1px solid var(--line);color:#c9cbd4}
+.ltr:first-of-type{border-top:0}
+.ltr .ltm{color:var(--mut);font-variant-numeric:tabular-nums;padding-top:1px}
+.ltr .lti{min-width:0;overflow-wrap:anywhere;line-height:1.45}.ltr .lti b{color:var(--txt);font-weight:650}.ltr.f .lti>b{color:#f1c4c1}
+.ltp{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.ltwf{font-size:13px;font-weight:700;color:#f6d3d0;background:rgba(208,84,79,.25);border-radius:999px;padding:0 8px}.ltwf.on{color:#cfe0f5;background:rgba(141,180,226,.2)}
+.ltx{color:var(--mut);font-size:13px}.ltx2{color:var(--mut);font-size:14px}
+.lte{padding:6px 0;border-top:1px solid var(--line)}.lte:first-of-type{border-top:0}
+.lteh{display:flex;justify-content:space-between;gap:8px;font-size:15px}.lteh span{color:#c9cbd4;font-variant-numeric:tabular-nums}
+.ltel{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:3px;font-size:13px;color:var(--mut);font-variant-numeric:tabular-nums}.ltel b{color:#c9cbd4;font-weight:600}
+.ltnone{font-size:14px;color:var(--mut);padding:2px 0}
+.ltn{font-size:13px;color:var(--mut);padding:6px 14px 12px;line-height:1.4}
+@media (min-width:641px) and (max-width:980px){.ltg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){
+ .ltw>summary{padding:10px 34px 10px 12px;gap:4px 10px}
+ .ltc{margin-left:0}.ltbr{display:block;flex-basis:100%;height:0}.ltdx{display:none}
+ .ltg{display:flex;flex-direction:column;gap:8px;padding:2px 10px 4px}.ltcol{display:contents}
+ .ltr{font-size:15px}.ltb{font-size:16px}.ltnone{font-size:15px}.lteh{font-size:16px}.ltel{font-size:14px}.ltx2{font-size:15px}
+ .ltn{padding:6px 12px 12px}
 }
 </style>
 <script>(function(){/* v63 Halloween theme switch: on only when the America/Chicago date is Oct 31 (any year); ?theme=halloween forces on, ?theme=off forces off */
@@ -636,6 +679,7 @@ apply();setInterval(apply,60000);document.addEventListener("visibilitychange",fu
 <div class="tabs" id="tabs"></div>
 <div id="infoPanel"><div class="feat"><h3>What This Dashboard Does</h3><ul>
 <li><b>Live</b> &ndash; D83 calls, refreshed every 60 sec; filter by station or type</li>
+<li><b>Shift recap</b> &ndash; 06:30 to 10:30 on Live: the tour that just ended (calls by station against that shift's usual, busiest unit, working fires and alarms, station empty times, calls still open at 06:30, hospital stays over 1:30). After 10:30 it is the Last shift line at the bottom of Live.</li>
 <li><b>Units on calls</b> &ndash; District 83 units the City feed lists on an active call, by station; a station is empty when all its station units are on calls (District Chief and EMS Supervisor not counted). Not on a call does not mean in quarters.</li>
 <li><b>City fire ticker</b> &ndash; citywide structure fires with 3+ heavy apparatus (engines, ladders, MPE/MPL); Working fire = box 50+ min, District Chief + full box 25+ min, structure box with 2+ units 60+ min, or a Rehab/Cascade unit</li>
 <li><b>Navigate</b> &ndash; Apple or Google Maps from the station or your location</li>
@@ -912,7 +956,7 @@ function ubState(){const R=(S&&S.roster&&Object.keys(S.roster).length)?S.roster:
 function ubHtml(){const U=ubState();if(UB_OPEN===null)UB_OPEN=!matchMedia("(max-width:640px)").matches;
   const emp=U.st.filter(o=>o.empty);
   const calls=U.calls>=2?`<span class="ubc" title="District 83 incidents active at the same time">${U.calls} calls at once</span>`:U.calls===1?`<span class="ubc">1 active call</span>`:`<span class="ubc">No active calls</span>`;
-  const chips=U.st.map(o=>`<span class="ubsc${o.empty?" emp":""}" title="Station ${o.s}: ${o.nOn} of ${o.slots.length} station units on a call${o.empty?" (station empty)":""}">${o.empty?"":"Sta "}${o.s}${o.empty?" empty":""} <b>${o.nOn}</b>/${o.slots.length}</span>`).join("");
+  const chips=U.st.map(o=>`<span class="ubsc${o.empty?" emp":""}" title="Station ${o.s}: ${o.nOn} of ${o.slots.length} station units on a call${o.empty?" (station empty)":""}">${o.empty?"":"Sta "}${o.s}${o.empty?" empty":""} <span class="ubk"><b>${o.nOn}</b>/${o.slots.length}</span></span>`).join("");
   const cards=U.st.map(o=>{const rows=o.on.map(({u,d})=>{const m=Math.max(0,Math.round((U.now-(+d.CALL_TIME||U.now))/60000));const f=tone(d.IncidentType,d.ALARM_LEVEL)==="t-fire";
       return `<div class="ubr${f?" f":""}">${pill(u,true)}<span class="ubi" title="${esc(d.IncidentType||"")} · ${esc(d.Address||"")}"><b>${esc(ubType(d.IncidentType))}</b> · ${esc(d.Address||"—")}</span><span class="ubm" title="since the call came in">${fmtMin(m)}</span></div>`}).join("");
     const free=o.free.length?`<span class="ubfree" title="Not on an active call in the City feed"><span class="ubfl">Not on a call</span>${o.free.map(u=>pill(u,true)).join("")}</span>`:"";
@@ -920,6 +964,42 @@ function ubHtml(){const U=ubState();if(UB_OPEN===null)UB_OPEN=!matchMedia("(max-
   return `<details class="ubw" id="ubw"${UB_OPEN?" open":""}><summary><span class="ubt">Units on calls</span>${calls}<span class="ubs">${chips}</span></summary>`+
     `<div class="ubg">${cards}</div><div class="ubn">From the City feed, which lists only units on active calls. Not on a call does not mean in quarters. Times are since the call came in. Station empty = all its station units on calls (District Chief and EMS Supervisor not counted).</div></details>`}
 function ubWire(){const el=document.getElementById("ubw");if(!el)return;el.querySelector("summary").addEventListener("click",()=>{UB_OPEN=!el.open;try{localStorage.setItem("d83_ub",UB_OPEN?"1":"0")}catch(e){}})}
+// v77 shift-change recap (Live, display only): the tour that just ended, for the oncoming crew. Built by the collector (stats.last_tour)
+// from the same rows as By Shift (calls), Run Counts (busiest unit), Working Fires, Station Stripped (station empty) and Transport (long stays).
+// 06:30-10:30 it sits near the top of Live (after fire cards, before the unit board); after 10:30 it steps aside to a one-line strip at the bottom.
+const LT_FROM=6*60+30,LT_TO=10*60+30;const LT_OPEN={};
+const ltMin=()=>{const p=parts(Date.now());return +p.hour*60+ +p.minute};
+const ltInWin=()=>{const m=ltMin();return m>=LT_FROM&&m<LT_TO};
+function ltData(){const L=typeof S!=="undefined"&&S&&S.last_tour;return L&&L.sd===addDays(TODAY,-1)&&Date.now()>=L.t1?L:null}
+function ltIsOpen(L,top){const k=L.sd+(top?":t":":b");if(k in LT_OPEN)return LT_OPEN[k];
+  if(top){try{const v=localStorage.getItem("d83_lt")||"";if(v.startsWith(k+"="))return v.endsWith("=1")}catch(e){}return !matchMedia("(max-width:640px)").matches}return false}
+const ltN=v=>v==null?"–":(Math.round(v*10)/10).toFixed(v>=20?0:1).replace(/\.0$/,"");
+const ltLoc=o=>esc(o.addr||"—")+(o.cs?` <span class="ltx">@ ${esc(o.cs)}</span>`:"");
+const ltDur=m=>m>=60?Math.floor(m/60)+"h "+String(m%60).padStart(2,"0")+"m":m+"m";
+function ltHtml(top){const L=ltData();if(!L)return"";const op=ltIsOpen(L,top);const U=L.usual;const day=fmtDay(L.sd);
+  const shc=`<span class="ltsh" style="color:${SHC[L.sh]||"inherit"}">${esc(L.sh)} Shift</span>`;
+  const wf=(L.fires||[]).filter(f=>f.wf).length,al=(L.fires||[]).length-wf;
+  const flag=[wf?`<span class="ltf">${wf} working fire${wf>1?"s":""}</span>`:"",al?`<span class="ltf">${al} alarm${al>1?"s":""}</span>`:""].join("");
+  const vsU=U?`<span class="ltu" title="Average of the last ${U.n} ${esc(L.sh)} Shift tours">usual ${ltN(U.calls)}</span>`:"";
+  const sum=(top?`<span class="ltt">${shc} recap</span><span class="ltd">${day}<span class="ltdx"> · 06:30 to 06:30</span></span>`
+               :`<span class="ltt">Last shift</span><span class="ltd">${shc} · ${day}</span>`)+`<span class="ltbr"></span><span class="ltc"><b>${L.calls}</b> calls ${vsU}</span>${flag}`;
+  // calls by station + busiest unit
+  const B=L.busiest||{};
+  const strow=STATIONS.map(s=>{const b=B[s];return `<tr><td>Sta ${s}</td><td class="n b">${(L.st||{})[s]??0}</td><td class="n m">${U?ltN(U.st[s]):"–"}</td><td class="lbu">${b?pill(b.unit,true)+` <span class="ltx">${b.total} run${b.total===1?"":"s"}</span>`:'<span class="ltx">–</span>'}</td></tr>`}).join("");
+  const secCalls=`<section class="lts1" style="order:1"><h4>Calls by station</h4><table class="ltb"><thead><tr><th></th><th>Calls</th><th>Usual</th><th>Busiest unit</th></tr></thead><tbody>${strow}<tr class="tot"><td>District 83</td><td class="n b">${L.calls}</td><td class="n m">${U?ltN(U.calls):"–"}</td><td><span class="ltx">${L.runs} runs</span></td></tr></tbody></table></section>`;
+  const secFire=`<section style="order:2"><h4>Working fires and alarms</h4>${(L.fires||[]).length?(L.fires||[]).map(f=>`<div class="ltr${f.wf?" f":""}"><span class="ltm">${tm(f.t)}</span><span class="lti"><b>${esc(ubType(f.type))}</b>${isMulti(f.type)?"":(+f.alarm||0)>=2?` · Alarm ${+f.alarm}`:""}${f.wf?' <span class="ltwf">Working</span>':""}<br>${ltLoc(f)}<span class="ltp">${f.units.map(u=>pill(u,true)).join("")}</span></span></div>`).join(""):'<div class="ltnone">None.</div>'}</section>`;
+  const secOpen=`<section style="order:3"><h4>Still open at 06:30</h4>${L.open==null?'<div class="ltnone">Not known yet.</div>':L.open.length?L.open.map(o=>`<div class="ltr"><span class="ltm">${tm(o.t)}</span><span class="lti"><b>${esc(ubType(o.type))}</b>${o.now?' <span class="ltwf on">Still open</span>':""}<br>${ltLoc(o)}<span class="ltp">${o.units.map(u=>pill(u,true)).join("")}</span></span></div>`).join(""):'<div class="ltnone">None.</div>'}</section>`;
+  const E=L.empty||[];const byS={};E.forEach(e=>(byS[e.st]=byS[e.st]||[]).push(e));
+  const secEmp=`<section style="order:4"><h4>Station empty</h4>${E.length?STATIONS.filter(s=>byS[s]).map(s=>{const es=byS[s],tot=es.reduce((a,e)=>a+e.m,0);
+      return `<div class="lte"><div class="lteh"><b>Sta ${s}</b><span>${es.length} time${es.length>1?"s":""} · ${ltDur(tot)}</span></div><div class="ltel">${es.map(e=>`<span title="${e.pre?"empty since before 06:30 · ":""}${e.post?"still empty at 06:30 · ":""}${tm(e.a)} to ${tm(e.b)}">${tm(e.a)} <b>${ltDur(e.m)}</b></span>`).join("")}</div></div>`}).join(""):'<div class="ltnone">No station was emptied.</div>'}</section>`;
+  const LG=L.long||[];
+  const secLong=`<section style="order:5"><h4>Hospital stays over 1:30</h4>${LG.length?LG.map(v=>`<div class="ltr"><span class="ltm">${tm(v.a)}</span><span class="lti">${pill(v.u,true)} <b>${ltDur(v.m)}</b>${v.done?"":' <span class="ltx">so far</span>'}<br><span class="ltx2">${esc(v.h)}</span></span></div>`).join(""):'<div class="ltnone">None.</div>'}</section>`;
+  const fill=Date.now()<L.t1+20*60000?"Still filling in: calls reach the City feed 5 to 10 minutes late. ":"";
+  const gap=(L.gaps||[]).length?`Feed break ${L.gaps.map(g=>tm(g[0])+"–"+tm(g[1])).join(", ")}: counts there may be low. `:"";
+  const note=`${fill}${gap}${U?`Usual = average of the last ${U.n} ${esc(L.sh)} Shift tours (${fmtDay(U.from)} to ${fmtDay(U.to)}). `:""}A call counts for each station with a unit on it, so stations add up to more than the total. Busiest unit = most runs (tie: most hours), as on Run Counts; District Chief and EMS Supervisor not ranked. Station empty = all of a station's units on calls at once, from the City feed (about every 5 min, so times are approximate; a unit out of service but not on a call is not seen). Hospital stays are from the Transport log.`;
+  return `<details class="ltw${top?" ltop":" lbot"}" id="ltw"${op?" open":""}><summary>${sum}</summary><div class="ltg"><div class="ltcol">${secCalls}${secEmp}</div><div class="ltcol">${secFire}${secLong}</div><div class="ltcol">${secOpen}</div></div><div class="ltn">${note}</div></details>`}
+function ltWire(){const el=document.getElementById("ltw");const L=ltData();if(!el||!L)return;const top=el.classList.contains("ltop");
+  el.querySelector("summary").addEventListener("click",()=>{const v=!el.open;LT_OPEN[L.sd+(top?":t":":b")]=v;if(top)try{localStorage.setItem("d83_lt",L.sd+":t="+(v?1:0))}catch(e){}})}
 function renderLive(){
   chips(document.getElementById("st"),STATIONS.map(s=>[s,"Sta "+s]),selSt);
   const types=[...new Set(data.map(d=>cat(d.IncidentType)[0]))].sort();
@@ -927,7 +1007,8 @@ function renderLive(){
   const L=document.getElementById("list");
   const rows=data.filter(d=>(!selSt.size||d._st.some(s=>selSt.has(s)))&&(!selTy.size||selTy.has(cat(d.IncidentType)[0])));
   const lr=d=>isWorkingNow(d)?0:(isCityWorkingFire(d)||isMulti(d.IncidentType)||(+d.ALARM_LEVEL||0)>=1)?1:2;rows.sort((a,b)=>lr(a)-lr(b)||(+b.CALL_TIME||0)-(+a.CALL_TIME||0));  // v75
-  if(!rows.length){L.innerHTML=ubHtml()+'<div class="empty">No active District 83 incidents'+(selSt.size||selTy.size?" match these filters":"")+'.</div>';ubWire();return}
+  const ltW=ltInWin();   // v77: recap near the top 06:30-10:30, then a one-line "Last shift" strip at the bottom
+  if(!rows.length){L.innerHTML=(ltW?ltHtml(true):"")+ubHtml()+'<div class="empty">No active District 83 incidents'+(selSt.size||selTy.size?" match these filters":"")+'.</div>'+(ltW?"":ltHtml(false));ubWire();ltWire();return}
   const ubAt=(i=>i<0?rows.length:i)(rows.findIndex(d=>lr(d)===2));   // v76: the board sits right after fires/alarms, before the other calls
   const cardsH=rows.map(d=>{const [c]=cat(d.IncidentType);const cls=tone(d.IncidentType,d.ALARM_LEVEL);const mins=Math.round((Date.now()-d.CALL_TIME)/60000);
     const units=unitsHtml((d.Units||"").split(",").filter(Boolean).map(u=>({u:u.trim()})));
@@ -937,7 +1018,7 @@ function renderLive(){
     return `<div class="card ${cls}${d.ALARM_LEVEL>=1||isMulti(d.IncidentType)?" alarm":""}"><div class="top"><span>${tm(d.CALL_TIME)} · ${mins} min ago · ${shiftOfDate(shiftDateOf(d.CALL_TIME))} Shift</span><span>Key Map ${esc(d.KeyMap||"—")}</span></div>
     <div class="addr">${esc(d.Address)}${d.CrossStreet?" @ "+esc(d.CrossStreet):""}</div><div class="type">${toneTag(cls)}<b class="ctype">${esc(d.IncidentType||"—")}</b>${alarmLbl(d.IncidentType,d.ALARM_LEVEL,n=>" — <b>Alarm "+n+"</b>")}${isWorkingNow(d)?" "+wfTag:""}${oo?" "+oo:""}</div>
     <div class="units">${units}</div>${map}${isFireCall(d.IncidentType,d.ALARM_LEVEL)?`<div id="${hk}">${hydHtml(hydCache[hk])}</div>`:""}</div>`});
-  cardsH.splice(ubAt,0,ubHtml());L.innerHTML=cardsH.join("");ubWire();
+  cardsH.splice(ubAt,0,(ltW?ltHtml(true):"")+ubHtml());if(!ltW)cardsH.push(ltHtml(false));L.innerHTML=cardsH.join("");ubWire();ltWire();
   if(!FDA)loadFda().then(j=>{if(j)renderLive()});
   rows.forEach(async d=>{if(!isFireCall(d.IncidentType,d.ALARM_LEVEL))return;const hk="h_"+String(d.CALL_TIME)+"_"+String(d.LATITUDE).replace(/\W/g,"");if(hydCache[hk])return;const r=await nearestHyd(d.LATITUDE,d.LONGITUDE,3);if(!r)return;if(!r.err)hydCache[hk]=r;const el=document.getElementById(hk);if(el)el.innerHTML=hydHtml(r)});
 }
