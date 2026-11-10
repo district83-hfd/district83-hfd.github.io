@@ -494,8 +494,6 @@ html.th-tarleton .cityday,html.th-charcoal .cityday,html.th-navy .cityday,html.t
 html.th-tarleton .cityday b,html.th-charcoal .cityday b,html.th-navy .cityday b,html.th-holiday .cityday b{color:#fff}
 html.th-tarleton .ticker,html.th-charcoal .ticker,html.th-navy .ticker,html.th-holiday .ticker{background:var(--tk-bg);border-bottom-color:var(--tk-bd)}
 html.th-tarleton .tk-lbl,html.th-charcoal .tk-lbl,html.th-navy .tk-lbl,html.th-holiday .tk-lbl{color:var(--tk-lbl)}
-html.th-tarleton .tk-item,html.th-charcoal .tk-item,html.th-navy .tk-item,html.th-holiday .tk-item{background:var(--tk-item);border-color:var(--tk-item-bd);color:var(--tk-item-fg)}
-html.th-tarleton .tk-item b,html.th-charcoal .tk-item b,html.th-navy .tk-item b,html.th-holiday .tk-item b{color:#fff}
 html.th-tarleton .tab.on,html.th-tarleton .chip.on,html.th-charcoal .tab.on,html.th-charcoal .chip.on,html.th-navy .tab.on,html.th-navy .chip.on,html.th-holiday .tab.on,html.th-holiday .chip.on{background:var(--tab-on);border-color:var(--tab-on-bd);color:#fff;box-shadow:none}
 html.th-tarleton .tab{border-color:#6B528F}
 html.th-tarleton .iconbtn{background:rgba(255,255,255,.12);border-color:rgba(210,203,227,.35)}
@@ -806,6 +804,13 @@ html.th-memorial .thicon::before,html.th-veterans .thicon::before{content:"";dis
  header{padding-bottom:6px}.hstat{gap:2px}
  .tabs{gap:5px;padding:6px 10px 3px}.tab{min-height:40px}}
 #infoPanel,#infoPanel details.finep{font-size:13.5px}
+/* v80: fire ticker chips stay bright red in every theme (including tarleton, red, charcoal, navy, and holidays).
+   The ticker bar background may stay themed; only the call items carry status color.
+   White text on #b3261e is 6.54:1; the Working Fire tag is a white pill with #9a1c16 text (8.23:1) so it stays visible on the red chip; Alarm N is #ffe08a (5.07:1). */
+.ticker .tk-item,.ticker .tk-item.tk-fire{background:#b3261e;border-color:#ff8a80;color:#fff}
+.ticker .tk-item b,.ticker .tk-item.tk-fire b{color:#fff}
+.ticker .tk-item .al{color:#ffe08a}
+.ticker .tk-item .wftag{background:#fff;color:#9a1c16}
 </style>
 <script>(function(){/* Holiday themes, America/Chicago. Everyday default is Tarleton purple. ?theme=tarleton|red|charcoal|navy|none overrides for this load only (not saved). ?theme=off = none. */
 var D=document.documentElement,P="";
@@ -1329,7 +1334,7 @@ const wfTag='<span class="wftag">Working Fire</span>';
 let TK=[],TK_SIG="";
 const reduceMotion=()=>window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
 const tkKey=a=>a.CALL_TIME+"|"+(a.Address||"")+"|"+(a.CrossStreet||"");
-function tkItem(a,i){return `<button type="button" class="tk-item" data-k="${esc(tkKey(a))}">${isWorkingNow(a)?wfTag+" ":""}<b>${esc(a.IncidentType)}</b>${alarmLbl(a.IncidentType,a.ALARM_LEVEL,n=>` <span class="al">Alarm ${n}</span>`)} · ${esc(a.Address||"")}${a.CrossStreet?" @ "+esc(a.CrossStreet):""} · KM ${esc(a.KeyMap||"—")} · ${tm(a.CALL_TIME)}</button>`}
+function tkItem(a,i){return `<button type="button" class="tk-item tk-fire" data-k="${esc(tkKey(a))}">${isWorkingNow(a)?wfTag+" ":""}<b>${esc(a.IncidentType)}</b>${alarmLbl(a.IncidentType,a.ALARM_LEVEL,n=>` <span class="al">Alarm ${n}</span>`)} · ${esc(a.Address||"")}${a.CrossStreet?" @ "+esc(a.CrossStreet):""} · KM ${esc(a.KeyMap||"—")} · ${tm(a.CALL_TIME)}</button>`}
 function renderTicker(all){const lvl=a=>isMulti(a.IncidentType)?+String(a.IncidentType).trim()[0]:(+a.ALARM_LEVEL||0);TK=all.filter(isTickerFire).sort((a,b)=>(isWorkingNow(b)-isWorkingNow(a))||lvl(b)-lvl(a)||b.CALL_TIME-a.CALL_TIME);
   const box=document.getElementById("ticker"),tr=document.getElementById("tkTrack"),det=document.getElementById("tkDetail");
   if(!TK.length){box.hidden=true;closeTk();TK_SIG="";return}
