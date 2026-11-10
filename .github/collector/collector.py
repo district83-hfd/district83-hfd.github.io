@@ -971,6 +971,7 @@ def refresh(c):
     export_tours(c, district)
     try: strip = stripped(c, *year_bounds(st["year"]))
     except Exception: strip = None; log("stripped error: " + traceback.format_exc())
+    if strip and strip.get("units"): st["roster"] = strip["units"]   # v76: station units for the Live unit status board
     write_if_changed(POINTS, points_json(district, strip))
     archived = export_archives(c, st["year"])
     try:
