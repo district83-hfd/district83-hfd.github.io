@@ -1329,7 +1329,14 @@ const isMultiUnitWF=a=>WF_LIVE.has(feedKey(a));
 const SUP_RE=/^(RH|CC)0*\d+$/,FW_RE=/\b(FIRE|FIRES|SMOKE|FLAMES?|EXPLOSION|EXPLOSIVE|BURNING|ON FIRE)\b/,NF_RE=/ALARM|DETECTOR|WATER ?FLOW|STAND-?BY|INVESTIGAT|\bCHECK\b|\bCK\b|WATCH|CARBON MONOXIDE|\bCO\b|GAS LEAK|GAS ODOR|ODOR OF GAS|NATURAL GAS|\bBURNS\b|BURN (INJ|PAT|VICT)/;
 const isFireTypeWF=a=>{const t=String(a.IncidentType||"").toUpperCase().trim();return isCityWorkingFire(a)||(FW_RE.test(t)&&!NF_RE.test(t))};
 const isSupportWF=a=>isFireTypeWF(a)&&String(a.Units||"").split(",").some(u=>SUP_RE.test(u.trim().toUpperCase()));
-const isWorkingNow=a=>(isCityWorkingFire(a)&&(Date.now()-a.CALL_TIME)/60000>=WF_MIN)||isMultiUnitWF(a)||isSupportWF(a);
+// v81: arson investigators in the City feed are ARS### (not AR#### airport units) and PGARSON. Fire boxes only.
+const ARSON_RE=/^ARS0*\d+$/,isArsonUnit=u=>{u=String(u||"").trim().toUpperCase();return u==="PGARSON"||ARSON_RE.test(u)};
+const isArsonWF=a=>isCityWorkingFire(a)&&String(a.Units||"").split(",").some(u=>isArsonUnit(u));
+const isWorkingNow=a=>{ // v81: live Working Fire tag needs 2+ heavies still on the current CAD list (the feed has no on-scene status). x11 extra alarms, RH/CC, and an arson unit (ARS/PGARSON) keep the tag even with one heavy. Ticker membership (isTickerFire / tk_live) is unchanged.
+  if(isSupportWF(a)||isArsonWF(a))return true;
+  const hit=(isCityWorkingFire(a)&&(Date.now()-a.CALL_TIME)/60000>=WF_MIN)||isMultiUnitWF(a);
+  return !!(hit&&(isMulti(a.IncidentType)||heavyCount(a)>=2));
+};
 const wfTag='<span class="wftag">Working Fire</span>';
 let TK=[],TK_SIG="";
 const reduceMotion=()=>window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;

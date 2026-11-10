@@ -57,7 +57,7 @@ def alarm_rank(t):
 # first_seen -> last_seen from our polls. We count the total time with 2+ unit spans overlapping (not time since call),
 # so a long single-unit watch with a brief second unit does not qualify.
 MULTI_UNIT_WF_MIN = 60
-WF_MIN = 50   # rule 1: fire box (structure types + x11 codes) on CAD 50+ min from call time (v44, 2026-10-23: was 45; tuned on the 5" hose list)
+WF_MIN = 50   # rule 1: fire box (structure types + x11 codes) on CAD 50+ min from call time (v44, 2026-10-23: was 45; tuned on the 5" hose list). v81: also needs 2+ heavy apparatus still assigned at or after that mark, unless the type is an x11 extra alarm (111/211–811 FIRE). RH/CC still tags immediately via rule 5; an ARS/PGARSON arson unit on a fire box also tags (even with one heavy). A box reduced to one heavy before 50 min is not a working fire under this rule unless one of those exceptions applies.
 
 def overlap2_ms(spans):
     """Total ms during which at least two of the [start, end] spans overlap."""
@@ -117,6 +117,19 @@ def is_support_wf(t, units):
     """units: unit ids, or (unit, first_seen, last_seen) tuples."""
     return is_fire_call(t) and any(is_support_unit(u[0] if isinstance(u, (tuple, list)) else u) for u in (units or ()))
 
+# v81: HFD arson / fire investigators in the City feed (confirmed against incidents.db, not guessed).
+# ARS### (ARS717–ARS769) appear on 49 incidents, 48 of them fire calls and 34 structure boxes.
+# PGARSON is a separate CAD id on 4 incidents (3 house fires, usually with ARS).
+# Do not treat AR#### (AR0854, AR2181, …) as arson: those are airport/terminal units (EMS, alerts, fuel) — 0 structure boxes.
+# No INV, FI, or FIU unit ids appear in the feed.
+ARSON_WF_RE = re.compile(r"^ARS0*\d+$")
+def is_arson_unit(u):
+    u = (u or "").strip().upper()
+    return u == "PGARSON" or bool(ARSON_WF_RE.match(u))
+def is_arson_wf(t, units):
+    """A structure-fire box with an arson investigator assigned is a working fire (v81; Jeramie: RH or arson)."""
+    return is_fire_box(t) and any(is_arson_unit(u[0] if isinstance(u, (tuple, list)) else u) for u in (units or ()))
+
 # v41 citywide fire ticker (owner, 2026-10-23): STRUCTURE fires only (structure-fire box types + x11 FIRE codes, i.e.
 # is_fire_box) that have had 3+ HEAVY apparatus assigned. Heavy = engines (E), ladders/trucks (L), towers (T, TW),
 # quints (Q) and MPE/MPL manpower units. Never squads, ambulances/medics, chiefs, RE, SF, RH/CC or any other unit.
@@ -129,6 +142,27 @@ def heavy_count(units):
     """units: unit ids, or (unit, ...) tuples."""
     return len({(u[0] if isinstance(u, (tuple, list)) else u or "").strip().upper() for u in (units or ()) if is_heavy(u[0] if isinstance(u, (tuple, list)) else u)})
 def is_ticker_fire(t, units): return is_structure_fire(t) and heavy_count(units) >= TICKER_MIN_HEAVY
+
+def cad_start_ms(call_time, inc_first_seen):
+    """Same clock as collector.cad_minutes: call time, or first seen if the call time is missing or later."""
+    if call_time and (inc_first_seen is None or call_time <= inc_first_seen): return call_time
+    return inc_first_seen
+
+def heavies_on_after(uspans, mark):
+    """Max simultaneous heavy apparatus still listed at any time t >= mark (inclusive first_seen..last_seen CAD spans).
+    The City feed has no dispatched/enroute/on-scene status; listed on the incident is what we have."""
+    if mark is None: return 0
+    ivs = []
+    for rec in uspans or ():
+        if not isinstance(rec, (tuple, list)) or len(rec) < 3: continue
+        u, f, l = rec[0], rec[1], rec[2]
+        if not is_heavy(u) or f is None or l is None or l < mark or f > l: continue
+        ivs.append(((u or "").strip().upper(), f, l))
+    if not ivs: return 0
+    times = set()
+    for u, f, l in ivs:
+        times.add(max(f, mark)); times.add(l)
+    return max(len({u for u, f, l in ivs if f <= t <= l}) for t in times)
 
 # Manual exclusions: calls removed from Working Fires by hand (wf_exclude.json next to this file).
 # Each entry: {"ikey": "<incident key>", "note": "..."} ; an "ikey" may also be the feed's CALL_TIME|Address|CrossStreet.
@@ -148,10 +182,17 @@ def is_wf_excluded(ikey): return ikey is not None and str(ikey) in wf_excluded_k
 def wf_reason(t, cad_min, spans, uspans=None, call_time=None, inc_first_seen=None, ikey=None):
     """Why a call is a working fire, or None. Rule 1 checked first so existing working fires keep their reason.
     spans: [(first_seen, last_seen)] per unit; rule 4 also needs uspans [(unit, first_seen, last_seen)], the call time
-    and when the incident was first seen; rule 5 (RH/CC unit on a fire call) needs uspans. A call listed in wf_exclude.json (by ikey) is never a working fire."""
+    and when the incident was first seen; rule 5 (RH/CC unit on a fire call) needs uspans. A call listed in wf_exclude.json (by ikey) is never a working fire.
+    v81 rule 1: a fire box on CAD 50+ min is a working fire only if 2+ heavy apparatus (E, L, T, TW, Q, MPE, MPL) were
+    still assigned at or after the 50-min mark, or the type is an x11 extra alarm. RH/CC (rule 5) and an arson unit (ARS/PGARSON)
+    on a fire box still tag even with one heavy. Needs call_time/inc_first_seen for the mark."""
     if is_wf_excluded(ikey): return None
-    if is_fire_box(t) and cad_min >= WF_MIN: return f"fire box on CAD {WF_MIN}+ min"
+    if is_fire_box(t) and cad_min >= WF_MIN:
+        start = cad_start_ms(call_time, inc_first_seen)
+        if is_multi(t) or (start is not None and heavies_on_after(uspans, start + WF_MIN * 60000) >= 2):
+            return f"fire box on CAD {WF_MIN}+ min"
     if uspans and is_support_wf(t, uspans): return "Rehab or Cascade unit assigned"
+    if uspans and is_arson_wf(t, uspans): return "Arson investigator assigned"
     if uspans and is_box_wf(t, call_time, inc_first_seen, uspans): return f"District Chief + full box on CAD {DC_WF_MIN}+ min"
     if is_multi_unit_wf(t, spans): return f"2+ units on CAD {MULTI_UNIT_WF_MIN}+ min"
     return None

@@ -618,8 +618,8 @@ def hosp_spans(c, lo, hi):
 def working_fires(rows):
     wf, other_long = [], []
     for d in rows:
-        # Working fire (d83rules.wf_reason): a fire box on CAD 50+ min, a District Chief + the full initial box still on
-        # CAD 25 min after the call, or a structure-fire box with 2+ units on it at the same time for 60+ min. Every District 83 unit on it gets credit.
+        # Working fire (d83rules.wf_reason): a fire box on CAD 50+ min with 2+ heavy apparatus still assigned at or after that mark (or an x11 extra alarm), a District Chief + the full initial box still on
+        # CAD 25 min after the call, a structure-fire box with 2+ units on it at the same time for 60+ min, an RH/CC unit, or an arson investigator (ARS/PGARSON) on a fire box. Every District 83 unit on it gets credit.
         du = [u["u"] for u in d["units"] if u["d"]]
         if not du: continue
         if d.get("why"): wf.append({**d, "long_units": du}); continue
