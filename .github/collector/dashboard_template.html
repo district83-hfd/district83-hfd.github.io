@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>D83 Dashboard</title>
+<title>D83 Dashboard (Unofficial)</title>
+<meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="D83"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#8B0000"><link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png"><link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png"><link rel="icon" href="favicon.ico" sizes="any"><link rel="manifest" href="manifest.json">
@@ -491,6 +492,96 @@ html.hw .hwline .hwb{display:inline-block;animation:hwbob 6s ease-in-out infinit
 @keyframes hwbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @media (prefers-reduced-motion:reduce){html.hw .hwline .hwb{animation:none}}
 }
+
+/* ---- v75: unofficial + slimmer header, one tour count, bigger text and taps, all tabs on screen, desktop width ---- */
+:root{--maxw:1240px}
+header{display:block;padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top))}
+.hwrap{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;flex-wrap:wrap;gap:6px 28px}
+.brand{flex:1 1 320px;gap:12px;align-items:center}
+.crest{width:48px;height:48px}
+header h1{font-size:19px;line-height:1.2;margin:0}
+header .sub{font-size:13px;opacity:.8;line-height:1.3}
+.brand .iconbtn{margin-left:auto;flex:0 0 auto;width:42px;height:42px}
+.hstat{display:flex;flex-direction:column;gap:3px;min-width:0}
+.hcount{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:600;color:#f6e6e3;line-height:1.25}
+.hcount b{font-size:20px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.hcount .shiftbig{font-size:20px;line-height:1.25;padding:1px 10px;border-radius:8px;flex:0 0 auto}
+.hdot{opacity:.55;margin:0 7px}
+.cityday{margin:0;font-size:14.5px;font-weight:600;color:#f3d6d0;line-height:1.3;align-self:auto}
+.cityday b{color:#fff}.cityday .cdk{display:inline;min-width:0;font-weight:750}
+@media (min-width:641px){.crest{width:60px;height:60px}header h1{font-size:22px}.hstat{align-items:flex-end;text-align:right;margin-left:auto}.cityday{font-size:15px}}
+@media (max-width:640px){header{padding:8px 12px;padding-top:max(8px,env(safe-area-inset-top))}.hwrap{gap:6px}.hstat{flex-basis:100%}.cityday{flex-basis:auto;margin:0}}
+@media (max-width:374px){.hcount{font-size:15px}.hcount b{font-size:18px}.cityday{font-size:13px}}
+/* ticker: always one line */
+.ticker{padding:3px 0 3px 12px}
+.tk-lbl{font-size:13px}
+.tk-item{font-size:13.5px;min-height:40px;padding:4px 12px}
+.wftag{font-size:13px;padding:1px 7px}
+@media (prefers-reduced-motion: reduce){.tk-track{flex-wrap:nowrap;white-space:nowrap}.tk-view{overflow-x:auto;scrollbar-width:none}.tk-view::-webkit-scrollbar{display:none}}
+/* tabs: one row on desktop, two even rows on phone (no hidden scroll) */
+.tabs{max-width:var(--maxw);margin:0 auto;padding:10px 16px 6px;flex-wrap:wrap;overflow:visible}
+.tab{min-height:42px;font-size:15px}.tab .ts{display:none}
+@media (max-width:640px){.tabs{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;padding:8px 10px 4px;overflow:visible}
+ .tab{grid-column:span 3;min-height:44px;padding:4px 2px;font-size:14.5px;justify-content:center;text-align:center;white-space:nowrap}
+ .tab:nth-child(n+5){grid-column:span 4}.tab .tl{display:none}.tab .ts{display:inline}}
+/* desktop: use the width with a centered column instead of a stretched phone layout */
+@media (min-width:1100px){
+ .pane,.stale{max-width:var(--maxw);margin-left:auto;margin-right:auto}
+ #infoPanel{max-width:calc(var(--maxw) - 32px);margin:4px auto 8px}
+ .ticker{padding-left:max(12px,calc((100% - var(--maxw))/2 + 16px))}
+ #p-shift .segwrap,#p-shift .tourpick,#p-shift .sec{max-width:900px;margin-left:auto;margin-right:auto}
+ #p-metrics .sec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;align-items:start}
+ #p-metrics .sec>*{grid-column:1/-1}#p-metrics .sec>#mpDow,#p-metrics .sec>#mpLoc,#p-metrics .sec>#mpMix,#p-metrics .sec>#mpStrip{grid-column:auto}
+ #hmap{height:560px}
+}
+/* text: 13 px floor for badges and labels, bigger body text on phone */
+.tag{font-size:13px;padding:2px 8px;letter-spacing:.4px}
+a{font-size:inherit}
+.top{font-size:14px}
+.note{font-size:13.5px}
+.sub,.srcl,.legend,.legend .u,.dirs .dl,.hyd .hh,.nrow .nl small,footer,th,.stat,.xsrc,.mpc,.ohd,.wfk .kl,.trf .tfoot,.tlabel small,.osh button .ot,.scard h3>span,.xtiles span,.rt th,.r-mut{font-size:13px}
+.nowtag{font-size:13px}.ooa,.cu .ooa{font-size:13px}.cu .u{font-size:13px;padding:1px 6px}
+.mbtn.sm,details.nav.sm>summary{font-size:13px}
+.hyd{font-size:14px}.hrow .note{font-size:13px}
+.rt.rc th,.rt.al th,.rt.rc.wk th,.rt.rc.wk th.dh .dn,.rt.rc.mo th.dlh,.rt.rc td.dl,.dtot .subh,.otr .subh,#xLong .subh,#p-metrics .subh{font-size:13px}
+.rt.rc td .u,.rt.al td .u,.rt.rc.wk td .u,.opr .u,.opr .odd{font-size:13px}
+.rt.rc tfoot td{font-size:13px}.rt.al td .note{font-size:13px}
+.mpn{font-size:13px}.rt.rc.wk td.n3{font-size:13px!important;letter-spacing:-.6px}
+.rt.rc td:has(.mpn) .u,.rt.rc.wk td:has(.mpn) .u{font-size:13px!important;padding:1px 3px!important;letter-spacing:-.4px}.rt.rc.wk td:has(.mpn) .mpn{font-size:13px;padding:0 1px}
+details.more>summary::after{font-size:13px}
+.seg.sm button{font-size:14px}
+.hleg small{font-size:13px}
+.tk-item .al{font-size:inherit}
+@media (max-width:640px){
+ body{font-size:16px}
+ .type{font-size:15px}.ca{font-size:15.5px}.ct{font-size:14px}
+ .note{font-size:14px}.xnow{font-size:15px}
+ details.more p,#infoPanel{font-size:15px}
+ .rt td,.rt.rc td,.rt.al td{font-size:14.5px}.rt.rc.wk tbody td,.dtot .rt.rc.wk tbody td{font-size:14px}
+ table{font-size:14px}
+ .rt.rc:not(.wk) tfoot td{font-size:13px}
+ .rt.rc.wk td.lb.lb2{font-size:13px}
+ /* 40 px tap targets */
+ .chip{min-height:42px;display:inline-flex;align-items:center;padding:8px 14px;font-size:15px}
+ .seg button,.seg.sm button{min-height:40px;padding:8px 13px;font-size:14.5px}
+ select,.ysel,.msel{min-height:42px;font-size:15px}
+ details.nav>summary,details.nav.sm>summary{min-height:42px;padding:8px 14px;font-size:15px}
+ .nrow a{min-height:42px}
+ .mbtn,.mbtn.sm{min-height:42px;font-size:14px}
+ .hfire,.rptbtn,.mcsv,.xbtn,.wfmore,.showall{min-height:42px}
+ .iconbtn{width:42px;height:42px}
+ .arrow{width:44px;height:44px}
+ .ginfo{display:inline-flex;align-items:center;justify-content:center;min-width:40px;min-height:40px;margin:-10px -10px;vertical-align:middle}
+ .srcl a,.trfq a,.trf .tfoot a,.xsrc a,#infoPanel a{display:inline-block;padding:12px 4px;margin:-12px -4px}
+ .leaflet-touch .leaflet-bar a{width:40px;height:40px;line-height:40px}
+ .trf summary{min-height:42px}
+ details.crow>summary{min-height:48px}
+}
+.scard h3 .bzb{font-size:13.5px}.scard h3 .bzb .u{font-size:13px;padding:1px 5px}
+.hb .nowtag,.dyl .nowtag{font-size:13px;padding:0 5px}.hb .nowtag{top:-20px}
+.hl{font-size:13px}.osh button .op{font-size:13px}.opr .ochv{font-size:13px}
+.lshort{display:none}
+@media (max-width:640px){.lfull{display:none}.lshort{display:inline}.wx{padding-top:6px}.tab{min-height:42px}}
 </style>
 <script>(function(){/* v63 Halloween theme switch: on only when the America/Chicago date is Oct 31 (any year); ?theme=halloween forces on, ?theme=off forces off */
 var D=document.documentElement,P="";try{P=new URLSearchParams(location.search).get("theme")||""}catch(e){}P=P.toLowerCase();
@@ -501,13 +592,10 @@ var tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.setAttribute(
 apply();setInterval(apply,60000);document.addEventListener("visibilitychange",function(){if(!document.hidden)apply()});
 })();</script>
 </head><body>
-<header><div class="brand"><picture><source type="image/webp" srcset="img/crest-96.webp 96w, img/crest-192.webp 192w" sizes="(min-width:641px) 86px, 68px"><img class="crest" src="img/crest-96.png" srcset="img/crest-96.png 96w, img/crest-192.png 192w" sizes="(min-width:641px) 86px, 68px" width="68" height="68" alt="District 83 crest" decoding="async"></picture><div class="btxt"><div class="org">Houston Fire Department</div><h1>District 83 Dashboard</h1><div class="sub">Stations 10 · 69 · 76 · 83 — <span id="upd">loading…</span> <span class="citycnt" id="city"></span></div><div class="hwline" aria-hidden="true"><span class="hwb">🎃</span> Happy Halloween</div></div></div><div class="cityday" id="cityday" hidden></div>
-<div class="hr"><div class="clockbox"><span class="shiftbig" id="onduty">—</span><span class="clock" id="clock">--:--:--</span></div><button class="iconbtn" id="infoBtn" aria-label="About This Data" title="About This Data">ⓘ</button><button id="ref">Refresh</button></div></header>
+<header><div class="hwrap"><div class="brand"><picture><source type="image/webp" srcset="img/crest-96.webp 96w, img/crest-192.webp 192w" sizes="(min-width:641px) 60px, 48px"><img class="crest" src="img/crest-96.png" srcset="img/crest-96.png 96w, img/crest-192.png 192w" sizes="(min-width:641px) 60px, 48px" width="48" height="48" alt="District 83 patch" decoding="async"></picture><div class="btxt"><h1>District 83 Dashboard</h1><div class="sub">Stations 10 · 69 · 76 · 83<span id="upd"></span></div><div class="hwline" aria-hidden="true"><span class="hwb">🎃</span> Happy Halloween</div></div><button class="iconbtn" id="infoBtn" aria-label="About This Data" title="About This Data">ⓘ</button></div><div class="hstat"><div class="hcount" id="hcount"><span class="shiftbig" id="onduty">—</span><span id="d83day">Shift today</span></div><div class="cityday" id="cityday" hidden></div></div></div></header>
 <div id="ticker" class="ticker" hidden><span class="tk-lbl">🔥 City Fires</span><div class="tk-view"><div class="tk-track" id="tkTrack"></div></div></div>
 <div id="tkBack" class="tkback" hidden><div id="tkDetail" class="tkdet" role="dialog" aria-modal="true" aria-label="Working fire details"></div></div>
 <div id="staleBar" class="stale" role="status" hidden></div>
-<div class="nb" id="nb26" hidden role="status"><b>New:</b> Run Counts now cover all of 2026. January 1 through October 20 comes from official HFD unit run reports; after that, from the City's live feed.<button class="nbx" id="nb26x" aria-label="Dismiss" title="Dismiss">&times;</button></div>
-<script>(function(){/* v45 temporary banner: hidden after Oct 31, 2026 00:00 CT or once dismissed */var K="d83_banner_runs2026",END=Date.parse("2026-10-31T00:00:00-05:00"),b=document.getElementById("nb26");var off=false;try{off=localStorage.getItem(K)==="1"}catch(e){}if(Date.now()<END&&!off)b.hidden=false;document.getElementById("nb26x").onclick=function(){b.hidden=true;try{localStorage.setItem(K,"1")}catch(e){}};})();</script>
 <div class="tabs" id="tabs"></div>
 <div id="infoPanel"><div class="feat"><h3>What This Dashboard Does</h3><ul>
 <li><b>Live</b> &ndash; D83 calls, refreshed every 60 sec; filter by station or type</li>
@@ -522,7 +610,7 @@ apply();setInterval(apply,60000);document.addEventListener("visibilitychange",fu
 <li><b>Heat Map &amp; Metrics</b> &ndash; hot spots, busy hours and days, top 10 locations</li>
 <li><b>Each year</b> &ndash; counts reset Jan 1; past years in the year menu</li>
 <li><b>History tabs</b> &ndash; update within a few minutes; a notice shows if late</li>
-</ul><p class="fnote">Public City feed: may lag or miss calls. Not official dispatch.</p></div><details class="more finep"><summary>&#9432; Details</summary><p id="since"></p><p id="srcnote">Source: City of Houston active incidents feed (public). Calls usually show up in the feed 5&ndash;10 minutes after call time. The Live tab reads the feed directly every 60 s. History tabs come from a logger that checks the feed every minute and publishes within a few minutes of a change (at least every 10 minutes); the feed has no history, so counts only cover what the logger saw. Unit times are approximate: they come from when a unit appeared and disappeared in the feed. A few units the feed dropped before they were logged are added from crew reports (counted as runs, with no time).</p>
+</ul><p class="fnote">Public City feed: may lag or miss calls. Not official dispatch.</p></div><details class="more finep"><summary>&#9432; Details</summary><p id="since"></p><p id="srcnote">Source: City of Houston active incidents feed (public). Calls usually show up in the feed 5&ndash;10 minutes after call time. The Live tab reads the feed directly every 60 s. History tabs come from a logger that checks the feed every minute and publishes within a few minutes of a change (at least every 10 minutes); the feed has no history, so counts only cover what the logger saw. Unit times are approximate: they come from when a unit appeared and disappeared in the feed. A few units the feed dropped before they were logged are added back by hand (counted as runs, with no time).</p>
 <p>District 83 units: E, L, T, TW, SQ, R, RS, RE, A, M and AS units of Stations 10, 69, 76 and 83, plus D83 (District 83 chief). Other units with those numbers (safety officers, investigators, other chiefs, etc.) are not counted.</p>
 <p>Working fire: a fire box (structure-fire type or a 111/211&ndash;811 code) on CAD 50+ minutes from call time, any fire call where a District Chief (D or DC unit) and the first-dispatched box (3+ fire apparatus; at most one released; ambulances not required) are still on CAD 25 minutes after the call and 25 minutes after it first appeared in the City feed (so a late-listed call can&rsquo;t qualify on feed lag), a structure-fire box with 2+ units on it at the same time for more than 60 minutes, or a Rehab (RH) or Cascade (CC) unit on a fire call. An alarm upgrade (211&ndash;811) alone does not make a working fire. When dispatch edits a call&rsquo;s time, the logger keeps it as one call.</p>
 <p>Out of area: a fire unit (E, L, T, TW, SQ, R, RS, RE) on a call in another station&rsquo;s first-due area, or D83 outside District 83, from the City&rsquo;s HFD box map (first-due station of the box the call&rsquo;s point falls in). Outside D83: the call&rsquo;s first-due station is in another HFD district (districts from the HFD Fire Stations page). Only District 83 units are counted. Calls within 150 m of another station&rsquo;s area (or another district, for the district count), or with no first-due on the map, are not counted. Ambulances and EMS supervisors are not counted. The City map may not show recent box changes.</p>
@@ -556,7 +644,7 @@ apply();setInterval(apply,60000);document.addEventListener("visibilitychange",fu
 <p><b>Out of First-Due Area</b> = District 83 fire units (engines, ladders, towers, squads, rescues and D083) on a call in another station&rsquo;s first-due area (City box map; calls within 150 m of a line are not counted). It follows the period above. The % is that shift&rsquo;s out-of-area runs out of all its fire-unit runs. Tap a shift to filter and a row to see its runs. Last Wk / Last Mo = the same unit and area in the previous week or month.</p>
 <p><b>MPE/MPL</b> = Manpower Engine and Manpower Ladder, small manpower units a station staffs when its engine or ladder is out of service (e.g. MPE083 runs for Station 83 while E083 is down). They count as District 83 fire units everywhere: their own row under the station, Out of First-Due Area, Call Type Mix, the unit filters and the report. For Station Stripped, MPE0xx stands in for E0xx and MPL0xx for L0xx.</p>
 <p><b>Working fires</b> are listed on the Working Fires tab.</p>
-<p>A few units the City feed dropped before they were logged are added from crew reports; they count as runs, with no time.</p></details></div>
+<p>A few units the City feed dropped before they were logged are added back by hand; they count as runs, with no time.</p></details></div>
 </section>
 
 <section class="pane" id="p-transport">
@@ -687,17 +775,16 @@ function fdOf(la,lo){if(!FDA||la==null||lo==null)return null;for(const st in FDA
 const fmtMin=m=>m>=60?Math.floor(m/60)+"h "+(m%60)+"m":m+"m";
 
 // tabs
-const TABS=[["live","Live"],["shift","By Shift"],["runs","Unit Run Counts"],["transport","Transport"],["wf","Working Fires"],["heat","Heat Map"],["metrics","Metrics"]];
-window.RPT_H0=location.hash;function showTab(k){try{closeNavs();NAV_OPEN.clear()}catch(e){/* first call runs before NAV_OPEN exists */}document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.dataset.k===k));document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="p-"+k));if(location.hash&&location.hash.slice(1)!==k)history.replaceState(null,"",location.pathname+location.search);if(k==="transport")loadTransport();if(k==="runs")try{renderRuns()}catch(e){/* runs code not loaded yet on first call; renderHistory draws it */}if(k==="heat"||k==="metrics")setTimeout(async()=>{await ensurePoints();if(k==="heat")initHeat();else renderMetrics()},0);/* v70: only the tab being opened is drawn (initHeat draws the table and the map itself) */const at=document.querySelector(".tab.on");if(at&&at.scrollIntoView)at.scrollIntoView({block:"nearest",inline:"center"})}
-document.getElementById("tabs").innerHTML=TABS.map(([k,l])=>`<div class="tab" data-k="${k}">${l}</div>`).join("");
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>showTab(t.dataset.k));
+const TABS=[["live","Live"],["shift","By Shift"],["runs","Unit Run Counts","Run Counts"],["transport","Transport"],["wf","Working Fires"],["heat","Heat Map"],["metrics","Metrics"]];
+window.RPT_H0=location.hash;function showTab(k){try{closeNavs();NAV_OPEN.clear()}catch(e){/* first call runs before NAV_OPEN exists */}document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.dataset.k===k));document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="p-"+k));if(location.hash&&location.hash.slice(1)!==k)history.replaceState(null,"",location.pathname+location.search);if(k==="transport")loadTransport();if(k==="runs")try{renderRuns()}catch(e){/* runs code not loaded yet on first call; renderHistory draws it */}if(k==="heat"||k==="metrics")setTimeout(async()=>{await ensurePoints();if(k==="heat")initHeat();else renderMetrics()},0);/* v70: only the tab being opened is drawn (initHeat draws the table and the map itself) */}  /* v75: every tab is on screen now, so no scrolling the strip */
+document.getElementById("tabs").innerHTML=TABS.map(([k,l,s])=>`<div class="tab" data-k="${k}" role="button" tabindex="0">${s?`<span class="tl">${l}</span><span class="ts">${s}</span>`:l}</div>`).join("");
+document.querySelectorAll(".tab").forEach(t=>{t.onclick=()=>showTab(t.dataset.k);t.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showTab(t.dataset.k)}}});
 showTab((location.hash.slice(1)&&TABS.some(t=>t[0]===location.hash.slice(1)))?location.hash.slice(1):"live");
 
 // on-duty badge
 let TODAY=shiftDateOf(Date.now());
-function tick(){const now=Date.now();const p=new Intl.DateTimeFormat("en-GB",{timeZone:TZ,hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}).format(new Date(now));
-  document.getElementById("clock").textContent=p;const ds=shiftDateOf(now);const sh=shiftOfDate(ds);
-  const el=document.getElementById("onduty");el.textContent=sh;el.title=sh+" shift on duty (shift date "+ds+")";
+function tick(){const now=Date.now();const ds=shiftDateOf(now);const sh=shiftOfDate(ds);
+  const el=document.getElementById("onduty");if(el.textContent!==sh){el.textContent=sh;el.title=sh+" Shift on duty (tour "+ds+", 06:30 to 06:30)";try{renderHdr()}catch(e){}}
   if(ds!==TODAY){onShiftChange(TODAY,ds)}}
 // 06:30 shift change while the page is open (or a phone resumes it): switch By Shift to the new on-duty shift,
 // reset tour picks, re-render, and pull fresh stats. Before this, the page kept showing the old shift until reloaded.
@@ -771,6 +858,7 @@ function renderLive(){
   chips(document.getElementById("ty"),types.map(t=>[t,t]),selTy);
   const L=document.getElementById("list");
   const rows=data.filter(d=>(!selSt.size||d._st.some(s=>selSt.has(s)))&&(!selTy.size||selTy.has(cat(d.IncidentType)[0])));
+  const lr=d=>isWorkingNow(d)?0:(isCityWorkingFire(d)||isMulti(d.IncidentType)||(+d.ALARM_LEVEL||0)>=1)?1:2;rows.sort((a,b)=>lr(a)-lr(b)||(+b.CALL_TIME||0)-(+a.CALL_TIME||0));  // v75
   if(!rows.length){L.innerHTML='<div class="empty">No active District 83 incidents'+(selSt.size||selTy.size?" match these filters":"")+'.</div>';return}
   L.innerHTML=rows.map(d=>{const [c]=cat(d.IncidentType);const cls=tone(d.IncidentType,d.ALARM_LEVEL);const mins=Math.round((Date.now()-d.CALL_TIME)/60000);
     const units=unitsHtml((d.Units||"").split(",").filter(Boolean).map(u=>({u:u.trim()})));
@@ -778,7 +866,7 @@ function renderLive(){
     const hk="h_"+String(d.CALL_TIME)+"_"+String(d.LATITUDE).replace(/\W/g,"");
     const f=fdOf(d.LATITUDE,d.LONGITUDE);const oo=f?ooaTag((d.Units||"").split(",").map(u=>u.trim()),f.fd,f.near,f.fdd,f.dn):"";
     return `<div class="card ${cls}${d.ALARM_LEVEL>=1||isMulti(d.IncidentType)?" alarm":""}"><div class="top"><span>${tm(d.CALL_TIME)} · ${mins} min ago · ${shiftOfDate(shiftDateOf(d.CALL_TIME))} Shift</span><span>Key Map ${esc(d.KeyMap||"—")}</span></div>
-    <div class="addr">${esc(d.Address)}${d.CrossStreet?" @ "+esc(d.CrossStreet):""}</div><div class="type">${toneTag(cls)}<b class="ctype">${esc(d.IncidentType||"—")}</b>${alarmLbl(d.IncidentType,d.ALARM_LEVEL,n=>" — <b>Alarm "+n+"</b>")}${oo?" "+oo:""}</div>
+    <div class="addr">${esc(d.Address)}${d.CrossStreet?" @ "+esc(d.CrossStreet):""}</div><div class="type">${toneTag(cls)}<b class="ctype">${esc(d.IncidentType||"—")}</b>${alarmLbl(d.IncidentType,d.ALARM_LEVEL,n=>" — <b>Alarm "+n+"</b>")}${isWorkingNow(d)?" "+wfTag:""}${oo?" "+oo:""}</div>
     <div class="units">${units}</div>${map}${isFireCall(d.IncidentType,d.ALARM_LEVEL)?`<div id="${hk}">${hydHtml(hydCache[hk])}</div>`:""}</div>`}).join("");
   if(!FDA)loadFda().then(j=>{if(j)renderLive()});
   rows.forEach(async d=>{if(!isFireCall(d.IncidentType,d.ALARM_LEVEL))return;const hk="h_"+String(d.CALL_TIME)+"_"+String(d.LATITUDE).replace(/\W/g,"");if(hydCache[hk])return;const r=await nearestHyd(d.LATITUDE,d.LONGITUDE,3);if(!r)return;if(!r.err)hydCache[hk]=r;const el=document.getElementById(hk);if(el)el.innerHTML=hydHtml(r)});
@@ -811,7 +899,7 @@ async function renderTransport(){const T=await XD();const past=isPast();
   const xdays=DOW.map((n,i)=>{const sd=addDays(XWS,i);return {sd,n,sh:shiftOfDate(sd),fut:sd>TODAY||sd<x0,today:sd===TODAY}});
   const xsum=(f)=>us.reduce((a,r)=>a+(+f(r)||0),0);
   const dc=(d,v)=>d.fut?`<td class="z fut${d.today?" td0":""}">–</td>`:`<td class="${v?"":"z"}${d.today?" td0":""}">${v||0}</td>`;
-  const dhead=xdays.map(d=>`<th scope="col" class="dh${d.today?" td0":""}"><span class="dn">${d.n}</span><span class="ds" style="color:${SHC[d.sh]||"inherit"}">${esc(d.sh)}</span></th>`).join("");
+  const dhead=xdays.map(d=>`<th scope="col" class="dh${d.today?" td0":""}"><span class="dn"><span class="lfull">${d.n}</span><span class="lshort">${String(d.n).slice(0,2)}</span></span><span class="ds" style="color:${SHC[d.sh]||"inherit"}">${esc(d.sh)}</span></th>`).join("");
   const by=P.by||{};const nar=XNARROW.matches;   // phones: drop Longest in This Week so the day columns stay readable
   const xcols=`<colgroup><col style="width:${nar?17:16}%">${xdays.map(()=>`<col style="width:${nar?7.6:7}%">`).join("")}<col style="width:${nar?11:10}%"><col style="width:${nar?18.8:12.5}%">${nar?"":'<col style="width:12.5%">'}</colgroup>`;
   if(!us.length)document.getElementById("xUnits").innerHTML=`<div class="note" style="padding:2px 0">No District 83 transports logged in this period.</div>`;
@@ -944,13 +1032,13 @@ function openTk(i){const a=TK[i];if(!a)return;const det=document.getElementById(
   Promise.all([loadAllStations(),has?nearestHyd(a.LATITUDE,a.LONGITUDE,3):null]).then(([,h])=>{if(!det.hidden&&det.querySelector(".x"))draw(h)})}
 async function load(){
   try{const r=await fetch(URL_+"&_="+Date.now());const j=await r.json();if(j.error)throw new Error(j.error.message);
-    const all=(j.features||[]).map(f=>f.attributes);document.getElementById("city").textContent="City: "+all.length+" Active Incidents";renderTicker(all);
+    const all=(j.features||[]).map(f=>f.attributes);CITY_ACTIVE=all.length;renderTicker(all);
     data=all.map(a=>({...a,_st:[...new Set((a.Units||"").split(",").map(unitStation).filter(Boolean))]})).filter(a=>a._st.length);
-    document.getElementById("upd").innerHTML="Live Updated "+tm(Date.now())+" · <span style=\"white-space:nowrap\">"+data.length+" Active Incident"+(data.length===1?"":"s")+"</span>";renderLive();
+    LIVE_N=data.length;document.getElementById("upd").textContent=" · Updated "+tm(Date.now());try{renderHdr();renderCityDay()}catch(e){}renderLive();
   }catch(e){document.getElementById("list").innerHTML='<div class="err">Could not load the City feed: '+esc(e.message)+'</div>'}
 }
 document.getElementById("infoBtn").onclick=()=>document.getElementById("infoPanel").classList.toggle("on");
-document.getElementById("ref").onclick=load;loadHyd();load();loadHyd().then(()=>{try{renderHistory()}catch(e){}});setInterval(load,60000);
+load();setInterval(load,60000);  // v75: no Refresh button (it refreshes itself every 60 s); hydrants.json loads only when a fire call needs it
 
 // ---- v66 weather line + TranStar crashes (both come inside stats.json, fetched by the collector) ----
 const TRF_MAP="https://traffic.houstontranstar.org/layers/",TRF_HOME="https://traffic.houstontranstar.org",TRF_DISC="https://traffic.houstontranstar.org/disclaimer.aspx";
@@ -960,7 +1048,7 @@ function wxLine(w,now){if(!w)return"";const parts=[];
     const age=Math.round((now-w.obs)/60000);if(age>75)parts.push(`<span class="wage">as of ${tm(w.obs)}</span>`)}
   const al=(w.alerts||[]).map(a=>`<span class="wchip ${["red","amber","blue","gray"].includes(a.k)?a.k:"gray"}" title="${esc(a.h||a.e)}">${esc(a.e)}</span>`).join("");
   if(!parts.length&&!al)return"";
-  return parts.join("")+al+`<span class="srcl"><a target="_blank" rel="noopener" href="https://www.weather.gov/hgx/">National Weather Service</a></span>`}
+  return parts.join("")+al+`<span class="srcl"><a target="_blank" rel="noopener" href="https://www.weather.gov/hgx/" title="National Weather Service"><span class="lfull">National Weather Service</span><span class="lshort">NWS</span></a></span>`}
 function trfHtml(t,now){if(!t||!t.fetched||now-t.fetched>30*60000)return null;
   const src=`<div class="tfoot">Source: <a target="_blank" rel="noopener" href="${TRF_HOME}">Houston TranStar</a> · <a target="_blank" rel="noopener" href="${TRF_MAP}">Live traffic map</a> · <a target="_blank" rel="noopener" href="${TRF_DISC}">Disclaimer</a> · crashes and hazards on District 83 roads, not official</div>`;
   const it=t.items||[];if(!it.length)return {none:`No reported crashes on District 83 roads · <a target="_blank" rel="noopener" href="${TRF_HOME}">Houston TranStar</a> · <a target="_blank" rel="noopener" href="${TRF_MAP}">Map</a> · <a target="_blank" rel="noopener" href="${TRF_DISC}">Disclaimer</a>`};
@@ -1000,10 +1088,10 @@ const curTabK=()=>{const on=document.querySelector(".tab.on");return on?on.datas
 const safe=(f,n)=>{try{return f()}catch(e){console.error("render "+(n||""),e)}};
 function renderHistory(){
 safe(fillYears,"years");safe(renderRuns,"runs");
-safe(()=>{const h=document.getElementById("rHist");if(h)h.innerHTML="<b>Data</b> = "+esc(HNOTE())+" Hours before the City feed use each unit&rsquo;s dispatch to in-service times from the reports."},"hist");
-safe(()=>document.getElementById("since").innerHTML=`<b>Counts since ${esc(S.history_start?"Jan 1":S.logging_start_str)}${S.history_start?"":" CT"}</b> (${S.history_start?"HFD records, then the City feed":"logging start"}) · stats as of ${esc(S.generated_str)} CT · ${S.total_incidents_logged||0} HFD incidents logged, ${S.district_incidents||0} with a District 83 unit.`,"since");
+safe(()=>{const h=document.getElementById("rHist");if(h)h.innerHTML="<b>Data</b> = "+esc(HNOTE())+" Hours before the City feed use each unit&rsquo;s dispatch to in-service times from the backfilled history."},"hist");
+safe(()=>document.getElementById("since").innerHTML=`<b>Counts since ${esc(S.history_start?"Jan 1":S.logging_start_str)}${S.history_start?"":" CT"}</b> (${S.history_start?"earlier history backfilled, then the City feed":"logging start"}) · stats as of ${esc(S.generated_str)} CT · ${S.total_incidents_logged||0} HFD incidents logged, ${S.district_incidents||0} with a District 83 unit.`,"since");
 safe(()=>{const p=renderTour();if(p&&p.catch)p.catch(e=>console.error("render tour",e))},"tour");const _on=document.querySelector(".tab.on");if(_on&&_on.dataset.k==="transport")loadTransport();
-document.getElementById("wfrule").textContent=`A working fire is a fire where HFD put 5-inch hose on the ground, per HFD unit run reports (January 1 through October 20 come from those reports). Newer fires are live estimates until a report confirms them. A live estimate is a call with a District 83 unit on it that meets any one of these: (1) a fire box on CAD ${S.working_fire_min||50}+ minutes from call time; (2) any fire call where a District Chief (D or DC unit) and the box first dispatched (3+ engines, ladders, squads or rescues; at most one released; ambulances not required) are all still on CAD ${S.dc_wf_min||25} minutes after the call and ${S.dc_wf_min||25} minutes after it first appeared in the City feed (whichever is later, so a call the feed lists late can’t qualify on lag alone); (3) any structure-fire box with 2+ units on it at the same time for more than ${S.multi_unit_wf_min||60} minutes (total time listed together); (4) any fire call with a Rehab (RH) or Cascade (CC) unit assigned, tagged right away since those units go only to working fires. Fire boxes: structure-fire types (house, apartment, store/commercial, building, high rise, townhome, warehouse, etc.) and 111 / 211–811 FIRE codes. An alarm upgrade (211–811) means more units were called; it counts only when the call also meets one of the rules above. Fire calls include fire events and trash, grass, vehicle and dumpster fires. Not counted: alarms, detectors, stand-bys, investigations, checks and gas leaks. Time on CAD is approximate (±5 min). A call can also be removed from this list by hand when it was not a working fire.`;
+document.getElementById("wfrule").textContent=`A working fire is a fire where 5-inch hose went on the ground; January 1 through October 20 come from earlier history backfilled. Newer fires are live estimates. A live estimate is a call with a District 83 unit on it that meets any one of these: (1) a fire box on CAD ${S.working_fire_min||50}+ minutes from call time; (2) any fire call where a District Chief (D or DC unit) and the box first dispatched (3+ engines, ladders, squads or rescues; at most one released; ambulances not required) are all still on CAD ${S.dc_wf_min||25} minutes after the call and ${S.dc_wf_min||25} minutes after it first appeared in the City feed (whichever is later, so a call the feed lists late can’t qualify on lag alone); (3) any structure-fire box with 2+ units on it at the same time for more than ${S.multi_unit_wf_min||60} minutes (total time listed together); (4) any fire call with a Rehab (RH) or Cascade (CC) unit assigned, tagged right away since those units go only to working fires. Fire boxes: structure-fire types (house, apartment, store/commercial, building, high rise, townhome, warehouse, etc.) and 111 / 211–811 FIRE codes. An alarm upgrade (211–811) means more units were called; it counts only when the call also meets one of the rules above. Fire calls include fire events and trash, grass, vehicle and dumpster fires. Not counted: alarms, detectors, stand-bys, investigations, checks and gas leaks. Time on CAD is approximate (±5 min). A call can also be removed from this list by hand when it was not a working fire.`;
 safe(renderWF,"wf");
 if(PTS){const k=curTabK();if(k==="metrics")renderMetrics();else if(k==="heat"){renderHeatTable();drawHeat()}}  // v70: only the open tab is redrawn (the other draws when it is opened)
 }
@@ -1066,14 +1154,14 @@ function renderWF(){
 // ---- By Shift: one tour at a time ----
 const SHIFTS=["A","B","C","D"];
 let SEL_SH=shiftOfDate(TODAY);const TOUR_SEL={};const TOURS={};let SHOW_ALL=false;
-const DATA_START=()=>S.history_start||S.logging_start;  // v43b: Jan 1 history from HFD records
-function HNOTE(){return S.history_start?`Jan 1 to ${S.history_end_str||"Oct 20"} CT from HFD records (District 83 units; locations at block level), then the City feed (logging began ${S.logging_start_str||"—"} CT).`:`Logging began ${S.logging_start_str||"—"} CT.`}
+const DATA_START=()=>S.history_start||S.logging_start;  // v43b: Jan 1 history (backfilled)
+function HNOTE(){return S.history_start?`Jan 1 to ${S.history_end_str||"Oct 20"} CT: earlier history backfilled (District 83 units; locations at block level), then the City feed (logging began ${S.logging_start_str||"—"} CT).`:`Logging began ${S.logging_start_str||"—"} CT.`}
 function logStartSd(){return DATA_START()?shiftDateOf(DATA_START()):TODAY}
 function lastTourOf(sh,from){let d=from||TODAY;for(let i=0;i<20&&shiftOfDate(d)!==sh;i++)d=addDays(d,-1);return d}
 function stepTour(sh,d,dir){let x=d;for(let i=0;i<20;i++){x=addDays(x,dir);if(shiftOfDate(x)===sh)return x}return d}
 const fmtDay=ds=>new Date(ds+"T12:00:00Z").toLocaleDateString([],{timeZone:"UTC",weekday:"short",month:"short",day:"numeric"});
 async function loadTour(sd,force){if(TOURS[sd]&&!force&&sd!==TODAY)return TOURS[sd];if(location.protocol==="file:")return TOURS[sd]={incidents:[]};
-  try{const r=await fetch(`tours/${sd}.json?g=${S.generated||Date.now()}`,{cache:"no-store"});TOURS[sd]=r.ok?await r.json():{incidents:[]}}catch(e){TOURS[sd]={incidents:[],err:1}}return TOURS[sd]}
+  try{const r=await fetch(`tours/${sd}.json?g=${S.generated||Date.now()}`,{cache:"no-store"});TOURS[sd]=r.ok?await r.json():{incidents:[]}}catch(e){TOURS[sd]={incidents:[],err:1}}if(sd===TODAY)try{renderHdr()}catch(e){}return TOURS[sd]}
 function crow(d){const cls=tone(d.type,d.alarm);const mine=d.units.filter(u=>u.d);
   return `<details class="crow ${cls}" data-k="${esc(d.k)}"><summary><span class="ct">${tm(d.t)}</span><span class="cg">${toneTag(cls)}</span><span class="ca">${esc(d.addr)}${d.cs?" @ "+esc(d.cs):""}</span><span class="cu">${mine.map(u=>pill(u.u,true)).join("")}${ooaTag(mine.map(u=>u.u),d.fd,d.fdn,d.fdd,d.fddn)}</span></summary>
   <div class="cdet"><div class="type">${esc(d.type)}${alarmLbl(d.type,d.alarm,n=>" — <b>Alarm "+n+"</b>")} · Key Map ${esc(d.km||"—")} · on feed ~${fmtMin(d.min)}</div><div class="units">${unitsHtml(d.units)}</div>${incNav("tour_"+d.k,d.lat,d.lon,d.addr+(d.cs?" @ "+d.cs:""),mine.map(u=>unitStation(u.u)),false)}${isFireCall(d.type,d.alarm)?hydHtml(nearestSync(d.lat,d.lon,3)):""}</div></details>`}
@@ -1089,11 +1177,12 @@ async function renderTour(){
   const open=new Set([...body.querySelectorAll("details.crow[open]")].map(e=>e.dataset.k));
   const t=await loadTour(sd);const rows=[...(t.incidents||[])].sort((a,b)=>b.t-a.t);
   if((TOUR_SEL[SEL_SH]||latest)!==sd)return;
+  if(!HYD&&!HYDP&&rows.some(d=>isFireCall(d.type,d.alarm)))loadHyd().then(()=>{if(HYD)renderTour()});  // v75: lazy hydrants for By Shift fire calls
   const n={f:0,e:0,v:0,o:0},uc={};rows.forEach(d=>{n[kind4(d.type)]++;d.units.filter(u=>u.d).forEach(u=>uc[u.u]=(uc[u.u]||0)+1)});
   const nU=Object.values(uc).reduce((a,x)=>a+x,0);
   const stt=(v,l,c)=>`<div class="stat${c?" "+c:""}"><b>${v}</b>${l}</div>`,dv='<span class="sdiv" aria-hidden="true"></span>';
   const sum=`<div class="sumrow">${stt(rows.length,"Call"+(rows.length===1?"":"s"))}${dv}${stt(nU,"Run"+(nU===1?"":"s"))}${dv}${stt(n.f,"Fire","fire")}${stt(n.e,"EMS","ems")}${stt(n.v,"MVI","mvi")}${stt(n.o,"Other")}</div>`;
-  const about='<details class="more about" style="margin-top:12px"><summary>ⓘ About This Data</summary><p><b>Tour</b> = 06:30 to 06:30 the next morning (CT), worked by one shift.</p><p><b>Call</b> = one District 83 incident. <b>Run</b> = one unit on one call (3 District 83 units on one call = 3 runs), the same count as Run Counts and Metrics.</p><p><b>Fire, EMS, MVI and Other</b> use the same call types as Metrics: Fire includes alarms and vehicle fires; MVI = motor vehicle incidents (crashes, pedestrian and motorcycle calls).</p><p>Calls usually reach the City feed 5&ndash;10 minutes after call time. A few units the feed dropped are added from crew reports.</p></details>';
+  const about='<details class="more about" style="margin-top:12px"><summary>ⓘ About This Data</summary><p><b>Tour</b> = 06:30 to 06:30 the next morning (CT), worked by one shift.</p><p><b>Call</b> = one District 83 incident. <b>Run</b> = one unit on one call (3 District 83 units on one call = 3 runs), the same count as Run Counts and Metrics.</p><p><b>Fire, EMS, MVI and Other</b> use the same call types as Metrics: Fire includes alarms and vehicle fires; MVI = motor vehicle incidents (crashes, pedestrian and motorcycle calls).</p><p>Calls usually reach the City feed 5&ndash;10 minutes after call time. A few units the feed dropped are added back by hand.</p></details>';
   if(!rows.length){body.innerHTML=sum+'<div class="note" style="padding:8px 0">No District 83 calls logged for this tour.</div>'+about;return}
   const LIM=15,shown=SHOW_ALL?rows:rows.slice(0,LIM);
   body.innerHTML=sum+`<div class="calls">${shown.map(crow).join("")}</div>`+(rows.length>LIM&&!SHOW_ALL?`<button class="showall" id="showAll">Show All ${rows.length} Calls</button>`:"")+about;
@@ -1165,7 +1254,7 @@ function renderRuns(){
   const wk=R_PER==="week";const days=DOW.map((n,i)=>{const sd=addDays(WS,i);return {sd,n,sh:shiftOfDate(sd),fut:sd>TODAY||sd<logStartSd(),today:sd===TODAY}});
   const hr=h=>(h==null?"—":(+h).toFixed(1));const sum=(us,f)=>us.reduce((a,r)=>a+(+f(r)||0),0);
   const cols=wk?`<col class="c-u">${days.map(()=>'<col class="c-d">').join("")}<col class="c-t"><col class="c-m"><col class="c-h">`:`<col class="c-u">${SHIFTS.map(()=>'<col class="c-s">').join("")}<col class="c-t"><col class="c-m"><col class="c-h">`;
-  const head=wk?`<th scope="col">Unit</th>${days.map(d=>`<th scope="col" class="dh${d.today?" td0":""}"><span class="dn">${d.n}</span><span class="ds" style="color:${SHC[d.sh]||"inherit"}">${esc(d.sh)}</span></th>`).join("")}<th scope="col">Total</th><th scope="col">MVI</th><th scope="col">Hrs</th>`
+  const head=wk?`<th scope="col">Unit</th>${days.map(d=>`<th scope="col" class="dh${d.today?" td0":""}"><span class="dn"><span class="lfull">${d.n}</span><span class="lshort">${String(d.n).slice(0,2)}</span></span><span class="ds" style="color:${SHC[d.sh]||"inherit"}">${esc(d.sh)}</span></th>`).join("")}<th scope="col">Total</th><th scope="col">MVI</th><th scope="col">Hrs</th>`
     :`<th scope="col">Unit</th>${SHIFTS.map(x=>`<th scope="col">${x}</th>`).join("")}<th scope="col">Total</th><th scope="col">MVI</th><th scope="col">Hrs</th>`;
   const num=v=>`<td class="${v?"":"z"}">${v||0}</td>`;
   const dcell=(d,v)=>d.fut?`<td class="z fut${d.today?" td0":""}">–</td>`:`<td class="${v?"":"z"}${d.today?" td0":""}${v>=100?" n3":""}">${v||0}</td>`;
@@ -1242,7 +1331,7 @@ function unitOpts(sel){const cur=sel.value;if(UO_.p!==PTS||UO_.n!==(PTS||[]).len
 function filt(unit,shift,type){const stn=unit&&unit.startsWith("st:")?unit.slice(3):null;return (PTS||[]).filter(d=>(!shift||d.sh===shift)&&(!type||cat0(d.type)===type)&&(!unit||(stn!==null?d.units.some(u=>u.d&&unitStation(u.u)===stn):d.units.some(u=>u.u===unit))))}
 function bars(el,rows,wide){const mx=Math.max(1,...rows.map(r=>r[1]));el.innerHTML=rows.length?rows.map(([l,n,t])=>`<div class="brow${wide?" wide":""}"><span class="bl" title="${esc(t||l)}">${esc(l)}</span><span class="btrack"><span class="bfill" style="display:block;width:${(n/mx*100).toFixed(1)}%"></span></span><span class="bn">${n}</span></div>`).join(""):'<div class="note" style="padding:0">Nothing logged yet.</div>'}
 // ---- Metrics (v29): period buttons + shift boxes like Heat Map / Out of First-Due Area ----
-let M_PER="week",M_SH="",M_HOUR=-1;  /* v35: All Shifts (A+B+C+D combined) is the default */
+let M_PER="month",M_SH="",M_HOUR=-1;  /* v75: opens on This Month (was This Week) */  /* v35: All Shifts (A+B+C+D combined) is the default */
 // v36: outage windows (polling gaps > 15 min, labelled by the collector) as a short data note
 function gapSpan(g){const a=parts(g[0]),b=parts(g[1]);const d=p=>`${+p.month}/${+p.day}`;return `${d(a)} ${tm(g[0])}–${d(a)===d(b)?"":d(b)+" "}${tm(g[1])}`}
 const isBk=g=>g[2]==="covered by backup";
@@ -1361,7 +1450,7 @@ async function openReport(per,sh){
   const chi=(o,e)=>o.reduce((a,x,i)=>a+(e[i]>0?(x-e[i])**2/e[i]:0),0),C01={1:6.63,2:9.21,3:11.34,4:13.28,5:15.09,6:16.81,7:18.48,8:20.09,9:21.67,10:23.21,11:24.72};
   const real=(o,e,f)=>o.length>1&&sum(o,x=>x)>=40&&chi(o,e)/Math.max(1,f||1)>C01[o.length-1];
   const MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],MF=["January","February","March","April","May","June","July","August","September","October","November","December"];
-  // ---- calls (City feed + HFD records from Jan 1), runs (Run Counts table) ----
+  // ---- calls (City feed + backfilled history from Jan 1), runs (Run Counts table) ----
   // ---- Rescue 10 (Special Operations) is reported on its own, not in District 83 fire suppression totals ----
   // its runs come out of every District 83 number; calls where it was the only District 83 unit drop out; it gets its own section
   const RX="RE010",isSO=u=>String(u||"").toUpperCase()===RX,hasSO=d=>(d.units||[]).some(x=>x.d&&isSO(x.u));
@@ -1483,7 +1572,7 @@ async function openReport(per,sh){
     if(SO.n)f1.push(`Rescue 10, a Special Operations unit, is reported separately and is not in the District 83 numbers above: ${P1(SO.n,"run")}${SOn?`, with ${pct(WWn,SOn)} of its calls worked with District 83 (inside the district or alongside another District 83 unit)`:""}.`);}
   const ls=DATA_START()||0,partial=!past&&ls&&ls>Date.parse(d0+"T06:30:00-05:00");
   const gapsAll=(S.feed_gaps||[]).filter(g=>g[1]>=Date.parse(d0+"T00:00:00-05:00")),gaps=gapsAll.filter(g=>!isBk(g)).map(g=>`${gapSpan(g)} CT`);
-  const cav=`Counts come from HFD records (Jan 1 to ${esc(S.history_end_str||"Oct 20")}) and the City of Houston public incident feed after that; ${partial?"logging began mid-period, so the period is partial; ":""}${gaps.length?`there is no data for ${gaps.length} short feed gap${gaps.length>1?"s":""}; `:""}the feed has no response times or patient outcomes. With thousands of calls, even small differences can be real, so the report says whether a difference is likely chance and how big it is.`;
+  const cav=`Counts for Jan 1 to ${esc(S.history_end_str||"Oct 20")} are earlier history backfilled, and the City of Houston public incident feed after that; ${partial?"logging began mid-period, so the period is partial; ":""}${gaps.length?`there is no data for ${gaps.length} short feed gap${gaps.length>1?"s":""}; `:""}the feed has no response times or patient outcomes. With thousands of calls, even small differences can be real, so the report says whether a difference is likely chance and how big it is.`;
   // ---- tiles ----
   const tile=(l,n,s,k)=>`<div class="r-tile ${k||""}"><div class="r-tl">${l}</div><div class="r-tn">${n}</div><div class="r-tp">${s||"&nbsp;"}</div></div>`;
   const tiles=`<div class="r-tiles k10">${tile("Total Calls",N(nC),sh?`${(nC/Math.max(1,nT)).toFixed(0)} per shift worked`:`${(nC/elD).toFixed(0)} per day`)}${tile("Runs",N(nRuns),"one unit on one call")}${tile("EMS Calls",N(TGc.ems||0),`<span class="r-pc">${pct(TGc.ems||0,nC)}</span> of calls`,"e")}${tile("Fire Category",N(fCat),`<span class="r-pc">${pct(fCat,nC)}</span> · ${N(TGc.fev||0)} are Fire Events`,"f")}${tile("MVI Calls",N(TGc.mvi||0),`<span class="r-pc">${pct(TGc.mvi||0,nC)}</span> of calls`,"v")}
@@ -1515,8 +1604,8 @@ async function openReport(per,sh){
     <h3 class="r-h3">Call Mix</h3>${rTbl(["Call Type","Calls","%"],SOtg.map(g=>`<tr class="${g==="fev"?"r-q":""}"><td>${TGL[g]}</td>${rNN(SOg[g],SOn)}</tr>`).join("")+`<tr class="tot"><td>All Calls</td>${rNN(SOn,SOn)}</tr>`,"mso")}
     <h3 class="r-h3">Runs by Shift</h3>${rTbl(["Shift","Runs","%","Per 10 Shifts","With D83","%"],SOsh.map(r=>`<tr class="${sh&&r.s===sh?"sel":sh?"dim":""}"><td>${r.s} Shift</td>${rNN(r.r,sum(SOsh,q=>q.r))}<td class="n b">${r.tc?(10*r.rc/r.tc).toFixed(0):"–"}</td>${rNN(r.w,r.c)}</tr>`).join("")+`<tr class="tot"><td>All</td>${rNN(sum(SOsh,q=>q.r),sum(SOsh,q=>q.r))}<td class="n">${sum(SOsh,q=>q.tc)?(10*sum(SOsh,q=>q.rc)/sum(SOsh,q=>q.tc)).toFixed(0):"–"}</td>${rNN(sum(SOsh,q=>q.w),sum(SOsh,q=>q.c))}</tr>`,"msosh")}
     <ul class="r-mut r-bul"><li>Runs and hours match RE010 on the Unit Run Counts tab. Call Mix counts calls Rescue 10 was on.</li><li>Working Fires: total in the selection and how many were inside District 83 (first-due Station 10, 69, 76 or 83)${SOwNl?`; *at least, ${SOwNl} had no mapped location`:""}.</li><li>Outside D83 = calls not inside a District 83 first-due area. The Inside D83 row plus Outside D83 make up every call.</li><li>Worked with D83 = calls inside a District 83 first-due area, or calls anywhere in the city where another District 83 unit (District Chief, engine, ladder, medic, ambulance or AS069) was also assigned. Rescue 10 runs outside the district on its own count only in its total.</li><li>Inside and Outside D83 here use the call\'s mapped location against the first-due areas${(WWoNl+WWaNl)?`; *includes ${P1(WWoNl+WWaNl,"call")} with no mapped location (never counted as inside)`:""}. This is stricter than the Outside D83 column for District 83 units in Out of First-Due Area, which does not count calls near a district boundary or with no location as outside${SO.ood!=null&&SO.n?`; measured that way Rescue 10 would be ${pct(SO.ood,SO.n)}`:""}.</li><li>Per 10 Shifts counts completed shifts only (leaving out today\'s shift). With D83 = share of that shift\'s Rescue 10 calls worked with District 83.</li>${SOpj||sh?`<li>${SOpj?"Projected uses the same method as the District 83 projection.":""}${SOpj&&sh?" ":""}${sh?`All four shifts are shown so ${sh} Shift can be compared.`:""}</li>`:""}</ul>`,"","rSO"):"";
-  const title=`Houston Fire Department / District 83 Metrics Report`;
-  document.getElementById("rptDoc").innerHTML=`<div class="r-hd"><div class="r-org">Houston Fire Department</div><h1>District 83 Metrics Report</h1>
+  const title=`District 83 Metrics Report (Unofficial)`;
+  document.getElementById("rptDoc").innerHTML=`<div class="r-hd"><div class="r-org">District 83 Dashboard · Unofficial, not HFD dispatch or records</div><h1>District 83 Metrics Report</h1>
     <div class="r-meta"><span><b>${pl}:</b> ${rLong(d0)} – ${rLong(d1)}</span><span><b>Shift:</b> ${shl}</span><span><b>Generated:</b> ${rCT(now)}</span></div>
     <div class="r-sub">Stations 10, 69, 76 and 83 · Prepared by District 83 · data as of ${esc(S.generated_str||"—")} CT</div></div>
     <section class="r-sec r-kf"><h2>Summary</h2><p>${f1.join(" ")}</p><p class="r-cav">${cav}</p></section>
@@ -1605,7 +1694,7 @@ function openWFReport(per,sh){
   const secLoc=S2("Where",rTbl(["Where","Fires",""],`<tr><td>Inside District 83</td>${rN(inD,n)}</tr>`+Object.entries(DC).sort((a,b)=>b[1]-a[1]).map(([d,k])=>`<tr><td>${esc(d)}</td>${rN(k,n)}</tr>`).join("")+(unk?`<tr class="dim"><td>No mapped location</td>${rN(unk,n)}</tr>`:"")+`<tr class="tot"><td>Total</td>${rN(n,n)}</tr>`,"wloc"));
   const secFd=S2("First-Due Station Area",fdS.length?rTbl(["Station","Fires",""],fdS.slice(0,10).map(([s,k])=>`<tr><td>Station ${esc(s)}${STATIONS.includes(s)?" ★":""}</td>${rN(k,n)}</tr>`).join("")+(fdS.length>10?`<tr class="dim"><td>${fdS.length-10} other stations</td>${rN(fdS.slice(10).reduce((a,x)=>a+x[1],0),n)}</tr>`:""),"wfd")+`<p class="r-mut">★ District 83 station. From the City box map.</p>`:'<p class="r-mut">No mapped locations.</p>');
   const tyRows=TYS.map(t=>{const a=W.filter(f=>TY(f)===t);return a.length?`<tr><td>${t}</td>${rN(a.length,n)}<td class="n">${a.filter(inside).length}</td><td class="n">${md(a.map(cadOf))??"–"}</td></tr>`:""}).join("");
-  const secTy=S2("Fire Type",(n?rTbl(["Type","Fires","","Inside D83","Median Min"],tyRows,"wty"):"")+(maLB?`<p class="r-mut">${WF_LBT}: CAD renames a fire "211 Fire" or "311 Fire" when it goes to a 2nd or 3rd alarm; HFD's records show it started as a large-building fire, which covers both apartments and commercial buildings.</p>`:"")+`<p class="r-mut">Median Min = time on CAD.</p>`);
+  const secTy=S2("Fire Type",(n?rTbl(["Type","Fires","","Inside D83","Median Min"],tyRows,"wty"):"")+(maLB?`<p class="r-mut">${WF_LBT}: CAD renames a fire "211 Fire" or "311 Fire" when it goes to a 2nd or 3rd alarm; the backfilled history shows it started as a large-building fire, which covers both apartments and commercial buildings.</p>`:"")+`<p class="r-mut">Median Min = time on CAD.</p>`);
   // v52 multi-alarm fires: how many, where (first-due station and district); street names only
   const maN=ma.length,ma2=ma.filter(f=>alm(f)===2).length,ma3=ma.filter(f=>alm(f)>=3).length,maIn=ma.filter(inside).length,maUk=ma.filter(f=>!f.fd).length;
   const cntBy=(a,k)=>{const o={};a.forEach(f=>{const v=k(f);if(v)o[v]=(o[v]||0)+1});return Object.entries(o).sort((x,y)=>y[1]-x[1]||(+x[0])-(+y[0]))};
@@ -1620,18 +1709,18 @@ function openWFReport(per,sh){
   const secSz=n?S2("Size of D83 Commitment",rTbl(["D83 Units on the Fire","Fires",""],`<tr><td>1 unit</td>${rN(one,n)}</tr><tr><td>2–4 units</td>${rN(mid,n)}</tr><tr><td>5 or more units</td>${rN(big,n)}</tr>`,"wsz")+`<p class="r-mut">Any District 83 unit, including ambulances and medic units. Median: ${md(W.filter(inside).map(dU))??"–"} inside District 83, ${md(W.filter(f=>f.fd&&!inside(f)).map(dU))??"–"} elsewhere.</p>`):"";
   const L=[...W].filter(f=>cadOf(f)!=null).sort((a,b)=>cadOf(b)-cadOf(a)).slice(0,5);
   const secL=L.length?S2("Longest on CAD",rTbl(["Date","Street","Type","Min"],L.map(f=>{const sd=f.sd||sdOf(f.t);return `<tr><td>${MN[+sd.slice(5,7)-1]} ${+sd.slice(8)}</td><td>${esc(f.addr)}</td><td>${TY(f)}</td><td class="n">${cadOf(f)}</td></tr>`}).join(""),"wlong")):"";
-  document.getElementById("rptDoc").innerHTML=`<div class="r-hd"><div class="r-org">Houston Fire Department</div><h1>District 83 Working Fires Report</h1>
+  document.getElementById("rptDoc").innerHTML=`<div class="r-hd"><div class="r-org">District 83 Dashboard · Unofficial, not HFD dispatch or records</div><h1>District 83 Working Fires Report</h1>
     <div class="r-meta"><span><b>${pl}:</b> ${rLong(d0)} – ${rLong(d1)}</span><span><b>Shift:</b> ${shl}</span><span><b>Generated:</b> ${rCT(now)}</span></div>
     <div class="r-sub">Stations 10, 69, 76 and 83 · Prepared by District 83 · data as of ${esc(S.generated_str||"—")} CT</div></div>
     <section class="r-sec r-kf"><h2>Summary</h2><p>${f1.join(" ")}</p><p class="r-cav">${cav}</p></section>
     <section class="r-sec">${tiles}</section>${secMon}${secSh}${secU}<div class="r-2">${secLoc}${secFd}</div>${secTy}${secMA}${secWhen}<div class="r-2">${secSz}${secL}</div>
     <section class="r-sec r-notes"><h2>Data Notes</h2><ul>
-      <li>Working fire = 5-inch hose on the ground (HFD records) through Oct 20, 2026; after that, the dashboard's live rule (see What Counts as a Working Fire in the tab). The two methods are close but not identical.</li>
+      <li>Working fire = 5-inch hose on the ground (backfilled history) through Oct 20, 2026; after that, the dashboard's live rule (see What Counts as a Working Fire in the tab). The two methods are close but not identical.</li>
       <li>Same selection as the Working Fires tab. Inside District 83 = in the first-due area of Station 10, 69, 76 or 83 (City box map); fires with no map location are not counted as inside.</li>
       <li>Only District 83 units are listed; other districts' units on the same fires are not counted.</li>
       <li>No dispatch, on-scene or arrival times are available, so this report has no response times or first-in units. Time on CAD runs from the first to the last time the call was listed and includes overhaul.</li></ul></section>`;
   const el=document.getElementById("rpt");el.hidden=false;document.body.classList.add("rpt-on");el.scrollTop=0;el.dataset.kind="wf";el.dataset.per=per;el.dataset.sh=sh;
-  const title="Houston Fire Department / District 83 Working Fires Report";el.dataset.title=title;
+  const title="District 83 Working Fires Report (Unofficial)";el.dataset.title=title;
   try{history.replaceState(null,"",`#wfreport=${per}-${sh||"all"}`)}catch(e){}
   el.dataset.pt=el.dataset.pt||document.title;document.title=`District 83 Working Fires Report – ${pl} – ${shl}`}
 
@@ -1647,10 +1736,14 @@ const NON_FIRE_RE=/ALARM|DETECTOR|WATER ?FLOW|STAND-?BY|INVESTIGAT|\bCHECK\b|\bC
 function isRealFire_(t){t=String(t||"").toUpperCase().trim();return isMulti(t)||(t.includes("FIRE")&&STRUCT_RE.test(t)&&!NOT_WF_RE.test(t))||(FIRE_WORD_RE.test(t)&&!NON_FIRE_RE.test(t))}
 const IRF_C=new Map();function isRealFire(t){let r=IRF_C.get(t);if(r===undefined){r=isRealFire_(t);IRF_C.set(t,r)}return r}  // v70: memo per type text
 const DOT_FIRE="#f04e4e",DOT_OTHER="#f1c40f";
+// v75: the heat layer redrew on the hidden tab (0-size canvas -> getImageData error). Skip a redraw while the map has no size, and give its canvas willReadFrequently.
+function heatGuard(){const P=L.HeatLayer&&L.HeatLayer.prototype;if(!P||P._d83g)return;P._d83g=1;const r=P._redraw;P._redraw=function(){const m=this._map;if(!m||!this._heat)return;const s=m.getSize();if(!s.x||!s.y||!this._canvas||!this._canvas.width||!this._canvas.height){this._frame=null;return}return r.apply(this,arguments)};
+  const ic=P._initCanvas;if(ic)P._initCanvas=function(){const gc=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k,o){return gc.call(this,k,k==="2d"?Object.assign({willReadFrequently:true},o||{}):o)};try{return ic.apply(this,arguments)}finally{HTMLCanvasElement.prototype.getContext=gc}}}
 function loadScript(src){return new Promise((ok,no)=>{const e=document.createElement("script");e.src=src;e.crossOrigin="";e.onload=ok;e.onerror=no;document.head.appendChild(e)})}
-async function initHeat(){renderHeatTable();if(HM){setTimeout(()=>HM.invalidateSize(),50);drawHeat();return}
+async function initHeat(){renderHeatTable();if(HM){HM.invalidateSize();setTimeout(()=>HM.invalidateSize(),50);drawHeat();return}
   try{if(!window.L)await loadScript("https://unpkg.com/leaflet@1.9.4/dist/leaflet.js");if(!L.heatLayer)await loadScript("https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js")}
-  catch(e){document.getElementById("hmap").innerHTML='<div class="err">Map library could not load (offline?). Try Refresh in a minute.</div>';return}
+  catch(e){document.getElementById("hmap").innerHTML='<div class="err">Map library could not load (offline?). Try again in a minute.</div>';return}
+  heatGuard();
   HM=L.map("hmap",{zoomControl:true,zoomSnap:0.25}).setView([29.725,-95.57],13);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,className:"darktiles",attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(HM);
   // dots: own pane above the heat layer, canvas renderer with a wide hit tolerance so a tap near a dot still opens it
@@ -1662,14 +1755,14 @@ async function initHeat(){renderHeatTable();if(HM){setTimeout(()=>HM.invalidateS
     this._fireEvent(best?[best]:false,e)}});
   HR=new NearCanvas({pane:"dots",padding:.5,tolerance:coarse?14:8});
   HPTS=L.layerGroup().addTo(HM);
-  [["10",29.70664689,-95.55147949],["69",29.75096437,-95.55835238],["76",29.69934028,-95.59608793],["83",29.72663116,-95.57731468]].forEach(([n,la,lo])=>L.marker([la,lo],{icon:L.divIcon({className:"",html:`<div style="background:#8B0000;color:#fff;border:2px solid #f1c40f;border-radius:6px;padding:1px 4px;font-weight:800;font-size:12px;white-space:nowrap">Sta ${n}</div>`,iconSize:null})}).addTo(HM));
+  [["10",29.70664689,-95.55147949],["69",29.75096437,-95.55835238],["76",29.69934028,-95.59608793],["83",29.72663116,-95.57731468]].forEach(([n,la,lo])=>L.marker([la,lo],{interactive:false,keyboard:false,icon:L.divIcon({className:"",html:`<div style="background:#8B0000;color:#fff;border:2px solid #f1c40f;border-radius:6px;padding:1px 4px;font-weight:800;font-size:12px;white-space:nowrap">Sta ${n}</div>`,iconSize:null})}).addTo(HM));
   fetch("neighbors.json?v="+encodeURIComponent(BUILD||"")).then(r=>r.ok?r.json():null).then(ns=>{if(!ns||!HM)return;ns.forEach(n=>{L.polyline(n.lines,{color:"#9aa3b5",weight:1,opacity:.35,dashArray:"2 6",interactive:false}).addTo(HM);
     L.marker(n.at,{interactive:false,keyboard:false,icon:L.divIcon({className:"",html:`<div style="color:#b9bfcc;opacity:.75;font-size:12px;font-weight:650;letter-spacing:.3px;white-space:nowrap;text-shadow:0 1px 2px #000">D${esc(n.d)}</div>`,iconSize:null})}).addTo(HM)})}).catch(()=>{});
   fetch("d83area.json?v="+encodeURIComponent(BUILD||"")).then(r=>r.ok?r.json():null).then(ls=>{if(ls&&HM)L.polyline(ls,{color:"#e6d3a3",weight:1.5,opacity:.55,dashArray:"5 5",interactive:false}).addTo(HM)}).catch(()=>{});
   const fit=()=>{HM.invalidateSize();HM.fitBounds([[29.657,-95.631],[29.791,-95.513]],{padding:[10,10]})};fit();setTimeout(fit,150);
   drawHeat()}
 // Heat Map filters: period (This Week = Mon 06:30-Mon 06:30 tours, like Run Counts), shift boxes, Fires Only, unit, type
-let H_PER="week",H_SH=(()=>{try{const x=shiftOfDate(shiftDateOf(Date.now()));return SHIFTS.includes(x)?x:""}catch(e){return""}})(),H_FIRE=false;  // v27: opens on the shift on duty (06:30 change), like Out of First-Due Area
+let H_PER="month",H_SH=(()=>{try{const x=shiftOfDate(shiftDateOf(Date.now()));return SHIFTS.includes(x)?x:""}catch(e){return""}})(),H_FIRE=false;  // v27: opens on the shift on duty (06:30 change), like Out of First-Due Area
 // v70: the filtered list is kept until a filter, the period, the shift day or the loaded data changes (it was rebuilt twice per tap); each call record keeps its own shift day and year-month
 var HB_=null;
 /* v72: Heat Map Month. The pick is kept apart from Metrics and Run Counts; months are the 06:30-06:30 shift-day months (same monthKeys as Metrics). Current year: This Week / Month / Year to Date. Past year: Full Year, plus Month when that year has monthly data. */
@@ -1694,7 +1787,7 @@ function heatControls(){const past=isPast();const per=past?[["ytd","Full Year"],
   sh.querySelectorAll("button").forEach(b=>b.onclick=()=>{H_SH=H_SH===b.dataset.s?"":b.dataset.s;heatRefresh()})}
 function heatRefresh(){renderHeatTable();drawHeat()}
 var HD_=null;  // v70: what is on the map now; asking for the same thing again (tab switch) draws nothing new
-function drawHeat(){if(!HM)return;const rows=heatRows().filter(d=>d.lat!=null&&d.lon!=null);
+function drawHeat(){if(!HM)return;if(!document.getElementById("hmap").clientWidth){HD_=null;return}  /* v75: hidden tab; initHeat draws when it opens */const rows=heatRows().filter(d=>d.lat!=null&&d.lon!=null);
   const dk=[document.getElementById("hUnit").value,document.getElementById("hType").value,hPerEff(),hPerEff()==="month"?hMonth():"",H_FIRE?1:0,H_SH,TODAY,parts(Date.now()).month,shiftDateOf(Date.now()).slice(0,7),S&&S.generated].join("|");
   if(HD_&&HD_.p===PTS&&HD_.n===(PTS||[]).length&&HD_.k===dk&&HD_.hm===HM&&HD_.cnt===rows.length&&HD_.hl===HL){return}
   if(HL)HM.removeLayer(HL);HL=L.heatLayer(rows.map(d=>[d.lat,d.lon,1]),{radius:22,blur:18,minOpacity:.35,maxZoom:15}).addTo(HM);
@@ -1709,14 +1802,21 @@ document.getElementById("mUnit").onchange=renderMetrics;
 setInterval(()=>{try{const on=document.querySelector(".tab.on");if(on&&on.dataset.k==="metrics"&&PTS&&!isPast()&&+parts(Date.now()).hour!==M_HOUR)renderMetrics()}catch(e){}},30000);
 
 try{renderHistory()}catch(e){console.error("renderHistory",e)}
-// v57: citywide and District 83 incidents for today (since 06:00, the City day) and yesterday, in the header
+// v75 header line 1: the on-duty shift badge + District 83 calls this tour (06:30 to 06:30, same tour file and count as By Shift) + active now
+var LIVE_N=null,CITY_ACTIVE=null;
+function hdrTourCount(){const t=TOURS[TODAY];if(t&&t.incidents&&!t.err)return t.incidents.length;const tc=(S&&S.tour_counts)||{};return tc[TODAY]!=null?tc[TODAY]:null}
+function renderHdr(){const el=document.getElementById("d83day");if(!el)return;const n=hdrTourCount(),sh=shiftOfDate(TODAY);
+  el.innerHTML=`Shift today <b>${n==null?"—":Number(n).toLocaleString("en-US")}</b> call${n===1?"":"s"}`+(LIVE_N!=null?`<span class="hdot">·</span><b>${LIVE_N}</b> active`:"");
+  el.title=`District 83 calls for the ${sh} Shift tour that started ${TODAY} 06:30 CT (06:30 to 06:30), the same count as By Shift. Active = District 83 calls on the City feed now.`}
+// v57: citywide incidents for today (since 06:00, the City's official day, kept so it lines up with the City's daily count) and yesterday, in the header
 function renderCityDay(){const el=document.getElementById("cityday");if(!el)return;const c=S&&S.city;if(!c||c.city_today==null){el.hidden=true;return}
   const n=v=>Number(v).toLocaleString("en-US"),y=c.prev_complete;
   const ln=(k,t,p,u)=>`<div class="cdl"><span class="cdk">${k}</span><span class="cdt">Today <b>${n(t)}</b></span>`+(y?`<span class="dot">·</span>Yesterday <b>${n(p)}</b>`:"")+(u?`<span class="cdu">Incidents</span>`:"")+`</div>`;
-  el.innerHTML=ln("Citywide",c.city_today,c.city_prev,1)+ln("District 83",c.d83_today,c.d83_prev,0);
-  el.title=`Incidents (calls). Today = since ${c.since}; `+(y?`Yesterday = ${c.since} to ${c.since}, the City's official day. `:"")+`Citywide = every HFD call on the City's live feed that has an HFD unit; a call re-created at the same location counts once. District 83 = calls with a Station 10, 69, 76 or 83 unit or District Chief 83, as on By Shift.`;el.hidden=false}
-try{renderCityDay()}catch(e){}
-async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();try{renderCityDay()}catch(e){}try{renderExtras()}catch(e){}WF_LIVE=new Set(S.wf_live||[]);TK_LIVE=new Set(S.tk_live||[]);if(PTS){const k=curTabK();if(k==="metrics"||k==="heat")await ensurePoints()}renderHistory()}catch(e){console.warn("stats.json",e)}}  // v70: the 2 MB points file is only re-read while Heat Map or Metrics is open
+  el.innerHTML=`<span class="cdk">Citywide</span> today <b>${n(c.city_today)}</b>`+(y?`<span class="hdot">·</span>yesterday <b>${n(c.city_prev)}</b>`:"")+(CITY_ACTIVE!=null?`<span class="hdot">·</span><b>${CITY_ACTIVE}</b> active`:"");
+  el.title=`Incidents (calls). Today = since ${c.since}; `+(y?`Yesterday = ${c.since} to ${c.since}, the City's official day. `:"")+`Citywide = every HFD call on the City's live feed that has an HFD unit; a call re-created at the same location counts once. The District 83 count on the line above is the 06:30 tour, as on By Shift.`;el.hidden=false}
+try{renderCityDay();renderHdr()}catch(e){}
+if(!TOURS[TODAY])loadTour(TODAY).catch(()=>{});
+async function loadStats(){if(location.protocol==="file:")return;try{const r=await fetch("stats.json?_="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(r.status);S=await r.json();try{renderCityDay();renderHdr()}catch(e){}try{renderExtras()}catch(e){}WF_LIVE=new Set(S.wf_live||[]);TK_LIVE=new Set(S.tk_live||[]);if(PTS){const k=curTabK();if(k==="metrics"||k==="heat")await ensurePoints()}renderHistory()}catch(e){console.warn("stats.json",e)}}  // v70: the 2 MB points file is only re-read while Heat Map or Metrics is open
 function staleCheck(){const el=document.getElementById("staleBar");if(!el)return;const g=S&&S.generated;if(location.protocol==="file:"||!g){el.hidden=true;return}
   const m=Math.floor((Date.now()-g)/60000);if(m<=15){el.hidden=true;return}
   el.innerHTML=`<b>History data is ${m>=120?Math.floor(m/60)+" h":m+" min"} old</b> (last update ${esc(dt(g))} CT)<small>Shift, run counts and maps may be behind. The Live tab still reads the City feed directly.</small>`+(BK_LINE||"")+(GH_DOWN?GH_LINE:"");el.hidden=false;ghCheck();bkCheck()}

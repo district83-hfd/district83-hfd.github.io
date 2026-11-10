@@ -438,7 +438,7 @@ def district_rows(c, where, params):
              **({"og": sfg[r[0]]} if r[0] in sfg and re.match(r"^[23]11\b", str(r[4] or "")) else {}),
              **({"tg": tgm[r[0]]} if r[0] in tgm and not re.match(r"^[23]11\b", str(r[4] or "")) and (is_fire_box(r[4]) or r[0] in hose) else {})} for r in incs]
 
-HOSE_WHY = "5-inch hose on the ground (HFD report)"
+HOSE_WHY = "5-inch hose on the ground (backfilled history)"   # v75: neutral wording (this text is in the public JSON)
 def _why(r, spans, uspans, bfk, hose):
     """Live rules for feed calls; HFD's own 5-inch-hose list is the truth for report calls and also tags any feed call on it."""
     if R.is_wf_excluded(r[0]): return None
