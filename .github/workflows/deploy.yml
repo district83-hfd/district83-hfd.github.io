@@ -3,7 +3,9 @@ name: Deploy Pages
 on:
   push: { branches: [main] }
   workflow_dispatch:
-permissions: { contents: read, pages: write, id-token: write, deployments: read }
+# storage plan: contents: write only so this job can list/download the draft "site-data" release (drafts are
+# hidden from read-only tokens). It never pushes; the job only runs this repo's own code.
+permissions: { contents: write, pages: write, id-token: write, deployments: read }
 # v74: a newer deploy cancels older queued/running ones (no pile-up of failure emails); the fetch/reset step below still deploys newest main
 concurrency: { group: pages, cancel-in-progress: true }
 jobs:
@@ -16,6 +18,14 @@ jobs:
       - run: git fetch --depth=1 origin main && git reset --hard FETCH_HEAD && git log -1 --format='deploying %h %cd'
       # v37: backup logger captures stay in the repo only (merged by the main logger), never on the site
       - run: rm -rf backup
+      # storage plan: the generated files come from the newest valid "site-data" bundle when it is newer than the
+      # committed stats.json (newer wins, so the box fallback's commits still deploy). No bundle / bad bundle /
+      # API error -> the repo is deployed as committed (exactly today's behaviour).
+      - name: Overlay the newest site-data bundle
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          python3 .github/collector/site_bundle.py fetch . --repo-stats stats.json || echo "::warning::bundle fetch failed; deploying the repo as committed"
+          python3 -c "import json;j=json.load(open('stats.json'));print('deploying stats generated',j.get('generated_str') or j.get('generated'))"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with: { path: . }

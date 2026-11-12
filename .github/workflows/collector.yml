@@ -23,6 +23,9 @@ jobs:
     timeout-minutes: 358
     env:
       D83_BASE: ${{ github.workspace }}
+      # storage plan: "bundle" = generated files go to the draft site-data release, not to git (see site_bundle.py).
+      # Rollback = set the repo variable back to git (or delete it) and start a handoff run.
+      D83_PUBLISH_MODE: ${{ vars.D83_PUBLISH_MODE || 'git' }}
       D83_SCHEDULE: ${{ github.workspace }}/hfd_schedule.csv
       GH_TOKEN: ${{ github.token }}
       D83_STATE_KEY: ${{ secrets.D83_STATE_KEY }}
@@ -59,6 +62,12 @@ jobs:
           cp site/hydrants.json site/stations.json site/fdareas.json site/d83area.json site/neighbors.json "$D83_BASE/"   # same bytes as the live site -> same build id
           mkdir -p tours && cp site/tours/*.json tours/
           [ -d site/archive ] && cp -r site/archive . || true
+          # storage plan: after cutover the repo copies of tours/archive freeze; take the newest bundle's when it is newer
+          # than the committed stats.json (both modes, so a rollback to git mode starts from the newest data too)
+          python3 site_bundle.py fetch _bundle --repo-stats site/stats.json || echo "::warning::no bundle; starting from the repo copies"
+          if [ -d _bundle/tours ]; then cp _bundle/tours/*.json tours/; fi
+          if [ -d _bundle/archive ]; then cp -r _bundle/archive .; fi
+          rm -rf _bundle
           git -C site config user.name "District 83"; git -C site config user.email "345840453+d83hfd-publisher@users.noreply.github.com"
           bash state.sh restore
       - name: Collect (part 1)

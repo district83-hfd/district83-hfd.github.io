@@ -9,6 +9,9 @@ between them. Usage: loop.py <segment_minutes>
 Publishing (same rules as the box publish.sh): push when the site fingerprint changes (at least MIN_GAP apart) or
 every HEARTBEAT s; pull first (backup-logger commits), never force; then start the Pages deploy by workflow_dispatch
 (pushes made with the built-in token do not trigger workflows) unless one is already queued/running.
+Storage plan (D83_PUBLISH_MODE=bundle): the generated files are no longer committed. They are staged into build/,
+tarred and uploaded as a draft-release asset (site_bundle.py), and deploy.yml lays the newest bundle over main.
+Only backup/ deletions (merge_backup) are still committed, and only when they happen. Default stays "git".
 Handoff: at NEXT_MIN the run starts its successor ("handoff" run). When this run sees a newer handoff run in
 progress it stops, the job saves state, and the successor restores it."""
 import calendar, json, os, re, shutil, subprocess, sys, time, traceback, glob, urllib.request
@@ -18,6 +21,7 @@ START = float(os.environ.get("RUN_START") or time.time())
 HARD_END = START + float(os.environ.get("HARD_MIN", "345")) * 60
 NEXT_AT = START + float(os.environ.get("NEXT_MIN", "325")) * 60
 DRY = os.environ.get("DRY_RUN") == "true"; HANDOFF = os.environ.get("HANDOFF") == "true"
+BUNDLE = os.environ.get("D83_PUBLISH_MODE", "git") == "bundle"; BUILD = os.path.join(BASE, "build")
 MIN_GAP, HEARTBEAT, POLL, MAX_HOLD, STUCK = 110, 420, 60, 180, 300   # MIN_GAP 110: with a 60 s poll, pushes land every ~2 min
 ST_FILE = os.path.join(BASE, "loop_state.json")
 os.environ.setdefault("TZ", "America/Chicago"); time.tzset()
@@ -32,13 +36,14 @@ def gh(path, *extra, timeout=30):
 def git(*a, timeout=120): return sh("git", "-C", SITE, *a, timeout=timeout)
 
 S = {"last_push": 0, "last_fp": "", "next_started": False, "stop": "", "dispatched_sha": "", "hold_since": 0,
-     "last_unstick": 0, "last_ctl": 0, "inputs_check": 0, "inputs_id": "", "pushes": 0, "deploys": 0, "polls": 0}
+     "last_unstick": 0, "bundle": "", "dispatched_bundle": "", "bundles": 0, "last_ctl": 0, "inputs_check": 0, "inputs_id": "", "pushes": 0, "deploys": 0, "polls": 0}
 if os.path.exists(ST_FILE): S.update(json.load(open(ST_FILE)))
 def save_state(): json.dump(S, open(ST_FILE, "w"))
 
 # ---------- publishing (mirrors publish.sh) ----------
 COPY = ["stats.json", "ooa.json", "version.json", "points.json", "transport.json", "fdareas.json", "d83area.json", "neighbors.json"]
-def stage():
+def stage(SITE=SITE):   # bundle mode stages into BUILD instead of the git checkout
+    os.makedirs(SITE, exist_ok=True)
     shutil.copyfile(f"{BASE}/District83_Dashboard.html", f"{SITE}/index.html")
     for f in COPY:
         if os.path.exists(f"{BASE}/{f}"): shutil.copyfile(f"{BASE}/{f}", f"{SITE}/{f}")
@@ -49,8 +54,8 @@ def stage():
         if t != s: open(f, "w").write(t)
         shutil.copyfile(f, f"{SITE}/tours/{os.path.basename(f)}")
     if os.path.isdir(f"{BASE}/archive"): shutil.copytree(f"{BASE}/archive", f"{SITE}/archive", dirs_exist_ok=True)
-def fingerprint():
-    r = sh(sys.executable, f"{BASE}/site_fp.py", SITE, timeout=60); return r.stdout.strip()
+def fingerprint(d=SITE):
+    r = sh(sys.executable, f"{BASE}/site_fp.py", d, timeout=60); return r.stdout.strip()
 def pull():
     if git("fetch", "-q", "origin", "main", timeout=60).returncode: return False
     if git("rev-list", "--count", "HEAD..origin/main").stdout.strip() in ("", "0"): return True
@@ -66,7 +71,27 @@ def hc_ping():
     if not u or not stats_fresh(): return
     try: urllib.request.urlopen(u, timeout=10).read()
     except Exception as e: log(f"!!! healthchecks ping failed: {type(e).__name__}")
+def publish_bundle():
+    """Same push rules (fingerprint change >= MIN_GAP apart, or HEARTBEAT), but the files go up as one bundle."""
+    now = time.time(); stage(BUILD); fp = fingerprint(BUILD)
+    why = "data changed" if fp and fp != S["last_fp"] else ("heartbeat" if now - S["last_push"] >= HEARTBEAT else "")
+    if not why or now - S["last_push"] < MIN_GAP: return
+    import site_bundle as SB
+    tgz = os.path.join(BASE, "bundle.tgz"); meta = SB.build(BUILD, tgz)
+    if DRY: S["last_push"], S["last_fp"] = now, fp; log(f"dry run: would upload a bundle ({why}), {os.path.getsize(tgz)} bytes"); return
+    try: _, name = SB.upload(tgz)
+    except Exception as e: log(f"!!! bundle upload failed: {e}"); S["last_push"] = now - MIN_GAP + 60; return
+    S["last_push"], S["last_fp"], S["bundle"] = time.time(), fp, name; S["bundles"] += 1
+    log(f"uploaded {name} ({why}, {os.path.getsize(tgz) // 1024} KB, {len(meta['files'])} files)"); hc_ping()
+    if git("status", "--porcelain", "--", "backup").stdout.strip():   # merge_backup removed captures: the only commit left
+        git("add", "-A", "--", "backup"); git("commit", "-qm", "merge backup captures " + time.strftime("%F %H:%M %Z"))
+        for i in range(3):
+            pull()
+            if git("push", "-q", "origin", "HEAD:main", timeout=120).returncode == 0: log("pushed backup/ cleanup"); break
+            time.sleep(5 * (i + 1))
+
 def publish():
+    if BUNDLE: return publish_bundle()
     now = time.time(); stage(); fp = fingerprint()
     why = "data changed" if fp and fp != S["last_fp"] else ("heartbeat" if now - S["last_push"] >= HEARTBEAT else "")
     if not why or now - S["last_push"] < MIN_GAP: return
@@ -100,13 +125,15 @@ def deploy():
                     log(f"cancelled deploy run {r['id']} stuck queued > 5 min")
         except Exception as e: log(f"unstick check: {e}")
     head = git("rev-parse", "origin/main").stdout.strip()
-    if not head or head == S["dispatched_sha"]: return
+    if BUNDLE:   # a new bundle is what needs deploying (source pushes by a person trigger deploy.yml on push)
+        if not S["bundle"] or S["bundle"] == S["dispatched_bundle"]: return
+    elif not head or head == S["dispatched_sha"]: return
     try: busy = len(active("deploy.yml")) > 0
     except Exception as e: log(f"deploy check: {e}"); busy = False
     if busy and (not S["hold_since"] or now - S["hold_since"] < MAX_HOLD):
         S["hold_since"] = S["hold_since"] or now; return
     r = sh("gh", "workflow", "run", "deploy.yml", "--ref", "main", "-R", REPO, timeout=30)
-    if r.returncode == 0: S["dispatched_sha"], S["hold_since"] = head, 0; S["deploys"] += 1
+    if r.returncode == 0: S["dispatched_sha"], S["dispatched_bundle"], S["hold_since"] = head, S["bundle"], 0; S["deploys"] += 1
     else: log(f"!!! deploy dispatch failed: {r.stderr.strip()[:200]}")
 
 # ---------- run control ----------
@@ -181,7 +208,7 @@ def main():
         S["log_lines"] = S.get("log_lines", 0) + len(lines); save_state()
         for l in lines[-200:]: print("  collector: " + l)
     except OSError: pass
-    log(f"segment end: polls {S['polls']}, pushes {S['pushes']}, deploys {S['deploys']}" + (f"; {S['stop']}" if S["stop"] else ""))
+    log(f"segment end: polls {S['polls']}, pushes {S['pushes']}, bundles {S['bundles']}, deploys {S['deploys']}" + (f"; {S['stop']}" if S["stop"] else ""))
 
 def importlib_reload():
     import importlib, collector as C, d83rules as R

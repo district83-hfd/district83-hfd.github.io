@@ -4,7 +4,7 @@ When the repo's stats.json is over 10 min old it polls the City of Houston publi
 District 83 rows (any D83 unit) plus citywide fire-box rows to backup/cap-<ms>.json; the main logger merges and
 removes them when it is back. Over 15 min stale it sends one 'stopped updating' push, then one 'back up' push.
 State: backup/state.json (repo). Public status for the site: backup_status.json. Env: NTFY_TOPIC (secret), SIMULATE."""
-import json, os, re, time, urllib.parse, urllib.request
+import json, os, re, subprocess, time, urllib.parse, urllib.request
 from datetime import datetime
 from zoneinfo import ZoneInfo
 TZ = ZoneInfo("America/Chicago")
@@ -53,10 +53,25 @@ def push(title, msg, prio, tags):
         urllib.request.urlopen(urllib.request.Request("https://ntfy.sh/", data=data, headers={"Content-Type": "application/json"}), timeout=20).read()
         print(f"alert sent: {title}"); return True
     except Exception as e: print(f"alert FAILED: {type(e).__name__}"); return False
+def newest_generated():
+    """Storage plan: in bundle mode the repo's stats.json freezes, so the main logger's age is the newest of the repo
+    copy, the newest site-data bundle (its name starts with the stats 'generated' ms) and the live site's stats.json.
+    Any source that errors is skipped; with none answering we fall back to the repo copy (today's rule)."""
+    gens = [(load("stats.json", {}) or {}).get("generated") or 0]
+    try:
+        r = subprocess.run(["gh", "api", f"repos/{os.environ['GITHUB_REPOSITORY']}/releases?per_page=100", "--jq",
+                            '.[] | select(.draft and .tag_name=="site-data") | .assets[].name'], capture_output=True, text=True, timeout=30)
+        gens += [int(n.split("-")[1]) for n in r.stdout.split() if re.match(r"^site-\d{13}-", n)]
+    except Exception as e: print(f"bundle check: {type(e).__name__}")
+    try:
+        with urllib.request.urlopen(f"https://district83-hfd.github.io/stats.json?t={int(time.time())}", timeout=20) as r:
+            gens.append(json.load(r).get("generated") or 0)
+    except Exception as e: print(f"live site check: {type(e).__name__}")
+    return max(gens)
 def main():
     now = int(time.time() * 1000); sim = os.environ.get("SIMULATE", "") == "true"; tp = "[Test] " if sim else ""
     st = load("backup/state.json", {"alerted": False})
-    gen = (load("stats.json", {}) or {}).get("generated") or 0
+    gen = newest_generated()
     age = 99 * 60 if sim else (now - gen) / 60000 if gen else 9999
     print(f"main logger data age: {age:.1f} min{' (simulated)' if sim else ''}")
     out = os.environ.get("GITHUB_OUTPUT"); flip = False
